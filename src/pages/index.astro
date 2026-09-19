@@ -1,63 +1,343 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
-import SectionHeading from "../components/SectionHeading.astro";
-import TrustStrip from "../components/TrustStrip.astro";
-import { site } from "../data/site";
+import "../styles/licensing-parity.css";
 
-const trust = [
-  { title: "Florida Licensed School", text: `#${site.schoolLicense}` },
-  { title: "Direct Instructor Support", text: site.instructorName },
-  { title: "Online + Self-Paced", text: "Built around real student use" },
-  { title: "FastPass", text: "Exam preparation + efficient completion" },
-  { title: "Direct Support", text: site.email, href: `mailto:${site.email}` },
+const schema = [
+  {
+    "@type": "Course",
+    "@id": "https://www.daniellarsontraining.com/#course1",
+    "name": "Florida 63-Hour Sales Associate Pre-License Course (Course 1)",
+    "description": "DBPR-approved Florida real estate Sales Associate Course 1 with exam preparation, audio/video instruction, 500+ questions and explanations, one-year access, free printed books on request, and direct instructor support.",
+    "provider": {
+      "@id": "https://www.daniellarsontraining.com/#organization"
+    },
+    "inLanguage": "en-US"
+  },
+  {
+    "@type": "WebPage",
+    "@id": "https://www.daniellarsontraining.com/#webpage",
+    "url": "https://www.daniellarsontraining.com/",
+    "name": "Florida Real Estate License Course Online | Daniel Larson Training",
+    "description": "Take Florida's DBPR-approved 63-hour real estate Course 1 online with exam prep, FastPass exam preparation and course certification, one-year access, and direct instructor support. Packages from $130.",
+    "isPartOf": {
+      "@id": "https://www.daniellarsontraining.com/#website"
+    },
+    "about": {
+      "@id": "https://www.daniellarsontraining.com/#course1"
+    },
+    "publisher": {
+      "@id": "https://www.daniellarsontraining.com/#organization"
+    },
+    "inLanguage": "en-US"
+  }
 ];
 ---
 
 <SiteLayout
   title="Florida Real Estate License Course Online | Daniel Larson Training"
-  description="Florida real estate licensing education, exam preparation, post-licensing and continuing education from Daniel Larson Training."
+  description="Take Florida's DBPR-approved 63-hour real estate Course 1 online with exam prep, FastPass exam preparation and course certification, one-year access, and direct instructor support. Packages from $130."
   canonicalPath="/"
+  schema={schema}
 >
-  <section class="foundation-hero">
-    <div class="shell foundation-hero-inner">
-      <p class="eyebrow">New permanent site foundation</p>
-      <h1>Daniel Larson Training</h1>
-      <p>
-        The Wix shell is gone from the new build. This is the shared Astro system that will power Sales, Broker, Post-Licensing, CE, Exam Prep, About, and the Course Portal.
-      </p>
-      <div class="foundation-actions">
-        <a class="button button-primary" href="/broker-licensing/">Test the navigation</a>
-        <a class="button button-secondary" href="/course-portal/">Open Course Portal shell</a>
-      </div>
-    </div>
-  </section>
+  <div class="licensing-parity">
 
-  <section class="content-section soft">
-    <div class="shell">
-      <SectionHeading
-        eyebrow="Step 1"
-        title="One site system. Every page inherits it."
-        text="This preview is intentionally a foundation, not the finished Sales page. We are testing the permanent header, responsive behavior, components, data architecture, SEO framework, and footer before pouring the finished page content into it."
-      />
+<section class="hero">
+<div class="wrap">
+<div>
+<div class="eyebrow">Florida Sales Associate Licensing</div>
+<h1>Get your Florida real estate license <em>fast.</em></h1>
+<p class="hero-deck">A DBPR-approved 63-hour Florida real estate Course 1 with exam prep, audio/video instruction, 500+ Q&amp;A, and direct help from the instructor who wrote the course.</p>
+<p class="hero-kicker">No 63-hour video marathon. No endless PDF grind.</p>
+<div class="hero-actions">
+<a class="btn btn-primary" href="#packages">See courses &amp; prices ↓</a>
+<a class="btn btn-ghost" data-trial="hero" href="https://portal.daniellarsontraining.com/courses/starthere?utm_source=dlt_homepage&amp;utm_medium=site&amp;utm_campaign=sales_licensing&amp;utm_content=hero_try_fastpass" target="_top">Try FastPass Free</a>
+</div>
+</div>
+<aside aria-label="Direct instructor support" class="hero-card">
+<div class="eyebrow">Personalized answers</div>
+<h2>When you need help, you can ask Daniel.</h2>
+<p>Questions about the course, exam prep, fingerprints, Pearson Professional Assessments, or what to do next? You are not routed to a generic call center.</p>
+<a class="support-number" href="sms:+12394718500">TEXT 239.471.8500</a>
+<div class="support-note">Professional license support from Daniel Larson Training.</div>
+</aside>
+</div>
+<div aria-label="Course highlights" class="truststrip">
+<div><b>1 year</b>online access</div>
+<div><b>DBPR approved</b>Course 1</div>
+<div><b>500+ Q&amp;A</b>plus explainers</div>
+<div><b>Audio + video</b>learn your way</div>
+<div class="support-trust"><b>Direct Support</b><a href="mailto:daniel@daniellarsontraining.com">daniel@daniellarsontraining.com</a></div>
+</div>
+</section>
+<section class="packages" id="packages-section">
+<div class="wrap">
+<div class="section-head">
+<div class="eyebrow">Sales Associate Course Bundles</div>
+<h2 id="packages">Start where you want. Everything builds from the same Course 1.</h2>
+<p>Every package includes the DBPR-approved pre-licensing course and exam-prep foundation. FastPass adds a structured three-exam path. The top bundle adds your required post-licensing course.</p>
+</div>
+<div class="package-grid">
+<article class="package">
+<span class="badge">Course + Exam Prep</span>
+<h3>Course 1</h3>
+<div class="subplan">Full Course 1 + complete exam-prep foundation</div>
+<div class="price">$130</div>
+<div class="price-note">one-time enrollment</div>
+<ul>
+<li>DBPR-approved 63-hour Course 1</li>
+<li>Course certification</li>
+<li>Audio/video instruction</li>
+<li>500+ Q&amp;A and explanations</li>
+<li>Exam-prep ebook + drills</li>
+<li>One year of access</li>
+<li>Free printed books available on request</li>
+<li>Free printed books available on request</li>
+<li>Direct support from Daniel</li>
+</ul>
+<a class="btn btn-primary" data-plan="course1" href="https://portal.daniellarsontraining.com/bundles/course1?utm_source=dlt_homepage&amp;utm_medium=site&amp;utm_campaign=sales_licensing&amp;utm_content=course1" target="_top">Enroll in Course 1</a>
+</article>
+<article class="package featured">
+<span class="badge blue">Most Popular</span>
+<h3>FastPass</h3>
+<div class="subplan">Course 1 + exam prep + three FastPass exams</div>
+<div class="price">$260</div>
+<div class="price-note">one-time enrollment</div>
+<ul>
+<li>Everything in Course 1</li>
+<li>Three Florida licensing-exam-style FastPass exams</li>
+<li>Structured preparation + certification path</li>
+<li>Practice under realistic exam conditions</li>
+<li>Build speed, timing, and confidence</li>
+<li>One year of access</li>
+<li>Direct support from Daniel</li>
+</ul>
+<a class="btn btn-primary" data-plan="fastpass" href="https://portal.daniellarsontraining.com/bundles/fastpass1?utm_source=dlt_homepage&amp;utm_medium=site&amp;utm_campaign=sales_licensing&amp;utm_content=fastpass" target="_top">Enroll in FastPass</a>
+</article>
+<article class="package">
+<span class="badge">Best Value</span>
+<h3>FastPass + Post</h3>
+<div class="subplan">Everything in FastPass + your required Sales Post-Licensing course</div>
+<div class="price">$360</div>
+<div class="price-note">one-time enrollment</div>
+<ul>
+<li>Everything in FastPass</li>
+<li>Sales Post-Licensing — required before first renewal</li>
+<li>Bundle your next required education step now</li>
+<li>Same Daniel Larson course ecosystem</li>
+<li>One year of access</li>
+<li>Free printed books available on request</li>
+<li>Direct support from Daniel</li>
+</ul>
+<a class="btn btn-primary" data-plan="fastpass-post" href="https://portal.daniellarsontraining.com/bundles/ADDPOST1?utm_source=dlt_homepage&amp;utm_medium=site&amp;utm_campaign=sales_licensing&amp;utm_content=fastpass_post" target="_top">Enroll in FastPass + Post</a>
+</article>
+</div>
+</div>
+</section>
+<section class="fastpass" id="fastpass">
+<div class="wrap fast-grid">
+<div class="mark-scene"><a aria-label="Enroll in FastPass" class="mark" data-plan="fastpass-logo" href="https://portal.daniellarsontraining.com/order?ct=fc19745b-d664-4fa7-a77d-961a5792599b" target="_top"><img alt="FastPass Florida real estate exam preparation" src="/fastpass-logo.webp"/></a></div>
+<div>
+<div class="section-head">
+<div class="eyebrow" style="color:#1766c7">The FastPass approach</div>
+<h2>Go straight into FastPass. Use everything else to get you through it.</h2>
+<p>Once you enroll, you can begin with the three FastPass exams. Pass all three to complete your Course 1 testing path and qualify to sit for the separate Florida licensing exam administered by Pearson Professional Assessments (formerly Pearson VUE). Your full Course 1, 500+ practice questions, ebook, audio reviews, videos, and study materials are there as a toolbox — use as much or as little as you need.</p>
+</div>
+<div class="steps">
+<div class="step"><div class="stepnum">01</div><div><h3>Start with FastPass.</h3><p>Go right into the FastPass exams. They give you a clear target and quickly show you what you already know — and what you still need to review.</p></div></div>
+<div class="step"><div class="stepnum">02</div><div><h3>Use the rest as your prep toolbox.</h3><p>Course 1, 500+ Q&amp;A, the ebook, audio reviews, video explainers, workbooks, and drills are there when you need them. You do not have to use every resource.</p></div></div>
+<div class="step"><div class="stepnum">03</div><div><h3>Pass FastPass. Head to the state exam prepared.</h3><p>Pass the three FastPass exams, earn your course certification, and take the separate Florida licensing exam administered by Pearson Professional Assessments. Because the prep is built closely around the state-exam content and experience, the work you do for FastPass also prepares you for the state exam.</p></div></div>
+</div>
+</div>
+</div>
+</section>
+<section class="included">
+<div class="wrap included-grid">
+<div>
+<div class="eyebrow">Included in every package</div>
+<h2>Everything you need to pass — <em>fast.</em></h2>
+<p class="included-copy">Built around the Florida licensing exam. Clear explanations, exam-language reinforcement, realistic practice, and actual instructor support — without forcing you through a single learning format.</p>
+</div>
+<div class="feature-grid">
+<div class="feature"><b>Optional video explainers</b><span>Daniel breaks down the concepts; use them when you need them.</span></div>
+<div class="feature"><b>Glossary reviews</b><span>Definitions plus examples phrased the way you will see them.</span></div>
+<div class="feature"><b>PDF study supplements</b><span>Downloadable sample questions, vocab reviews, and drills.</span></div>
+<div class="feature"><b>Audio review course</b><span>Listen in the car, gym, or at night — same instruction.</span></div>
+<div class="feature"><b>500+ Q&amp;A</b><span>A deep question bank with explanations, not just answer keys.</span></div>
+<div class="feature"><b>Ongoing support</b><span>Real help from the person who wrote the course.</span></div>
+</div>
+</div>
+</section>
+<section class="books">
+<div class="wrap">
+<div class="bookcard">
+<div><h2>Want course books? Easy — just ask.</h2><p>You don’t need printed books—all course content is included online. Prefer printed copies? Just ask. I’ll ship your course books to you free, typically through Amazon in 48–72 hours.</p></div>
+<div class="bookaside"><b>Free printed course books</b><span>Text or email your name, shipping address, and course. There is no charge for the books or shipping.</span></div>
+<div class="credential">Written &amp; published by Daniel Larson — DBPR-approved Course 1, Course 2, Post-Licensing &amp; 14-Hour CE — plus Exam Prep and FastPass.</div>
+</div>
+</div>
+</section>
+<section class="compare" id="compare">
+<div class="wrap">
+<div class="section-head">
+<div class="eyebrow" style="color:#1766c7">Compare the bundles</div>
+<h2>Three choices. One full licensing course.</h2>
+<p>The difference is how much exam structure and future required education you want bundled with Course 1.</p>
+</div>
+<div class="comparison">
+<table class="comparison-table">
+<caption>Daniel Larson Training sales associate course bundle comparison</caption>
+<colgroup>
+<col class="feature-col"/>
+<col/>
+<col/>
+<col/>
+</colgroup>
+<thead>
+<tr>
+<th scope="col">Included</th>
+<th scope="col">Course 1<small>$130</small></th>
+<th class="best-head" scope="col">FastPass<small>$260 · Most Popular</small></th>
+<th scope="col">FastPass + Post<small>$360 · Best Value</small></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">DBPR-approved Course 1</th>
+<td class="yes">✓ Included</td>
+<td class="yes best">✓ Included</td>
+<td class="yes">✓ Included</td>
+</tr>
+<tr>
+<th scope="row">Audio/video instruction + 500+ Q&amp;A</th>
+<td class="yes">✓ Included</td>
+<td class="yes best">✓ Included</td>
+<td class="yes">✓ Included</td>
+</tr>
+<tr>
+<th scope="row">One-year access + direct instructor support</th>
+<td class="yes">✓ Included</td>
+<td class="yes best">✓ Included</td>
+<td class="yes">✓ Included</td>
+</tr>
+<tr>
+<th scope="row">Three FastPass exams</th>
+<td class="dash">—</td>
+<td class="yes best">✓ Included</td>
+<td class="yes">✓ Included</td>
+</tr>
+<tr>
+<th scope="row">Required Sales Post-Licensing course</th>
+<td class="dash">—</td>
+<td class="dash best">—</td>
+<td class="yes">✓ Included</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section class="reviews" id="reviews">
+<div class="wrap">
+<div class="section-head">
+<div class="eyebrow">Real support. Real results.</div>
+<h2>What students say after they take the course.</h2>
+<p>Specific experiences from Florida students and brokers — not generic marketing copy.</p>
+</div>
+<div class="review-grid">
+<article class="review"><div class="stars">★★★★★</div><blockquote>“FastPass is, hands down, the fastest, easiest way to prepare and get certified for the licensing exam. When you have questions, Daniel will be available — actually Daniel — not a customer service person. Outstanding personalized service.”</blockquote><div class="who"><b>Von Howard</b>Fort Myers · Managing Broker</div></article>
+<article class="review"><div class="stars">★★★★★</div><blockquote>“The Florida exams are tough, but his practice exams are close to the real PearsonVUE exam. FastPass is the slam dunk. I walked into PearsonVUE ready to go.”</blockquote><div class="who"><b>John S.</b>Cape Coral · Broker Associate</div></article>
+<article class="review"><div class="stars">★★★★★</div><blockquote>“I PASSED!! Thank you!! You made it so easy. FastPass is very similar to the real exam.”</blockquote><div class="who"><b>Silvia P.</b>Miami · New Sales Associate</div></article>
+<article class="review"><div class="stars">★★★★★</div><blockquote>“I'm not an exam person, but Larson got me through it. I send everyone to him, including my daughter and team members. They all move fast through the content, and pass.”</blockquote><div class="who"><b>Mike McMurray</b>SWFL &amp; The Islands · Broker</div></article>
+<article class="review"><div class="stars">★★★★★</div><blockquote>“Did Course 2 + Exam Prep, then added FastPass — opened my own brokerage. Daniel's got all the stuff. Follow the system.”</blockquote><div class="who"><b>Willy the Closer</b>Estero · Independent Broker</div></article>
+<article class="review"><div class="stars">★★★★★</div><blockquote>“Took the exam last Monday and passed. I literally heard his explanations in my head as I was taking the test. I will send EVERYONE to this guy.”</blockquote><div class="who"><b>Alyssa L.</b>Bonita Springs</div></article>
+</div>
+</div>
+</section>
+<section class="about">
+<div class="wrap about-grid">
+<div>
+<div class="eyebrow" style="color:#1766c7">The person behind the course</div>
+<h2>You are not buying a nameless national course library.</h2>
+<p>Daniel Larson authors and produces the course materials, records the explainers, and answers student questions directly. Daniel Larson Training is a Florida-focused real estate school built around one thing: helping students understand the material well enough to get through licensing and move on.</p>
+<p>If you studied with Daniel years ago, were referred by a broker, or simply found the school online, you get the same course system and the same direct line to the instructor.</p>
+</div>
+<aside class="proofbox">
+<div><b>Florida Licensed Real Estate School</b>#ZH1002860</div>
+<div><b>Florida Real Estate Instructor</b>Daniel Larson · #ZH1003217</div>
+<div><b>Course authorship</b>Courses authored and produced by Daniel Larson and approved by the Florida DBPR for their applicable education requirements.</div>
+<div><b>Direct contact</b><a href="sms:+12394718500">239.471.8500</a> · daniel@daniellarsontraining.com</div>
+</aside>
+</div>
+</section>
+<section class="faq" id="faq">
+<div class="wrap">
+<div class="section-head">
+<div class="eyebrow" style="color:#1766c7">Florida licensing FAQ</div>
+<h2>A few things you may be wondering.</h2>
+</div>
+<div class="faq-list">
+<details><summary>What is included in the $130 Course 1 package?</summary><p>The package includes the DBPR-approved Florida Sales Associate pre-licensing Course 1, course certification, exam-prep materials, audio/video instruction, 500+ Q&amp;A, study supplements, one year of access, and direct support from Daniel.</p></details>
+<details><summary>What does FastPass add?</summary><p>FastPass adds three Florida licensing-exam-style exams and a structured preparation path designed to build exam timing, speed, confidence, and familiarity with the testing experience.</p></details>
+<details><summary>Does FastPass replace the Florida state licensing exam?</summary><p>No. The Florida state licensing exam is a separate exam administered by <a href="https://www.pearsonvue.com/us/en/fl/dbpr.html" rel="noopener" target="_blank">Pearson Professional Assessments</a> (formerly Pearson VUE). FastPass is preparation and part of the course-certification path; you still take the state exam separately.</p></details>
+<details><summary>How long do I have access?</summary><p>Course bundles include one year of online access.</p></details>
+<details><summary>Can I actually contact Daniel?</summary><p>Yes. Student support is one of the main differences here. You can text or call Daniel directly at 239.471.8500 about the course, exam preparation, or your licensing steps.</p></details>
+<details><summary>Do I need printed course books?</summary><p>No. All course content is included online. If you prefer printed books, just request them and Daniel will ship them to you free.</p></details>
+</div>
+</div>
+</section>
+<section class="finalcta">
+<div class="wrap">
+<h2>Ready to get your Florida real estate license?</h2>
+<p>Start with a free FastPass preview, or enroll in FastPass and begin working toward your Florida licensing exam.</p>
+<div class="hero-actions" style="justify-content:center">
+<a class="btn btn-primary" data-trial="final_cta" href="https://portal.daniellarsontraining.com/courses/starthere?utm_source=dlt_homepage&amp;utm_medium=site&amp;utm_campaign=sales_licensing&amp;utm_content=final_try_fastpass" target="_top">Try FastPass Free</a>
+<a class="btn btn-ghost" data-plan="fastpass-final" href="https://portal.daniellarsontraining.com/bundles/fastpass1?utm_source=dlt_homepage&amp;utm_medium=site&amp;utm_campaign=sales_licensing&amp;utm_content=final_fastpass" target="_top">Enroll in FastPass</a>
+</div>
+<a class="final-link" href="#packages">See all course options ↑</a>
+</div>
+</section>
 
-      <div class="foundation-grid">
-        <article class="foundation-card">
-          <h3>Shared navigation</h3>
-          <p>One desktop/mobile header. Rename a route once and the whole site updates.</p>
-        </article>
-        <article class="foundation-card">
-          <h3>Central product data</h3>
-          <p>Prices, checkout URLs, course links, credentials, and contact information live in reusable data files.</p>
-        </article>
-        <article class="foundation-card">
-          <h3>Static-first performance</h3>
-          <p>Important text renders immediately. Mobile has no looping animation or Wix iframe overhead.</p>
-        </article>
-      </div>
+  </div>
 
-      <div style="margin-top:24px">
-        <TrustStrip items={trust} />
-      </div>
-    </div>
-  </section>
+  <script is:inline>
+document.addEventListener('click', function(e){
+    const a = e.target.closest('a');
+    if(!a) return;
+
+    if(typeof window.gtag === 'function'){
+      if(a.dataset.plan){
+        window.gtag('event','select_course_package',{
+          course_package:a.dataset.plan,
+          link_url:a.href
+        });
+      }
+
+      if(a.dataset.trial){
+        window.gtag('event','try_fastpass_free',{
+          cta_location:a.dataset.trial,
+          link_url:a.href
+        });
+      }
+    }
+  });
+</script>
+
+<script is:inline>
+document.addEventListener('click', function(e){
+    const link = e.target.closest('a[href="#packages"]');
+    if(!link) return;
+
+    const target = document.getElementById('packages');
+    if(!target) return;
+
+    e.preventDefault();
+    const reduceMotion = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    target.scrollIntoView({
+      behavior: reduceMotion ? 'auto' : 'smooth',
+      block: 'start'
+    });
+  });
+</script>
 </SiteLayout>
