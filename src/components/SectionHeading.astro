@@ -1,0 +1,15 @@
+---
+type Props = {
+  eyebrow?: string;
+  title: string;
+  text?: string;
+  align?: "left" | "center";
+};
+const { eyebrow, title, text, align = "left" } = Astro.props;
+---
+
+<header class:list={["section-heading", `align-${align}`]}>
+  {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+  <h2>{title}</h2>
+  {text && <p class="section-intro">{text}</p>}
+</header>

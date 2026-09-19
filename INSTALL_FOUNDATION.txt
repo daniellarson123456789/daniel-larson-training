@@ -1,0 +1,31 @@
+DLT Astro Foundation Install
+
+1. Download DLT_astro_foundation.zip.
+2. In GitHub Codespaces, drag the zip into the Explorer at the repository root.
+3. In the Codespaces terminal run:
+
+   unzip -o DLT_astro_foundation.zip
+   rm DLT_astro_foundation.zip
+   npm run dev
+
+4. Open the forwarded port 4321 and test:
+   /
+   /broker-licensing/
+   /post-licensing/
+   /14ce/
+   /exam-prep/
+   /about/
+   /course-portal/
+
+5. If it looks right, stop the dev server with Ctrl+C and run:
+
+   git add .
+   git commit -m "Build shared Daniel Larson Training site foundation"
+   git push origin main
+
+Vercel will redeploy automatically from GitHub.
+
+IMPORTANT:
+Do not add the custom daniellarsontraining.com domain yet.
+Preview/staging builds are noindex by default.
+At final launch, PUBLIC_SITE_ENV=production will enable indexing.

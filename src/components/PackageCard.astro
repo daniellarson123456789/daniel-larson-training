@@ -1,0 +1,43 @@
+---
+type Props = {
+  eyebrow?: string;
+  title: string;
+  price: number;
+  badge?: string;
+  featured?: boolean;
+  features?: string[];
+  buttonLabel: string;
+  href: string;
+  trackingId?: string;
+};
+
+const {
+  eyebrow,
+  title,
+  price,
+  badge,
+  featured = false,
+  features = [],
+  buttonLabel,
+  href,
+  trackingId,
+} = Astro.props;
+---
+
+<article class:list={["package-card", { featured }]}>
+  {badge && <span class="package-badge">{badge}</span>}
+  {eyebrow && <p class="package-eyebrow">{eyebrow}</p>}
+  <h3>{title}</h3>
+  <p class="package-price"><span aria-hidden="true">$</span>{price}</p>
+  <ul>
+    {features.map((feature) => <li>{feature}</li>)}
+  </ul>
+  <a
+    class="button button-primary package-button"
+    href={href}
+    target="_top"
+    data-product={trackingId}
+  >
+    {buttonLabel}
+  </a>
+</article>

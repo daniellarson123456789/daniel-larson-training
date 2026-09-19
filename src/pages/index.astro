@@ -1,17 +1,63 @@
 ---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import TrustStrip from "../components/TrustStrip.astro";
+import { site } from "../data/site";
 
+const trust = [
+  { title: "Florida Licensed School", text: `#${site.schoolLicense}` },
+  { title: "Direct Instructor Support", text: site.instructorName },
+  { title: "Online + Self-Paced", text: "Built around real student use" },
+  { title: "FastPass", text: "Exam preparation + efficient completion" },
+  { title: "Direct Support", text: site.email, href: `mailto:${site.email}` },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<SiteLayout
+  title="Florida Real Estate License Course Online | Daniel Larson Training"
+  description="Florida real estate licensing education, exam preparation, post-licensing and continuing education from Daniel Larson Training."
+  canonicalPath="/"
+>
+  <section class="foundation-hero">
+    <div class="shell foundation-hero-inner">
+      <p class="eyebrow">New permanent site foundation</p>
+      <h1>Daniel Larson Training</h1>
+      <p>
+        The Wix shell is gone from the new build. This is the shared Astro system that will power Sales, Broker, Post-Licensing, CE, Exam Prep, About, and the Course Portal.
+      </p>
+      <div class="foundation-actions">
+        <a class="button button-primary" href="/broker-licensing/">Test the navigation</a>
+        <a class="button button-secondary" href="/course-portal/">Open Course Portal shell</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section soft">
+    <div class="shell">
+      <SectionHeading
+        eyebrow="Step 1"
+        title="One site system. Every page inherits it."
+        text="This preview is intentionally a foundation, not the finished Sales page. We are testing the permanent header, responsive behavior, components, data architecture, SEO framework, and footer before pouring the finished page content into it."
+      />
+
+      <div class="foundation-grid">
+        <article class="foundation-card">
+          <h3>Shared navigation</h3>
+          <p>One desktop/mobile header. Rename a route once and the whole site updates.</p>
+        </article>
+        <article class="foundation-card">
+          <h3>Central product data</h3>
+          <p>Prices, checkout URLs, course links, credentials, and contact information live in reusable data files.</p>
+        </article>
+        <article class="foundation-card">
+          <h3>Static-first performance</h3>
+          <p>Important text renders immediately. Mobile has no looping animation or Wix iframe overhead.</p>
+        </article>
+      </div>
+
+      <div style="margin-top:24px">
+        <TrustStrip items={trust} />
+      </div>
+    </div>
+  </section>
+</SiteLayout>

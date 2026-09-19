@@ -1,0 +1,26 @@
+---
+import { site } from "../data/site";
+---
+
+<footer class="site-footer">
+  <div class="shell footer-grid">
+    <div>
+      <strong class="footer-brand">{site.name}</strong>
+      <p class="footer-copy">
+        Florida Licensed Real Estate School #{site.schoolLicense}<br />
+        {site.instructorName}, Florida Real Estate Instructor #{site.instructorLicense}
+      </p>
+    </div>
+
+    <div class="footer-contact">
+      <a href={site.phoneHref}>{site.phoneDisplay}</a>
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+      <a href="/course-portal/">Course Portal</a>
+    </div>
+  </div>
+
+  <div class="shell footer-bottom">
+    <span>Florida real estate education, exam preparation, post-licensing, and continuing education.</span>
+    <span>© {new Date().getFullYear()} {site.name}</span>
+  </div>
+</footer>

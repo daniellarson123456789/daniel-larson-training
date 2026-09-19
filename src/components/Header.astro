@@ -1,0 +1,59 @@
+---
+import { navigation, site } from "../data/site";
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/" ? currentPath === "/" : currentPath.startsWith(href);
+---
+
+<header class="site-header">
+  <div class="header-brand-row shell">
+    <a class="brand-lockup" href="/" aria-label={`${site.name} home`}>
+      <span class="brand-name">{site.name}</span>
+      <span class="brand-sub">{site.tagline}</span>
+    </a>
+
+    <a
+      class="portal-button desktop-portal"
+      href="/course-portal/"
+      aria-current={isActive("/course-portal/") ? "page" : undefined}
+    >
+      Course Portal
+    </a>
+  </div>
+
+  <div class="nav-row">
+    <div class="shell">
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        {navigation.map((item) => (
+          <a
+            href={item.href}
+            class:list={["nav-link", { active: isActive(item.href) }]}
+            aria-current={isActive(item.href) ? "page" : undefined}
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <details class="mobile-nav">
+        <summary>
+          <span>Menu</span>
+          <span class="menu-icon" aria-hidden="true">☰</span>
+        </summary>
+        <nav aria-label="Mobile navigation">
+          {navigation.map((item) => (
+            <a
+              href={item.href}
+              class:list={["mobile-nav-link", { active: isActive(item.href) }]}
+              aria-current={isActive(item.href) ? "page" : undefined}
+            >
+              {item.label}
+            </a>
+          ))}
+          <a class="mobile-nav-link portal" href="/course-portal/">Course Portal</a>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>

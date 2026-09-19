@@ -1,0 +1,12 @@
+---
+type Props = { quote: string; name: string; context?: string };
+const { quote, name, context } = Astro.props;
+---
+
+<article class="review-card">
+  <p class="review-quote">“{quote}”</p>
+  <footer>
+    <strong>{name}</strong>
+    {context && <span>{context}</span>}
+  </footer>
+</article>

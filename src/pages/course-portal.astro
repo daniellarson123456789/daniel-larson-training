@@ -1,0 +1,46 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import { site } from "../data/site";
+import { salesCourses, brokerCourses } from "../data/courses";
+---
+
+<SiteLayout
+  title="Course Portal | Daniel Larson Training"
+  description="Access your Daniel Larson Training student dashboard or open individual Sales Associate and Broker course resources."
+  canonicalPath="/course-portal/"
+>
+  <section class="portal-hero">
+    <div class="shell">
+      <p class="eyebrow">Student access</p>
+      <h1>Course Portal</h1>
+      <p>
+        Already enrolled? Go directly to your Thinkific student dashboard. Need a specific course or resource? Use the directory below.
+      </p>
+      <a class="button button-primary" href={site.studentDashboardUrl} target="_top">
+        Go to My Courses / Sign In
+      </a>
+    </div>
+  </section>
+
+  <section class="course-directory">
+    <div class="shell course-columns">
+      <section class="course-column">
+        <h2>Sales Associate Courses</h2>
+        <div class="course-link-grid">
+          {salesCourses.map((course) => (
+            <a class="course-link" href={course.href} target="_top">{course.label}</a>
+          ))}
+        </div>
+      </section>
+
+      <section class="course-column">
+        <h2>Broker Courses</h2>
+        <div class="course-link-grid">
+          {brokerCourses.map((course) => (
+            <a class="course-link" href={course.href} target="_top">{course.label}</a>
+          ))}
+        </div>
+      </section>
+    </div>
+  </section>
+</SiteLayout>

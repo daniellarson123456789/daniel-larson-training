@@ -1,0 +1,95 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { site } from "../data/site";
+import "../styles/global.css";
+
+type Props = {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+};
+
+const {
+  title,
+  description,
+  canonicalPath = Astro.url.pathname,
+  schema = [],
+} = Astro.props;
+
+const canonical = new URL(canonicalPath, site.url).toString();
+const allowIndex = import.meta.env.PUBLIC_SITE_ENV === "production";
+
+const globalGraph = [
+  {
+    "@type": "EducationalOrganization",
+    "@id": `${site.url}/#organization`,
+    name: site.name,
+    url: site.url,
+    telephone: site.phoneDisplay,
+    email: site.email,
+    identifier: {
+      "@type": "PropertyValue",
+      name: "Florida Licensed Real Estate School",
+      value: site.schoolLicense,
+    },
+  },
+  {
+    "@type": "Person",
+    "@id": `${site.url}/#daniel-larson`,
+    name: site.instructorName,
+    worksFor: { "@id": `${site.url}/#organization` },
+    identifier: {
+      "@type": "PropertyValue",
+      name: "Florida Real Estate Instructor",
+      value: site.instructorLicense,
+    },
+  },
+  {
+    "@type": "WebSite",
+    "@id": `${site.url}/#website`,
+    url: site.url,
+    name: site.name,
+    publisher: { "@id": `${site.url}/#organization` },
+  },
+];
+
+const pageSchema = Array.isArray(schema) ? schema : [schema];
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [...globalGraph, ...pageSchema.filter(Boolean)],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta
+      name="robots"
+      content={allowIndex
+        ? "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
+        : "noindex,nofollow"}
+    />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="theme-color" content="#080426" />
+    <title>{title}</title>
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

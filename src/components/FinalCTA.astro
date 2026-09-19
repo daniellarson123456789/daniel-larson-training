@@ -1,0 +1,33 @@
+---
+type Props = {
+  title: string;
+  text?: string;
+  buttonLabel: string;
+  href: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+};
+const {
+  title,
+  text,
+  buttonLabel,
+  href,
+  secondaryLabel,
+  secondaryHref,
+} = Astro.props;
+---
+
+<section class="final-cta">
+  <div class="shell final-cta-inner">
+    <div>
+      <h2>{title}</h2>
+      {text && <p>{text}</p>}
+    </div>
+    <div class="final-cta-actions">
+      <a class="button button-primary" href={href}>{buttonLabel}</a>
+      {secondaryLabel && secondaryHref && (
+        <a class="button button-secondary" href={secondaryHref}>{secondaryLabel}</a>
+      )}
+    </div>
+  </div>
+</section>

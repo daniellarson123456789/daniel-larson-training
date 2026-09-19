@@ -1,0 +1,14 @@
+---
+type Item = { title: string; text: string; href?: string };
+type Props = { items: Item[] };
+const { items } = Astro.props;
+---
+
+<div class="trust-strip">
+  {items.map((item) => (
+    <div class="trust-item">
+      <strong>{item.title}</strong>
+      {item.href ? <a href={item.href}>{item.text}</a> : <span>{item.text}</span>}
+    </div>
+  ))}
+</div>
