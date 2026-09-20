@@ -427,16 +427,6 @@
   box-shadow:0 16px 42px rgba(6,28,54,.06);
 }
 
-.post-bonus-grid article::after{
-  content:"BONUS";
-  position:absolute;
-  right:14px;
-  top:14px;
-  color:#d8e7fb;
-  font-size:1.45rem;
-  font-weight:950;
-  letter-spacing:.08em;
-}
 
 .post-bonus-grid p{
   margin:0;
