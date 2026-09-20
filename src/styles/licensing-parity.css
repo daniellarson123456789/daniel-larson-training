@@ -63,7 +63,7 @@
   .licensing-parity .btn:hover{transform:translateY(-2px)}
   .licensing-parity .btn-primary{background:var(--blue);color:#fff;box-shadow:0 14px 34px rgba(37,120,234,.30)}
   .licensing-parity .btn-ghost{border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.06)}
-  .licensing-parity .hero-card{align-self:center;background:rgba(3,10,31,.62);border:1px solid rgba(255,255,255,.16);border-radius:20px;padding:24px;box-shadow:var(--shadow);backdrop-filter:blur(10px)}
+  .licensing-parity .hero-card{align-self:start;margin-top:135px;background:rgba(3,10,31,.62);border:1px solid rgba(255,255,255,.16);border-radius:20px;padding:24px;box-shadow:var(--shadow);backdrop-filter:blur(10px)}
   .licensing-parity .hero-card h2{font-size:22px;margin:0 0 8px}
   .licensing-parity .hero-card p{margin:0;color:var(--muted)}
   .licensing-parity .support-number{font-size:27px;font-weight:950;display:block;margin-top:16px;text-decoration:none;color:#fff}
@@ -91,7 +91,8 @@
   .licensing-parity .price{font-size:48px;font-weight:950;letter-spacing:-.05em;margin:18px 0 2px}
   .licensing-parity .price-note{font-size:12px;color:#9fb0c5}
   .licensing-parity .package ul{padding:0;margin:22px 0;list-style:none;display:grid;gap:9px;color:#d5e0ef;font-size:14px}
-  .licensing-parity .package li:before{content:"✓";color:#75b0ff;font-weight:950;margin-right:9px}
+  .licensing-parity .package li{display:flex;align-items:flex-start;gap:9px}
+  .licensing-parity .package li:before{content:"✓";flex:0 0 auto;color:#75b0ff;font-weight:950;margin-right:0}
   .licensing-parity .package .btn{margin-top:auto;width:100%}
   .licensing-parity .micro{font-size:11px;color:#859ab4;margin-top:10px;text-align:center}
 
@@ -279,7 +280,7 @@
   }
   .licensing-parity .package:hover::after{animation:cardSheen .9s ease}
   .licensing-parity .package.featured{
-    animation:featuredGlow 4.6s ease-in-out infinite;
+    animation:none;
   }
   .licensing-parity .package.featured:hover{transform:translateY(-10px)}
 
@@ -333,7 +334,7 @@
 
   @media (max-width:900px){
     .licensing-parity .hero .wrap, .licensing-parity .fast-grid, .licensing-parity .included-grid, .licensing-parity .about-grid, .licensing-parity .bookcard{grid-template-columns:1fr}
-    .licensing-parity .hero .wrap{padding-top:46px}.licensing-parity .hero-card{max-width:560px}.licensing-parity .truststrip{grid-template-columns:repeat(2,1fr)}
+    .licensing-parity .hero .wrap{padding-top:46px}.licensing-parity .hero-card{max-width:560px;margin-top:0}.licensing-parity .truststrip{grid-template-columns:repeat(2,1fr)}
     .licensing-parity .package-grid{grid-template-columns:1fr}.licensing-parity .package.featured{transform:none;height:auto}.licensing-parity .feature-grid, .licensing-parity .review-grid{grid-template-columns:1fr}.licensing-parity .mark-scene{min-height:360px}
     .licensing-parity .comparison{overflow-x:auto}.licensing-parity .comparison-table{min-width:780px}
   }

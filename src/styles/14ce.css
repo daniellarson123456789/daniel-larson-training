@@ -21,7 +21,7 @@
   display:grid;
   grid-template-columns:minmax(0,1.35fr) minmax(310px,.65fr);
   gap:clamp(38px,6vw,76px);
-  align-items:center;
+  align-items:start;
   padding:clamp(66px,8vw,108px) 0 44px;
 }
 
@@ -73,6 +73,7 @@
     rgba(3,10,31,.62);
   box-shadow:0 26px 68px rgba(0,0,0,.27);
   backdrop-filter:blur(10px);
+  margin-top:93px;
 }
 
 .ce-buy-kicker{
@@ -535,7 +536,7 @@
     grid-template-columns:repeat(2,1fr);
   }
 
-  .ce-buy-card{max-width:620px}
+  .ce-buy-card{max-width:620px;margin-top:0}
 }
 
 @media (max-width:620px){
