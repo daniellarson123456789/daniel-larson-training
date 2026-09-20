@@ -71,7 +71,6 @@
   .licensing-parity .hero .hero-kicker,
   .licensing-parity .hero .hero-actions,
   .licensing-parity .hero .hero-card,
-  .licensing-parity .hero .truststrip > div,
   .portal-page .portal-hero h1,
   .portal-page .portal-hero .portal-eyebrow,
   .portal-page .portal-hero .portal-deck,
@@ -88,11 +87,6 @@
   .portal-page .portal-actions{animation-delay:165ms}
   .licensing-parity .hero .hero-card,
   .portal-page .portal-account-card{animation-delay:120ms}
-  .licensing-parity .hero .truststrip > div:nth-child(1){animation-delay:210ms}
-  .licensing-parity .hero .truststrip > div:nth-child(2){animation-delay:245ms}
-  .licensing-parity .hero .truststrip > div:nth-child(3){animation-delay:280ms}
-  .licensing-parity .hero .truststrip > div:nth-child(4){animation-delay:315ms}
-  .licensing-parity .hero .truststrip > div:nth-child(5){animation-delay:350ms}
 }
 @keyframes dltHeroEnter{
   from{opacity:0;transform:translateY(14px)}
@@ -567,19 +561,7 @@ html.motion-enabled .motion-reveal.motion-in{
 /* DLT final tactile interaction polish */
 /* Desktop/fine-pointer only: subtle response, never looping motion. */
 @media (hover:hover) and (pointer:fine){
-  .licensing-parity .truststrip > div{
-    position:relative;
-    z-index:0;
-    transition:transform 170ms ease,background-color 170ms ease,box-shadow 170ms ease,color 170ms ease;
-  }
-  .licensing-parity .truststrip > div:hover{
-    z-index:2;
-    transform:translateY(-2px);
-    background:rgba(15,40,74,.92);
-    box-shadow:0 12px 26px rgba(0,0,0,.18);
-  }
-
-  .licensing-parity .review{
+.licensing-parity .review{
     transition:transform 180ms ease,border-color 180ms ease,background-color 180ms ease,box-shadow 180ms ease;
   }
   .licensing-parity .review:hover{

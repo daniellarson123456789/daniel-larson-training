@@ -139,11 +139,13 @@ const schema = [
 </div>
 <div class="note-grid">
 <div class="note-card" data-reveal=""><div class="tag">This page is for you if...</div><h3>You already have your Course 1 or Course 2 completion certificate.</h3><p>You are already certified to test and now want a focused Florida exam-prep path — whether this is your first state-exam attempt or you are preparing to take it again.</p></div>
-<div class="note-card" data-reveal=""><div class="tag">Use a licensing package instead if...</div><h3>You still need the certificate that makes you eligible to test.</h3><p>Our Sales Licensing and Broker Licensing packages include the required pre-license education, course certification, and exam preparation together.</p>
+<div class="note-choice">
+<div class="note-card" data-reveal=""><div class="tag">Use a licensing package instead if...</div><h3>You still need the certificate that makes you eligible to test.</h3><p>Our Sales Licensing and Broker Licensing packages include the required pre-license education, course certification, and exam preparation together.</p></div>
 <div class="note-actions">
   <a class="note-btn" href="https://portal.daniellarsontraining.com/bundles/fastpass1" target="_top">Sales FastPass</a>
   <a class="note-btn" href="https://portal.daniellarsontraining.com/bundles/brokerfastpass" target="_top">Broker FastPass</a>
-</div></div>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -283,5 +285,12 @@ const schema = [
   .note-actions{display:grid;grid-template-columns:1fr 1fr}
   .note-btn{width:100%}
 }
+
+
+/* Keep licensing alternatives below the card instead of increasing card height. */
+.note-grid{align-items:start}
+.note-choice{display:flex;flex-direction:column;gap:12px;min-width:0}
+.note-choice .note-card{width:100%}
+.note-choice .note-actions{margin-top:0;padding-left:2px}
 
 </style>
