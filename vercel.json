@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    { "source": "/brokerlicensing", "destination": "/broker-licensing/", "permanent": true },
+    { "source": "/brokerlicensing/", "destination": "/broker-licensing/", "permanent": true },
+    { "source": "/postlicensing", "destination": "/post-licensing/", "permanent": true },
+    { "source": "/postlicensing/", "destination": "/post-licensing/", "permanent": true },
+    { "source": "/14ce", "destination": "/14ce/", "permanent": true },
+    { "source": "/courseportal", "destination": "/course-portal/", "permanent": true },
+    { "source": "/courseportal/", "destination": "/course-portal/", "permanent": true },
+    { "source": "/us", "destination": "/about/", "permanent": true },
+    { "source": "/us/", "destination": "/about/", "permanent": true },
+    { "source": "/exampreponly", "destination": "/exam-prep/", "permanent": true },
+    { "source": "/exampreponly/", "destination": "/exam-prep/", "permanent": true }
+  ]
+}

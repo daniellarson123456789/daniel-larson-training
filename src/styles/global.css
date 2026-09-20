@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap");
-
 :root {
   --night: #080426;
   --navy: #0a1236;
@@ -51,6 +49,16 @@ body {
 
 a {
   color: inherit;
+}
+
+:where(a, button, summary, input, select, textarea):focus-visible {
+  outline: 3px solid #6aa9ff;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+main {
+  overflow-x: clip;
 }
 
 img {

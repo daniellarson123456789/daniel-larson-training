@@ -1,18 +1,314 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import { site } from "../data/site";
+
+const schema = [
+  {
+    "@type": "AboutPage",
+    "@id": `${site.url}/about/#webpage`,
+    url: `${site.url}/about/`,
+    name: "About Daniel Larson Training",
+    description: "Daniel Larson Training is a Florida-focused real estate school built around courses Daniel Larson writes, teaches, explains, updates, and supports directly.",
+    isPartOf: { "@id": `${site.url}/#website` },
+    about: [
+      { "@id": `${site.url}/#organization` },
+      { "@id": `${site.url}/#daniel-larson` },
+    ],
+    publisher: { "@id": `${site.url}/#organization` },
+    inLanguage: "en-US",
+  },
+];
 ---
 
 <SiteLayout
-  title="About Daniel Larson Training | Daniel Larson Training"
-  description="The Wix biography wall becomes a clear authority page: school, instructor, philosophy, credentials, and student proof."
+  title="About Daniel Larson Training | Florida Real Estate Education"
+  description="Meet Daniel Larson and the Florida real estate school behind Course 1, Course 2, Post-Licensing, 14-Hour CE, exam prep, and FastPass."
   canonicalPath="/about/"
+  schema={schema}
 >
-  <section class="page-placeholder">
-    <div class="shell">
-      <p class="eyebrow">Page shell ready</p>
-      <h1>About Daniel Larson Training</h1>
-      <p>The Wix biography wall becomes a clear authority page: school, instructor, philosophy, credentials, and student proof.</p>
-      <p><strong>Next:</strong> we port the approved content into shared native components instead of another standalone Wix embed.</p>
-    </div>
-  </section>
+  <div class="about-page">
+<section class="hero">
+<div class="shell hero-grid">
+<div>
+<div class="eyebrow">ABOUT DANIEL LARSON TRAINING</div>
+<h1>REAL ESTATE EDUCATION <em>WITH A REAL PERSON BEHIND IT.</em></h1>
+<p class="lead">Daniel Larson Training is a Florida-focused real estate school built around courses Daniel writes, teaches, explains, updates, and supports directly. The school is the durable brand. FastPass is the system. Daniel is the person behind both.</p>
+<div class="actions">
+<a class="btn primary" href="/">Explore Licensing Courses</a>
+<a class="btn ghost" href="sms:+12394718500">Text Daniel</a>
+</div>
+</div>
+<aside class="proof-card">
+<div class="mini">FLORIDA REAL ESTATE EDUCATION</div>
+<h2>Not a nameless national course library.</h2>
+<div class="proof-list">
+<div class="proof-item"><b>Florida Licensed Real Estate School</b><span>#ZH1002860</span></div>
+<div class="proof-item"><b>Florida Real Estate Instructor</b><span>Daniel Larson · #ZH1003217</span></div>
+<div class="proof-item"><b>Course authorship</b><span>Licensing, Post-Licensing, CE, exam prep, and FastPass materials authored and produced by Daniel.</span></div>
+<div class="proof-item"><b>Direct contact</b><span>239.471.8500 · daniel@daniellarsontraining.com</span></div>
+</div>
+</aside>
+</div>
+<div class="trust">
+<div><b>20+ years</b><span>real estate education</span></div>
+<div><b>Thousands trained</b><span>students + professionals</span></div>
+<div><b>Florida focused</b><span>licensing + renewal</span></div>
+<div><b>Course author</b><span>not just a reseller</span></div>
+<div><b>Direct support</b><span>from the instructor</span></div>
+</div>
+</section>
+<section class="story">
+<div class="shell story-grid">
+<div class="story-left">
+<div class="big-words">
+<span>WRITE IT.</span>
+<span>TEACH IT.</span>
+<span>EXPLAIN IT.</span>
+<span><em>STAND BEHIND IT.</em></span>
+</div>
+<figure aria-label="Daniel Larson portrait" class="story-portrait" data-reveal="">
+<img alt="Daniel Larson in a suit and tie" decoding="async" height="1080" loading="lazy" src="/daniel-larson-suit.webp" width="720"/>
+</figure>
+</div>
+<div class="story-copy">
+<div class="section-head" data-reveal="">
+<div class="eyebrow" style="color:#1766c7">THE IDEA BEHIND THE SCHOOL</div>
+<h2>The course should make sense because someone actually built it that way.</h2>
+</div>
+<p>Daniel has spent more than two decades in real estate education — teaching licensing material, training instructors and agents, writing course content, building exam-prep systems, and translating rules into something students can actually use.</p>
+<p>Before Daniel Larson Training, that work included national training leadership with <strong>Kaplan</strong>, involvement in <strong>Larson Educational Services</strong>, classroom instruction, publishing, and years of working directly with students preparing for Florida licensing and renewal requirements.</p>
+<p>The point of the school is not to make students admire the course. It is to help them <strong>understand what matters, finish what is required, prepare intelligently, and move on with their career.</strong></p>
+</div>
+</div>
+</section>
+<section class="timeline">
+<div class="shell">
+<div class="timeline-intro">
+<div class="section-head" data-reveal="" style="margin-bottom:0">
+<div class="eyebrow">A CAREER BUILT AROUND EDUCATION</div>
+<h2>Different roles. Same work: make complicated material understandable.</h2>
+<p>The school did not start with a template and a question bank. It grew out of years spent teaching, writing, organizing, and improving real estate education.</p>
+</div>
+<figure class="teaching-photo" data-reveal="">
+<img alt="Daniel Larson teaching real estate concepts" decoding="async" height="675" loading="lazy" src="/daniel-larson-teaching.webp" width="1200"/>
+</figure>
+</div>
+<div class="timeline-grid">
+<article class="milestone" data-hover-lift="" data-reveal=""><span>Education + Publishing</span><h3>Course writing and instructional design</h3><p>Licensing, post-licensing, continuing education, exam preparation, workbooks, questions, explanations, and supporting materials.</p></article>
+<article class="milestone" data-hover-lift="" data-reveal=""><span>National Training</span><h3>Former Kaplan training leadership</h3><p>Experience training across a large education organization while working with instructors, students, and real estate professionals.</p></article>
+<article class="milestone" data-hover-lift="" data-reveal=""><span>Florida Practice</span><h3>Broker + instructor perspective</h3><p>Florida licensing duties, brokerage relationships, advertising, ethics, agency, unlicensed activity, and the practical side of compliance.</p></article>
+<article class="milestone" data-hover-lift="" data-reveal=""><span>Professional Education</span><h3>REALTOR® ethics + orientation</h3><p>Instruction for professional associations, including REALTOR® Ethics and New Member Orientation in Southwest Florida.</p></article>
+</div>
+</div>
+</section>
+<section class="beliefs">
+<div class="shell">
+<div class="section-head" data-reveal="">
+<div class="eyebrow" style="color:#1766c7">WHAT THE SCHOOL BELIEVES</div>
+<h2>Good education should reduce friction, not manufacture it.</h2>
+<p>The format can change. The standard does not.</p>
+</div>
+<div class="belief-grid">
+<article class="belief" data-hover-lift="" data-reveal=""><div class="num">01</div><h3>Students should know what matters.</h3><p>Clear explanations beat unnecessary complexity. The course should help you find the rule, understand it, and know why it matters.</p></article>
+<article class="belief" data-hover-lift="" data-reveal=""><div class="num">02</div><h3>People learn differently.</h3><p>Read, listen, watch, practice, review, or use FastPass. The system should give you tools without forcing one format on everyone.</p></article>
+<article class="belief" data-hover-lift="" data-reveal=""><div class="num">03</div><h3>Support should be real.</h3><p>When a student has a question, they should be able to reach someone who understands the course and the licensing path — not a generic support queue.</p></article>
+<article class="belief" data-hover-lift="" data-reveal=""><div class="num">04</div><h3>Required education can still be useful.</h3><p>Pre-license, Post-Licensing, and CE have regulatory requirements. That does not mean the material has to feel disconnected from actual practice.</p></article>
+<article class="belief" data-hover-lift="" data-reveal=""><div class="num">05</div><h3>Exam prep should diagnose, not just drill.</h3><p>Questions are more useful when explanations show why an answer works and where your weak areas actually are.</p></article>
+<article class="belief" data-hover-lift="" data-reveal=""><div class="num">06</div><h3>The school should keep moving.</h3><p>Rules, licensing procedures, technology, and industry practice change. Course material should be able to change with them.</p></article>
+</div>
+</div>
+</section>
+<section class="authorship">
+<div class="shell authorship-grid">
+<div>
+<div class="section-head" data-reveal="">
+<div class="eyebrow">COURSES WRITTEN + PRODUCED HERE</div>
+<h2>Daniel Larson Training is the school. FastPass is the proprietary system inside it.</h2>
+<p>Daniel authors and produces the core education and exam-prep materials rather than simply relabeling a national content library.</p>
+</div>
+</div>
+<div class="course-list">
+<div class="course-line" data-hover-lift="" data-reveal=""><strong>1</strong><div><h4>Sales Associate Licensing</h4><p>Florida Course 1, study resources, exam preparation, and FastPass.</p></div></div>
+<div class="course-line" data-hover-lift="" data-reveal=""><strong>2</strong><div><h4>Broker Licensing</h4><p>Florida Course 2, broker exam preparation, and Broker FastPass.</p></div></div>
+<div class="course-line" data-hover-lift="" data-reveal=""><strong>P</strong><div><h4>Post-Licensing</h4><p>Sales and Broker first-renewal education with flexible learning tools and FastPass finals.</p></div></div>
+<div class="course-line" data-hover-lift="" data-reveal=""><strong>CE</strong><div><h4>14-Hour Continuing Education</h4><p>Florida renewal education for Sales Associates and Brokers after the Post-Licensing stage.</p></div></div>
+<div class="course-line" data-hover-lift="" data-reveal=""><strong>F</strong><div><h4>FastPass Exam Prep</h4><p>Focused Florida exam preparation for Sales Associate and Broker candidates.</p></div></div>
+</div>
+</div>
+</section>
+<section class="reviews">
+<div class="shell">
+<div class="section-head" data-reveal="">
+<div class="eyebrow" style="color:#1766c7">WHAT STUDENTS NOTICE</div>
+<h2>The difference shows up when students need help — and when they take the exam.</h2>
+<p>Specific experiences from Florida students and brokers.</p>
+</div>
+<div class="quote-grid">
+<article class="quote" data-hover-lift="" data-reveal=""><div class="stars">★★★★★</div><p>“When you have questions, Daniel will be available — actually Daniel — not a customer service person.”</p><b>Von Howard · Fort Myers</b></article>
+<article class="quote" data-hover-lift="" data-reveal=""><div class="stars">★★★★★</div><p>“FastPass is the slam dunk. I walked into PearsonVUE ready to go.”</p><b>John S. · Cape Coral</b></article>
+<article class="quote" data-hover-lift="" data-reveal=""><div class="stars">★★★★★</div><p>“I literally heard his explanations in my head as I was taking the test.”</p><b>Alyssa L. · Bonita Springs</b></article>
+</div>
+</div>
+</section>
+<section class="contact">
+<div class="shell contact-grid" data-reveal="">
+<div>
+<div class="eyebrow">ASK US</div>
+<h2>Not sure what you need? Ask us.</h2>
+<p>Questions about licensing, Post, CE, exam prep, renewal, or which course applies? Call, text, or email.</p>
+</div>
+<aside class="contact-card">
+<b>Daniel Larson Training</b>
+<a href="tel:+12394718500">239.471.8500</a>
+<a href="mailto:daniel@daniellarsontraining.com">daniel@daniellarsontraining.com</a>
+<small>Florida Licensed Real Estate School #ZH1002860<br/>Daniel Larson · Florida Real Estate Instructor #ZH1003217</small>
+</aside>
+</div>
+</section>
+<section class="final">
+<div class="shell final-grid" data-reveal="">
+<div><div class="eyebrow">DANIEL LARSON TRAINING</div><h2>Choose the education you need. The same school stands behind all of it.</h2><p>Licensing, Post-Licensing, CE, Broker education, and FastPass exam preparation.</p></div>
+<div class="final-actions"><a class="btn primary" href="/">View Courses</a><a class="btn ghost" href="/course-portal/">Course Portal</a></div>
+</div>
+</section>
+  </div>
 </SiteLayout>
+
+<style>
+
+.shell{max-width:1180px;margin:0 auto;padding:0 28px}
+.hero{color:#fff;background:
+ radial-gradient(900px 520px at 9% 7%,rgba(59,140,255,.22),transparent 62%),
+ radial-gradient(760px 460px at 89% 10%,rgba(92,84,255,.15),transparent 64%),
+ linear-gradient(135deg,#0d0640 0%,#15105a 48%,#07162f 100%)}
+.hero-grid{display:grid;grid-template-columns:1.22fr .78fr;gap:64px;align-items:center;padding:88px 0 48px}
+.eyebrow{font-size:12px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:#a9cfff;margin-bottom:13px}
+.hero h1{font-size:clamp(54px,6vw,91px);line-height:.93;letter-spacing:-.055em;text-transform:uppercase;margin:0;max-width:10.6ch}
+.hero h1 em{font-style:italic;color:#fff}
+.lead{font-size:19px;line-height:1.58;color:#d0dceb;max-width:770px;margin:22px 0 0}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:13px 19px;border-radius:9px;text-decoration:none;font-weight:900;border:1px solid transparent}
+.primary{background:#2d86f7;color:#fff;box-shadow:0 12px 30px rgba(37,120,234,.22)}
+.ghost{color:#fff;border-color:rgba(255,255,255,.24);background:rgba(255,255,255,.06)}
+
+.proof-card{padding:27px;border:1px solid rgba(255,255,255,.18);border-radius:20px;background:rgba(5,11,37,.55);box-shadow:0 24px 60px rgba(0,0,0,.28)}
+.proof-card .mini{font-size:11px;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:#9ec8ff}
+.proof-card h2{margin:9px 0 16px;font-size:27px;line-height:1.06}
+.proof-list{display:grid;gap:10px}
+.proof-item{padding:12px 14px;border:1px solid rgba(255,255,255,.12);border-radius:11px;background:rgba(255,255,255,.05)}
+.proof-item b{display:block;font-size:13px;color:#fff}
+.proof-item span{display:block;margin-top:3px;color:#b8c7d9;font-size:12px;line-height:1.4}
+.proof-card a{color:#fff;text-decoration:none;font-weight:900}
+
+.trust{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid rgba(255,255,255,.10)}
+.trust div{min-height:80px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:rgba(2,7,27,.48);border-right:1px solid rgba(255,255,255,.08)}
+.trust b{font-size:14px}.trust span{font-size:11px;color:#b8c7d9;margin-top:3px}
+
+.story{padding:88px 0;background:#fff}
+.story-grid{display:grid;grid-template-columns:.88fr 1.12fr;gap:72px;align-items:start}
+.big-words{font-size:70px;line-height:.88;font-weight:900;letter-spacing:-.06em;color:#0a1d36;text-transform:uppercase}
+.big-words span{display:block}.big-words em{font-style:italic;color:#2578ea}
+.section-head{max-width:820px;margin-bottom:28px}
+.section-head h2{margin:0;font-size:48px;line-height:1;letter-spacing:-.045em}
+.section-head p{color:#53667d;line-height:1.6;font-size:16px}
+.story-copy p{color:#53667d;line-height:1.7;font-size:16px}
+.story-copy strong{color:#0a1d36}
+
+.timeline{padding:80px 0;color:#fff;background:#07142b}
+.timeline .section-head p{color:#b7c5d6}
+.timeline-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.milestone{min-height:240px;padding:22px;border:1px solid rgba(255,255,255,.12);border-radius:15px;background:rgba(255,255,255,.045)}
+.milestone span{font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#7fb5ff}
+.milestone h3{font-size:20px;line-height:1.1;margin:10px 0}
+.milestone p{color:#aebfd4;line-height:1.55;font-size:13px;margin:0}
+
+.beliefs{padding:82px 0;background:#f5f8fc}
+.beliefs .section-head h2{color:#0a1d36}.beliefs .section-head p{color:#53667d}
+.belief-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.belief{padding:24px;border:1px solid #d9e4f0;border-radius:16px;background:#fff;box-shadow:0 16px 42px rgba(6,28,54,.05)}
+.belief .num{font-size:11px;font-weight:900;letter-spacing:.1em;color:#1766c7}
+.belief h3{font-size:21px;margin:10px 0}.belief p{color:#5d7086;line-height:1.55;margin:0}
+
+.authorship{padding:82px 0;color:#fff;background:linear-gradient(180deg,#07142b,#05021c)}
+.authorship-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.authorship .section-head p{color:#b7c5d6}
+.course-list{display:grid;gap:11px}
+.course-line{display:grid;grid-template-columns:auto 1fr;gap:13px;padding:15px 16px;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(255,255,255,.045)}
+.course-line strong{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:rgba(37,120,234,.18);color:#bcd7ff}
+.course-line h4{margin:0 0 4px;font-size:15px}.course-line p{margin:0;color:#aebfd4;font-size:13px;line-height:1.45}
+
+.reviews{padding:82px 0;background:#fff}
+.reviews .section-head p{color:#53667d}
+.quote-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.quote{padding:22px;border:1px solid #dce6f1;border-radius:15px;background:#fbfdff}
+.stars{letter-spacing:.06em;margin-bottom:10px;color:#0a1d36}
+.quote p{font-size:14px;line-height:1.55;color:#4e6278}
+.quote b{display:block;margin-top:12px;font-size:12px;color:#0a1d36}
+
+.contact{padding:78px 0;color:#fff;background:linear-gradient(135deg,#091a34,#06162d)}
+.contact-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:42px;align-items:center}
+.contact h2{font-size:48px;line-height:1;letter-spacing:-.045em;margin:0}
+.contact p{color:#b9c8d9;line-height:1.6}
+.contact-card{padding:24px;border:1px solid rgba(255,255,255,.14);border-radius:16px;background:rgba(255,255,255,.05)}
+.contact-card b{display:block;font-size:15px}
+.contact-card a{display:block;margin-top:9px;color:#fff;text-decoration:none;font-weight:900}
+.contact-card small{display:block;margin-top:12px;color:#9fb1c6;line-height:1.5}
+
+.final{padding:56px 0;color:#fff;background:#130957}
+.final-grid{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center}
+.final h2{font-size:50px;line-height:.98;letter-spacing:-.045em;text-transform:uppercase;margin:0}
+.final p{color:#c7d4e4}.final-actions{display:flex;gap:10px;flex-wrap:wrap}
+
+
+.story-left{display:flex;flex-direction:column;gap:28px}
+.story-portrait{margin:0;overflow:hidden;border:1px solid #dce6f1;border-radius:17px;background:#eef3f8;box-shadow:0 18px 44px rgba(6,28,54,.09);max-width:430px}
+.story-portrait img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 20%;filter:saturate(.82) contrast(1.01)}
+.timeline-intro{display:grid;grid-template-columns:.9fr 1.1fr;gap:42px;align-items:center;margin-bottom:26px}
+.teaching-photo{margin:0;border:1px solid rgba(255,255,255,.12);border-radius:17px;overflow:hidden;background:#10273a;box-shadow:0 18px 44px rgba(0,0,0,.18)}
+.teaching-photo img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;object-position:42% center;filter:saturate(.82) contrast(.98)}
+
+@media(max-width:900px){
+ .hero-grid,.story-grid,.authorship-grid,.contact-grid,.timeline-intro{grid-template-columns:1fr}
+ .timeline-grid,.belief-grid{grid-template-columns:1fr 1fr}
+ .quote-grid{grid-template-columns:1fr}
+ .trust{grid-template-columns:1fr 1fr}.trust div:last-child{grid-column:1/-1}
+ .story-portrait{max-width:520px}
+}
+
+
+/* Compact About section refinement */
+.story{padding:58px 0 52px;background:#fff}
+.story-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:44px;align-items:start}
+.story-left{display:flex;flex-direction:column;gap:22px;align-items:flex-start}
+.big-words{font-size:58px;line-height:.87;font-weight:900;letter-spacing:-.055em;color:#0a1d36;text-transform:uppercase}
+.story-portrait{margin:0;max-width:375px;width:100%;height:410px;overflow:hidden;border:1px solid #dce6f1;border-radius:16px;background:#eef3f8;box-shadow:0 16px 36px rgba(6,28,54,.08)}
+.story-portrait img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 24%;filter:saturate(.82) contrast(1.01)}
+.story-copy .section-head{margin-bottom:18px}
+.story-copy .section-head h2{font-size:43px;line-height:.98}
+.story-copy p{color:#53667d;line-height:1.62;font-size:15px;margin:0 0 13px;max-width:650px}
+.timeline{padding:66px 0 72px}
+.timeline-intro{display:grid;grid-template-columns:1.08fr .92fr;gap:32px;align-items:center;margin-bottom:22px}
+.teaching-photo{max-width:520px;justify-self:end}
+.teaching-photo img{aspect-ratio:16/10;object-fit:cover;object-position:42% center}
+@media(max-width:900px){
+  .story-grid,.timeline-intro{grid-template-columns:1fr}
+  .story-portrait{max-width:340px;height:360px}
+  .teaching-photo{max-width:640px;justify-self:start}
+}
+
+
+@media(max-width:620px){
+  .hero-grid{padding:58px 0 34px}
+  .hero h1{font-size:44px}
+  .lead{font-size:16px}
+  .timeline-grid,.belief-grid{grid-template-columns:1fr}
+  .final-grid{grid-template-columns:1fr}
+  .final-actions{display:grid;width:100%}
+  .final-actions .btn{width:100%}
+  .contact h2{font-size:38px}
+  .story{padding:52px 0}
+  .big-words{font-size:50px}
+  .story-portrait{max-width:360px;height:400px}
+}
+
+</style>

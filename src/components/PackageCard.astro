@@ -2,7 +2,9 @@
 type Props = {
   eyebrow?: string;
   title: string;
+  description?: string;
   price: number;
+  priceNote?: string;
   badge?: string;
   featured?: boolean;
   features?: string[];
@@ -14,7 +16,9 @@ type Props = {
 const {
   eyebrow,
   title,
+  description,
   price,
+  priceNote = "one-time enrollment",
   badge,
   featured = false,
   features = [],
@@ -28,7 +32,11 @@ const {
   {badge && <span class="package-badge">{badge}</span>}
   {eyebrow && <p class="package-eyebrow">{eyebrow}</p>}
   <h3>{title}</h3>
-  <p class="package-price"><span aria-hidden="true">$</span>{price}</p>
+  {description && <p class="package-description">{description}</p>}
+  <p class="package-price" aria-label={`$${price}`}>
+    <span aria-hidden="true">$</span>{price}
+  </p>
+  <p class="package-price-note">{priceNote}</p>
   <ul>
     {features.map((feature) => <li>{feature}</li>)}
   </ul>
