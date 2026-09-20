@@ -368,3 +368,13 @@
     .licensing-parity .feature-grid{grid-template-columns:1fr}
   }
   .licensing-parity, .licensing-parity{background:#fff}
+
+
+/* FINAL PACKAGE CARD ALIGNMENT */
+@media (min-width:901px){
+  .licensing-parity .package-grid{align-items:stretch}
+  .licensing-parity .package,
+  .licensing-parity .package.featured{height:auto;transform:none}
+  .licensing-parity .package:hover,
+  .licensing-parity .package.featured:hover{transform:translateY(-4px)}
+}

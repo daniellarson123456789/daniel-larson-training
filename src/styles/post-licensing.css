@@ -715,3 +715,12 @@
 
   .post-option::before{display:none}
 }
+
+
+/* FINAL PARTNER NOTE LINE */
+@media (min-width:1101px){
+  .post-partner-note{max-width:none;white-space:nowrap}
+}
+@media (max-width:1100px){
+  .post-partner-note{white-space:normal}
+}
