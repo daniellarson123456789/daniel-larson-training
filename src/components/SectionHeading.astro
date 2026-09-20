@@ -4,13 +4,12 @@ type Props = {
   title: string;
   text?: string;
   align?: "left" | "center";
-  id?: string;
 };
-const { eyebrow, title, text, align = "left", id } = Astro.props;
+const { eyebrow, title, text, align = "left" } = Astro.props;
 ---
 
 <header class:list={["section-heading", `align-${align}`]}>
   {eyebrow && <p class="eyebrow">{eyebrow}</p>}
-  <h2 id={id}>{title}</h2>
+  <h2>{title}</h2>
   {text && <p class="section-intro">{text}</p>}
 </header>
