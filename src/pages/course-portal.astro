@@ -1,46 +1,129 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
 import { site } from "../data/site";
-import { salesCourses, brokerCourses } from "../data/courses";
+import {
+  salesLicensingCourses,
+  brokerLicensingCourses,
+  postLicensingCourses,
+  continuingEducationCourses,
+  examPrepOnlyCourses,
+} from "../data/courses";
+
+const groups = [
+  {
+    id: "sales",
+    eyebrow: "Get licensed",
+    title: "Sales Associate Licensing",
+    text: "Your Sales Associate licensing roadmap, required pre-license course, FastPass path, practice, audio review, and math help.",
+    items: salesLicensingCourses,
+  },
+  {
+    id: "broker",
+    eyebrow: "Move up",
+    title: "Broker Licensing",
+    text: "Broker licensing resources, Course 2, the Broker FastPass path, practice, audio review, and exam prep.",
+    items: brokerLicensingCourses,
+  },
+  {
+    id: "post",
+    eyebrow: "First renewal",
+    title: "Post-Licensing",
+    text: "Post-Licensing is the first-renewal requirement. Sales associates and brokers have different post-licensing courses.",
+    items: postLicensingCourses,
+  },
+  {
+    id: "ce",
+    eyebrow: "Ongoing renewal",
+    title: "14-Hour CE",
+    text: "Florida 14-Hour Continuing Education is for both sales associates and brokers after the post-licensing stage and for ongoing renewals.",
+    items: continuingEducationCourses,
+    shared: true,
+  },
+  {
+    id: "exam-prep",
+    eyebrow: "Already completed the course?",
+    title: "Exam Prep Only",
+    text: "For candidates who completed the required pre-license course elsewhere and only need Florida-focused exam preparation.",
+    items: examPrepOnlyCourses,
+  },
+];
 ---
 
 <SiteLayout
   title="Course Portal | Daniel Larson Training"
-  description="Access your Daniel Larson Training student dashboard or open individual Sales Associate and Broker course resources."
+  description="Sign in to your Daniel Larson Training student account or open specific Sales Associate, Broker, Post-Licensing, 14-Hour CE, and exam-prep resources."
   canonicalPath="/course-portal/"
+  robots="noindex,follow"
 >
-  <section class="portal-hero">
-    <div class="shell">
-      <p class="eyebrow">Student access</p>
-      <h1>Course Portal</h1>
-      <p>
-        Already enrolled? Go directly to your Thinkific student dashboard. Need a specific course or resource? Use the directory below.
-      </p>
-      <a class="button button-primary" href={site.studentDashboardUrl} target="_top">
-        Go to My Courses / Sign In
-      </a>
-    </div>
-  </section>
+  <div class="portal-page">
+    <section class="portal-hero" data-motion-section="portal-hero">
+      <div class="shell portal-hero-grid">
+        <div>
+          <p class="portal-eyebrow">Student access</p>
+          <h1>Your courses. Your account. One place to get where you need to go.</h1>
+          <p class="portal-deck">
+            Already enrolled? Go straight to your student dashboard. Looking for one specific lesson,
+            exam, review course, Post-Licensing section, or CE resource? Use the directory below.
+          </p>
+          <div class="portal-actions">
+            <a class="button button-primary portal-signin" href={site.studentDashboardUrl} target="_top">
+              My Courses / Sign In
+            </a>
+            <a class="portal-jump" href="#course-directory">Open the course directory ↓</a>
+          </div>
+        </div>
 
-  <section class="course-directory">
-    <div class="shell course-columns">
-      <section class="course-column">
-        <h2>Sales Associate Courses</h2>
-        <div class="course-link-grid">
-          {salesCourses.map((course) => (
-            <a class="course-link" href={course.href} target="_top">{course.label}</a>
+        <aside class="portal-account-card" aria-label="Student account shortcut">
+          <span>FASTEST WAY BACK IN</span>
+          <strong>Use your Thinkific account for enrolled courses.</strong>
+          <p>Your purchases, progress, and enrolled course dashboard stay in Thinkific. This page is the clean connection point from the new Daniel Larson Training site.</p>
+          <a href={site.studentDashboardUrl} target="_top">Open student dashboard →</a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="portal-directory" id="course-directory" data-motion-section="portal-directory">
+      <div class="shell">
+        <div class="portal-section-head">
+          <p class="portal-eyebrow">Course directory</p>
+          <h2>Go directly to the part of your education you need.</h2>
+          <p>The directory is organized by licensing stage — not by how the courses happen to be stored inside Thinkific.</p>
+        </div>
+
+        <div class="portal-group-grid">
+          {groups.map((group) => (
+            <section class:list={["portal-card", { "portal-card-shared": group.shared }]} id={`portal-${group.id}`}>
+              <div class="portal-card-head">
+                <p>{group.eyebrow}</p>
+                <h3>{group.title}</h3>
+                <span>{group.text}</span>
+              </div>
+              <div class="portal-links">
+                {group.items.map((item) => (
+                  <a class="portal-link" href={item.href} target="_top">
+                    <span class="portal-link-copy">
+                      <strong>{item.label}</strong>
+                      {item.note && <small>{item.note}</small>}
+                    </span>
+                    <span class="portal-arrow" aria-hidden="true">→</span>
+                  </a>
+                ))}
+              </div>
+            </section>
           ))}
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="course-column">
-        <h2>Broker Courses</h2>
-        <div class="course-link-grid">
-          {brokerCourses.map((course) => (
-            <a class="course-link" href={course.href} target="_top">{course.label}</a>
-          ))}
+    <section class="portal-help" data-motion-section="portal-help">
+      <div class="shell portal-help-inner">
+        <div>
+          <p class="portal-eyebrow">Not sure where to click?</p>
+          <h2>Text Daniel.</h2>
+          <p>If you are between licensing stages or do not know which course belongs to your renewal, ask before you spend time guessing.</p>
         </div>
-      </section>
-    </div>
-  </section>
+        <a class="button button-primary" href="sms:+12394718500">Text 239.471.8500</a>
+      </div>
+    </section>
+  </div>
 </SiteLayout>

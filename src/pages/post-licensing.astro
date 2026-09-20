@@ -1,18 +1,380 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import { site } from "../data/site";
+import "../styles/post-licensing.css";
+
+const salesPostUrl = "https://portal.daniellarsontraining.com/enroll/2621565";
+const brokerPostUrl = "https://portal.daniellarsontraining.com/enroll/3642987";
+
+const schema = [
+  {
+    "@type": "WebPage",
+    "@id": `${site.url}/post-licensing/#webpage`,
+    url: `${site.url}/post-licensing/`,
+    name: "Florida Real Estate Post-Licensing Courses | Daniel Larson Training",
+    description:
+      "Complete Florida first-renewal Post-Licensing online: 45-hour Sales Associate Post-Licensing or 60-hour Broker Post-Licensing with FastPass final, PDFs, narrated lessons, review questions, and completion reporting support.",
+    isPartOf: { "@id": `${site.url}/#website` },
+    publisher: { "@id": `${site.url}/#organization` },
+  },
+  {
+    "@type": "Course",
+    "@id": `${site.url}/post-licensing/#sales-post`,
+    name: "Florida 45-Hour Sales Associate Post-Licensing",
+    description:
+      "Florida Sales Associate first-renewal Post-Licensing with downloadable section PDFs, narrated lessons, review questions, FastPass final exam, and completion reporting support.",
+    provider: { "@id": `${site.url}/#organization` },
+    inLanguage: "en-US",
+  },
+  {
+    "@type": "Course",
+    "@id": `${site.url}/post-licensing/#broker-post`,
+    name: "Florida 60-Hour Broker Post-Licensing",
+    description:
+      "Florida Broker and Broker Associate first-renewal Post-Licensing with broker-focused PDFs, narrated lessons, review questions, FastPass final exam, and completion reporting support.",
+    provider: { "@id": `${site.url}/#organization` },
+    inLanguage: "en-US",
+  },
+];
 ---
 
 <SiteLayout
-  title="Post Licensing | Daniel Larson Training"
-  description="The 45-hour Sales Post and 60-hour Broker Post offers will share the same permanent site system here."
+  title="Florida Real Estate Post-Licensing Courses | Daniel Larson Training"
+  description="Complete Florida first-renewal Post-Licensing online: 45-hour Sales Associate Post-Licensing or 60-hour Broker Post-Licensing with FastPass final, PDFs, narrated lessons, and completion reporting support."
   canonicalPath="/post-licensing/"
+  schema={schema}
 >
-  <section class="page-placeholder">
-    <div class="shell">
-      <p class="eyebrow">Page shell ready</p>
-      <h1>Post Licensing</h1>
-      <p>The 45-hour Sales Post and 60-hour Broker Post offers will share the same permanent site system here.</p>
-      <p><strong>Next:</strong> we port the approved content into shared native components instead of another standalone Wix embed.</p>
-    </div>
-  </section>
+  <div class="post-page">
+    <section class="post-hero">
+      <div class="shell post-hero-grid">
+        <div class="post-hero-copy">
+          <p class="post-eyebrow">Florida First-Renewal Education</p>
+          <h1>Finish your first renewal without turning it into a project.</h1>
+          <p class="post-lead">
+            Sales associates need 45 hours. Brokers and broker associates need 60 hours.
+            Choose the course that matches the license you most recently earned, then read,
+            listen, review, and use the included FastPass final when you are ready.
+          </p>
+
+          <div class="post-hero-actions">
+            <a class="button button-primary" href="#post-options">Choose your Post course ↓</a>
+            <a class="button button-secondary post-ghost" href="#how-it-works">See how it works</a>
+          </div>
+        </div>
+
+        <aside class="post-help-card" data-tilt>
+          <p class="post-help-kicker">Not sure which renewal course applies?</p>
+          <h2>Post-Licensing is the first-renewal step.</h2>
+          <p>
+            If you recently earned a Florida Sales Associate license, choose Sales Post.
+            If you recently earned a Florida Broker license, choose Broker Post.
+            14-Hour CE is the ongoing renewal path after the post-licensing stage.
+          </p>
+          <a href="sms:+12394718500">Text Daniel · {site.phoneDisplay}</a>
+        </aside>
+      </div>
+
+      <div class="post-trust">
+        <div><strong>FastPass final</strong><span>included</span></div>
+        <div><strong>Self-paced</strong><span>work on your schedule</span></div>
+        <div><strong>Section PDFs</strong><span>download + keep</span></div>
+        <div><strong>Narrated lessons</strong><span>podcast-style audio</span></div>
+        <div><strong>Reporting support</strong><span>after completion</span></div>
+      </div>
+    </section>
+
+    <section class="post-options-section" id="post-options">
+      <div class="shell">
+        <header class="post-section-head" data-post-reveal>
+          <p class="post-eyebrow">Choose by license type</p>
+          <h2>Two first-renewal paths. Pick the one tied to your newest license.</h2>
+          <p>
+            The course format is flexible in both. The required hours and content differ because
+            Florida sets separate post-licensing requirements for Sales Associates and Brokers.
+          </p>
+        </header>
+
+        <div class="post-options-grid">
+          <article class="post-option" data-post-reveal>
+            <div class="post-option-top">
+              <div>
+                <p class="post-option-kicker">Sales Associate · First Renewal</p>
+                <h3>45-Hour Sales Post-Licensing</h3>
+              </div>
+              <div class="post-price">$130</div>
+            </div>
+
+            <p class="post-option-copy">
+              For Florida sales associates completing the required 45 hours of post-licensing
+              education before the first renewal of the initial sales associate license.
+            </p>
+
+            <ul>
+              <li>Complete Sales Post-Licensing course</li>
+              <li>FastPass final exam included</li>
+              <li>Downloadable section PDFs</li>
+              <li>Podcast-style narrated lessons</li>
+              <li>Section review questions</li>
+              <li>Completion reporting support</li>
+            </ul>
+
+            <a class="button button-primary post-option-button" href={salesPostUrl} target="_top">
+              Enroll in Sales Post
+            </a>
+          </article>
+
+          <article class="post-option post-option-broker" data-post-reveal>
+            <div class="post-option-top">
+              <div>
+                <p class="post-option-kicker">Broker or Broker Associate · First Renewal</p>
+                <h3>60-Hour Broker Post-Licensing</h3>
+              </div>
+              <div class="post-price">$160</div>
+            </div>
+
+            <p class="post-option-copy">
+              For Florida brokers and broker associates completing the required 60 hours of
+              post-licensing education before the first renewal of the initial broker license.
+            </p>
+
+            <ul>
+              <li>Complete Broker Post-Licensing course</li>
+              <li>FastPass final exam included</li>
+              <li>Broker-focused PDFs + narrated lessons</li>
+              <li>Section review questions</li>
+              <li>Management, operations, risk + trust accounts</li>
+              <li>Completion reporting support</li>
+            </ul>
+
+            <a class="button button-primary post-option-button" href={brokerPostUrl} target="_top">
+              Enroll in Broker Post
+            </a>
+          </article>
+        </div>
+
+        <p class="post-partner-note">
+          <strong>Have a Partner Code?</strong> Enter it at checkout. No code? Ask your broker, office manager, recruiter, or trainer.
+        </p>
+      </div>
+    </section>
+
+    <section class="post-flow" id="how-it-works">
+      <div class="shell">
+        <div class="post-flow-grid">
+          <article data-post-reveal>
+            <span>01</span>
+            <h3>Choose the right Post course.</h3>
+            <p>Sales associates take 45 hours. Brokers and broker associates take 60 hours.</p>
+          </article>
+          <article data-post-reveal>
+            <span>02</span>
+            <h3>Use what you need.</h3>
+            <p>Read, listen, and review at your own pace without a forced lesson sequence.</p>
+          </article>
+          <article data-post-reveal>
+            <span>03</span>
+            <h3>Finish with FastPass.</h3>
+            <p>Complete the included on-demand final exam when you are ready.</p>
+          </article>
+          <article data-post-reveal>
+            <span>04</span>
+            <h3>We report. You renew.</h3>
+            <p>Send the required license information, then complete the separate renewal with DBPR.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="post-course-system">
+      <div class="shell post-system-grid">
+        <div>
+          <header class="post-section-head post-section-head-light" data-post-reveal>
+            <p class="post-eyebrow">A complete course</p>
+            <h2>FastPass is the finish line. The rest is your toolbox.</h2>
+            <p>
+              You are not buying a final-exam link with filler wrapped around it. Both Post courses
+              give you a complete learning system that you can use as heavily or lightly as you need.
+            </p>
+          </header>
+        </div>
+
+        <div class="post-tool-grid">
+          <article class="post-tool" data-post-reveal>
+            <span>Read</span>
+            <h3>Professionally formatted section PDFs</h3>
+            <p>Read inside the course, download each section, and keep useful material for later reference.</p>
+          </article>
+          <article class="post-tool" data-post-reveal>
+            <span>Listen</span>
+            <h3>Narrated, audio-guided lessons</h3>
+            <p>Listen podcast-style or follow the narration while reading the section PDF.</p>
+          </article>
+          <article class="post-tool" data-post-reveal>
+            <span>Review</span>
+            <h3>Section review questions</h3>
+            <p>Use quick confidence checks whenever you want reinforcement before the final.</p>
+          </article>
+          <article class="post-tool" data-post-reveal>
+            <span>Finish</span>
+            <h3>FastPass final exam</h3>
+            <p>An on-demand final exam designed to make course completion clear and manageable.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="post-included">
+      <div class="shell">
+        <header class="post-section-head" data-post-reveal>
+          <p class="post-eyebrow">Inside the enrollment</p>
+          <h2>Required education plus practical real-world material.</h2>
+          <p>
+            Both courses combine Florida-required education with practical tools, current examples,
+            flexible delivery, review support, and a clear completion path.
+          </p>
+        </header>
+
+        <div class="post-feature-grid">
+          <article data-post-reveal>
+            <span>Required Education</span>
+            <h3>Florida law + procedures</h3>
+            <p>Licensing responsibilities, contracts, brokerage relationships, advertising, compensation, and consumer protection.</p>
+          </article>
+          <article data-post-reveal>
+            <span>Professional Practice</span>
+            <h3>Ethics + risk awareness</h3>
+            <p>Professional judgment, client service, communication, ethical decisions, and avoiding preventable problems.</p>
+          </article>
+          <article data-post-reveal>
+            <span>Business Development</span>
+            <h3>Planning, marketing + systems</h3>
+            <p>Practical tools for organizing the business, serving clients, developing opportunities, and working consistently.</p>
+          </article>
+          <article data-post-reveal>
+            <span>Modern Course Tools</span>
+            <h3>PDFs + narrated lessons</h3>
+            <p>Use the course on a computer, tablet, or phone without depending on a printed textbook.</p>
+          </article>
+          <article data-post-reveal>
+            <span>Confidence Checks</span>
+            <h3>Review questions throughout</h3>
+            <p>Reinforce important rules and concepts whenever you need a quick check.</p>
+          </article>
+          <article data-post-reveal>
+            <span>Finish Efficiently</span>
+            <h3>FastPass final</h3>
+            <p>When you are ready, move to the included on-demand final exam and complete the course.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="post-updates">
+      <div class="shell">
+        <header class="post-section-head" data-post-reveal>
+          <p class="post-eyebrow">Current course material</p>
+          <h2>The course can move when the industry moves.</h2>
+          <p>
+            Major legal, licensing, or industry changes sometimes deserve more than a footnote.
+            Relevant course material can be added when it helps Florida licensees understand what changed.
+          </p>
+        </header>
+
+        <div class="post-bonus-grid">
+          <article data-post-reveal>
+            <p>Bonus</p>
+            <h3>NAR settlement overview</h3>
+            <span>Written buyer agreements, compensation communication, what changed in national practice, and what did not replace Florida license law.</span>
+          </article>
+          <article data-post-reveal>
+            <p>Course Update</p>
+            <h3>Post, CE + renewal</h3>
+            <span>Which education belongs to which renewal stage, what completion means, how reporting works, and what you still do through MyFloridaLicense.com.</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="post-finish">
+      <div class="shell">
+        <header class="post-section-head post-section-head-light" data-post-reveal>
+          <p class="post-eyebrow">After the final exam</p>
+          <h2>Finish the course. Send the license information. Complete your renewal.</h2>
+          <p>
+            Completing the final exam is the course milestone. Reporting and the separate state renewal transaction come next.
+          </p>
+        </header>
+
+        <div class="post-finish-grid">
+          <article data-post-reveal>
+            <strong>1</strong>
+            <h3>Complete the FastPass final.</h3>
+            <p>Finish the included on-demand final exam for your Sales or Broker Post course.</p>
+          </article>
+          <article data-post-reveal>
+            <strong>2</strong>
+            <h3>Send your license information.</h3>
+            <p>Email your full licensed name, license number, and course completion date to the school.</p>
+          </article>
+          <article data-post-reveal>
+            <strong>3</strong>
+            <h3>We report completion.</h3>
+            <p>Daniel Larson Training reports completion to DBPR within 24 hours after receiving the required license information.</p>
+          </article>
+          <article data-post-reveal>
+            <strong>4</strong>
+            <h3>You finish the renewal.</h3>
+            <p>Complete the separate license-renewal transaction through MyFloridaLicense.com.</p>
+          </article>
+        </div>
+
+        <div class="post-warning">
+          <span>!</span>
+          <p>
+            <strong>Do not wait until the final minute.</strong> State processing may take additional business days
+            after the school reports completion.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="post-which">
+      <div class="shell">
+        <header class="post-section-head" data-post-reveal>
+          <p class="post-eyebrow">Which course do you need?</p>
+          <h2>Choose based on the license you most recently earned.</h2>
+          <p>Not on the kind of real estate work you currently perform.</p>
+        </header>
+
+        <div class="post-which-grid">
+          <article data-post-reveal>
+            <span>45 Hours · $130</span>
+            <h3>You recently earned a Sales Associate license.</h3>
+            <p>Choose Sales Post-Licensing for the first renewal of the initial Florida Sales Associate license.</p>
+            <a href={salesPostUrl} target="_top">Enroll in Sales Post →</a>
+          </article>
+          <article data-post-reveal>
+            <span>60 Hours · $160</span>
+            <h3>You recently earned a Broker license.</h3>
+            <p>Choose Broker Post-Licensing for the first renewal after initial Florida broker licensure.</p>
+            <a href={brokerPostUrl} target="_top">Enroll in Broker Post →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="post-final">
+      <div class="shell post-final-inner">
+        <div>
+          <p class="post-eyebrow">First renewal</p>
+          <h2>Get Post-Licensing handled.</h2>
+          <p>Choose the course tied to the license you most recently earned and work through it on your schedule.</p>
+        </div>
+        <div class="post-final-actions">
+          <a class="button button-primary" href={salesPostUrl} target="_top">Sales Post-Licensing</a>
+          <a class="button button-secondary post-final-secondary" href={brokerPostUrl} target="_top">Broker Post-Licensing</a>
+        </div>
+      </div>
+    </section>
+  </div>
 </SiteLayout>

@@ -1,0 +1,90 @@
+<script is:inline>
+(() => {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const compactMobile = window.matchMedia('(max-width: 620px)').matches;
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const motionOff = reduced || compactMobile;
+
+  document.documentElement.classList.toggle('motion-enabled', !motionOff);
+
+  const legacyRevealSelectors = [
+    '.licensing-parity .section-head',
+    '.licensing-parity .package',
+    '.licensing-parity .step',
+    '.licensing-parity .feature',
+    '.licensing-parity .bookcard',
+    '.licensing-parity .comparison',
+    '.licensing-parity .review',
+    '.licensing-parity .about-grid > *',
+    '.licensing-parity .faq details',
+    '.licensing-parity .finalcta .wrap',
+    '.portal-page .portal-section-head',
+    '.portal-page .portal-card',
+    '.portal-page .portal-help-inner'
+  ];
+
+  const revealItems = [...new Set([
+    ...document.querySelectorAll('[data-reveal], [data-post-reveal], [data-ce-reveal]'),
+    ...document.querySelectorAll(legacyRevealSelectors.join(','))
+  ])];
+
+  revealItems.forEach((el) => {
+    el.classList.add('motion-reveal');
+    const parent = el.parentElement;
+    if (parent) {
+      const siblings = [...parent.children].filter((child) => revealItems.includes(child));
+      const siblingIndex = Math.max(0, siblings.indexOf(el));
+      el.style.setProperty('--reveal-delay', `${Math.min(siblingIndex * 65, 260)}ms`);
+    }
+  });
+
+  if (motionOff || !('IntersectionObserver' in window)) {
+    revealItems.forEach((el) => el.classList.add('motion-in'));
+  } else {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('motion-in');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealItems.forEach((el) => observer.observe(el));
+  }
+
+  const header = document.querySelector('.site-header');
+  const setHeaderState = () => header?.classList.toggle('is-scrolled', window.scrollY > 18);
+  setHeaderState();
+  window.addEventListener('scroll', setHeaderState, { passive: true });
+
+  if (!finePointer || motionOff) return;
+
+  const pointerItems = document.querySelectorAll(
+    '.licensing-parity .package, .licensing-parity .hero-card, .licensing-parity .mark, [data-tilt]'
+  );
+
+  pointerItems.forEach((el) => {
+    el.classList.add('motion-pointer');
+    let raf = 0;
+    const update = (event) => {
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const rect = el.getBoundingClientRect();
+        const x = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+        const y = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+        el.style.setProperty('--mx', `${x * 100}%`);
+        el.style.setProperty('--my', `${y * 100}%`);
+        el.style.setProperty('--tilt-x', `${(0.5 - y) * 1.8}deg`);
+        el.style.setProperty('--tilt-y', `${(x - 0.5) * 2.4}deg`);
+      });
+    };
+    el.addEventListener('pointermove', update);
+    el.addEventListener('pointerleave', () => {
+      if (raf) cancelAnimationFrame(raf);
+      el.style.removeProperty('--mx');
+      el.style.removeProperty('--my');
+      el.style.removeProperty('--tilt-x');
+      el.style.removeProperty('--tilt-y');
+    });
+  });
+})();
+</script>

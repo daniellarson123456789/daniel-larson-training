@@ -1,0 +1,393 @@
+
+  .licensing-parity{
+    --night:#080426;
+    --navy:#0a1236;
+    --panel:#0d1f3b;
+    --panel2:#10294c;
+    --blue:#2578ea;
+    --blue2:#3b8cff;
+    --white:#fff;
+    --ink:#edf4ff;
+    --muted:#b8c7dd;
+    --line:rgba(255,255,255,.14);
+    --soft:#f5f8fc;
+    --darktext:#0b1f3a;
+    --radius:18px;
+    --shadow:0 24px 60px rgba(0,0,0,.28);
+    --max:1180px;
+  }
+  .licensing-parity *{box-sizing:border-box}
+  .licensing-parity{scroll-behavior:smooth}
+  .licensing-parity{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--night);color:var(--ink);line-height:1.5}
+  .licensing-parity a{color:inherit}
+  .licensing-parity .wrap{width:min(var(--max),calc(100% - 40px));margin:auto}
+  .licensing-parity .brandbar{
+    background:#fff;
+    color:#071a33;
+    border-bottom:1px solid #dfe7f0;
+  }
+  .licensing-parity .brandbar .wrap{
+    display:flex;
+    align-items:center;
+    min-height:72px;
+  }
+  .licensing-parity .brand{
+    font-size:21px;
+    font-weight:900;
+    letter-spacing:.035em;
+    text-decoration:none;
+    white-space:nowrap;
+  }
+  .licensing-parity .brand small{
+    display:block;
+    font-size:10px;
+    letter-spacing:.16em;
+    color:#4c5d70;
+    margin-top:2px;
+  }
+
+  .licensing-parity .hero{position:relative;overflow:hidden;background:
+      radial-gradient(900px 450px at 86% 20%,rgba(37,120,234,.30),transparent 62%),
+      radial-gradient(900px 600px at 14% 85%,rgba(101,57,255,.18),transparent 64%),
+      linear-gradient(135deg,#0d0640 0%,#15105a 48%,#07162f 100%);
+    border-bottom:1px solid rgba(255,255,255,.12)}
+  .licensing-parity .hero .wrap{display:grid;grid-template-columns:1.35fr .65fr;gap:48px;padding:66px 0 42px}
+  .licensing-parity .eyebrow{display:inline-flex;align-items:center;gap:8px;font-weight:900;font-size:12px;letter-spacing:.10em;text-transform:uppercase;color:#bfd7ff}
+  .licensing-parity .eyebrow:before{content:"";width:28px;height:3px;background:var(--blue2);border-radius:10px}
+  .licensing-parity h1{font-size:clamp(46px,6.4vw,86px);line-height:.93;letter-spacing:-.045em;text-transform:uppercase;margin:18px 0 18px;max-width:900px;font-weight:950}
+  .licensing-parity h1 em{display:block;color:#fff;font-style:italic}
+  .licensing-parity .hero-deck{font-size:20px;max-width:720px;color:#e5edfb;font-weight:650}
+  .licensing-parity .hero-kicker{font-size:14px;letter-spacing:.06em;text-transform:uppercase;font-weight:900;margin:22px 0 0;color:#fff}
+  .licensing-parity .hero-actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:28px}
+  .licensing-parity .btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;text-decoration:none;font-weight:900;border-radius:12px;padding:14px 18px;border:1px solid transparent;transition:.18s ease}
+  .licensing-parity .btn:hover{transform:translateY(-2px)}
+  .licensing-parity .btn-primary{background:var(--blue);color:#fff;box-shadow:0 14px 34px rgba(37,120,234,.30)}
+  .licensing-parity .btn-ghost{border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.06)}
+  .licensing-parity .hero-card{align-self:start;margin-top:135px;background:rgba(3,10,31,.62);border:1px solid rgba(255,255,255,.16);border-radius:20px;padding:24px;box-shadow:var(--shadow);backdrop-filter:blur(10px)}
+  .licensing-parity .hero-card h2{font-size:22px;margin:0 0 8px}
+  .licensing-parity .hero-card p{margin:0;color:var(--muted)}
+  .licensing-parity .support-number{font-size:27px;font-weight:950;display:block;margin-top:16px;text-decoration:none;color:#fff}
+  .licensing-parity .support-note{font-size:12px;color:#9fb4cd;margin-top:4px}
+  .licensing-parity .truststrip{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(255,255,255,.09);border-top:1px solid rgba(255,255,255,.11)}
+  .licensing-parity .truststrip div{min-height:82px;padding:14px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:rgba(1,7,24,.42);font-size:12px;font-weight:800;color:#d6e1f3}
+  .licensing-parity .truststrip b{display:block;color:#fff;font-size:14px;margin-bottom:2px}
+  .licensing-parity .truststrip .support-trust a{display:block;color:#d6e1f3;text-decoration:none;font-size:11px;font-weight:800;overflow-wrap:anywhere}
+  .licensing-parity .truststrip .support-trust a:hover{text-decoration:underline}
+
+  .licensing-parity section{padding:58px 0}
+  .licensing-parity .section-head{max-width:780px;margin-bottom:28px}
+  .licensing-parity .section-head h2{font-size:clamp(31px,4.5vw,52px);line-height:1.02;letter-spacing:-.035em;margin:8px 0 10px}
+  .licensing-parity .section-head p{color:var(--muted);font-size:17px;margin:0}
+
+  .licensing-parity .packages{background:linear-gradient(180deg,#08122d,#06031f)}
+  .licensing-parity #packages{scroll-margin-top:0}
+  .licensing-parity .package-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .licensing-parity .package{position:relative;background:linear-gradient(180deg,#132c50,#0a1730);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:24px;box-shadow:var(--shadow);display:flex;flex-direction:column;min-height:430px}
+  .licensing-parity .package.featured{border:2px solid var(--blue2);transform:translateY(-7px);height:calc(100% + 7px);box-shadow:0 28px 70px rgba(37,120,234,.19)}
+  .licensing-parity .badge{display:inline-flex;align-self:flex-start;font-size:10px;font-weight:950;letter-spacing:.10em;text-transform:uppercase;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14)}
+  .licensing-parity .badge.blue{background:var(--blue);border-color:var(--blue)}
+  .licensing-parity .package h3{font-size:30px;line-height:1;margin:22px 0 4px;text-transform:uppercase;font-style:italic}
+  .licensing-parity .subplan{color:#c6d4e6;font-weight:800;font-size:13px;min-height:42px}
+  .licensing-parity .price{font-size:48px;font-weight:950;letter-spacing:-.05em;margin:18px 0 2px}
+  .licensing-parity .price-note{font-size:12px;color:#9fb0c5}
+  .licensing-parity .package ul{padding:0;margin:22px 0;list-style:none;display:grid;gap:9px;color:#d5e0ef;font-size:14px}
+  .licensing-parity .package li{display:flex;align-items:flex-start;gap:9px}
+  .licensing-parity .package li:before{content:"✓";flex:0 0 auto;color:#75b0ff;font-weight:950;margin-right:0}
+  .licensing-parity .package .btn{margin-top:auto;width:100%}
+  .licensing-parity .micro{font-size:11px;color:#859ab4;margin-top:10px;text-align:center}
+
+  .licensing-parity .fastpass{background:#fff;color:var(--darktext)}
+  .licensing-parity .fastpass .section-head p{color:#52657a}
+  .licensing-parity .fast-grid{display:grid;grid-template-columns:.78fr 1.22fr;gap:34px;align-items:center}
+  .licensing-parity .mark-scene{
+    min-height:430px;
+    display:grid;
+    place-items:center;
+  }
+  .licensing-parity .mark{
+    position:relative;
+    z-index:1;
+    display:block;
+    width:min(74%, 285px);
+    aspect-ratio:1;
+    text-decoration:none;
+    transition:transform .18s ease;
+  }
+  .licensing-parity .mark:hover{transform:translateY(-2px) scale(1.01)}
+  .licensing-parity .mark:focus-visible{outline:3px solid rgba(37,120,234,.45);outline-offset:6px;border-radius:24px}
+  .licensing-parity .mark img{
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    filter:drop-shadow(0 18px 30px rgba(10,45,91,.22));
+  }
+  .licensing-parity .steps{display:grid;gap:14px}
+  .licensing-parity .step{display:grid;grid-template-columns:46px 1fr;gap:14px;padding:18px;border:1px solid #dbe4ee;border-radius:14px;background:#fbfdff}
+  .licensing-parity .stepnum{width:38px;height:38px;border-radius:12px;background:#e9f2ff;color:#1766c7;font-weight:950;display:grid;place-items:center}
+  .licensing-parity .step h3{margin:0 0 4px;font-size:18px}
+  .licensing-parity .step p{margin:0;color:#52657a;font-size:14px}
+
+  .licensing-parity .included{background:linear-gradient(180deg,#071a32,#071329)}
+  .licensing-parity .included-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:32px;align-items:start}
+  .licensing-parity .included h2{font-size:clamp(36px,5vw,62px);line-height:.96;margin:12px 0 15px;text-transform:uppercase}
+  .licensing-parity .included h2 em{font-style:italic;color:#fff}
+  .licensing-parity .included-copy{color:#c1cfe0;max-width:620px}
+  .licensing-parity .feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .licensing-parity .feature{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.12);border-radius:13px;padding:14px}
+  .licensing-parity .feature b{display:block;color:#fff;margin-bottom:3px;font-size:13px}
+  .licensing-parity .feature span{color:#a9bbd0;font-size:12px}
+
+  .licensing-parity .books{padding-top:0;background:linear-gradient(180deg,#071329,#090524)}
+  .licensing-parity .bookcard{display:grid;grid-template-columns:1.35fr .65fr;gap:24px;border:1px solid rgba(255,255,255,.14);background:linear-gradient(135deg,#132b45,#11172d);border-radius:18px;padding:24px;align-items:center}
+  .licensing-parity .bookcard h2{margin:0 0 8px;font-size:30px;text-transform:uppercase}
+  .licensing-parity .bookcard p{margin:0;color:#c0cddd}
+  .licensing-parity .bookaside{border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:16px;background:rgba(0,0,0,.16)}
+  .licensing-parity .bookaside b{display:block;margin-bottom:4px}
+  .licensing-parity .credential{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.12);padding-top:12px;font-size:11px;color:#aabbd0;text-transform:uppercase;letter-spacing:.055em;font-weight:800}
+
+  .licensing-parity .compare{background:#f7f9fc;color:var(--darktext)}
+  .licensing-parity .compare .section-head p{color:#52657a}
+  .licensing-parity .comparison{background:#fff;border:1px solid #dce5ef;border-radius:18px;overflow:hidden;box-shadow:0 18px 45px rgba(10,31,60,.08)}
+  .licensing-parity .comparison-table{width:100%;border-collapse:collapse;table-layout:fixed;text-align:left}
+  .licensing-parity .comparison-table col.feature-col{width:29.412%}
+  .licensing-parity .comparison-table col:not(.feature-col){width:23.529%}
+  .licensing-parity .comparison-table caption{
+    position:absolute;
+    width:1px;
+    height:1px;
+    padding:0;
+    margin:-1px;
+    overflow:hidden;
+    clip:rect(0 0 0 0);
+    white-space:nowrap;
+    border:0;
+  }
+  .licensing-parity .comparison-table th, .licensing-parity .comparison-table td{
+    padding:14px 16px;
+    border-right:1px solid #e8edf3;
+    border-bottom:1px solid #e5ebf2;
+    font-size:13px;
+    vertical-align:middle;
+  }
+  .licensing-parity .comparison-table th:last-child, .licensing-parity .comparison-table td:last-child{border-right:0}
+  .licensing-parity .comparison-table tbody tr:last-child th, .licensing-parity .comparison-table tbody tr:last-child td{border-bottom:0}
+  .licensing-parity .comparison-table thead th{
+    padding-top:18px;
+    padding-bottom:18px;
+    background:#0b2341;
+    color:#fff;
+    font-weight:900;
+  }
+  .licensing-parity .comparison-table thead small{display:block;color:#b9cae0;font-weight:600;margin-top:3px}
+  .licensing-parity .comparison-table tbody th{color:var(--darktext);font-weight:500;background:#fff}
+  .licensing-parity .yes{font-weight:900;color:#0f5db8}
+  .licensing-parity .dash{color:#64788f}
+  .licensing-parity .best{background:#edf5ff;color:#153a64}
+  .licensing-parity .yes.best{color:#075cad}
+  .licensing-parity .dash.best{color:#64788f}
+  .licensing-parity .comparison-table thead .best-head{
+    background:#205da8;
+    color:#fff;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.10);
+  }
+  .licensing-parity .comparison-table thead .best-head small{
+    color:#dcecff;
+    opacity:1;
+  }
+
+
+  .licensing-parity .reviews{background:linear-gradient(180deg,#0c203d,#0a1830)}
+  .licensing-parity .review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .licensing-parity .review{border:1px solid rgba(255,255,255,.14);border-radius:15px;padding:16px;background:rgba(255,255,255,.055);display:flex;flex-direction:column;min-height:250px}
+  .licensing-parity .stars{font-size:12px;letter-spacing:.08em;margin-bottom:9px}
+  .licensing-parity .review blockquote{margin:0;color:#d1ddec;font-size:13px;line-height:1.5}
+  .licensing-parity .who{margin-top:auto;padding-top:14px;border-top:1px solid rgba(255,255,255,.10);font-size:12px;color:#a9bcd2}
+  .licensing-parity .who b{display:block;color:#fff;font-size:13px}
+
+  .licensing-parity .about{background:#fff;color:var(--darktext)}
+  .licensing-parity .about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:start}
+  .licensing-parity .about h2{font-size:42px;line-height:1.02;margin:10px 0 14px}
+  .licensing-parity .about p{color:#4f6278}
+  .licensing-parity .proofbox{border:1px solid #dce5ef;border-radius:16px;padding:20px;background:#f8fbff}
+  .licensing-parity .proofbox b{display:block;font-size:15px;margin-bottom:4px}
+  .licensing-parity .proofbox div+div{border-top:1px solid #e2e9f1;margin-top:13px;padding-top:13px}
+
+  .licensing-parity .faq{background:#f4f7fb;color:var(--darktext)}
+  .licensing-parity .faq-list{display:grid;gap:10px;max-width:900px}
+  .licensing-parity details{background:#fff;border:1px solid #dce5ef;border-radius:12px;padding:16px 18px}
+  .licensing-parity summary{font-weight:900;cursor:pointer}
+  .licensing-parity details p{color:#52657a;margin:10px 0 0}
+
+  .licensing-parity .finalcta{background:linear-gradient(135deg,#0f0a47,#0b2d5c);text-align:center}
+  .licensing-parity .finalcta h2{font-size:clamp(34px,5vw,58px);margin:0 0 10px;text-transform:uppercase;letter-spacing:-.03em}
+  .licensing-parity .finalcta p{color:#c5d2e4;max-width:700px;margin:0 auto 24px}
+  .licensing-parity .final-link{display:inline-block;margin-top:16px;color:#d7e5fb;font-size:13px;font-weight:850;text-underline-offset:4px}
+
+  .licensing-parity footer{background:#fff;color:#26384d;padding:32px 0;font-size:12px}
+  .licensing-parity footer strong{font-size:23px;color:#091b33;display:block;margin-bottom:8px}
+  .licensing-parity footer .legal{color:#67788c;margin-top:18px;max-width:1000px}
+
+  /* Polished motion / shine layer */
+  @keyframes cardSheen{
+    0%{transform:translateX(-170%) skewX(-18deg);opacity:0}
+    18%{opacity:.7}
+    100%{transform:translateX(430%) skewX(-18deg);opacity:0}
+  }
+  @keyframes buttonSheen{
+    0%{transform:translateX(-180%) skewX(-20deg);opacity:0}
+    20%{opacity:.72}
+    100%{transform:translateX(420%) skewX(-20deg);opacity:0}
+  }
+  @keyframes featuredGlow{
+    0%,100%{box-shadow:0 28px 70px rgba(37,120,234,.19),inset 0 1px 0 rgba(255,255,255,.10)}
+    50%{box-shadow:0 30px 82px rgba(59,140,255,.30),inset 0 1px 0 rgba(255,255,255,.15)}
+  }
+
+  .licensing-parity .package{
+    overflow:hidden;
+    isolation:isolate;
+    box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.09);
+    transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease;
+  }
+  .licensing-parity .package::before{
+    content:"";
+    position:absolute;
+    inset:0 0 auto 0;
+    height:38%;
+    border-radius:20px 20px 55% 55%;
+    background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,0));
+    pointer-events:none;
+    z-index:0;
+  }
+  .licensing-parity .package::after{
+    content:"";
+    position:absolute;
+    top:-35%;
+    left:-35%;
+    width:18%;
+    height:175%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.20),transparent);
+    transform:translateX(-170%) skewX(-18deg);
+    pointer-events:none;
+    z-index:0;
+  }
+  .licensing-parity .package > *{position:relative;z-index:1}
+  .licensing-parity .package:hover{
+    transform:translateY(-4px);
+    border-color:rgba(117,176,255,.48);
+    box-shadow:0 30px 72px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.13);
+  }
+  .licensing-parity .package:hover::after{animation:cardSheen .9s ease}
+  .licensing-parity .package.featured{
+    animation:none;
+  }
+  .licensing-parity .package.featured:hover{transform:translateY(-10px)}
+
+  .licensing-parity .btn-primary{
+    position:relative;
+    overflow:hidden;
+    isolation:isolate;
+  }
+  .licensing-parity .btn-primary::after{
+    content:"";
+    position:absolute;
+    top:-55%;
+    left:-35%;
+    width:20%;
+    height:210%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.34),transparent);
+    transform:translateX(-180%) skewX(-20deg);
+    pointer-events:none;
+    z-index:0;
+  }
+  .licensing-parity .btn-primary > *{position:relative;z-index:1}
+  .licensing-parity .btn-primary:hover::after{animation:buttonSheen .72s ease}
+
+  .licensing-parity .hero-card, .licensing-parity .feature, .licensing-parity .bookcard, .licensing-parity .proofbox{
+    transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+  }
+  .licensing-parity .hero-card:hover, .licensing-parity .feature:hover, .licensing-parity .bookcard:hover, .licensing-parity .proofbox:hover{
+    transform:translateY(-2px);
+    border-color:rgba(117,176,255,.30);
+  }
+
+  @media (max-width:900px){
+    /* Mobile performance mode:
+       show the content immediately and keep the visual polish static.
+       No looping sheen, shimmer, glow, or hover movement on phones/tablets. */
+    .licensing-parity .package::after, .licensing-parity .btn-primary::after{display:none !important}
+
+    .licensing-parity .package.featured{animation:none !important}
+    .licensing-parity .package, .licensing-parity .btn, .licensing-parity .hero-card, .licensing-parity .feature, .licensing-parity .bookcard, .licensing-parity .proofbox{transition:none}
+
+    .licensing-parity .package:hover, .licensing-parity .package.featured:hover, .licensing-parity .hero-card:hover, .licensing-parity .feature:hover, .licensing-parity .bookcard:hover, .licensing-parity .proofbox:hover{transform:none}
+
+    .licensing-parity .package:hover::after, .licensing-parity .btn-primary:hover::after{animation:none !important}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .licensing-parity .package, .licensing-parity .btn, .licensing-parity .hero-card, .licensing-parity .feature, .licensing-parity .bookcard, .licensing-parity .proofbox{transition:none}
+    .licensing-parity .package.featured, .licensing-parity .package::after, .licensing-parity .btn-primary::after{animation:none !important}
+    .licensing-parity .package:hover::after, .licensing-parity .btn-primary:hover::after{animation:none}
+    .licensing-parity .package:hover, .licensing-parity .package.featured:hover, .licensing-parity .hero-card:hover, .licensing-parity .feature:hover, .licensing-parity .bookcard:hover, .licensing-parity .proofbox:hover{transform:none}
+  }
+
+  @media (max-width:900px){
+    .licensing-parity .hero .wrap, .licensing-parity .fast-grid, .licensing-parity .included-grid, .licensing-parity .about-grid, .licensing-parity .bookcard{grid-template-columns:1fr}
+    .licensing-parity .hero .wrap{padding-top:46px}.licensing-parity .hero-card{max-width:560px;margin-top:0}.licensing-parity .truststrip{grid-template-columns:repeat(2,1fr)}
+    .licensing-parity .package-grid{grid-template-columns:1fr}.licensing-parity .package.featured{transform:none;height:auto}.licensing-parity .feature-grid, .licensing-parity .review-grid{grid-template-columns:1fr}.licensing-parity .mark-scene{min-height:360px}
+    .licensing-parity .comparison{overflow-x:auto}.licensing-parity .comparison-table{min-width:780px}
+  }
+  @media (max-width:560px){
+    .licensing-parity .wrap{width:min(var(--max),calc(100% - 26px))}
+    .licensing-parity .brandbar .wrap{min-height:62px}
+    .licensing-parity .brand{font-size:17px}
+
+    .licensing-parity h1{font-size:48px}
+    .licensing-parity .hero-deck{font-size:17px}
+    .licensing-parity .hero-actions{align-items:stretch}
+    .licensing-parity .hero-actions .btn{width:100%}
+
+    /* Keep the five trust items balanced on a 2-column phone layout:
+       2 + 2 + one full-width final item instead of a half-empty last row. */
+    .licensing-parity .truststrip{grid-template-columns:1fr 1fr}
+    .licensing-parity .truststrip > div:last-child{grid-column:1 / -1}
+
+    /* The desktop FastPass logo stage was creating a large white well on phones.
+       On mobile, let the logo size define the stage instead of a fixed min-height. */
+    .licensing-parity .fastpass{padding-top:26px;padding-bottom:42px}
+    .licensing-parity .fast-grid{gap:10px}
+    .licensing-parity .mark-scene{
+      min-height:0;
+      padding:6px 0 14px;
+    }
+    .licensing-parity .mark{width:min(64vw,240px)}
+    .licensing-parity .fastpass .section-head{margin-bottom:22px}
+
+    .licensing-parity .package{min-height:0}
+    .licensing-parity .feature-grid{grid-template-columns:1fr}
+  }
+  .licensing-parity, .licensing-parity{background:#fff}
+
+
+/* FINAL PACKAGE CARD ALIGNMENT */
+@media (min-width:901px){
+  .licensing-parity .package-grid{align-items:stretch}
+  .licensing-parity .package,
+  .licensing-parity .package.featured{height:auto;transform:none}
+  .licensing-parity .package:hover,
+  .licensing-parity .package.featured:hover{transform:translateY(-4px)}
+}
+
+
+/* Top information rows are intentionally static: no entrance or hover motion. */
+.licensing-parity .truststrip > div,
+.licensing-parity .truststrip > div:hover{
+  animation:none!important;
+  transition:none!important;
+  transform:none!important;
+  box-shadow:none!important;
+}
+.licensing-parity .truststrip > div:hover{
+  background:rgba(1,7,24,.42)!important;
+}

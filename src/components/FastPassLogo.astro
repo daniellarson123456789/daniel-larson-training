@@ -1,0 +1,19 @@
+---
+type Props = {
+  href: string;
+  label: string;
+  trackingId?: string;
+};
+
+const { href, label, trackingId } = Astro.props;
+---
+
+<a
+  class="fastpass-logo-card"
+  href={href}
+  target="_top"
+  aria-label={label}
+  data-product={trackingId}
+>
+  <img src="/fastpass-logo.webp" alt="FastPass Florida real estate exam preparation" />
+</a>

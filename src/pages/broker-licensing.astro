@@ -1,18 +1,308 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import "../styles/licensing-parity.css";
+
+const schema = [
+  {
+    "@type": "Course",
+    "@id": "https://www.daniellarsontraining.com/broker-licensing#course2",
+    "name": "Florida 72-Hour Broker Pre-License Course (Course 2)",
+    "description": "Florida broker pre-license education with Broker FastPass certification and exam preparation, audio/video instruction, 500+ questions and explanations, one-year access, free printed books on request, and direct instructor support.",
+    "provider": {
+      "@id": "https://www.daniellarsontraining.com/#organization"
+    },
+    "inLanguage": "en-US"
+  },
+  {
+    "@type": "WebPage",
+    "@id": "https://www.daniellarsontraining.com/broker-licensing#webpage",
+    "url": "https://www.daniellarsontraining.com/broker-licensing",
+    "name": "Florida Real Estate Broker License Course Online | Daniel Larson Training",
+    "description": "Prepare for your Florida real estate broker license online with required broker pre-license education, Broker FastPass certification and exam preparation, 500+ Q&A, free printed books, one-year access, and direct instructor support. Options from $160.",
+    "isPartOf": {
+      "@id": "https://www.daniellarsontraining.com/#website"
+    },
+    "about": {
+      "@id": "https://www.daniellarsontraining.com/broker-licensing#course2"
+    },
+    "publisher": {
+      "@id": "https://www.daniellarsontraining.com/#organization"
+    },
+    "inLanguage": "en-US"
+  }
+];
 ---
 
 <SiteLayout
-  title="Broker Licensing | Daniel Larson Training"
-  description="The permanent Broker Course 2 / FastPass / Career Launch page will be built here from our approved Broker design."
+  title="Florida Real Estate Broker License Course Online | Daniel Larson Training"
+  description="Prepare for your Florida real estate broker license online with required broker pre-license education, Broker FastPass certification and exam preparation, 500+ Q&A, free printed books, one-year access, and direct instructor support. Options from $160."
   canonicalPath="/broker-licensing/"
+  schema={schema}
 >
-  <section class="page-placeholder">
-    <div class="shell">
-      <p class="eyebrow">Page shell ready</p>
-      <h1>Broker Licensing</h1>
-      <p>The permanent Broker Course 2 / FastPass / Career Launch page will be built here from our approved Broker design.</p>
-      <p><strong>Next:</strong> we port the approved content into shared native components instead of another standalone Wix embed.</p>
-    </div>
-  </section>
+  <div class="licensing-parity">
+
+<section class="hero" data-motion-section="hero">
+<div class="wrap">
+<div>
+<div class="eyebrow">Florida Broker Licensing</div>
+<h1>Get your Florida real estate broker license <em>fast.</em></h1>
+<p class="hero-deck">Move toward your Florida broker license with required broker pre-license education, Broker FastPass certification and exam preparation, 500+ Q&amp;A, free printed books, and direct help from the instructor who built the system.</p>
+<p class="hero-kicker">No 72-hour video marathon. No endless PDF grind.</p>
+<div class="hero-actions">
+<a class="btn btn-primary" href="#packages">See broker licensing options ↓</a>
+<a class="btn btn-ghost" data-plan="broker-fastpass-hero" href="https://portal.daniellarsontraining.com/bundles/brokerfastpass?utm_source=dlt_broker_page&amp;utm_medium=site&amp;utm_campaign=broker_licensing&amp;utm_content=hero_fastpass" target="_top">Broker FastPass</a>
+</div>
+</div>
+<aside aria-label="Direct broker licensing support" class="hero-card">
+<div class="eyebrow">Personalized answers</div>
+<h2>When you need help, you can ask Daniel.</h2>
+<p>Questions about broker licensing, exam prep, Pearson Professional Assessments, post-licensing, or what to do next? You are not routed to a generic call center.</p>
+<a class="support-number" href="sms:+12394718500">TEXT 239.471.8500</a>
+<div class="support-note">Professional broker-license support from Daniel Larson Training.</div>
+</aside>
+</div>
+<div aria-label="Broker course highlights" class="truststrip">
+<div><b>1 year</b>online access</div>
+<div><b>DBPR approved</b>Course 2</div>
+<div><b>500+ Q&amp;A</b>plus explainers</div>
+<div><b>Free FastPass book</b>for broker students</div>
+<div class="support-trust"><b>Direct Support</b><a href="mailto:daniel@daniellarsontraining.com">daniel@daniellarsontraining.com</a></div>
+</div>
+</section>
+<section class="packages" data-motion-section="packages" id="packages-section">
+<div class="wrap">
+<div class="section-head">
+<div class="eyebrow">Broker Licensing Options</div>
+<h2 id="packages">Choose your path. Fast to thorough — it’s up to you.</h2>
+<p>Florida-required pre-license education + exam-prep tools. With FastPass, you can go straight into the three FastPass exams and use the full course, Q&A, audio, video, and study materials as much or as little as you need. Pass FastPass to complete your course-certification path, then head to the state exam prepared. Add Post-Licensing to cover your first-renewal period.</p>
+</div>
+<div class="package-grid">
+<article class="package">
+<span class="badge">Course 2 + Exam Prep</span>
+<h3>Course 2</h3>
+<div class="subplan">Required broker pre-license education + complete exam-prep foundation</div>
+<div class="price">$160</div>
+<div class="price-note">one-time enrollment</div>
+<ul>
+<li>DBPR-approved 72-hour Broker Course 2</li>
+<li>Course certification</li>
+<li>Audio/video instruction</li>
+<li>500+ Q&amp;A and explanations</li>
+<li>Broker exam-prep materials</li>
+<li>Free FastPass book for broker students</li>
+<li>One year of access</li>
+<li>Direct support from Daniel</li>
+</ul>
+<a class="btn btn-primary" data-plan="broker-course2" href="https://portal.daniellarsontraining.com/bundles/brokerexamblast?utm_source=dlt_broker_page&amp;utm_medium=site&amp;utm_campaign=broker_licensing&amp;utm_content=course2" target="_top">Enroll in Course 2</a>
+</article>
+<article class="package featured">
+<span class="badge blue">Most Popular</span>
+<h3>FastPass</h3>
+<div class="subplan">Required broker pre-license education + exam prep + three FastPass exams</div>
+<div class="price">$280</div>
+<div class="price-note">one-time enrollment</div>
+<ul>
+<li>Everything in the Course 2 option</li>
+<li>Three Broker FastPass exams</li>
+<li>Structured preparation + certification path</li>
+<li>Florida broker exam-focused preparation</li>
+<li>Free FastPass book included</li>
+<li>One year of access</li>
+<li>Direct support from Daniel</li>
+</ul>
+<a class="btn btn-primary" data-plan="broker-fastpass" href="https://portal.daniellarsontraining.com/bundles/brokerfastpass?utm_source=dlt_broker_page&amp;utm_medium=site&amp;utm_campaign=broker_licensing&amp;utm_content=fastpass" target="_top">Enroll in Broker FastPass</a>
+</article>
+<article class="package">
+<span class="badge">Best Value</span>
+<h3>Broker Career Launch</h3>
+<div class="subplan">Everything in FastPass + your required Broker Post-Licensing course</div>
+<div class="price">$380</div>
+<div class="price-note">one-time enrollment</div>
+<ul>
+<li>Everything in Broker FastPass</li>
+<li>Broker Post-Licensing — required before first renewal</li>
+<li>Bundle your next required education step now</li>
+<li>Free FastPass book + free printed course books</li>
+<li>One year of access</li>
+<li>Same Daniel Larson course ecosystem</li>
+<li>Direct support from Daniel</li>
+</ul>
+<a class="btn btn-primary" data-plan="broker-career-launch" href="https://portal.daniellarsontraining.com/bundles/broker-career-launch?utm_source=dlt_broker_page&amp;utm_medium=site&amp;utm_campaign=broker_licensing&amp;utm_content=career_launch" target="_top">Enroll in Broker Career Launch</a>
+</article>
+</div>
+</div>
+</section>
+<section class="fastpass" data-motion-section="fastpass" id="fastpass">
+<div class="wrap fast-grid">
+<div class="mark-scene">
+<a aria-label="Enroll in Broker FastPass" class="mark" data-plan="broker-fastpass-logo" href="https://portal.daniellarsontraining.com/bundles/brokerfastpass" target="_top">
+<img alt="FastPass Florida broker exam preparation" src="/fastpass-logo.webp" width="700" height="700" />
+</a>
+</div>
+<div>
+<div class="section-head">
+<div class="eyebrow" style="color:#1766c7">The FastPass approach</div>
+<h2>Go straight into Broker FastPass. Use everything else to get you through it.</h2>
+<p>FastPass gives you a clear testing target instead of forcing you through every resource in the same order. Use Course 2, 500+ practice questions, the FastPass book, audio reviews, videos, and study materials as your toolbox while you prepare for the three Broker FastPass exams and the separate Florida broker licensing exam administered by Pearson Professional Assessments (formerly Pearson VUE).</p>
+</div>
+<div class="steps">
+<div class="step"><div class="stepnum">01</div><div><h3>Start with Broker FastPass.</h3><p>Use the three Broker FastPass exams as a clear target and quickly see what you already know — and what you still need to review.</p></div></div>
+<div class="step"><div class="stepnum">02</div><div><h3>Use the rest as your prep toolbox.</h3><p>Course 2, 500+ Q&amp;A, the FastPass book, audio/video explainers, PDFs, and drills are there when you need them.</p></div></div>
+<div class="step"><div class="stepnum">03</div><div><h3>Pass Broker FastPass. Head to the state exam prepared.</h3><p>Pass the three Broker FastPass exams to complete your Course 2 certification path, then take the separate Florida broker licensing exam administered through Pearson Professional Assessments.</p></div></div>
+</div>
+</div>
+</div>
+</section>
+<section class="included" data-motion-section="included">
+<div class="wrap included-grid">
+<div>
+<div class="eyebrow">Built for experienced licensees</div>
+<h2>Everything you need to pass — <em>fast.</em></h2>
+<p class="included-copy">Broker candidates already know real estate. The goal is not to make you consume every minute of content — it is to give you a complete, organized system you can use as heavily or lightly as you need.</p>
+</div>
+<div class="feature-grid">
+<div class="feature"><b>Optional video explainers</b><span>Focused explanations when a broker topic needs more than text.</span></div>
+<div class="feature"><b>Glossary review</b><span>Broker terminology and concepts in a fast-reference format.</span></div>
+<div class="feature"><b>PDF study supplements</b><span>Printable reference material, checklists, and review tools.</span></div>
+<div class="feature"><b>Audio review</b><span>Review key material away from the screen.</span></div>
+<div class="feature"><b>500+ broker Q&amp;A</b><span>Practice questions with explanations and exam-focused repetition.</span></div>
+<div class="feature"><b>Free FastPass book</b><span>Broker students can request the FastPass book at no charge.</span></div>
+<div class="feature"><b>State-exam focus</b><span>Preparation built around the content and testing experience you are working toward.</span></div>
+<div class="feature"><b>Ongoing support</b><span>Real help from the person who wrote the course.</span></div>
+</div>
+</div>
+</section>
+<section class="books" data-motion-section="books">
+<div class="wrap">
+<div class="bookcard">
+<div><h2>Broker students get the FastPass book — free.</h2><p>Your online course already includes the content you need. If you want the printed FastPass book, just ask. Broker students receive it free, and printed course books can also be shipped at no charge.</p></div>
+<div class="bookaside"><b>Free printed broker materials</b><span>Text or email your name, shipping address, and course. There is no charge for the FastPass book, other requested course books, or shipping.</span></div>
+<div class="credential">Written &amp; published by Daniel Larson — DBPR-approved Course 1, Course 2, Post-Licensing &amp; 14-Hour CE — plus Exam Prep and FastPass.</div>
+</div>
+</div>
+</section>
+<section class="compare" data-motion-section="compare" id="compare">
+<div class="wrap">
+<div class="section-head">
+<div class="eyebrow" style="color:#1766c7">Compare the broker bundles</div>
+<h2>Compare your broker licensing paths.</h2>
+<p>The required Florida broker pre-license education is included in every option. Choose Course 2, add Broker FastPass for the three-exam certification path, or add Broker Post-Licensing to cover your first-renewal period.</p>
+</div>
+<div class="comparison">
+<table class="comparison-table">
+<caption>Daniel Larson Training Florida broker licensing bundle comparison</caption>
+<colgroup><col class="feature-col"/><col/><col/><col/></colgroup>
+<thead>
+<tr>
+<th scope="col">Included</th>
+<th scope="col">Course 2<small>$160</small></th>
+<th class="best-head" scope="col">FastPass<small>$280 · Most Popular</small></th>
+<th scope="col">Broker Career Launch<small>$380 · Best Value</small></th>
+</tr>
+</thead>
+<tbody>
+<tr><th scope="row">DBPR-approved 72-hour Course 2</th><td class="yes">✓ Included</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
+<tr><th scope="row">Audio/video instruction + 500+ Q&amp;A</th><td class="yes">✓ Included</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
+<tr><th scope="row">One-year access + direct instructor support</th><td class="yes">✓ Included</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
+<tr><th scope="row">Free FastPass book</th><td class="yes">✓ Included</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
+<tr><th scope="row">Three Broker FastPass exams</th><td class="dash">—</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
+<tr><th scope="row">Required Broker Post-Licensing course</th><td class="dash">—</td><td class="dash best">—</td><td class="yes">✓ Included</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section class="reviews" data-motion-section="reviews" id="reviews">
+<div class="wrap">
+<div class="section-head">
+<div class="eyebrow">Real support. Real results.</div>
+<h2>What students say.</h2>
+<p>Specific experiences from Florida licensees — not generic marketing copy.</p>
+</div>
+<div class="review-grid">
+<article class="review"><div class="stars">★★★★★</div><blockquote>“Did Course 2 + Exam Prep, then added FastPass — opened my own brokerage. Daniel's got all the stuff. Follow the system.”</blockquote><div class="who"><b>Willy the Closer</b>Estero · Independent Broker</div></article>
+<article class="review"><div class="stars">★★★★★</div><blockquote>“The Florida exams are tough, but his practice exams are close to the real PearsonVUE exam. FastPass is the slam dunk. I walked into PearsonVUE ready to go.”</blockquote><div class="who"><b>John S.</b>Cape Coral · Broker Associate</div></article>
+<article class="review"><div class="stars">★★★★★</div><blockquote>“FastPass is, hands down, the fastest, easiest way to prepare and get certified for the licensing exam. When you have questions, Daniel will be available — actually Daniel — not a customer service person.”</blockquote><div class="who"><b>Von Howard</b>Fort Myers · Managing Broker</div></article>
+<article class="review"><div class="stars">★★★★★</div><blockquote>“I'm not an exam person, but Larson got me through it. I send everyone to him, including my daughter and team members. They all move fast through the content, and pass.”</blockquote><div class="who"><b>Mike McMurray</b>SWFL &amp; The Islands · Broker</div></article>
+<article class="review"><div class="stars">★★★★★</div><blockquote>“I PASSED!! Thank you!! You made it so easy. FastPass is very similar to the real exam.”</blockquote><div class="who"><b>Silvia P.</b>Miami · Student</div></article>
+<article class="review"><div class="stars">★★★★★</div><blockquote>“Took the exam last Monday and passed. I literally heard his explanations in my head as I was taking the test. I will send EVERYONE to this guy.”</blockquote><div class="who"><b>Alyssa L.</b>Bonita Springs</div></article>
+</div>
+</div>
+</section>
+<section class="about" data-motion-section="about">
+<div class="wrap about-grid">
+<div>
+<div class="eyebrow" style="color:#1766c7">The person behind the system</div>
+<h2>You are not buying a nameless national course library.</h2>
+<p>Daniel Larson authors and produces the broker course materials, records the explainers, builds the FastPass system, and answers student questions directly. Daniel Larson Training is a Florida-focused real estate school built around helping experienced licensees get through the next licensing step efficiently.</p>
+<p>Whether you are qualifying for your broker license, opening a brokerage, or simply adding the credential, you get the same course system and the same direct line to the instructor.</p>
+</div>
+<aside class="proofbox">
+<div><b>Florida Licensed Real Estate School</b>#ZH1002860</div>
+<div><b>Florida Real Estate Instructor</b>Daniel Larson · #ZH1003217</div>
+<div><b>Broker Course authorship</b>Course 2 and applicable broker education materials are authored and produced by Daniel Larson and approved by the Florida DBPR where approval applies.</div>
+<div><b>Direct contact</b><a href="sms:+12394718500">239.471.8500</a> · daniel@daniellarsontraining.com</div>
+</aside>
+</div>
+</section>
+<section class="faq" data-motion-section="faq" id="faq">
+<div class="wrap">
+<div class="section-head">
+<div class="eyebrow" style="color:#1766c7">BROKER COURSE + FASTPASS Q&amp;A</div>
+<h2>Florida Broker Licensing FAQ</h2>
+</div>
+<div class="faq-list">
+<details><summary>What is included in the $160 broker licensing option?</summary><p>The package includes the DBPR-approved 72-hour Florida Broker Course 2, course certification, broker exam-prep materials, audio/video instruction, 500+ Q&amp;A, one year of access, a free FastPass book on request, and direct support from Daniel.</p></details>
+<details><summary>What does Broker FastPass add?</summary><p>Broker FastPass adds three FastPass exams and a more structured certification and exam-preparation path built around the Florida broker licensing exam.</p></details>
+<details><summary>Does FastPass replace the Florida broker licensing exam?</summary><p>No. The Florida broker licensing exam is a separate exam administered through <a href="https://www.pearsonvue.com/us/en/fl/dbpr.html" rel="noopener" target="_blank">Pearson Professional Assessments</a> (formerly Pearson VUE). FastPass is preparation and part of the Course 2 certification path; you still take the state exam separately.</p></details>
+<details><summary>What is Broker Career Launch?</summary><p>Broker Career Launch combines Course 2, Broker FastPass, and your required Broker Post-Licensing course so your next education step is already included.</p></details>
+<details><summary>Do broker students get the FastPass book?</summary><p>Yes. Broker students can request the printed FastPass book free. Other printed course books are also available on request at no charge.</p></details>
+<details><summary>How long do I have access?</summary><p>Broker course bundles include one year of online access.</p></details>
+<details><summary>Can I contact the owner directly?</summary><p>Yes. You can text the owner directly at <a href="sms:+12394718500">239.471.8500</a> or email <a href="mailto:daniel@daniellarsontraining.com">daniel@daniellarsontraining.com</a> about broker licensing, exam preparation, post-licensing, or your next licensing step.</p></details>
+</div>
+</div>
+</section>
+<section class="finalcta" data-motion-section="finalcta" data-final-cta="">
+<div class="wrap reveal" data-reveal="">
+<h2>Ready to get your Florida real estate broker license?</h2>
+<p>Choose the broker licensing path that fits how you want to prepare.</p>
+<div class="hero-actions" style="justify-content:center">
+<a class="btn btn-primary" href="#packages">See Broker Licensing Options ↑</a>
+</div>
+</div>
+</section>
+
+  </div>
+
+  <script is:inline>
+document.addEventListener('click', function(e){
+    const a = e.target.closest('a[data-plan]');
+    if(!a) return;
+    if(typeof window.gtag === 'function'){
+      window.gtag('event','select_course_package',{
+        course_package:a.dataset.plan,
+        link_url:a.href
+      });
+    }
+  });
+</script>
+
+<script is:inline>
+document.addEventListener('click', function(e){
+    const link = e.target.closest('a[href="#packages"]');
+    if(!link) return;
+
+    const target = document.getElementById('packages');
+    if(!target) return;
+
+    e.preventDefault();
+    const reduceMotion = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    target.scrollIntoView({
+      behavior: reduceMotion ? 'auto' : 'smooth',
+      block: 'start'
+    });
+  });
+</script>
 </SiteLayout>

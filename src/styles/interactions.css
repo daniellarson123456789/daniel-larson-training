@@ -1,0 +1,684 @@
+/* =========================================================
+   Native Astro interaction layer
+   Static first render; motion responds to entry, hover, focus,
+   and pointer. No mobile looping animation.
+   ========================================================= */
+
+.site-header{
+  transition: box-shadow 220ms ease, background-color 220ms ease;
+}
+.site-header.is-scrolled{
+  box-shadow: 0 14px 38px rgba(6,28,54,.14);
+}
+.nav-link{
+  position:relative;
+  overflow:hidden;
+}
+.nav-link::after{
+  content:"";
+  position:absolute;
+  left:20%;
+  right:20%;
+  bottom:0;
+  height:3px;
+  border-radius:999px;
+  background:var(--blue);
+  transform:scaleX(0);
+  transform-origin:center;
+  transition:transform 180ms ease;
+}
+.nav-link:hover::after,
+.nav-link.active::after{
+  transform:scaleX(1);
+}
+.portal-button{
+  position:relative;
+  overflow:hidden;
+  transition:transform 180ms ease, box-shadow 180ms ease;
+}
+.portal-button::after{
+  content:"";
+  position:absolute;
+  top:-60%;
+  left:-35%;
+  width:22%;
+  height:220%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.34),transparent);
+  transform:translateX(-190%) skewX(-20deg);
+  pointer-events:none;
+}
+.portal-button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 28px rgba(8,4,38,.20);
+}
+.portal-button:hover::after{
+  animation:dltPortalSheen .72s ease;
+}
+.portal-button[aria-current="page"]{
+  box-shadow:0 0 0 3px rgba(37,120,234,.18),0 12px 28px rgba(8,4,38,.18);
+}
+@keyframes dltPortalSheen{
+  from{transform:translateX(-190%) skewX(-20deg);opacity:0}
+  20%{opacity:.8}
+  to{transform:translateX(440%) skewX(-20deg);opacity:0}
+}
+
+/* One-time hero choreography — short enough to feel responsive. */
+@media (prefers-reduced-motion:no-preference){
+  .licensing-parity .hero .wrap > div > .eyebrow,
+  .licensing-parity .hero h1,
+  .licensing-parity .hero .hero-deck,
+  .licensing-parity .hero .hero-kicker,
+  .licensing-parity .hero .hero-actions,
+  .licensing-parity .hero .hero-card,
+  .portal-page .portal-hero h1,
+  .portal-page .portal-hero .portal-eyebrow,
+  .portal-page .portal-hero .portal-deck,
+  .portal-page .portal-actions,
+  .portal-page .portal-account-card{
+    animation:dltHeroEnter .58s cubic-bezier(.2,.75,.2,1) both;
+  }
+  .licensing-parity .hero h1,
+  .portal-page .portal-hero h1{animation-delay:55ms}
+  .licensing-parity .hero .hero-deck,
+  .portal-page .portal-hero .portal-deck{animation-delay:110ms}
+  .licensing-parity .hero .hero-kicker,
+  .licensing-parity .hero .hero-actions,
+  .portal-page .portal-actions{animation-delay:165ms}
+  .licensing-parity .hero .hero-card,
+  .portal-page .portal-account-card{animation-delay:120ms}
+}
+@keyframes dltHeroEnter{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Scroll reveals are only applied after JS adds .motion-reveal. */
+html.motion-enabled .motion-reveal{
+  opacity:0;
+  transform:translateY(18px);
+  transition:
+    opacity 520ms ease var(--reveal-delay,0ms),
+    transform 620ms cubic-bezier(.18,.8,.2,1) var(--reveal-delay,0ms);
+}
+html.motion-enabled .motion-reveal.motion-in{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* Remove the old perpetual featured-card pulse.
+   The native site now responds to the user instead of blinking on its own. */
+.licensing-parity .package.featured{
+  animation:none !important;
+}
+
+/* Pointer-aware depth/light. Only enabled by JS on real hover devices. */
+@media (hover:hover) and (pointer:fine){
+  .licensing-parity .motion-pointer,
+  .portal-page .motion-pointer{
+    --mx:50%;
+    --my:0%;
+    --tilt-x:0deg;
+    --tilt-y:0deg;
+    transform-style:preserve-3d;
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .licensing-parity .package.motion-pointer{
+    transform:
+      perspective(900px)
+      rotateX(var(--tilt-x))
+      rotateY(var(--tilt-y));
+  }
+  .licensing-parity .package.motion-pointer:hover{
+    transform:
+      perspective(900px)
+      rotateX(var(--tilt-x))
+      rotateY(var(--tilt-y))
+      translateY(-5px);
+  }
+  .licensing-parity .package.motion-pointer::before{
+    background:
+      radial-gradient(360px circle at var(--mx) var(--my),rgba(92,162,255,.18),transparent 58%),
+      linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,0));
+  }
+
+  .licensing-parity .hero-card.motion-pointer,
+  .licensing-parity .review.motion-pointer,
+  .licensing-parity .proofbox.motion-pointer,
+  .portal-page .portal-card.motion-pointer,
+  .portal-page .portal-account-card.motion-pointer{
+    transform:
+      perspective(1050px)
+      rotateX(calc(var(--tilt-x) * .45))
+      rotateY(calc(var(--tilt-y) * .45));
+  }
+  .licensing-parity .hero-card.motion-pointer:hover,
+  .licensing-parity .review.motion-pointer:hover,
+  .licensing-parity .proofbox.motion-pointer:hover,
+  .portal-page .portal-card.motion-pointer:hover,
+  .portal-page .portal-account-card.motion-pointer:hover{
+    transform:
+      perspective(1050px)
+      rotateX(calc(var(--tilt-x) * .45))
+      rotateY(calc(var(--tilt-y) * .45))
+      translateY(-3px);
+  }
+
+  .licensing-parity .mark.motion-pointer{
+    transform:
+      perspective(800px)
+      rotateX(var(--tilt-x))
+      rotateY(var(--tilt-y));
+  }
+  .licensing-parity .mark.motion-pointer:hover{
+    transform:
+      perspective(800px)
+      rotateX(var(--tilt-x))
+      rotateY(var(--tilt-y))
+      translateY(-3px)
+      scale(1.015);
+  }
+}
+
+/* Comparison becomes easier to track horizontally. */
+.licensing-parity .comparison-table tbody tr{
+  transition:background-color 150ms ease;
+}
+.licensing-parity .comparison-table tbody tr:hover{
+  background:rgba(37,120,234,.065);
+}
+.licensing-parity .comparison-table tbody tr:hover th{
+  color:#0b4f9f;
+}
+
+/* FAQ interaction. */
+.licensing-parity .faq details{
+  overflow:hidden;
+}
+.licensing-parity .faq summary{
+  position:relative;
+  padding-right:48px;
+}
+.licensing-parity .faq summary::after{
+  content:"+";
+  position:absolute;
+  right:18px;
+  top:50%;
+  transform:translateY(-50%) rotate(0deg);
+  font-size:21px;
+  color:#1766c7;
+  transition:transform 180ms ease;
+}
+.licensing-parity .faq details[open] summary::after{
+  transform:translateY(-50%) rotate(45deg);
+}
+@media (prefers-reduced-motion:no-preference){
+  .licensing-parity .faq details[open] p{
+    animation:dltFaqOpen 220ms ease both;
+  }
+}
+@keyframes dltFaqOpen{
+  from{opacity:0;transform:translateY(-5px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* =========================================================
+   Course Portal
+   ========================================================= */
+.portal-page{
+  --portal-night:#080426;
+  --portal-navy:#071a33;
+  --portal-panel:#0d2343;
+  --portal-blue:#2578ea;
+  --portal-line:#dce6f2;
+  --portal-soft:#f4f8fd;
+  color:#0b1f3a;
+  background:#fff;
+}
+.portal-hero{
+  color:#fff;
+  background:
+    radial-gradient(820px 430px at 12% 5%,rgba(59,140,255,.24),transparent 62%),
+    radial-gradient(720px 420px at 88% 16%,rgba(37,120,234,.15),transparent 62%),
+    linear-gradient(135deg,#071a33,#080426 68%,#092347);
+}
+.portal-hero-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.28fr) minmax(300px,.72fr);
+  gap:clamp(34px,6vw,80px);
+  align-items:center;
+  padding:clamp(64px,8vw,106px) 0;
+}
+.portal-eyebrow{
+  margin:0 0 12px;
+  color:#9dc7ff;
+  font-size:.73rem;
+  font-weight:900;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.portal-hero h1{
+  margin:0;
+  max-width:15ch;
+  font-size:clamp(2.7rem,6.3vw,5.7rem);
+  line-height:.96;
+  letter-spacing:-.052em;
+}
+.portal-deck{
+  max-width:760px;
+  margin:22px 0 0;
+  color:#c2d2e7;
+  font-size:clamp(1rem,1.55vw,1.16rem);
+}
+.portal-actions{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:16px;
+  margin-top:28px;
+}
+.portal-jump{
+  color:#d8e7fb;
+  text-decoration:none;
+  font-weight:850;
+  text-underline-offset:4px;
+}
+.portal-jump:hover{text-decoration:underline}
+.portal-account-card{
+  position:relative;
+  overflow:hidden;
+  padding:28px;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:22px;
+  background:
+    radial-gradient(340px circle at var(--mx,50%) var(--my,0%),rgba(81,154,255,.17),transparent 60%),
+    rgba(255,255,255,.07);
+  box-shadow:0 26px 70px rgba(0,0,0,.22);
+}
+.portal-account-card > span{
+  display:block;
+  margin-bottom:10px;
+  color:#9dc7ff;
+  font-size:.7rem;
+  font-weight:900;
+  letter-spacing:.11em;
+}
+.portal-account-card strong{
+  display:block;
+  font-size:1.3rem;
+  line-height:1.15;
+}
+.portal-account-card p{
+  color:#becfe3;
+  font-size:.92rem;
+}
+.portal-account-card a{
+  color:#fff;
+  font-weight:900;
+  text-decoration:none;
+}
+.portal-directory{
+  padding:clamp(62px,8vw,96px) 0;
+  background:var(--portal-soft);
+}
+.portal-section-head{
+  max-width:800px;
+  margin-bottom:30px;
+}
+.portal-section-head h2{
+  margin:0;
+  font-size:clamp(2rem,4vw,3.45rem);
+  line-height:1;
+  letter-spacing:-.04em;
+}
+.portal-section-head > p:last-child{
+  color:#53667d;
+  max-width:720px;
+}
+.portal-group-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+}
+.portal-card{
+  position:relative;
+  overflow:hidden;
+  padding:24px;
+  border:1px solid var(--portal-line);
+  border-radius:20px;
+  background:
+    radial-gradient(420px circle at var(--mx,50%) var(--my,0%),rgba(37,120,234,.075),transparent 60%),
+    #fff;
+  box-shadow:0 16px 42px rgba(6,28,54,.06);
+}
+.portal-card-shared{
+  border-color:#bdd5f5;
+  box-shadow:0 18px 48px rgba(37,120,234,.10);
+}
+.portal-card-head p{
+  margin:0 0 7px;
+  color:#1766c7;
+  font-size:.68rem;
+  font-weight:900;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.portal-card-head h3{
+  margin:0;
+  font-size:1.6rem;
+  letter-spacing:-.025em;
+}
+.portal-card-head span{
+  display:block;
+  margin-top:8px;
+  color:#5a6d82;
+  font-size:.9rem;
+}
+.portal-links{
+  display:grid;
+  gap:9px;
+  margin-top:20px;
+}
+.portal-link{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  min-height:66px;
+  padding:13px 14px;
+  border:1px solid #dfe7f0;
+  border-radius:12px;
+  color:#0b1f3a;
+  background:#fff;
+  text-decoration:none;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+.portal-link-copy{
+  display:flex;
+  flex-direction:column;
+}
+.portal-link strong{
+  font-size:.94rem;
+}
+.portal-link small{
+  margin-top:2px;
+  color:#728499;
+  font-size:.72rem;
+}
+.portal-arrow{
+  color:#1766c7;
+  font-size:1.15rem;
+  font-weight:900;
+  transition:transform 160ms ease;
+}
+@media (hover:hover) and (pointer:fine){
+  .portal-link:hover{
+    transform:translateX(3px);
+    border-color:#9fc3f2;
+    background:#f9fbff;
+    box-shadow:0 10px 24px rgba(37,120,234,.09);
+  }
+  .portal-link:hover .portal-arrow{
+    transform:translateX(3px);
+  }
+}
+.portal-help{
+  padding:50px 0;
+  color:#fff;
+  background:linear-gradient(135deg,#0a2b50,#080426);
+}
+.portal-help-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:28px;
+}
+.portal-help h2{
+  margin:0;
+  font-size:clamp(2rem,4vw,3rem);
+}
+.portal-help p{
+  max-width:720px;
+  margin:8px 0 0;
+  color:#bdcee2;
+}
+
+@media (max-width:900px){
+  /* Mobile: one-time reveals only; no pointer tracking, looping glow, or sheen. */
+  .portal-hero-grid,
+  .portal-group-grid{
+    grid-template-columns:1fr;
+  }
+  .portal-account-card{max-width:620px}
+  .portal-help-inner{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+  .licensing-parity .package::after,
+  .licensing-parity .btn-primary::after,
+  .portal-button::after{
+    display:none !important;
+  }
+}
+
+@media (max-width:560px){
+  .portal-hero-grid{
+    padding:50px 0 58px;
+  }
+  .portal-hero h1{
+    font-size:clamp(2.45rem,13vw,4rem);
+  }
+  .portal-actions{
+    display:grid;
+  }
+  .portal-actions .button{
+    width:100%;
+  }
+  .portal-card{
+    padding:19px;
+  }
+  .portal-link{
+    min-height:62px;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,
+  *::before,
+  *::after{
+    scroll-behavior:auto !important;
+  }
+  .motion-reveal,
+  .motion-in{
+    opacity:1 !important;
+    transform:none !important;
+    transition:none !important;
+  }
+  .nav-link::after,
+  .portal-button,
+  .portal-link,
+  .portal-arrow{
+    transition:none !important;
+  }
+  .portal-button::after{
+    display:none !important;
+  }
+}
+
+
+/* Shared production interaction hooks for newer pages. */
+@media (hover:hover) and (pointer:fine){
+  [data-hover-lift]{transition:transform 180ms ease,box-shadow 180ms ease,border-color 180ms ease}
+  [data-hover-lift]:hover{transform:translateY(-3px)}
+  [data-tilt].motion-pointer{
+    --tilt-x:0deg;--tilt-y:0deg;
+    transform:perspective(980px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+    transition:transform 180ms ease,box-shadow 180ms ease,border-color 180ms ease;
+  }
+  [data-tilt].motion-pointer:hover{
+    transform:perspective(980px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(-4px);
+  }
+}
+@media (max-width:620px){
+  html.motion-enabled .motion-reveal,
+  html.motion-enabled .motion-reveal.motion-in{opacity:1;transform:none;transition:none}
+  [data-hover-lift],[data-tilt]{transform:none!important;transition:none!important}
+}
+
+
+/* Later-page hero choreography: restrained, one-time, desktop only. */
+@media (prefers-reduced-motion:no-preference) and (min-width:621px){
+  .post-page .post-hero-copy > *,
+  .post-page .post-help-card,
+  .ce-page .ce-hero-copy > *,
+  .ce-page .ce-buy-card,
+  .about-page .hero-grid > *{
+    animation:dltHeroEnter .58s cubic-bezier(.2,.75,.2,1) both;
+  }
+  .post-page .post-hero-copy > *:nth-child(1),
+  .ce-page .ce-hero-copy > *:nth-child(1){animation-delay:0ms}
+  .post-page .post-hero-copy > *:nth-child(2),
+  .ce-page .ce-hero-copy > *:nth-child(2){animation-delay:55ms}
+  .post-page .post-hero-copy > *:nth-child(3),
+  .ce-page .ce-hero-copy > *:nth-child(3){animation-delay:110ms}
+  .post-page .post-hero-copy > *:nth-child(4),
+  .ce-page .ce-hero-copy > *:nth-child(4){animation-delay:165ms}
+  .post-page .post-help-card,
+  .ce-page .ce-buy-card,
+  .about-page .hero-grid > *:nth-child(2){animation-delay:120ms}
+  .about-page .hero-grid > *:nth-child(1){animation-delay:35ms}
+}
+
+
+/* DLT final tactile interaction polish */
+/* Desktop/fine-pointer only: subtle response, never looping motion. */
+@media (hover:hover) and (pointer:fine){
+.licensing-parity .review{
+    transition:transform 180ms ease,border-color 180ms ease,background-color 180ms ease,box-shadow 180ms ease;
+  }
+  .licensing-parity .review:hover{
+    transform:translateY(-4px);
+    border-color:rgba(118,179,255,.42);
+    background:rgba(255,255,255,.075);
+    box-shadow:0 18px 38px rgba(0,0,0,.20);
+  }
+  .licensing-parity .review .stars{
+    transition:transform 180ms ease,letter-spacing 180ms ease;
+  }
+  .licensing-parity .review:hover .stars{
+    transform:translateY(-1px);
+    letter-spacing:.09em;
+  }
+
+  .about-page .proof-card{
+    transition:transform 190ms ease,border-color 190ms ease,box-shadow 190ms ease;
+  }
+  .about-page .proof-card:hover{
+    transform:translateY(-3px);
+    border-color:rgba(158,200,255,.34);
+    box-shadow:0 28px 68px rgba(0,0,0,.31);
+  }
+  .about-page .proof-item{
+    transition:transform 165ms ease,background-color 165ms ease,border-color 165ms ease;
+  }
+  .about-page .proof-item:hover{
+    transform:translateX(4px);
+    background:rgba(255,255,255,.075);
+    border-color:rgba(158,200,255,.28);
+  }
+  .about-page .trust > div{
+    position:relative;
+    z-index:0;
+    transition:transform 165ms ease,background-color 165ms ease,box-shadow 165ms ease;
+  }
+  .about-page .trust > div:hover{
+    z-index:2;
+    transform:translateY(-2px);
+    background:rgba(10,28,57,.78);
+    box-shadow:inset 0 -3px 0 rgba(37,120,234,.72),0 10px 24px rgba(0,0,0,.15);
+  }
+  .about-page .milestone:hover,
+  .about-page .course-line:hover{
+    border-color:rgba(127,181,255,.35);
+    background:rgba(255,255,255,.065);
+    box-shadow:0 16px 34px rgba(0,0,0,.18);
+  }
+  .about-page .belief:hover,
+  .about-page .quote:hover{
+    border-color:#b8d5f5;
+    box-shadow:0 18px 38px rgba(6,28,54,.10);
+  }
+
+  .post-page .post-option,
+  .post-page .post-tool,
+  .post-page .post-feature-grid article,
+  .post-page .post-bonus-grid article,
+  .post-page .post-which-grid article,
+  .ce-page .ce-buy-card,
+  .ce-page .ce-tool-grid article,
+  .ce-page .ce-curriculum-grid article,
+  .ce-page .ce-bonus-grid article,
+  .ce-page .ce-clarity aside{
+    transition:transform 180ms ease,border-color 180ms ease,box-shadow 180ms ease,background-color 180ms ease;
+  }
+  .post-page .post-option:hover,
+  .post-page .post-tool:hover,
+  .post-page .post-feature-grid article:hover,
+  .post-page .post-bonus-grid article:hover,
+  .post-page .post-which-grid article:hover,
+  .ce-page .ce-buy-card:hover,
+  .ce-page .ce-tool-grid article:hover,
+  .ce-page .ce-curriculum-grid article:hover,
+  .ce-page .ce-bonus-grid article:hover,
+  .ce-page .ce-clarity aside:hover{
+    transform:translateY(-3px);
+    border-color:rgba(73,143,232,.34);
+    box-shadow:0 16px 34px rgba(6,28,54,.11);
+  }
+
+  .trust-item,
+  .review-card{
+    transition:transform 180ms ease,border-color 180ms ease,box-shadow 180ms ease,background-color 180ms ease;
+  }
+  .trust-item:hover{
+    transform:translateY(-2px);
+    background:#f7fbff;
+    box-shadow:0 10px 26px rgba(6,28,54,.08);
+  }
+  .review-card:hover{
+    transform:translateY(-4px);
+    border-color:#bfd6ee;
+    box-shadow:0 20px 42px rgba(6,28,54,.11);
+  }
+}
+
+/* Touch devices stay static; no essential information depends on hover. */
+@media (hover:none), (pointer:coarse){
+  .licensing-parity .truststrip > div,
+  .licensing-parity .review,
+  .about-page .proof-card,
+  .about-page .proof-item,
+  .about-page .trust > div,
+  .post-page .post-option,
+  .post-page .post-tool,
+  .post-page .post-feature-grid article,
+  .post-page .post-bonus-grid article,
+  .post-page .post-which-grid article,
+  .ce-page .ce-buy-card,
+  .ce-page .ce-tool-grid article,
+  .ce-page .ce-curriculum-grid article,
+  .ce-page .ce-bonus-grid article,
+  .ce-page .ce-clarity aside,
+  .trust-item,
+  .review-card{
+    transform:none!important;
+  }
+}

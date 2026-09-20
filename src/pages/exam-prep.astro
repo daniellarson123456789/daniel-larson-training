@@ -1,18 +1,296 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import { site } from "../data/site";
+
+const schema = [
+  {
+    "@type": "Course",
+    "@id": `${site.url}/exam-prep/#sales`,
+    name: "Sales Exam Prep + FastPass Only",
+    description: "Florida Sales Associate licensing-exam preparation for candidates who already completed the required pre-license course.",
+    provider: { "@id": `${site.url}/#organization` },
+    inLanguage: "en-US",
+  },
+  {
+    "@type": "Course",
+    "@id": `${site.url}/exam-prep/#broker`,
+    name: "Broker Exam Prep + FastPass Only",
+    description: "Florida Broker licensing-exam preparation for candidates who already completed the required broker pre-license course.",
+    provider: { "@id": `${site.url}/#organization` },
+    inLanguage: "en-US",
+  },
+  {
+    "@type": "WebPage",
+    "@id": `${site.url}/exam-prep/#webpage`,
+    url: `${site.url}/exam-prep/`,
+    name: "Florida Real Estate Exam Prep | Daniel Larson Training",
+    isPartOf: { "@id": `${site.url}/#website` },
+    publisher: { "@id": `${site.url}/#organization` },
+    inLanguage: "en-US",
+  },
+];
 ---
 
 <SiteLayout
-  title="Exam Prep | Daniel Larson Training"
-  description="Sales and Broker exam preparation for students who already completed Course 1 or Course 2 will live here."
+  title="Florida Real Estate Exam Prep | Daniel Larson Training"
+  description="Florida Sales Associate and Broker exam preparation for candidates who already completed the required pre-license course. FastPass, practice questions, audio review, math help, and direct instructor support."
   canonicalPath="/exam-prep/"
+  schema={schema}
 >
-  <section class="page-placeholder">
-    <div class="shell">
-      <p class="eyebrow">Page shell ready</p>
-      <h1>Exam Prep</h1>
-      <p>Sales and Broker exam preparation for students who already completed Course 1 or Course 2 will live here.</p>
-      <p><strong>Next:</strong> we port the approved content into shared native components instead of another standalone Wix embed.</p>
-    </div>
-  </section>
+  <div class="exam-page">
+<section class="hero">
+<div class="shell hero-grid">
+<div>
+<div class="eyebrow">FLORIDA EXAM PREP ONLY</div>
+<h1>ALREADY CERTIFIED TO TEST? <em>GET READY TO PASS.</em></h1>
+<p class="lead">Already completed Florida Course 1 or Course 2 and have your certificate of completion? Exam Prep Only is for candidates who are already certified to test and want focused preparation for the separate Florida state licensing exam — with FastPass, practice questions, explanations, audio review, math help, and direct instructor support.</p>
+<div class="actions"><a class="btn primary" href="#options">Choose Sales or Broker ↓</a><a class="btn ghost" href="#fastpass-approach">How FastPass works</a></div>
+</div>
+<aside class="hero-card" data-tilt="">
+<span class="bubble">Already certified to test?</span>
+<h2>Focus on the state exam.</h2>
+<p>If you already have the Course 1 or Course 2 completion certificate that makes you eligible to test, choose the Sales or Broker Exam Prep Only option below. You are not buying another certification course — you are adding focused preparation for the Florida licensing exam.</p>
+<img class="fastpass-mark" src="/fastpass-logo.webp" alt="FastPass" width="640" height="640" loading="eager" decoding="async" />
+</aside>
+</div>
+<div class="trust">
+<div><b>Exam Prep Only</b><span>already certified to test</span></div>
+<div><b>Sales + Broker</b><span>separate prep paths</span></div>
+<div><b>Florida focused</b><span>state-exam preparation</span></div>
+<div><b>FastPass</b><span>structured review</span></div>
+<div><b>Direct support</b><span>239.471.8500</span></div>
+</div>
+</section>
+<section class="packages" id="options">
+<div class="shell">
+<div class="section-head" data-reveal="">
+<div class="eyebrow">CHOOSE THE RIGHT EXAM PREP</div>
+<h2>Choose the prep that matches the Florida exam you are already eligible to take.</h2>
+<p>These are separate exam-prep products for candidates who are already certified and eligible to test. Choose the option that matches the Florida state exam you are already approved to take.</p>
+</div>
+<div class="pkg-grid">
+<article class="pkg" data-hover-lift="" data-reveal="">
+<span class="badge">Sales Associate Exam Prep</span>
+<div class="pkg-top"><div><h3>Sales Exam Prep + FastPass Only</h3><div class="sub">Florida Sales Associate state-exam preparation</div></div><div class="price">$140</div></div>
+<ul>
+<li>FastPass exam-prep system</li>
+<li>500 sample Q+A</li>
+<li>Audio eBook review</li>
+<li>Exam math basics</li>
+<li>Florida-focused explanations</li>
+<li>Direct instructor support</li>
+</ul>
+<a class="btn primary" href="https://portal.daniellarsontraining.com/bundles/examprepfastpassonly" target="_top">Enroll in Sales Exam Prep</a>
+</article>
+<article class="pkg broker" data-hover-lift="" data-reveal="">
+<span class="badge">Broker Exam Prep</span>
+<div class="pkg-top"><div><h3>Broker Exam Prep + FastPass Only</h3><div class="sub">Florida Broker state-exam preparation</div></div><div class="price">$260</div></div>
+<ul>
+<li>Broker FastPass exam-prep system</li>
+<li>Broker-focused practice + explanations</li>
+<li>Audio review resources</li>
+<li>Exam math review</li>
+<li>Florida broker exam focus</li>
+<li>Direct instructor support</li>
+</ul>
+<a class="btn primary" href="https://portal.daniellarsontraining.com/bundles/brokeruncertifiedfastpass" target="_top">Enroll in Broker Exam Prep</a>
+</article>
+</div>
+</div>
+</section>
+<section class="editorial" id="fastpass-approach">
+<div class="shell editorial-grid">
+<div class="big-words"><span>REVIEW.</span><span>PRACTICE.</span><span>DIAGNOSE.</span><span><em>FASTPASS.</em></span></div>
+<div>
+<div class="section-head" data-reveal="">
+<div class="eyebrow" style="color:#1766c7">THE FASTPASS APPROACH</div>
+<h2>Use FastPass and the study tools where you need them.</h2>
+<p>You already earned the certificate that makes you eligible to test. Use FastPass together with the practice questions, audio review, explanations, math help, and direct support to identify weak areas and prepare for the Florida licensing exam.</p>
+</div>
+<div class="steps">
+<div class="step" data-reveal=""><strong>01</strong><div><h4>Start with the practice.</h4><p>Work through exam-style questions and see where the weak areas actually are.</p></div></div>
+<div class="step" data-reveal=""><strong>02</strong><div><h4>Use the toolbox.</h4><p>Review explanations, audio, math, and focused material instead of rereading an entire licensing course.</p></div></div>
+<div class="step" data-reveal=""><strong>03</strong><div><h4>Use FastPass as your finish line.</h4><p>Bring the material together in a structured Florida-focused review before the separate state exam.</p></div></div>
+</div>
+</div>
+</div>
+</section>
+<section class="included">
+<div class="shell">
+<div class="section-head" data-reveal="">
+<div class="eyebrow">WHAT YOU ARE ACTUALLY BUYING</div>
+<h2>State-exam preparation for candidates already certified to test.</h2>
+<p>The whole point is to build on the certification you already earned and help you walk into the Florida state exam more prepared.</p>
+</div>
+<div class="feature-grid">
+<article class="feature" data-reveal=""><span>Practice</span><h3>Exam-style questions</h3><p>Use realistic questions and explanations to identify weak areas and sharpen recall.</p></article>
+<article class="feature" data-reveal=""><span>Audio</span><h3>Review without rereading</h3><p>Use audio review when listening is more useful than opening the course materials again.</p></article>
+<article class="feature" data-reveal=""><span>Math</span><h3>Exam math basics</h3><p>Review the calculations and setup that commonly slow students down on test day.</p></article>
+<article class="feature" data-reveal=""><span>Support</span><h3>A real person if you get stuck</h3><p>Text or call Daniel for exam-prep questions, study direction, or next-step guidance.</p></article>
+</div>
+</div>
+</section>
+<section class="note">
+<div class="shell">
+<div class="section-head" data-reveal="">
+<div class="eyebrow" style="color:#1766c7">IMPORTANT DISTINCTION</div>
+<h2>Your course certificate gets you eligible to test. FastPass helps you prepare to pass.</h2>
+<p>The Florida licensing exam is a separate state exam administered by Pearson Professional Assessments (formerly Pearson VUE). Exam Prep Only does not issue a new Course 1 or Course 2 certificate because it is designed for candidates who already have one.</p>
+</div>
+<div class="note-grid">
+<div class="note-card" data-reveal=""><div class="tag">This page is for you if...</div><h3>You already have your Course 1 or Course 2 completion certificate.</h3><p>You are already certified to test and now want a focused Florida exam-prep path — whether this is your first state-exam attempt or you are preparing to take it again.</p></div>
+<div class="note-choice">
+<div class="note-card" data-reveal=""><div class="tag">Use a licensing package instead if...</div><h3>You still need the certificate that makes you eligible to test.</h3><p>Our Sales Licensing and Broker Licensing packages include the required pre-license education, course certification, and exam preparation together.</p></div>
+<div class="note-actions">
+  <a class="note-btn" href="https://portal.daniellarsontraining.com/bundles/fastpass1" target="_top">Sales FastPass</a>
+  <a class="note-btn" href="https://portal.daniellarsontraining.com/bundles/brokerfastpass" target="_top">Broker FastPass</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="reviews">
+<div class="shell">
+<div class="section-head" data-reveal="">
+<div class="eyebrow">REAL STUDENT EXPERIENCE</div>
+<h2>What students say after FastPass.</h2>
+</div>
+<div class="quote-grid">
+<article class="quote" data-reveal=""><div class="stars">★★★★★</div><p>“FastPass is the slam dunk. I walked into PearsonVUE ready to go.”</p><b>John S. · Cape Coral</b></article>
+<article class="quote" data-reveal=""><div class="stars">★★★★★</div><p>“I PASSED!! Thank you!! You made it so easy. FastPass is very similar to the real exam.”</p><b>Silvia P. · Miami</b></article>
+<article class="quote" data-reveal=""><div class="stars">★★★★★</div><p>“I literally heard his explanations in my head as I was taking the test.”</p><b>Alyssa L. · Bonita Springs</b></article>
+</div>
+</div>
+</section>
+<section class="final">
+<div class="shell final-grid" data-reveal="">
+<div><div class="eyebrow">EXAM PREP ONLY</div><h2>Already certified? Get ready for the state exam.</h2><p>Choose the Sales Associate or Broker FastPass exam-prep path that matches the exam you are taking.</p></div>
+<div class="final-actions"><a class="btn primary" href="https://portal.daniellarsontraining.com/bundles/examprepfastpassonly" target="_top">Sales Exam Prep</a><a class="btn ghost" href="https://portal.daniellarsontraining.com/bundles/brokeruncertifiedfastpass" target="_top">Broker Exam Prep</a></div>
+</div>
+</section>
+  </div>
 </SiteLayout>
+
+<style>
+
+.shell{max-width:1180px;margin:0 auto;padding:0 28px}
+.hero{color:#fff;background:
+ radial-gradient(860px 500px at 10% 2%,rgba(59,140,255,.24),transparent 62%),
+ radial-gradient(720px 440px at 88% 10%,rgba(92,84,255,.15),transparent 64%),
+ linear-gradient(135deg,#0d0640 0%,#15105a 47%,#07162f 100%)}
+.hero-grid{display:grid;grid-template-columns:1.32fr .68fr;gap:62px;align-items:center;padding:86px 0 46px}
+.eyebrow{font-size:12px;font-weight:950;letter-spacing:.13em;text-transform:uppercase;color:#a9cfff;margin-bottom:13px}
+.hero h1{font-size:clamp(54px,6vw,92px);line-height:.93;letter-spacing:-.055em;text-transform:uppercase;margin:0;max-width:10.5ch}
+.hero h1 em{font-style:italic}
+.lead{font-size:19px;line-height:1.55;color:#d0dceb;max-width:770px;margin:22px 0 0}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:13px 19px;border-radius:9px;text-decoration:none;font-weight:950;border:1px solid transparent}
+.primary{background:#2d86f7;color:#fff;box-shadow:0 12px 30px rgba(37,120,234,.22)}
+.ghost{color:#fff;border-color:rgba(255,255,255,.24);background:rgba(255,255,255,.06)}
+
+.hero-card{padding:26px;border:1px solid rgba(255,255,255,.18);border-radius:19px;background:rgba(5,11,37,.54);box-shadow:0 24px 60px rgba(0,0,0,.28)}
+.hero-card .bubble{display:inline-block;padding:7px 10px;border-radius:999px;background:rgba(83,151,255,.16);border:1px solid rgba(123,181,255,.34);font-size:10px;font-weight:950;letter-spacing:.08em;text-transform:uppercase;color:#d4e6ff}
+.hero-card h2{margin:14px 0 10px;font-size:27px;line-height:1.05}
+.hero-card p{color:#c3d1e1;font-size:14px;line-height:1.5}
+.fastpass-mark{display:block;margin-top:18px;width:120px;height:120px;object-fit:contain;border-radius:24px;box-shadow:0 20px 40px rgba(0,0,0,.28)}
+.hero-card a{color:#fff;font-weight:900;text-decoration:none;display:inline-block;margin-top:16px}
+
+.trust{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid rgba(255,255,255,.10)}
+.trust div{min-height:78px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:rgba(2,7,27,.48);border-right:1px solid rgba(255,255,255,.08)}
+.trust b{font-size:14px}.trust span{font-size:11px;color:#b8c7d9;margin-top:3px}
+
+.packages{padding:74px 0 82px;color:#fff;background:linear-gradient(180deg,#07142b,#05021c)}
+.section-head{max-width:800px;margin-bottom:30px}
+.section-head .eyebrow{color:#77aef7}
+.section-head h2{margin:0;font-size:48px;line-height:1;letter-spacing:-.045em}
+.section-head p{color:#b7c5d6;line-height:1.55}
+.pkg-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.pkg{position:relative;overflow:hidden;padding:27px;border:1px solid rgba(255,255,255,.16);border-radius:18px;background:radial-gradient(520px 250px at 10% 0%,rgba(255,255,255,.07),transparent 60%),linear-gradient(180deg,#17375f,#0b1832);box-shadow:0 24px 60px rgba(0,0,0,.24)}
+.pkg.broker{border-color:rgba(73,146,255,.45);background:radial-gradient(520px 250px at 90% 0%,rgba(44,129,255,.15),transparent 60%),linear-gradient(180deg,#17375f,#0b1832)}
+.badge{display:inline-block;padding:7px 9px;border-radius:999px;font-size:10px;font-weight:950;text-transform:uppercase;letter-spacing:.08em;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14)}
+.pkg-top{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;margin-top:14px}
+.pkg h3{margin:0;font-size:29px;line-height:1.05;text-transform:uppercase;font-style:italic;max-width:12ch}
+.price{font-size:48px;line-height:1;font-weight:950;letter-spacing:-.05em}
+.sub{color:#c3d1e1;margin-top:12px;font-size:14px}
+.pkg ul{list-style:none;padding:0;margin:20px 0 25px;display:grid;gap:9px;color:#d5e0eb;font-size:13px}
+.pkg li:before{content:'✓';color:#66a9ff;font-weight:950;margin-right:8px}
+.pkg .btn{width:100%}
+
+.editorial{padding:92px 0;background:#fff}
+.editorial-grid{display:grid;grid-template-columns:.88fr 1.12fr;gap:72px;align-items:center}
+.big-words{font-size:72px;line-height:.86;font-weight:950;letter-spacing:-.06em;color:#0a1d36;text-transform:uppercase}
+.big-words span{display:block}.big-words em{font-style:italic;color:#2578ea}
+.editorial .section-head h2{font-size:44px;color:#0a1d36}
+.editorial .section-head p{color:#53667d}
+.steps{display:grid;gap:10px;margin-top:20px}
+.step{display:grid;grid-template-columns:44px 1fr;gap:14px;padding:15px 16px;border:1px solid #dce6f2;border-radius:12px;background:#fbfdff}
+.step strong{display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:#edf5ff;color:#1766c7}
+.step h4{margin:0 0 4px;font-size:15px}.step p{margin:0;font-size:13px;color:#607387}
+
+.included{padding:78px 0;color:#fff;background:linear-gradient(135deg,#071a32,#070525)}
+.feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.feature{padding:20px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(255,255,255,.045)}
+.feature span{font-size:10px;font-weight:950;letter-spacing:.09em;text-transform:uppercase;color:#7fb5ff}
+.feature h3{font-size:17px;margin:7px 0}.feature p{margin:0;font-size:13px;color:#aebfd4;line-height:1.5}
+
+.note{padding:72px 0;background:#f5f8fc}
+.note .section-head h2{color:#0a1d36}.note .section-head p{color:#53667d}
+.note-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
+.note-card{padding:25px;border:1px solid #d9e4f0;border-radius:17px;background:#fff;box-shadow:0 16px 42px rgba(6,28,54,.05)}
+.note-card .tag{font-size:11px;font-weight:950;letter-spacing:.1em;text-transform:uppercase;color:#1766c7}
+.note-card h3{font-size:27px;margin:9px 0}
+.note-card p{color:#5d7086;line-height:1.55}
+.note-card strong{color:#0a1d36}
+
+.reviews{padding:78px 0;color:#fff;background:linear-gradient(135deg,#091a34,#06162d)}
+.quote-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.quote{padding:20px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(255,255,255,.05)}
+.stars{letter-spacing:.06em;margin-bottom:10px}
+.quote p{font-size:13px;line-height:1.55;color:#d7e0ec}
+.quote b{display:block;margin-top:12px;font-size:12px}
+
+.final{padding:56px 0;color:#fff;background:linear-gradient(135deg,#130957,#0b2c5b)}
+.final-grid{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center}
+.final h2{font-size:50px;line-height:.98;letter-spacing:-.045em;text-transform:uppercase;margin:0}
+.final p{color:#c7d4e4}.final-actions{display:flex;gap:10px;flex-wrap:wrap}
+
+@media(max-width:900px){
+ .hero-grid,.editorial-grid,.note-grid{grid-template-columns:1fr}
+ .pkg-grid{grid-template-columns:1fr}
+ .feature-grid{grid-template-columns:1fr 1fr}
+ .quote-grid{grid-template-columns:1fr}
+ .trust{grid-template-columns:1fr 1fr}.trust div:last-child{grid-column:1/-1}
+}
+
+@media(max-width:620px){
+  .hero-grid{padding:58px 0 34px}
+  .hero h1{font-size:44px}
+  .lead{font-size:16px}
+  .feature-grid{grid-template-columns:1fr}
+  .final-grid{grid-template-columns:1fr}
+  .final-actions{display:grid;width:100%}
+  .final-actions .btn{width:100%}
+  .section-head h2,.editorial .section-head h2{font-size:36px}
+  .big-words{font-size:51px}
+}
+
+
+/* Compact licensing alternatives inside Exam Prep Only */
+.note-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.note-btn{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:9px 13px;border-radius:8px;border:1px solid #bfd7f2;background:#eef6ff;color:#0b56ae;text-decoration:none;font-size:13px;font-weight:950;transition:transform .16s ease,border-color .16s ease,background-color .16s ease,box-shadow .16s ease}
+@media (hover:hover) and (pointer:fine){
+  .note-btn:hover{transform:translateY(-2px);border-color:#7db4ef;background:#e3f0ff;box-shadow:0 10px 24px rgba(6,28,54,.09)}
+}
+@media(max-width:620px){
+  .note-actions{display:grid;grid-template-columns:1fr 1fr}
+  .note-btn{width:100%}
+}
+
+
+/* Keep licensing alternatives below the card instead of increasing card height. */
+.note-grid{align-items:start}
+.note-choice{display:flex;flex-direction:column;gap:12px;min-width:0}
+.note-choice .note-card{width:100%}
+.note-choice .note-actions{margin-top:0;padding-left:2px}
+
+</style>
