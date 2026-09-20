@@ -64,9 +64,9 @@ const schema = [
 <section class="packages" id="options">
 <div class="shell">
 <div class="section-head" data-reveal="">
-<div class="eyebrow">CHOOSE YOUR EXAM</div>
-<h2>Sales exam or broker exam. That is the decision.</h2>
-<p>These options are for candidates who already hold the required Course 1 or Course 2 completion certificate and now want focused preparation for the separate Florida state licensing exam.</p>
+<div class="eyebrow">CHOOSE THE RIGHT EXAM PREP</div>
+<h2>Choose the prep that matches the Florida exam you are already eligible to take.</h2>
+<p>These are separate exam-prep products for candidates who are already certified and eligible to test. Choose the option that matches the Florida state exam you are already approved to take.</p>
 </div>
 <div class="pkg-grid">
 <article class="pkg" data-hover-lift="" data-reveal="">
@@ -139,7 +139,11 @@ const schema = [
 </div>
 <div class="note-grid">
 <div class="note-card" data-reveal=""><div class="tag">This page is for you if...</div><h3>You already have your Course 1 or Course 2 completion certificate.</h3><p>You are already certified to test and now want a focused Florida exam-prep path — whether this is your first state-exam attempt or you are preparing to take it again.</p></div>
-<div class="note-card" data-reveal=""><div class="tag">Use a licensing package instead if...</div><h3>You still need the certificate that makes you eligible to test.</h3><p>Our Sales Licensing and Broker Licensing packages include the required pre-license education, course certification, and exam preparation together.</p></div>
+<div class="note-card" data-reveal=""><div class="tag">Use a licensing package instead if...</div><h3>You still need the certificate that makes you eligible to test.</h3><p>Our Sales Licensing and Broker Licensing packages include the required pre-license education, course certification, and exam preparation together.</p>
+<div class="note-actions">
+  <a class="note-btn" href="https://portal.daniellarsontraining.com/bundles/fastpass1" target="_top">Sales FastPass</a>
+  <a class="note-btn" href="https://portal.daniellarsontraining.com/bundles/brokerfastpass" target="_top">Broker FastPass</a>
+</div></div>
 </div>
 </div>
 </section>
@@ -266,6 +270,18 @@ const schema = [
   .final-actions .btn{width:100%}
   .section-head h2,.editorial .section-head h2{font-size:36px}
   .big-words{font-size:51px}
+}
+
+
+/* Compact licensing alternatives inside Exam Prep Only */
+.note-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.note-btn{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:9px 13px;border-radius:8px;border:1px solid #bfd7f2;background:#eef6ff;color:#0b56ae;text-decoration:none;font-size:13px;font-weight:950;transition:transform .16s ease,border-color .16s ease,background-color .16s ease,box-shadow .16s ease}
+@media (hover:hover) and (pointer:fine){
+  .note-btn:hover{transform:translateY(-2px);border-color:#7db4ef;background:#e3f0ff;box-shadow:0 10px 24px rgba(6,28,54,.09)}
+}
+@media(max-width:620px){
+  .note-actions{display:grid;grid-template-columns:1fr 1fr}
+  .note-btn{width:100%}
 }
 
 </style>
