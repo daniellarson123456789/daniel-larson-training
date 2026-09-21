@@ -293,4 +293,85 @@ const schema = [
 .note-choice .note-card{width:100%}
 .note-choice .note-actions{margin-top:0;padding-left:2px}
 
+
+/* DLT mobile exam-prep cleanup */
+@media(max-width:620px){
+  .exam-page .shell{
+    padding-left:18px;
+    padding-right:18px;
+  }
+
+  .exam-page .pkg-grid{
+    width:100%;
+    min-width:0;
+  }
+
+  .exam-page .pkg{
+    width:100%;
+    min-width:0;
+    box-sizing:border-box;
+    padding:22px 20px;
+  }
+
+  .exam-page .pkg-top{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:12px;
+    align-items:start;
+  }
+
+  .exam-page .pkg-top > div:first-child{
+    min-width:0;
+  }
+
+  .exam-page .pkg h3{
+    max-width:none;
+    font-size:clamp(2rem,9.2vw,2.55rem);
+    line-height:1.02;
+    overflow-wrap:normal;
+  }
+
+  .exam-page .price{
+    min-width:0;
+    font-size:clamp(2.7rem,12vw,3.35rem);
+    line-height:.95;
+    white-space:nowrap;
+  }
+
+  .exam-page .pkg .sub{
+    font-size:15px;
+    line-height:1.45;
+  }
+
+  .exam-page .pkg ul{
+    font-size:15px;
+    line-height:1.45;
+  }
+
+  .exam-page .note-grid{
+    gap:14px;
+  }
+
+  .exam-page .note-card{
+    padding:21px 20px;
+  }
+
+  .exam-page .note-card h3{
+    margin:8px 0 12px;
+    font-size:clamp(1.45rem,7vw,1.8rem);
+    line-height:1.12;
+    letter-spacing:-.025em;
+  }
+
+  .exam-page .note-card p{
+    margin:0;
+    font-size:16px;
+    line-height:1.55;
+  }
+
+  .exam-page .note-choice{
+    gap:10px;
+  }
+}
+
 </style>

@@ -714,3 +714,34 @@
 @media (max-width:1100px){
   .post-partner-note{white-space:normal}
 }
+
+
+/* DLT aligned post-licensing bullets */
+.post-option li{
+  display:grid;
+  grid-template-columns:18px minmax(0,1fr);
+  column-gap:10px;
+  align-items:start;
+  line-height:1.45;
+}
+
+.post-option li::before{
+  margin-right:0;
+  line-height:1.45;
+}
+
+@media(max-width:620px){
+  .post-option{
+    padding:22px 20px;
+  }
+
+  .post-option ul{
+    gap:12px;
+    font-size:1rem;
+  }
+
+  .post-option li{
+    grid-template-columns:20px minmax(0,1fr);
+    column-gap:9px;
+  }
+}
