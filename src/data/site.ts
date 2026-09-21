@@ -1,7 +1,7 @@
 export const site = {
   name: "Daniel Larson Training",
   tagline: "Florida Real Estate Education",
-  url: "https://www.daniellarsontraining.com",
+  url: "https://daniellarsontraining.com",
   portalUrl: "https://portal.daniellarsontraining.com",
   studentDashboardUrl: "https://portal.daniellarsontraining.com/enrollments",
   phoneDisplay: "239.471.8500",
