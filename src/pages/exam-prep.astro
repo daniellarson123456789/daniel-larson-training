@@ -213,7 +213,8 @@ const schema = [
 .price{font-size:48px;line-height:1;font-weight:950;letter-spacing:-.05em}
 .sub{color:#c3d1e1;margin-top:12px;font-size:14px}
 .pkg ul{list-style:none;padding:0;margin:20px 0 25px;display:grid;gap:9px;color:#d5e0eb;font-size:13px}
-.pkg li:before{content:'✓';color:#66a9ff;font-weight:950;margin-right:8px}
+.pkg li{display:grid;grid-template-columns:16px minmax(0,1fr);column-gap:8px;align-items:start}
+.pkg li:before{content:'✓';color:#66a9ff;font-weight:950;margin-right:0}
 .pkg .btn{width:100%}
 
 .editorial{padding:92px 0;background:#fff}
