@@ -51,7 +51,7 @@
       radial-gradient(900px 600px at 14% 85%,rgba(101,57,255,.18),transparent 64%),
       linear-gradient(135deg,#0d0640 0%,#15105a 48%,#07162f 100%);
     border-bottom:1px solid rgba(255,255,255,.12)}
-  .licensing-parity .hero .wrap{display:grid;grid-template-columns:1.35fr .65fr;gap:48px;padding:48px 0 42px}
+  .licensing-parity .hero .wrap{display:grid;grid-template-columns:1.35fr .65fr;gap:48px;padding:24px 0 42px}
   .licensing-parity .eyebrow{display:inline-flex;align-items:center;gap:8px;font-weight:900;font-size:12px;letter-spacing:.10em;text-transform:uppercase;color:#bfd7ff}
   .licensing-parity .eyebrow:before{content:"";width:28px;height:3px;background:var(--blue2);border-radius:10px}
   .licensing-parity h1{font-size:clamp(46px,6.4vw,86px);line-height:.93;letter-spacing:-.045em;text-transform:uppercase;margin:18px 0 18px;max-width:900px;font-weight:950}
@@ -63,7 +63,7 @@
   .licensing-parity .btn:hover{transform:translateY(-2px)}
   .licensing-parity .btn-primary{background:var(--blue);color:#fff;box-shadow:0 14px 34px rgba(37,120,234,.30)}
   .licensing-parity .btn-ghost{border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.06)}
-  .licensing-parity .hero-card{align-self:start;margin-top:135px;background:rgba(3,10,31,.62);border:1px solid rgba(255,255,255,.16);border-radius:20px;padding:24px;box-shadow:var(--shadow);backdrop-filter:blur(10px)}
+  .licensing-parity .hero-card{align-self:start;margin-top:100px;background:rgba(3,10,31,.62);border:1px solid rgba(255,255,255,.16);border-radius:20px;padding:24px;box-shadow:var(--shadow);backdrop-filter:blur(10px)}
   .licensing-parity .hero-card h2{font-size:22px;margin:0 0 8px}
   .licensing-parity .hero-card p{margin:0;color:var(--muted)}
   .licensing-parity .support-number{font-size:27px;font-weight:950;display:block;margin-top:16px;text-decoration:none;color:#fff}
@@ -334,7 +334,7 @@
 
   @media (max-width:900px){
     .licensing-parity .hero .wrap, .licensing-parity .fast-grid, .licensing-parity .included-grid, .licensing-parity .about-grid, .licensing-parity .bookcard{grid-template-columns:1fr}
-    .licensing-parity .hero .wrap{padding-top:34px}.licensing-parity .hero-card{max-width:560px;margin-top:0}.licensing-parity .truststrip{grid-template-columns:repeat(2,1fr)}
+    .licensing-parity .hero .wrap{padding-top:18px}.licensing-parity .hero-card{max-width:560px;margin-top:0}.licensing-parity .truststrip{grid-template-columns:repeat(2,1fr)}
     .licensing-parity .package-grid{grid-template-columns:1fr}.licensing-parity .package.featured{transform:none;height:auto}.licensing-parity .feature-grid, .licensing-parity .review-grid{grid-template-columns:1fr}.licensing-parity .mark-scene{min-height:360px}
     .licensing-parity .comparison{overflow-x:auto}.licensing-parity .comparison-table{min-width:780px}
   }
