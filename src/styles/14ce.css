@@ -22,7 +22,7 @@
   grid-template-columns:minmax(0,1.35fr) minmax(310px,.65fr);
   gap:clamp(38px,6vw,76px);
   align-items:start;
-  padding:clamp(66px,8vw,108px) 0 44px;
+  padding:clamp(58px,7vw,86px) 0 44px;
 }
 
 .ce-eyebrow{
@@ -35,9 +35,9 @@
 }
 
 .ce-hero h1{
-  max-width:12ch;
+  max-width:14ch;
   margin:0;
-  font-size:clamp(3.1rem,6.8vw,6rem);
+  font-size:clamp(3rem,5.8vw,5.3rem);
   line-height:.95;
   letter-spacing:-.052em;
   text-transform:uppercase;
@@ -50,6 +50,8 @@
   font-size:clamp(1rem,1.6vw,1.18rem);
   font-weight:650;
 }
+
+.ce-lead strong{color:#fff}
 
 .ce-hero-actions{
   display:flex;
@@ -73,7 +75,7 @@
     rgba(3,10,31,.62);
   box-shadow:0 26px 68px rgba(0,0,0,.27);
   backdrop-filter:blur(10px);
-  margin-top:93px;
+  margin-top:12px;
 }
 
 .ce-buy-kicker{
@@ -186,6 +188,7 @@
 .ce-learn{
   padding:clamp(68px,8vw,100px) 0;
   color:#fff;
+  scroll-margin-top:115px;
   background:
     radial-gradient(760px 420px at 84% 0%,rgba(59,140,255,.16),transparent 68%),
     linear-gradient(135deg,#071a32,#071329);
@@ -254,11 +257,12 @@
 
 .ce-curriculum{
   padding:clamp(66px,8vw,96px) 0;
-  color:#fff;
-  background:linear-gradient(180deg,#08122d,#06031f);
+  color:#0b1f3a;
+  background:#fff;
 }
 
-.ce-curriculum .ce-section-head > p:last-child{color:#b9cade}
+.ce-curriculum .ce-eyebrow{color:#1766c7}
+.ce-curriculum .ce-section-head > p:last-child{color:#53667d}
 
 .ce-curriculum-grid{
   display:grid;
@@ -269,11 +273,12 @@
 .ce-curriculum-grid article{
   min-height:270px;
   padding:22px;
-  border:1px solid rgba(255,255,255,.13);
+  border:1px solid #d9e5f3;
   border-radius:17px;
   background:
-    radial-gradient(280px 160px at 100% 0%,rgba(37,120,234,.12),transparent 70%),
-    rgba(255,255,255,.045);
+    radial-gradient(280px 160px at 100% 0%,rgba(37,120,234,.08),transparent 70%),
+    #f8fbff;
+  box-shadow:0 16px 42px rgba(6,28,54,.06);
 }
 
 .ce-curriculum-grid strong{
@@ -283,7 +288,7 @@
   height:38px;
   border-radius:12px;
   background:rgba(37,120,234,.16);
-  color:#bcd7ff;
+  color:#1766c7;
 }
 
 .ce-curriculum-grid span{
@@ -307,6 +312,9 @@
   color:#aebfd4;
   font-size:.84rem;
 }
+
+.ce-curriculum .ce-curriculum-grid span{color:#1766c7}
+.ce-curriculum .ce-curriculum-grid p{color:#53667d}
 
 .ce-bonus{
   padding:clamp(66px,8vw,96px) 0;

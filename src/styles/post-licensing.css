@@ -26,7 +26,7 @@
   grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);
   gap:clamp(36px,6vw,74px);
   align-items:start;
-  padding:clamp(68px,8vw,110px) 0 44px;
+  padding:clamp(58px,7vw,86px) 0 44px;
 }
 
 .post-eyebrow{
@@ -39,9 +39,9 @@
 }
 
 .post-hero h1{
-  max-width:12ch;
+  max-width:15ch;
   margin:0;
-  font-size:clamp(3rem,6.7vw,6rem);
+  font-size:clamp(3rem,5.8vw,5.3rem);
   line-height:.95;
   letter-spacing:-.052em;
   text-transform:uppercase;
@@ -54,6 +54,8 @@
   font-size:clamp(1rem,1.6vw,1.18rem);
   font-weight:650;
 }
+
+.post-lead strong{color:#fff}
 
 .post-hero-actions{
   display:flex;
@@ -75,7 +77,7 @@
   background:rgba(3,10,31,.58);
   box-shadow:0 24px 60px rgba(0,0,0,.25);
   backdrop-filter:blur(10px);
-  margin-top:91px;
+  margin-top:22px;
 }
 
 .post-help-kicker{
@@ -139,6 +141,7 @@
 .post-options-section{
   color:#fff;
   background:linear-gradient(180deg,#08122d,#06031f);
+  scroll-margin-top:115px;
 }
 
 .post-section-head{
@@ -331,6 +334,7 @@
 .post-course-system{
   padding:clamp(68px,8vw,100px) 0;
   color:#fff;
+  scroll-margin-top:115px;
   background:
     radial-gradient(760px 420px at 84% 0%,rgba(59,140,255,.16),transparent 68%),
     linear-gradient(135deg,#071a32,#071329);
@@ -386,9 +390,14 @@
 }
 
 .post-included{
-  color:#fff;
-  background:linear-gradient(180deg,#071329,#090524);
+  color:#0b1f3a;
+  background:#fff;
 }
+
+.post-included .post-eyebrow,
+.post-included .post-feature-grid span{color:#1766c7}
+.post-included .post-section-head > p:last-child,
+.post-included .post-feature-grid p{color:#53667d}
 
 .post-feature-grid{
   display:grid;
@@ -398,8 +407,9 @@
 
 .post-feature-grid article{
   padding:20px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.05);
+  border:1px solid #d9e5f3;
+  background:#f8fbff;
+  box-shadow:0 16px 42px rgba(6,28,54,.06);
 }
 
 .post-updates{
@@ -427,6 +437,7 @@
   box-shadow:0 16px 42px rgba(6,28,54,.06);
 }
 
+.post-bonus-grid article::after{content:none;display:none}
 
 .post-bonus-grid p{
   margin:0;

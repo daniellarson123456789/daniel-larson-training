@@ -3,7 +3,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 import { site } from "../data/site";
 import "../styles/14ce.css";
 
-const checkoutUrl = "https://portal.daniellarsontraining.com/bundles/14ce";
+const bundleUrl = "https://portal.daniellarsontraining.com/bundles/14ce";
 
 const schema = [
   {
@@ -29,7 +29,7 @@ const schema = [
 
 <SiteLayout
   title="Florida 14-Hour Real Estate Continuing Education | Daniel Larson Training"
-  description="Complete Florida 14-hour real estate continuing education online for $65. For Sales Associates and Brokers after Post-Licensing, with PDFs, narrated lessons, review questions, FastPass final exam, and completion reporting support."
+  description="Florida 14-Hour CE for $65: downloadable section PDFs, audio-guided lessons, review questions, relevant bonus material, and an included FastPass final. Explore the bundle before enrolling."
   canonicalPath="/14ce/"
   schema={schema}
 >
@@ -38,29 +38,30 @@ const schema = [
       <div class="shell ce-hero-grid">
         <div class="ce-hero-copy">
           <p class="ce-eyebrow">Florida 14-Hour Continuing Education</p>
-          <h1>Get your CE done. Keep your license moving.</h1>
+          <h1>14-Hour CE. Built to be finished.</h1>
           <p class="ce-lead">
-            For Florida Sales Associates and Brokers after Post-Licensing. Read it, listen to it,
-            review it, and complete the included FastPass final when you are ready.
+            <strong>Read it. Listen to it. Review it. Use FastPass to test out when you're ready.</strong>
+            Complete your Florida continuing education with downloadable section PDFs,
+            audio-guided lessons, review questions, and practical bonus material.
           </p>
 
           <div class="ce-hero-actions">
-            <a class="button button-primary" href={checkoutUrl} target="_top">Enroll in 14-Hour CE</a>
-            <a class="button button-secondary ce-ghost" href="#ce-inside">See what is included ↓</a>
+            <a class="button button-primary" href={bundleUrl} target="_top">View course &amp; enroll</a>
+            <a class="button button-secondary ce-ghost" href="#ce-inside">Explore the course ↓</a>
           </div>
         </div>
 
         <aside class="ce-buy-card" data-tilt>
-          <p class="ce-buy-kicker">Complete Course + FastPass Final</p>
+          <p class="ce-buy-kicker">14-Hour CE · One-Time Enrollment</p>
           <div class="ce-price">$65</div>
           <p class="ce-buy-copy">
             For your second license period and every renewal after Post-Licensing is completed.
           </p>
-          <a class="button button-primary ce-buy-button" href={checkoutUrl} target="_top">Start 14-Hour CE</a>
+          <a class="button button-primary ce-buy-button" href={bundleUrl} target="_top">View course details →</a>
           <div class="ce-buy-list">
-            <span>✓ Sales Associates + Brokers</span>
-            <span>✓ Self-paced PDFs + narrated lessons</span>
-            <span>✓ Completion reporting support</span>
+            <span>✓ Section PDFs + narrated lessons</span>
+            <span>✓ Review questions + bonus material</span>
+            <span>✓ FastPass final + reporting support</span>
           </div>
           <p class="ce-partner">
             <strong>Have a Partner Code? Enter it at checkout.</strong><br />
@@ -72,45 +73,20 @@ const schema = [
       <div class="ce-trust">
         <div><strong>14 hours</strong><span>Florida CE</span></div>
         <div><strong>Sales + Brokers</strong><span>after Post-Licensing</span></div>
-        <div><strong>FastPass final</strong><span>included</span></div>
+        <div><strong>Self-paced</strong><span>read, listen + review</span></div>
         <div><strong>PDF + audio</strong><span>learn your way</span></div>
-        <div><strong>Reporting support</strong><span>after completion</span></div>
-      </div>
-    </section>
-
-    <section class="ce-process">
-      <div class="shell ce-process-grid">
-        <article data-ce-reveal>
-          <span>01</span>
-          <h3>Learn your way.</h3>
-          <p>Read the PDFs, play the narrated lessons, or use both together.</p>
-        </article>
-        <article data-ce-reveal>
-          <span>02</span>
-          <h3>Review as you go.</h3>
-          <p>Section questions reinforce the material before the final exam.</p>
-        </article>
-        <article data-ce-reveal>
-          <span>03</span>
-          <h3>Pass FastPass.</h3>
-          <p>Complete the included on-demand final exam when you are ready.</p>
-        </article>
-        <article data-ce-reveal>
-          <span>04</span>
-          <h3>Renew your license.</h3>
-          <p>Send your license details, then finish the separate state renewal.</p>
-        </article>
+        <div><strong>FastPass final</strong><span>included</span></div>
       </div>
     </section>
 
     <section class="ce-learn" id="ce-inside">
       <div class="shell ce-learn-grid">
         <header class="ce-section-head ce-section-head-dark" data-ce-reveal>
-          <p class="ce-eyebrow">Use the format that works for you</p>
+          <p class="ce-eyebrow">Inside the course</p>
           <h2>Read it. Listen to it. Or use both.</h2>
           <p>
-            This is not a wall of online text. Each major course area can be read,
-            listened to like a podcast, or followed as an audio-guided read-along.
+            Follow the written material, listen podcast-style, or play the narration while
+            reading along with a section PDF. Keep the material to revisit later.
           </p>
         </header>
 
@@ -118,7 +94,7 @@ const schema = [
           <article data-ce-reveal>
             <span>Download + Read</span>
             <h3>Professionally formatted PDFs</h3>
-            <p>Read inside the course or download the sections for later reference.</p>
+            <p>Read inside the course or download each section for later reference.</p>
           </article>
           <article data-ce-reveal>
             <span>Play + Follow Along</span>
@@ -128,7 +104,7 @@ const schema = [
           <article data-ce-reveal>
             <span>Check Understanding</span>
             <h3>Section review questions</h3>
-            <p>Reinforce important rules and concepts before moving to the FastPass final.</p>
+            <p>Reinforce important rules and concepts whenever you want a confidence check.</p>
           </article>
           <article data-ce-reveal>
             <span>Finish Efficiently</span>
@@ -143,9 +119,9 @@ const schema = [
       <div class="shell">
         <header class="ce-section-head" data-ce-reveal>
           <p class="ce-eyebrow">Inside your 14 hours</p>
-          <h2>Required education that still feels useful.</h2>
+          <h2>The subjects behind your 14 hours.</h2>
           <p>
-            The course is organized into four focused education areas, followed by your FastPass final.
+            Four focused education areas connect Florida requirements with the work licensees do.
           </p>
         </header>
 
@@ -182,10 +158,10 @@ const schema = [
       <div class="shell">
         <header class="ce-section-head ce-section-head-light" data-ce-reveal>
           <p class="ce-eyebrow">Current course material</p>
-          <h2>The course can move when the industry moves.</h2>
+          <h2>Current bonus material and meaningful updates.</h2>
           <p>
-            Relevant course material is added when major legal, licensing, renewal, or industry changes
-            deserve a clear explanation for Florida professionals.
+            The course includes practical bonus material and can grow when significant legal,
+            licensing, or industry changes call for a clear explanation.
           </p>
         </header>
 
@@ -223,8 +199,8 @@ const schema = [
         <div class="ce-finish-grid">
           <article data-ce-reveal>
             <strong>1</strong>
-            <h3>Complete the course.</h3>
-            <p>Use the written, narrated, and review material at your own pace.</p>
+            <h3>Use the course materials.</h3>
+            <p>Read, listen, and review as much — or as little — as you need.</p>
           </article>
           <article data-ce-reveal>
             <strong>2</strong>
@@ -277,10 +253,10 @@ const schema = [
       <div class="shell ce-final-inner">
         <div>
           <p class="ce-eyebrow">Florida 14-Hour CE</p>
-          <h2>Get the 14 hours done.</h2>
-          <p>PDFs, narrated lessons, review questions, bonus material, FastPass final, and reporting support are included.</p>
+          <h2>See everything included in your CE.</h2>
+          <p>Explore the course and included FastPass final on the bundle page before enrolling.</p>
         </div>
-        <a class="button button-primary" href={checkoutUrl} target="_top">Enroll in 14-Hour CE</a>
+        <a class="button button-primary" href={bundleUrl} target="_top">View 14-Hour CE details</a>
       </div>
     </section>
   </div>
