@@ -78,7 +78,7 @@ export const products: Record<string, Product> = {
     shortName: "14-Hour CE",
     price: 65,
     category: "ce",
-    checkoutUrl: "https://portal.daniellarsontraining.com/order?ct=bb6d1be4-da41-43e8-aacb-60f83982ddb2",
+    checkoutUrl: "https://portal.daniellarsontraining.com/bundles/14ce",
   },
   salesExamPrep: {
     id: "sales-exam-prep",
