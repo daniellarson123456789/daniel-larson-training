@@ -19,8 +19,10 @@
   grid-template-columns:minmax(0,1.4fr) minmax(300px,.6fr);
   gap:clamp(32px,5vw,68px);
   align-items:center;
-  padding:clamp(64px,8vw,106px) 0 clamp(54px,7vw,84px);
+  padding:48px 0 54px;
 }
+
+.post-hero-copy{align-self:start}
 
 .post-eyebrow{
   margin:0 0 15px;
@@ -393,11 +395,11 @@
   .post-options-grid,
   .post-system-grid,
   .post-finish-inner{grid-template-columns:1fr}
+  .post-hero-grid{padding-top:34px}
   .post-help-card{max-width:680px}
 }
 
 @media (max-width:620px){
-  .post-hero-grid{padding-top:52px}
   .post-hero h1{font-size:clamp(2.6rem,12vw,4rem)}
   .post-hero-actions{display:grid}
   .post-hero-actions .button{width:100%}

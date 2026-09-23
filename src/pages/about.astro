@@ -184,10 +184,11 @@ const schema = [
  radial-gradient(900px 520px at 9% 7%,rgba(59,140,255,.22),transparent 62%),
  radial-gradient(760px 460px at 89% 10%,rgba(92,84,255,.15),transparent 64%),
  linear-gradient(135deg,#0d0640 0%,#15105a 48%,#07162f 100%)}
-.hero-grid{display:grid;grid-template-columns:1.22fr .78fr;gap:64px;align-items:center;padding:88px 0 48px}
+.hero-grid{display:grid;grid-template-columns:1.22fr .78fr;gap:64px;align-items:center;padding:48px 0 48px}
+.hero-grid > div:first-child{align-self:start}
 .eyebrow{font-size:12px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:#a9cfff;margin-bottom:13px}
 .hero h1{font-size:clamp(54px,6vw,91px);line-height:.93;letter-spacing:-.055em;text-transform:uppercase;margin:0;max-width:10.6ch}
-.hero h1 em{font-style:italic;color:#fff}
+.hero h1 em{font-style:italic;color:#9bc9ff}
 .lead{font-size:19px;line-height:1.58;color:#d0dceb;max-width:770px;margin:22px 0 0}
 .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
 .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:13px 19px;border-radius:9px;text-decoration:none;font-weight:900;border:1px solid transparent}
@@ -272,6 +273,7 @@ const schema = [
 
 @media(max-width:900px){
  .hero-grid,.story-grid,.authorship-grid,.contact-grid,.timeline-intro{grid-template-columns:1fr}
+ .hero-grid{padding-top:34px}
  .timeline-grid,.belief-grid{grid-template-columns:1fr 1fr}
  .quote-grid{grid-template-columns:1fr}
  .trust{grid-template-columns:1fr 1fr}.trust div:last-child{grid-column:1/-1}
@@ -301,7 +303,7 @@ const schema = [
 
 
 @media(max-width:620px){
-  .hero-grid{padding:58px 0 34px}
+  .hero-grid{padding:34px 0 34px}
   .hero h1{font-size:44px}
   .lead{font-size:16px}
   .timeline-grid,.belief-grid{grid-template-columns:1fr}
