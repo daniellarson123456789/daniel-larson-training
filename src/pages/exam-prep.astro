@@ -178,10 +178,11 @@ const schema = [
  radial-gradient(860px 500px at 10% 2%,rgba(59,140,255,.24),transparent 62%),
  radial-gradient(720px 440px at 88% 10%,rgba(92,84,255,.15),transparent 64%),
  linear-gradient(135deg,#0d0640 0%,#15105a 47%,#07162f 100%)}
-.hero-grid{display:grid;grid-template-columns:1.32fr .68fr;gap:62px;align-items:center;padding:86px 0 46px}
+.hero-grid{display:grid;grid-template-columns:1.32fr .68fr;gap:62px;align-items:center;padding:48px 0 46px}
+.hero-grid > div:first-child{align-self:start}
 .eyebrow{font-size:12px;font-weight:950;letter-spacing:.13em;text-transform:uppercase;color:#a9cfff;margin-bottom:13px}
 .hero h1{font-size:clamp(54px,6vw,92px);line-height:.93;letter-spacing:-.055em;text-transform:uppercase;margin:0;max-width:10.5ch}
-.hero h1 em{font-style:italic}
+.hero h1 em{font-style:italic;color:#9bc9ff}
 .lead{font-size:19px;line-height:1.55;color:#d0dceb;max-width:770px;margin:22px 0 0}
 .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
 .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:13px 19px;border-radius:9px;text-decoration:none;font-weight:950;border:1px solid transparent}
@@ -257,6 +258,7 @@ const schema = [
 
 @media(max-width:900px){
  .hero-grid,.editorial-grid,.note-grid{grid-template-columns:1fr}
+ .hero-grid{padding-top:34px}
  .pkg-grid{grid-template-columns:1fr}
  .feature-grid{grid-template-columns:1fr 1fr}
  .quote-grid{grid-template-columns:1fr}
@@ -264,7 +266,7 @@ const schema = [
 }
 
 @media(max-width:620px){
-  .hero-grid{padding:58px 0 34px}
+  .hero-grid{padding:34px 0 34px}
   .hero h1{font-size:44px}
   .lead{font-size:16px}
   .feature-grid{grid-template-columns:1fr}

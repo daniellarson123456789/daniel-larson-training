@@ -51,11 +51,11 @@
       radial-gradient(900px 600px at 14% 85%,rgba(101,57,255,.18),transparent 64%),
       linear-gradient(135deg,#0d0640 0%,#15105a 48%,#07162f 100%);
     border-bottom:1px solid rgba(255,255,255,.12)}
-  .licensing-parity .hero .wrap{display:grid;grid-template-columns:1.35fr .65fr;gap:48px;padding:66px 0 42px}
+  .licensing-parity .hero .wrap{display:grid;grid-template-columns:1.35fr .65fr;gap:48px;padding:48px 0 42px}
   .licensing-parity .eyebrow{display:inline-flex;align-items:center;gap:8px;font-weight:900;font-size:12px;letter-spacing:.10em;text-transform:uppercase;color:#bfd7ff}
   .licensing-parity .eyebrow:before{content:"";width:28px;height:3px;background:var(--blue2);border-radius:10px}
   .licensing-parity h1{font-size:clamp(46px,6.4vw,86px);line-height:.93;letter-spacing:-.045em;text-transform:uppercase;margin:18px 0 18px;max-width:900px;font-weight:950}
-  .licensing-parity h1 em{display:block;color:#fff;font-style:italic}
+  .licensing-parity h1 em{display:block;color:#9bc9ff;font-style:italic}
   .licensing-parity .hero-deck{font-size:20px;max-width:720px;color:#e5edfb;font-weight:650}
   .licensing-parity .hero-kicker{font-size:14px;letter-spacing:.06em;text-transform:uppercase;font-weight:900;margin:22px 0 0;color:#fff}
   .licensing-parity .hero-actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:28px}
@@ -334,7 +334,7 @@
 
   @media (max-width:900px){
     .licensing-parity .hero .wrap, .licensing-parity .fast-grid, .licensing-parity .included-grid, .licensing-parity .about-grid, .licensing-parity .bookcard{grid-template-columns:1fr}
-    .licensing-parity .hero .wrap{padding-top:46px}.licensing-parity .hero-card{max-width:560px;margin-top:0}.licensing-parity .truststrip{grid-template-columns:repeat(2,1fr)}
+    .licensing-parity .hero .wrap{padding-top:34px}.licensing-parity .hero-card{max-width:560px;margin-top:0}.licensing-parity .truststrip{grid-template-columns:repeat(2,1fr)}
     .licensing-parity .package-grid{grid-template-columns:1fr}.licensing-parity .package.featured{transform:none;height:auto}.licensing-parity .feature-grid, .licensing-parity .review-grid{grid-template-columns:1fr}.licensing-parity .mark-scene{min-height:360px}
     .licensing-parity .comparison{overflow-x:auto}.licensing-parity .comparison-table{min-width:780px}
   }

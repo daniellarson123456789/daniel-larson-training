@@ -18,8 +18,10 @@
   grid-template-columns:minmax(0,1.4fr) minmax(300px,.6fr);
   gap:clamp(32px,5vw,68px);
   align-items:center;
-  padding:clamp(64px,8vw,106px) 0 clamp(54px,7vw,84px);
+  padding:48px 0 54px;
 }
+
+.ce-hero-copy{align-self:start}
 
 .ce-eyebrow{
   margin:0 0 15px;
@@ -278,6 +280,7 @@
   .ce-hero-grid,
   .ce-learn-grid,
   .ce-finish-inner{grid-template-columns:1fr}
+  .ce-hero-grid{padding-top:34px}
   .ce-buy-card{max-width:680px}
 }
 
@@ -286,7 +289,6 @@
 }
 
 @media (max-width:620px){
-  .ce-hero-grid{padding-top:52px}
   .ce-hero h1{font-size:clamp(2.6rem,12vw,4rem)}
   .ce-hero-actions{display:grid}
   .ce-hero-actions .button{width:100%}
