@@ -13,6 +13,7 @@ type Props = {
   schema?: Record<string, unknown> | Record<string, unknown>[];
   robots?: string;
   ogImage?: string;
+  shareTitle?: string;
 };
 
 const {
@@ -22,6 +23,7 @@ const {
   schema = [],
   robots,
   ogImage = "/social-share.png",
+  shareTitle = title,
 } = Astro.props;
 
 const canonical = new URL(canonicalPath, site.url).toString();
@@ -82,12 +84,13 @@ const structuredData = {
     <meta name="theme-color" content="#080426" />
     <meta name="color-scheme" content="light" />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/fastpass-icon-192.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/fastpass-icon-192.png" />
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content={site.name} />
-    <meta property="og:title" content={title} />
+    <meta property="og:title" content={shareTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={socialImage} />
@@ -96,7 +99,7 @@ const structuredData = {
     <meta property="og:image:alt" content="Daniel Larson Training — Florida Real Estate Education" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
+    <meta name="twitter:title" content={shareTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImage} />
 
