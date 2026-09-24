@@ -19,4 +19,5 @@ export const navigation = [
   { label: "14-Hour CE", href: "/14ce/" },
   { label: "Exam Prep", href: "/exam-prep/" },
   { label: "About", href: "/about/" },
+  { label: "License Guides", href: "/license-guides/" },
 ] as const;

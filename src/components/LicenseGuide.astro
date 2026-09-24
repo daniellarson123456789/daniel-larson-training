@@ -1,0 +1,24 @@
+---
+import "../styles/license-guides.css";
+
+type Props = { markup: string };
+const { markup } = Astro.props;
+---
+
+<div class="license-guides" set:html={markup}></div>
+
+<script is:inline>
+  document.addEventListener('click', function(event) {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const link = target.closest('.license-guides a[href*="portal.daniellarsontraining.com/bundles/"]');
+    if (!link || typeof window.gtag !== 'function') return;
+    const bundle = new URL(link.href).pathname.split('/').pop();
+    window.gtag('event', 'select_course_package', {
+      course_package: bundle,
+      guide_path: window.location.pathname,
+      link_url: link.href,
+      cta_text: link.textContent.trim()
+    });
+  });
+</script>

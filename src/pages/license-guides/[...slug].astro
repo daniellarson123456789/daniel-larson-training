@@ -1,0 +1,34 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import LicenseGuide from "../../components/LicenseGuide.astro";
+import { site } from "../../data/site";
+import { guides } from "../../data/licenseGuides";
+
+export function getStaticPaths() {
+  return guides.map((guide) => ({ params: { slug: guide.slug }, props: { guide } }));
+}
+
+const { guide } = Astro.props;
+const canonicalPath = `/license-guides/${guide.slug ? `${guide.slug}/` : ""}`;
+const schema = {
+  "@type": guide.slug ? "Article" : "CollectionPage",
+  "@id": `${site.url}${canonicalPath}#webpage`,
+  url: `${site.url}${canonicalPath}`,
+  name: guide.heading,
+  description: guide.description,
+  isPartOf: { "@id": `${site.url}/#website` },
+  author: { "@id": `${site.url}/#daniel-larson` },
+  publisher: { "@id": `${site.url}/#organization` },
+  inLanguage: "en-US",
+};
+---
+
+<SiteLayout
+  title={`${guide.title} | Daniel Larson Training`}
+  description={guide.description}
+  canonicalPath={canonicalPath}
+  shareTitle={guide.title}
+  schema={schema}
+>
+  <LicenseGuide markup={guide.markup} />
+</SiteLayout>

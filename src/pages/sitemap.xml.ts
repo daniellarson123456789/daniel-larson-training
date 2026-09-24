@@ -7,6 +7,12 @@ const paths = [
   "/14ce/",
   "/exam-prep/",
   "/about/",
+  "/license-guides/",
+  "/license-guides/how-to-get-florida-real-estate-license/",
+  "/license-guides/florida-broker-license-requirements/",
+  "/license-guides/school-certificate-and-state-exam/",
+  "/license-guides/sales-associate-vs-realtor/",
+  "/license-guides/post-licensing-vs-ce/",
 ];
 
 export function GET() {

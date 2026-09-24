@@ -1,0 +1,252 @@
+/* Scoped styles from the approved Knowledge Center draft. */
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap");
+
+  .license-guides {
+  --night: #080426;
+  --navy: #0a1236;
+  --navy-2: #122a4e;
+  --blue: #2578ea;
+  --blue-light: #d9e9ff;
+  --hero-accent: #9bc9ff;
+  --ink: #10223b;
+  --muted: #5b6e83;
+  --line: #dbe4ef;
+  --soft: #f5f8fd;
+  --white: #fff;
+  --max: 1180px;
+}
+
+  .license-guides * { box-sizing: border-box; }
+  .license-guides { scroll-behavior: auto; }
+  .license-guides { margin: 0; background: var(--white); color: var(--ink); font-family: Inter, system-ui, sans-serif; font-size: 16px; line-height: 1.58; }
+  .license-guides a { color: inherit; }
+  .license-guides a:focus-visible, .license-guides summary:focus-visible { outline: 3px solid #86b8ff; outline-offset: 4px; }
+  .license-guides button, .license-guides a { -webkit-tap-highlight-color: transparent; }
+  .license-guides .wrap { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
+  .license-guides .skip { position: absolute; left: 10px; top: -100px; padding: 10px 14px; z-index: 30; background: white; color: var(--ink); }
+  .license-guides .skip:focus { top: 10px; }
+
+  .license-guides .draft-note { background: #eaf3ff; color: #194171; border-bottom: 1px solid #cfe1fa; font-size: .78rem; font-weight: 700; letter-spacing: .01em; text-align: center; padding: 7px 16px; }
+  .license-guides .site-header { background: #fff; border-bottom: 1px solid #e4ebf4; position: relative; z-index: 3; }
+  .license-guides .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 30px; min-height: 82px; }
+  .license-guides .brand { display: inline-block; text-decoration: none; color: #071a33; font-size: 1.21rem; font-weight: 900; letter-spacing: .035em; line-height: 1.08; white-space: nowrap; }
+  .license-guides .brand small { display: block; margin-top: 5px; color: #566b81; font-size: .69rem; font-weight: 800; letter-spacing: .145em; }
+  .license-guides .desktop-nav { display: flex; align-items: center; gap: clamp(15px, 2vw, 30px); }
+  .license-guides .desktop-nav a { font-size: .83rem; font-weight: 800; text-decoration: none; color: #233956; white-space: nowrap; padding: 12px 0; }
+  .license-guides .desktop-nav a:hover, .license-guides .desktop-nav a[aria-current="page"] { color: #0861ca; }
+  .license-guides .desktop-nav .nav-contact { padding: 10px 14px; border: 1px solid #cadced; border-radius: 8px; }
+  .license-guides .mobile-menu { display: none; }
+
+  .license-guides .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: .79rem; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
+  .license-guides .eyebrow::before { content: ''; display: block; width: 28px; height: 3px; border-radius: 9px; background: #4a98ff; }
+  .license-guides .hero { background: radial-gradient(760px 430px at 87% 23%, rgba(52, 126, 244, .28), transparent 67%), radial-gradient(820px 560px at 5% 110%, rgba(104, 63, 255, .18), transparent 68%), linear-gradient(130deg, #0d0640 0%, #141153 49%, #081b37 100%); color: white; overflow: hidden; }
+  .license-guides .hero .wrap { padding-block: 66px 68px; }
+  .license-guides .hero .eyebrow { color: #bfd7ff; }
+  .license-guides .hero h1 { margin: 18px 0 18px; max-width: 890px; font-size: clamp(2.7rem, 5.7vw, 5.1rem); line-height: 1.035; letter-spacing: -.055em; font-weight: 900; }
+  .license-guides .hero h1 em { color: var(--hero-accent); font-style: normal; }
+  .license-guides .hero p.lead { margin: 0; max-width: 670px; font-size: clamp(1.08rem, 1.8vw, 1.28rem); line-height: 1.55; color: #e1ebfb; }
+  .license-guides .hero .hero-actions { display: flex; gap: 11px; flex-wrap: wrap; margin-top: 29px; }
+  .license-guides .button { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 9px; border-radius: 9px; padding: 11px 18px; font-size: .92rem; font-weight: 800; text-decoration: none; transition: background .12s ease; }
+  .license-guides .button.primary { background: var(--blue); color: white; box-shadow: 0 14px 30px rgba(30, 94, 200, .26); }
+  .license-guides .button.primary:hover { background: #1765d0; }
+  .license-guides .button.light { background: white; color: #10335f; }
+  .license-guides .button.outline { border: 1px solid #afcae9; color: #134e93; background: white; }
+  .license-guides .button.ghost { border: 1px solid rgba(255,255,255,.34); color: white; background: rgba(255,255,255,.06); }
+  .license-guides .path-strip { background: #0b1936; color: #d9e7fb; border-top: 1px solid rgba(255,255,255,.1); }
+  .license-guides .path-strip .wrap { display: flex; align-items: center; gap: 12px 26px; flex-wrap: wrap; min-height: 62px; padding-block: 10px; }
+  .license-guides .path-strip strong { color: white; margin-right: 4px; font-size: .85rem; }
+  .license-guides .path-strip a { font-size: .84rem; font-weight: 700; text-decoration: none; border-bottom: 1px solid rgba(190,220,255,.55); }
+  .license-guides .path-strip a:hover { color: white; }
+
+  .license-guides .section { padding-block: 72px; }
+  .license-guides .section.soft { background: var(--soft); }
+  .license-guides .section-heading { margin-bottom: 30px; }
+  .license-guides .section-heading .eyebrow { color: #1763bd; }
+  .license-guides .section-heading h2 { margin: 10px 0 7px; font-size: clamp(2rem, 3vw, 3rem); line-height: 1.13; letter-spacing: -.045em; }
+  .license-guides .section-heading p { margin: 0; max-width: 710px; color: var(--muted); font-size: 1.08rem; }
+  .license-guides .feature { display: grid; grid-template-columns: minmax(0,1.45fr) minmax(260px,.72fr); gap: 42px; align-items: center; padding: 38px; border: 1px solid #d6e3f3; border-radius: 19px; background: white; box-shadow: 0 19px 55px rgba(25, 59, 96, .075); }
+  .license-guides .feature .label { color: #1b69c6; text-transform: uppercase; letter-spacing: .12em; font-size: .77rem; font-weight: 900; }
+  .license-guides .feature h2 { margin: 10px 0 12px; font-size: clamp(2rem,3vw,3rem); letter-spacing: -.045em; line-height: 1.11; }
+  .license-guides .feature p { max-width: 650px; color: var(--muted); font-size: 1.08rem; margin: 0 0 22px; }
+  .license-guides .feature-steps { border-left: 1px solid #dce6f1; padding-left: 34px; }
+  .license-guides .feature-steps span { display: block; color: #2d70bc; text-transform: uppercase; font-size: .75rem; font-weight: 900; letter-spacing: .12em; margin-bottom: 13px; }
+  .license-guides .feature-steps ol { margin: 0; padding-left: 21px; font-weight: 750; line-height: 1.45; }
+  .license-guides .feature-steps li { padding: 6px 0; }
+  .license-guides .feature-steps li::marker { color: #2274da; font-weight: 900; }
+  .license-guides .topic-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
+  .license-guides .topic { display: flex; flex-direction: column; min-height: 260px; padding: 28px; border: 1px solid var(--line); border-radius: 17px; background: white; }
+  .license-guides .topic.current { border-color: #a5c9f6; box-shadow: 0 12px 32px rgba(24, 70, 126, .07); }
+  .license-guides .topic .number { color: #1769c9; font-size: .77rem; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
+  .license-guides .topic h3 { font-size: 1.68rem; line-height: 1.13; letter-spacing: -.035em; margin: 14px 0 9px; }
+  .license-guides .topic p { margin: 0; color: var(--muted); }
+  .license-guides .topic a { color: #155eb4; font-weight: 850; text-decoration-thickness: 1.5px; text-underline-offset: 3px; margin-top: auto; padding-top: 21px; }
+  .license-guides .topic .next { margin-top: auto; padding-top: 21px; color: #64758a; font-size: .87rem; font-weight: 700; }
+  .license-guides .route-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  .license-guides .route-card { min-height: 312px; display: flex; flex-direction: column; padding: 33px; background: #fff; border: 1px solid #cbdff6; border-radius: 18px; box-shadow: 0 16px 46px rgba(20, 65, 124, .07); }
+  .license-guides .route-label { color: #135cae; font-size: .8rem; font-weight: 900; text-transform: uppercase; letter-spacing: .1em; }
+  .license-guides .route-card h3 { font-size: clamp(1.75rem, 3vw, 2.4rem); letter-spacing: -.045em; line-height: 1.14; margin: 15px 0 10px; }
+  .license-guides .route-card p { color: #50647d; margin: 0 0 22px; font-size: 1.05rem; }
+  .license-guides .route-card > a { color: #135db1; font-size: 1.03rem; font-weight: 850; margin-top: auto; text-underline-offset: 4px; }
+  .license-guides .route-card small { margin-top: 13px; font-size: .85rem; }
+  .license-guides .route-card small a { color: #43617e; }
+  .license-guides .parallel-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-bottom: 22px; }
+  .license-guides .parallel-grid > div { padding: 26px 26px 18px; border-top: 4px solid #2676d5; background: #f4f8fd; border-radius: 0 0 14px 14px; }
+  .license-guides .parallel-grid .rail-number { color: #1a63b4; font-weight: 900; font-size: .79rem; letter-spacing: .09em; text-transform: uppercase; }
+  .license-guides .parallel-grid h3 { margin: 13px 0 9px; line-height: 1.19; letter-spacing: -.025em; font-size: 1.35rem; }
+  .license-guides .parallel-grid p { color: #4c617a; margin: 0; }
+  .license-guides .path-assurance { max-width: 900px; margin: 0 0 16px; color: #3e5670; font-size: 1.04rem; line-height: 1.6; }
+  .license-guides .path-assurance strong { color: #153e6e; }
+  .license-guides .text-link { font-weight: 850; color: #145daa; text-underline-offset: 4px; }
+  .license-guides .hub-hero .wrap { padding-block: 72px 73px; }
+  .license-guides .hub-hero h1 { max-width: 1050px; }
+  .license-guides .course-line { background: #0b1b38; color: white; padding-block: 34px; }
+  .license-guides .course-line .wrap { display: grid; grid-template-columns: .85fr 1.15fr; align-items: center; gap: 30px; }
+  .license-guides .course-line h2 { font-size: 1.65rem; letter-spacing: -.035em; line-height: 1.2; margin: 0 0 5px; }
+  .license-guides .course-line p { margin: 0; color: #c5d4ea; }
+  .license-guides .course-links { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+  .license-guides .course-links a { text-decoration: none; border: 1px solid #4d6584; border-radius: 8px; padding: 10px 13px; font-weight: 750; font-size: .82rem; }
+  .license-guides .course-links a:hover { background: #18365d; }
+  .license-guides .site-footer { background: #071429; color: #d5e1f0; padding-block: 42px; }
+  .license-guides .footer-grid { display: flex; justify-content: space-between; gap: 30px; }
+  .license-guides .footer-grid strong { color: white; font-size: 1.03rem; }
+  .license-guides .footer-grid p { margin: 7px 0; font-size: .85rem; }
+  .license-guides .footer-grid nav { display: flex; flex-wrap: wrap; gap: 12px 20px; justify-content: flex-end; align-content: flex-start; }
+  .license-guides .footer-grid nav a { font-size: .85rem; font-weight: 700; text-decoration: none; }
+  .license-guides .footer-grid nav a:hover { text-decoration: underline; }
+
+  .license-guides .article-hero .wrap { padding-block: 48px 54px; }
+  .license-guides .crumbs { display: flex; gap: 7px; flex-wrap: wrap; color: #b7d1f5; font-size: .84rem; margin-bottom: 30px; }
+  .license-guides .crumbs a { text-underline-offset: 3px; }
+  .license-guides .article-hero h1 { max-width: 910px; font-size: clamp(2.6rem, 5.5vw, 4.7rem); margin-top: 15px; }
+  .license-guides .article-hero p.lead { max-width: 780px; }
+  .license-guides .article-layout { display: grid; grid-template-columns: minmax(0, 770px) minmax(245px, 290px); justify-content: space-between; gap: 72px; padding-block: 55px 90px; }
+  .license-guides .article-body { min-width: 0; font-family: 'DM Sans', Inter, system-ui, sans-serif; font-size: 1.1rem; line-height: 1.75; }
+  .license-guides .article-body p { margin: 0 0 19px; }
+  .license-guides .article-body a { color: #145fad; font-weight: 700; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+  .license-guides .article-body .answer { background: #ecf5ff; border-left: 4px solid #277feb; border-radius: 0 13px 13px 0; padding: 23px 26px; margin: 0 0 32px; }
+  .license-guides .answer .label { color: #0b5cb7; font: 900 .75rem Inter, sans-serif; letter-spacing: .12em; text-transform: uppercase; display: block; margin-bottom: 6px; }
+  .license-guides .answer p { font-size: 1.13rem; font-weight: 650; line-height: 1.55; margin: 0; }
+  .license-guides .article-body section { scroll-margin-top: 26px; margin-top: 42px; }
+  .license-guides .article-body h2 { font-family: Inter, system-ui, sans-serif; font-size: clamp(1.62rem,2.5vw,2.17rem); letter-spacing: -.04em; line-height: 1.18; margin: 0 0 15px; }
+  .license-guides .article-body h3 { font-family: Inter, system-ui, sans-serif; font-size: 1.19rem; line-height: 1.3; margin: 25px 0 6px; }
+  .license-guides .number-list { list-style: none; padding: 0; margin: 23px 0; display: grid; gap: 12px; }
+  .license-guides .number-list li { display: grid; grid-template-columns: 38px 1fr; gap: 15px; align-items: start; padding: 14px 16px; border: 1px solid #dce7f2; border-radius: 11px; background: #fff; line-height: 1.45; }
+  .license-guides .number-list .num { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: #e2efff; color: #0c5fbb; font: 900 .85rem Inter, sans-serif; }
+  .license-guides .number-list strong { display: block; font-family: Inter, sans-serif; font-size: 1rem; }
+  .license-guides .number-list small { display: block; font-size: .92rem; color: #5b6e83; margin-top: 2px; }
+  .license-guides .aside { align-self: start; position: sticky; top: 22px; }
+  .license-guides .aside-box { padding: 23px; border: 1px solid #d9e5f2; border-radius: 13px; background: #fafcff; margin-bottom: 17px; }
+  .license-guides .aside-box h2 { margin: 0 0 12px; font-size: 1rem; }
+  .license-guides .aside-box nav { display: grid; gap: 9px; }
+  .license-guides .aside-box nav a { font-size: .85rem; color: #3f5873; font-weight: 700; text-decoration: none; }
+  .license-guides .aside-box nav a:hover { color: #1264c4; text-decoration: underline; }
+  .license-guides .aside-box.cta { background: #0e2445; color: white; border-color: #0e2445; }
+  .license-guides .aside-box.cta h2 { font-size: 1.2rem; line-height: 1.28; }
+  .license-guides .aside-box.cta p { color: #d2e0f1; font-size: .86rem; margin: 0 0 16px; }
+  .license-guides .aside-box.cta .button { width: 100%; font-size: .82rem; }
+  .license-guides .mobile-toc { display: none; }
+  .license-guides .fact-table { width: 100%; border-collapse: collapse; margin: 20px 0 16px; font-family: Inter, sans-serif; font-size: .94rem; }
+  .license-guides .fact-table th, .license-guides .fact-table td { text-align: left; border: 1px solid #d5e2ee; padding: 14px; vertical-align: top; }
+  .license-guides .fact-table th { background: #eaf3fe; color: #0d345d; font-size: .81rem; text-transform: uppercase; letter-spacing: .06em; }
+  .license-guides .callout { border: 1px solid #a8cdf6; border-radius: 13px; padding: 22px 25px; background: #f2f8ff; margin: 27px 0; }
+  .license-guides .callout strong { display: block; color: #113e73; margin-bottom: 4px; }
+  .license-guides .callout p { margin: 0; }
+  .license-guides .test-checklist { border: 1px solid #aad0f5; background: #eff7ff; border-radius: 13px; padding: 22px 26px; margin: 22px 0 25px; }
+  .license-guides .article-body .test-checklist h3 { color: #0e477f; margin: 0 0 10px; }
+  .license-guides .test-checklist ul { padding-left: 22px; margin: 0; }
+  .license-guides .test-checklist li { padding-block: 6px; }
+  .license-guides .table-scroll { overflow-x: auto; }
+  .license-guides .exam-actions { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 13px; margin: 21px 0; }
+  .license-guides .article-body .exam-action { background: #0e2b50; color: white; border-radius: 12px; padding: 19px; text-decoration: none; display: block; line-height: 1.35; }
+  .license-guides .exam-action strong { display: block; font-family: Inter, sans-serif; font-size: 1.05rem; }
+  .license-guides .exam-action span { display: block; color: #d0e6ff; margin-top: 8px; font-size: .88rem; }
+  .license-guides .article-body .exam-action:hover { background: #17447a; }
+  .license-guides .faq { border-top: 1px solid var(--line); }
+  .license-guides .faq details { border-bottom: 1px solid var(--line); padding: 15px 0; }
+  .license-guides .faq summary { cursor: pointer; font-family: Inter, sans-serif; font-size: 1.02rem; font-weight: 800; }
+  .license-guides .faq details p { margin: 12px 0 0; color: #4a6079; }
+  .license-guides .sources { border-top: 1px solid var(--line); padding-top: 24px; font-size: .91rem; }
+  .license-guides .sources ul { margin-top: 6px; padding-left: 20px; }
+  .license-guides .article-body .source-credit { color: #677a8e; font: 400 .8rem/1.6 Inter, system-ui, sans-serif; margin: 15px 0 0; }
+  .license-guides .article-body .source-credit a { color: inherit; font-weight: 600; }
+  .license-guides .closing { background: #f0f6fd; padding: 33px; border-radius: 14px; margin-top: 43px; }
+  .license-guides .closing h2 { margin-top: 0; }
+  .license-guides .closing p { color: #516982; }
+  .license-guides .closing .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+@media (max-width: 1300px) {
+  .license-guides .site-header .wrap { gap: 16px; }
+  .license-guides .desktop-nav { gap: 11px; }
+  .license-guides .desktop-nav a { font-size: .73rem; }
+  .license-guides .article-layout { gap: 35px; }
+}
+@media (max-width: 1160px) {
+  .license-guides .site-header .wrap { min-height: 72px; }
+  .license-guides .desktop-nav { display: none; }
+  .license-guides .mobile-menu { display: block; position: relative; }
+  .license-guides .mobile-menu summary { list-style: none; cursor: pointer; background: #eff5fc; border: 1px solid #cbd9e9; border-radius: 8px; padding: 9px 12px; font-weight: 800; font-size: .82rem; }
+  .license-guides .mobile-menu summary::-webkit-details-marker { display: none; }
+  .license-guides .mobile-menu[open] nav { display: grid; position: absolute; right: 0; top: calc(100% + 8px); min-width: 220px; padding: 10px; background: white; border: 1px solid #d5e1ef; border-radius: 10px; box-shadow: 0 18px 40px rgba(10,32,66,.17); }
+  .license-guides .mobile-menu nav a { padding: 9px; text-decoration: none; font-size: .88rem; font-weight: 750; }
+  .license-guides .feature { grid-template-columns: 1fr; gap: 22px; }
+  .license-guides .feature-steps { border-left: 0; border-top: 1px solid #dce6f1; padding: 20px 0 0; }
+  .license-guides .feature-steps ol { columns: 2; }
+  .license-guides .article-layout { display: block; }
+  .license-guides .aside { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 38px; }
+  .license-guides .aside-box { margin: 0; }
+  .license-guides .course-line .wrap { grid-template-columns: 1fr; }
+  .license-guides .course-links { justify-content: flex-start; }
+  .license-guides .parallel-grid { grid-template-columns: 1fr; }
+}
+@media (min-width: 901px) and (max-width: 1160px) {
+  .license-guides .article-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(230px, 270px); }
+  .license-guides .aside { display: block; position: sticky; }
+  .license-guides .aside-box { margin-bottom: 17px; }
+}
+@media (max-width: 900px) {
+  .license-guides .mobile-toc { display: block; background: #f1f7fe; border: 1px solid #c4dff8; border-radius: 10px; margin: 0 0 27px; }
+  .license-guides .mobile-toc summary { cursor: pointer; list-style: none; padding: 13px 17px; font: 800 .93rem Inter, sans-serif; color: #124a87; }
+  .license-guides .mobile-toc summary::-webkit-details-marker { display: none; }
+  .license-guides .mobile-toc summary::after { content: '+'; float: right; font-weight: 600; }
+  .license-guides .mobile-toc[open] summary::after { content: '−'; }
+  .license-guides .mobile-toc nav { border-top: 1px solid #c4dff8; padding: 8px 17px 14px; display: grid; gap: 5px; }
+  .license-guides .mobile-toc nav a { padding: 7px 0; font: 750 .92rem Inter, sans-serif; color: #175b9f; text-decoration: none; }
+  .license-guides .aside-box:first-child { display: none; }
+}
+@media (max-width: 600px) {
+  .license-guides .wrap { width: min(var(--max), calc(100% - 32px)); }
+  .license-guides .brand { font-size: .95rem; }
+  .license-guides .brand small { font-size: .56rem; }
+  .license-guides .hero .wrap { padding-block: 44px 45px; }
+  .license-guides .hero h1 { letter-spacing: -.043em; }
+  .license-guides .hero-actions .button { width: 100%; }
+  .license-guides .path-strip .wrap { gap: 8px 18px; padding-block: 15px; }
+  .license-guides .path-strip strong { width: 100%; }
+  .license-guides .section { padding-block: 52px; }
+  .license-guides .feature { padding: 25px; }
+  .license-guides .feature-steps ol { columns: 1; }
+  .license-guides .topic-grid { grid-template-columns: 1fr; }
+  .license-guides .route-grid, .license-guides .exam-actions { grid-template-columns: 1fr; }
+  .license-guides .route-card { min-height: auto; padding: 25px; }
+  .license-guides .parallel-grid > div { padding: 22px; }
+  .license-guides .hub-hero .wrap { padding-block: 48px; }
+  .license-guides .topic { min-height: 220px; padding: 23px; }
+  .license-guides .footer-grid { display: block; }
+  .license-guides .footer-grid nav { justify-content: flex-start; margin-top: 23px; }
+  .license-guides .article-hero .wrap { padding-block: 32px 39px; }
+  .license-guides .crumbs { margin-bottom: 21px; }
+  .license-guides .article-layout { padding-block: 34px 58px; }
+  .license-guides .article-body { font-size: 1.03rem; }
+  .license-guides .article-body .answer { padding: 19px; }
+  .license-guides .aside { display: block; }
+  .license-guides .aside-box { margin-bottom: 15px; }
+  .license-guides .fact-table { font-size: .86rem; }
+  .license-guides .fact-table th, .license-guides .fact-table td { padding: 10px; }
+  .license-guides .closing { padding: 23px; }
+  .license-guides .closing .button { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .license-guides .button { transition: none; }
+}
+.license-guides .aside { top: 150px; }
+.license-guides .article-body section, .license-guides #sales, .license-guides #broker, .license-guides #exam, .license-guides #after { scroll-margin-top: 150px; }
