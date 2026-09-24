@@ -7,7 +7,7 @@ export type CourseDirectoryItem = {
 export const salesLicensingCourses: CourseDirectoryItem[] = [
   { label: "FastPass Start Here", href: "https://portal.daniellarsontraining.com/courses/starthere", note: "Roadmap" },
   { label: "Course 1", href: "https://portal.daniellarsontraining.com/courses/course1", note: "Required pre-license course" },
-  { label: "Course 1 Exam Pass", href: "https://portal.daniellarsontraining.com/courses/examprep", note: "Standard course-final / review path" },
+  { label: "Course 1 Exam Pass", href: "https://portal.daniellarsontraining.com/courses/course1exampass", note: "Standard course-final path" },
   { label: "FastPass", href: "https://portal.daniellarsontraining.com/courses/FASTPASS", note: "FastPass certification path" },
   { label: "500 Sample Q+A", href: "https://portal.daniellarsontraining.com/courses/statelicensingexamcoursesamplequestions", note: "Practice" },
   { label: "Audio Ebook Exam Prep", href: "https://portal.daniellarsontraining.com/courses/examprep", note: "Audio review" },
