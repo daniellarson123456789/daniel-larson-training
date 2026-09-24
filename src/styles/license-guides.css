@@ -97,7 +97,7 @@
   .license-guides .path-assurance { max-width: 900px; margin: 0 0 16px; color: #3e5670; font-size: 1.04rem; line-height: 1.6; }
   .license-guides .path-assurance strong { color: #153e6e; }
   .license-guides .text-link { font-weight: 850; color: #145daa; text-underline-offset: 4px; }
-  .license-guides .hub-hero .wrap { padding-block: 72px 73px; }
+  .license-guides .hub-hero .wrap { padding-block: 48px 73px; }
   .license-guides .hub-hero h1 { max-width: 1050px; }
   .license-guides .course-line { background: #0b1b38; color: white; padding-block: 34px; }
   .license-guides .course-line .wrap { display: grid; grid-template-columns: .85fr 1.15fr; align-items: center; gap: 30px; }
@@ -229,7 +229,7 @@
   .license-guides .route-grid, .license-guides .exam-actions { grid-template-columns: 1fr; }
   .license-guides .route-card { min-height: auto; padding: 25px; }
   .license-guides .parallel-grid > div { padding: 22px; }
-  .license-guides .hub-hero .wrap { padding-block: 48px; }
+  .license-guides .hub-hero .wrap { padding-block: 34px 48px; }
   .license-guides .topic { min-height: 220px; padding: 23px; }
   .license-guides .footer-grid { display: block; }
   .license-guides .footer-grid nav { justify-content: flex-start; margin-top: 23px; }
