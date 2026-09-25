@@ -75,6 +75,7 @@
   .license-guides .feature-steps li::marker { color: #2274da; font-weight: 900; }
   .license-guides .topic-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
   .license-guides .topic { display: flex; flex-direction: column; min-height: 260px; padding: 28px; border: 1px solid var(--line); border-radius: 17px; background: white; }
+  .license-guides .topic-grid > .topic:last-child:nth-child(odd) { grid-column: 1 / -1; min-height: 190px; }
   .license-guides .topic.current { border-color: #a5c9f6; box-shadow: 0 12px 32px rgba(24, 70, 126, .07); }
   .license-guides .topic .number { color: #1769c9; font-size: .77rem; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
   .license-guides .topic h3 { font-size: 1.68rem; line-height: 1.13; letter-spacing: -.035em; margin: 14px 0 9px; }
@@ -150,6 +151,22 @@
   .license-guides .fact-table th { background: #eaf3fe; color: #0d345d; font-size: .81rem; text-transform: uppercase; letter-spacing: .06em; }
   .license-guides .callout { border: 1px solid #a8cdf6; border-radius: 13px; padding: 22px 25px; background: #f2f8ff; margin: 27px 0; }
   .license-guides .callout strong { display: block; color: #113e73; margin-bottom: 4px; }
+  .license-guides .renewal-calculator { margin: 22px 0 15px; padding: 26px; border: 1px solid #a8cdf6; border-radius: 15px; background: #f2f8ff; }
+  .license-guides .renewal-fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 17px; }
+  .license-guides .renewal-fields label { display: grid; gap: 7px; font: 800 .81rem Inter, sans-serif; color: #17487e; }
+  .license-guides .renewal-fields label small { display: inline; font-weight: 500; }
+  .license-guides .renewal-fields input, .license-guides .renewal-fields select { min-width: 0; width: 100%; min-height: 47px; padding: 9px 11px; border: 1px solid #b8d1eb; border-radius: 8px; color: #10223b; background: white; font: 500 .92rem Inter, sans-serif; }
+  .license-guides .renewal-results { margin-top: 23px; }
+  .license-guides .renewal-results[hidden], .license-guides .renewal-error[hidden], .license-guides .renewal-past[hidden] { display: none; }
+  .license-guides .renewal-method, .license-guides .renewal-note { color: #48617d; font-size: .93rem; }
+  .license-guides .renewal-error { color: #a22424; margin: 12px 0 0; font-weight: 750; }
+  .license-guides .renewal-result-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .license-guides .renewal-result-grid > div { padding: 20px; border: 1px solid #c8ddf4; border-radius: 12px; background: white; }
+  .license-guides .renewal-result-grid span { display: block; color: #1763bd; font: 850 .75rem Inter, sans-serif; text-transform: uppercase; letter-spacing: .065em; }
+  .license-guides .renewal-result-grid strong { display: block; margin: 8px 0; color: #10223b; font-size: 1.32rem; line-height: 1.22; }
+  .license-guides .renewal-result-grid p { margin: 0 0 11px; color: #48617d; font-size: .9rem; line-height: 1.5; }
+  .license-guides .renewal-result-grid a { font-size: .88rem; }
+  .license-guides .renewal-past { margin: 14px 0 0; color: #85490c; font-size: .91rem; font-weight: 700; }
   .license-guides .callout p { margin: 0; }
   .license-guides .test-checklist { border: 1px solid #aad0f5; background: #eff7ff; border-radius: 13px; padding: 22px 26px; margin: 22px 0 25px; }
   .license-guides .article-body .test-checklist h3 { color: #0e477f; margin: 0 0 10px; }
@@ -193,6 +210,7 @@
   .license-guides .feature-steps ol { columns: 2; }
   .license-guides .article-layout { display: block; }
   .license-guides .aside { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 38px; }
+  .license-guides .renewal-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .license-guides .aside-box { margin: 0; }
   .license-guides .course-line .wrap { grid-template-columns: 1fr; }
   .license-guides .course-links { justify-content: flex-start; }
@@ -239,6 +257,8 @@
   .license-guides .article-body { font-size: 1.03rem; }
   .license-guides .article-body .answer { padding: 19px; }
   .license-guides .aside { display: block; }
+  .license-guides .renewal-calculator { padding: 18px; }
+  .license-guides .renewal-fields, .license-guides .renewal-result-grid { grid-template-columns: 1fr; }
   .license-guides .aside-box { margin-bottom: 15px; }
   .license-guides .fact-table { font-size: .86rem; }
   .license-guides .fact-table th, .license-guides .fact-table td { padding: 10px; }

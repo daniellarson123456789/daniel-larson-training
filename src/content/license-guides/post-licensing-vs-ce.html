@@ -7,7 +7,7 @@
       </div>
     </header>
     <div class="wrap article-layout">
-      <article class="article-body"><details class="mobile-toc"><summary>Jump to an answer</summary><nav aria-label="On this page"><a href="#choose">Find your row</a><a href="#first-renewal">First renewal</a><a href="#later-renewal">Later renewals</a><a href="#questions">Common questions</a></nav></details>
+      <article class="article-body"><details class="mobile-toc"><summary>Jump to an answer</summary><nav aria-label="On this page"><a href="#choose">Find your row</a><a href="#estimate">Estimate renewal dates</a><a href="#first-renewal">First renewal</a><a href="#later-renewal">Later renewals</a><a href="#questions">Common questions</a></nav></details>
         <div class="answer">
           <span class="label">The short answer</span>
           <p>At your first sales associate renewal, Florida generally requires 45-hour sales Post-Licensing. At your first broker renewal, it generally requires 60-hour broker Post-Licensing. At later renewals, active licensees generally take 14-hour continuing education.</p>
@@ -28,6 +28,29 @@
           <p>If your record shows another status, you hold more than one license type, or you think an exemption applies, check the <a href="https://www2.myfloridalicense.com/real-estate-commission/">DBPR real estate guidance</a> for your situation before enrolling.</p>
         </section>
 
+        <section id="estimate">
+          <h2>When might my first renewal be?</h2>
+          <p>Enter the <strong>issue date of the Florida license you’re renewing</strong>, not the day you applied or finished school. If you upgraded from sales associate to broker, use your broker license date for the broker timeline. We’ll estimate the first March 31 or September 30 renewal date on or before the second anniversary. If you know the expiration date shown in your DBPR record, enter it too; it takes precedence.</p>
+          <form class="renewal-calculator" data-renewal-calculator>
+            <div class="renewal-fields">
+              <label>License type<select name="licenseType" required><option value="sales">Sales associate</option><option value="broker">Broker or broker associate</option></select></label>
+              <label>Issue date for this license<input type="date" name="licensedOn" required /></label>
+              <label>DBPR first expiration <small>(optional)</small><input type="date" name="dbprExpiration" /></label>
+            </div>
+            <button class="button primary" type="submit">Show my renewal timeline</button>
+            <p class="renewal-error" data-renewal-error role="alert" hidden></p>
+            <div class="renewal-results" data-renewal-results role="status" aria-live="polite" hidden>
+              <p class="renewal-method" data-renewal-method></p>
+              <div class="renewal-result-grid">
+                <div><span>First renewal · Post-Licensing</span><strong data-renewal-first></strong><p data-renewal-post></p><a href="/post-licensing/">Explore Post-Licensing →</a></div>
+                <div><span>Following renewal · 14-hour CE</span><strong data-renewal-next></strong><p>3 hours Core Law + 3 hours Ethics and Business Practices + 8 specialty hours.</p><a href="/14ce/">Explore 14-Hour CE →</a></div>
+              </div>
+              <p class="renewal-past" data-renewal-past hidden>If a renewal date has already passed, check your status and requirements in DBPR before selecting a course.</p>
+            </div>
+          </form>
+          <p class="renewal-note">The calculated dates are a planning estimate. <strong>Use the expiration date and requirements in your <a href="https://www.myfloridalicense.com/">DBPR license record</a> for your actual renewal.</strong> This tool assumes an ordinary first license and an active, timely renewal; it does not determine exemptions, extensions, inactive status, or special cases. Education and payment of the renewal fee are separate steps.</p>
+        </section>
+
         <section id="first-renewal">
           <h2>Why the first renewal is different</h2>
           <p>Florida treats the initial renewal as the next stage of your education. A new sales associate completes 45 hours of approved Post-Licensing; a new broker completes 60 hours. DBPR says these must be completed before the initial expiration date listed on the license. The education and renewal fee are separate requirements.</p>
@@ -39,7 +62,7 @@
 
         <section id="later-renewal">
           <h2>What changes after Post-Licensing?</h2>
-          <p>For current active licensees past their Post-Licensing stage, DBPR lists 14 hours of continuing education for renewal. Take care to confirm which cycle you are in and whether DBPR has recorded course completions before you submit the separate license renewal.</p>
+          <p>For current active licensees past their Post-Licensing stage, DBPR lists 14 hours of continuing education for renewal: <strong>3 hours Core Law, 3 hours Ethics and Business Practices, and 8 hours specialty education.</strong> These components are included in a properly approved 14-hour combination course. Take care to confirm which cycle you are in and whether DBPR has recorded course completions before you submit the separate license renewal.</p>
           <p>Daniel Larson Training offers both <a href="https://daniellarsontraining.com/post-licensing/">sales and broker Post-Licensing</a> and <a href="https://daniellarsontraining.com/14ce/">14-hour CE</a>. The right choice depends on your DBPR record, not on which course sounds shorter.</p>
         </section>
 
@@ -57,9 +80,10 @@
           <ul>
             <li><a href="https://www2.myfloridalicense.com/real-estate-commission/">DBPR Real Estate Commission: renewal education</a></li>
             <li><a href="https://www2.myfloridalicense.com/real-estate-commission/education/">DBPR Real Estate Commission: education requirements</a></li>
-            <li><a href="https://www2.myfloridalicense.com/real-estate-commission/education/">DBPR real estate education requirements (PDF)</a></li>
+            <li><a href="https://www2.myfloridalicense.com/re/documents/real_estate_ed_requirements.pdf">DBPR real estate education requirements (PDF)</a></li>
+            <li><a href="https://www.flsenate.gov/Laws/Statutes/2026/475.182">Florida Statutes §475.182: renewal and continuing education</a></li>
           </ul>
-<p class="source-credit">Daniel Larson Training · Instructor: <a href="https://daniellarsontraining.com/about/">Daniel Larson</a> (#ZH1003217) · Official sources checked September 24, 2026</p>
+<p class="source-credit">Daniel Larson Training · Instructor: <a href="https://daniellarsontraining.com/about/">Daniel Larson</a> (#ZH1003217) · Official sources checked September 25, 2026</p>
         </section>
 
         <div class="closing">
@@ -76,6 +100,7 @@
           <h2>On this page</h2>
           <nav>
             <a href="#choose">Find your row</a>
+            <a href="#estimate">Estimate renewal dates</a>
             <a href="#first-renewal">First renewal</a>
             <a href="#later-renewal">Later renewals</a>
             <a href="#questions">Common questions</a>

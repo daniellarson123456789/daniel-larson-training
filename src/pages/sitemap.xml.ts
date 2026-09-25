@@ -13,6 +13,7 @@ const paths = [
   "/license-guides/school-certificate-and-state-exam/",
   "/license-guides/sales-associate-vs-realtor/",
   "/license-guides/post-licensing-vs-ce/",
+  "/license-guides/florida-real-estate-math/",
 ];
 
 export function GET() {

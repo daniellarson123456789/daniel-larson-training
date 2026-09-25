@@ -22,3 +22,43 @@ const { markup } = Astro.props;
     });
   });
 </script>
+
+<script>
+  import { estimateRenewalDates } from '../lib/renewalDates.mjs';
+
+  const form = document.querySelector<HTMLFormElement>('[data-renewal-calculator]');
+  if (form) {
+    const results = form.querySelector<HTMLElement>('[data-renewal-results]')!;
+    const error = form.querySelector<HTMLElement>('[data-renewal-error]')!;
+    const format = (value: string) => {
+      const [year, month, day] = value.split('-').map(Number);
+      return new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
+        .format(new Date(Date.UTC(year, month - 1, day)));
+    };
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      error.hidden = true;
+      results.hidden = true;
+      const values = new FormData(form);
+      try {
+        const dates = estimateRenewalDates(String(values.get('licensedOn') || ''), String(values.get('dbprExpiration') || ''));
+        form.querySelector<HTMLElement>('[data-renewal-method]')!.textContent = dates.fromDbpr
+          ? 'Timeline based on the DBPR expiration date you entered. Please check that date against your account.'
+          : 'Planning estimate from your issue date. Confirm both dates in your DBPR account.';
+        form.querySelector<HTMLElement>('[data-renewal-first]')!.textContent = format(dates.first);
+        form.querySelector<HTMLElement>('[data-renewal-next]')!.textContent = format(dates.next);
+        form.querySelector<HTMLElement>('[data-renewal-post]')!.textContent = values.get('licenseType') === 'broker'
+          ? 'Generally 60-hour broker Post-Licensing before this first renewal.'
+          : 'Generally 45-hour sales Post-Licensing before this first renewal.';
+        const today = new Date();
+        const todayIso = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+        form.querySelector<HTMLElement>('[data-renewal-past]')!.hidden = dates.first >= todayIso;
+        results.hidden = false;
+      } catch (cause) {
+        error.textContent = cause instanceof Error ? cause.message : 'Check your dates and try again.';
+        error.hidden = false;
+      }
+    });
+  }
+</script>
