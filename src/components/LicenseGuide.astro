@@ -36,6 +36,10 @@ const { markup } = Astro.props;
         .format(new Date(Date.UTC(year, month - 1, day)));
     };
 
+    const clearPreviousResult = () => { results.hidden = true; error.hidden = true; };
+    form.addEventListener('input', clearPreviousResult);
+    form.addEventListener('change', clearPreviousResult);
+
     form.addEventListener('submit', (event) => {
       event.preventDefault();
       error.hidden = true;
