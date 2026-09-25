@@ -246,6 +246,7 @@ html.motion-enabled .motion-reveal.motion-in{
     radial-gradient(720px 420px at 88% 16%,rgba(37,120,234,.15),transparent 62%),
     linear-gradient(135deg,#071a33,#080426 68%,#092347);
 }
+.portal-page .portal-hero{padding:0}
 .portal-hero-grid{
   display:grid;
   grid-template-columns:minmax(0,1.28fr) minmax(300px,.72fr);

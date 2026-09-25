@@ -99,6 +99,7 @@
   .license-guides .path-assurance strong { color: #153e6e; }
   .license-guides .text-link { font-weight: 850; color: #145daa; text-underline-offset: 4px; }
   .license-guides .hub-hero .wrap { padding-block: 48px 73px; }
+  .license-guides .hub-hero .eyebrow { display: flex; }
   .license-guides .hub-hero h1 { max-width: 1050px; }
   .license-guides .course-line { background: #0b1b38; color: white; padding-block: 34px; }
   .license-guides .course-line .wrap { display: grid; grid-template-columns: .85fr 1.15fr; align-items: center; gap: 30px; }
