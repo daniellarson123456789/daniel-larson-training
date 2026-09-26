@@ -19,15 +19,22 @@ export async function sendStudentConfirmation(candidate, env = process.env) {
     replyTo: env.SMTP_USER,
     subject: "Your course completion was reported to Florida DBPR",
     text: [
-      `Hi ${candidate.firstName},`,
+      `Hello ${candidate.firstName},`,
       "",
-      `Your ${candidate.thinkificCourseName} completion was submitted to the Florida DBPR.`,
+      "Thank you for choosing Daniel Larson Training to complete your required real estate education.",
+      "",
+      `Your ${candidate.thinkificCourseName} completion was reported to Florida DBPR.`,
       `Completion date: ${dbprDate(candidate.completedAt)}`,
       `License: ${candidate.license.full}`,
       "",
       "DBPR may take up to 48 hours to finish processing the record.",
       "",
-      "Daniel Larson Training"
+      "If you felt it was as Fast, Easy, and Simple as possible, please tell your friends! Our biggest source of growth is referrals!",
+      "",
+      "Thank you for coming our way,",
+      "",
+      "Daniel Larson",
+      "239-471-8500"
     ].join("\n")
   });
 }
