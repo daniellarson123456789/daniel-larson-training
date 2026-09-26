@@ -22,6 +22,8 @@ The initial state is guarded. `REPORTING_ENABLED` must equal the exact productio
 - `LEDGER_HMAC_KEY` — a long random value used to store only non-reversible completion fingerprints
 - `REPORTING_ENABLED` — leave unset for dry runs; production requires the exact phrase defined in `src/config.js`
 
+The scheduled job also requires the repository variable `DLT_REPORTING_BOT_ENABLED=true`. Leave it unset until the manual dry run is clean.
+
 The workflow keeps its HMAC-only duplicate ledger in an Actions cache and polls only the last 48 hours. DBPR's official upload and processing-result emails remain the authoritative receipts in the provider mailbox.
 
 If the bot clicks **Submit** but cannot verify DBPR's response, it marks the record for manual review and will not retry it automatically. A confirmed DBPR submission is saved before student email is attempted, so an email outage cannot trigger a duplicate filing.
@@ -33,3 +35,4 @@ If the bot clicks **Submit** but cannot verify DBPR's response, it marks the rec
 3. Review the dry-run output. It contains counts and redacted record previews only.
 4. Verify that `test test / SL123` is rejected.
 5. Add `REPORTING_ENABLED` only after a real, verified completion is available for the first controlled production run.
+6. Set `DLT_REPORTING_BOT_ENABLED=true` only when the scheduled production run is ready to go live.
