@@ -53,8 +53,8 @@ const { markup } = Astro.props;
         form.querySelector<HTMLElement>('[data-renewal-first]')!.textContent = format(dates.first);
         form.querySelector<HTMLElement>('[data-renewal-next]')!.textContent = format(dates.next);
         form.querySelector<HTMLElement>('[data-renewal-post]')!.textContent = values.get('licenseType') === 'broker'
-          ? 'Generally 60-hour broker Post-Licensing before this first renewal.'
-          : 'Generally 45-hour sales Post-Licensing before this first renewal.';
+          ? 'Complete 60-hour Broker Post-Licensing before this first renewal.'
+          : 'Complete 45-hour Sales Associate Post-Licensing before this first renewal.';
         const today = new Date();
         const todayIso = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
         form.querySelector<HTMLElement>('[data-renewal-past]')!.hidden = dates.first >= todayIso;

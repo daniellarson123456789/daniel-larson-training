@@ -27,7 +27,8 @@ const schema = {
   title={`${guide.title} | Daniel Larson Training`}
   description={guide.description}
   canonicalPath={canonicalPath}
-  shareTitle={guide.title}
+  shareTitle={guide.slug === "post-licensing-vs-ce" ? "Post or CE?" : guide.title}
+  ogImage={guide.slug === "post-licensing-vs-ce" ? "/share-post-ce-guide-2026-09.png" : undefined}
   schema={schema}
 >
   <LicenseGuide markup={guide.markup} />
