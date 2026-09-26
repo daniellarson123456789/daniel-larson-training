@@ -8,6 +8,11 @@ on:
       - ".github/workflows/dlt-reporting-bot.yml"
   workflow_dispatch:
     inputs:
+      test_email:
+        description: "Send a test email only (never contact DBPR)"
+        required: true
+        default: false
+        type: boolean
       production:
         description: "Submit verified records to DBPR"
         required: true
@@ -24,8 +29,29 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  test-email:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.test_email }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    defaults:
+      run:
+        working-directory: automation/dlt-reporting-bot
+    env:
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_APP_PASSWORD: ${{ secrets.SMTP_APP_PASSWORD }}
+      ADMIN_EMAIL: daniel@daniellarsontraining.com
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: automation/dlt-reporting-bot/package-lock.json
+      - run: npm ci
+      - run: npm run test:email
+
   report:
-    if: ${{ github.event_name != 'schedule' || vars.DLT_REPORTING_BOT_ENABLED == 'true' }}
+    if: ${{ (github.event_name != 'schedule' || vars.DLT_REPORTING_BOT_ENABLED == 'true') && (github.event_name != 'workflow_dispatch' || !inputs.test_email) }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     defaults:
