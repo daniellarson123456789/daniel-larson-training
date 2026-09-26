@@ -1,6 +1,11 @@
 name: DLT reporting bot
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "automation/dlt-reporting-bot/**"
+      - ".github/workflows/dlt-reporting-bot.yml"
   workflow_dispatch:
     inputs:
       production:
