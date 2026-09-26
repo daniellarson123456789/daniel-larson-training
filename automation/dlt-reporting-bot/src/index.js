@@ -19,8 +19,18 @@ async function main() {
 
   const { matches, exceptions } = matchCandidates(quizzes, data.surveys);
   const pending = matches.filter((candidate) => !ledger.processed[candidateKey(candidate, process.env.LEDGER_HMAC_KEY)]);
+  const exceptionReasons = exceptions.reduce((counts, item) => {
+    counts[item.reason] = (counts[item.reason] ?? 0) + 1;
+    return counts;
+  }, {});
 
-  console.log(JSON.stringify({ surveys: data.surveys.length, passingMatches: matches.length, pending: pending.length, exceptions: exceptions.length }));
+  console.log(JSON.stringify({
+    surveys: data.surveys.length,
+    passingMatches: matches.length,
+    pending: pending.length,
+    exceptions: exceptions.length,
+    exceptionReasons
+  }));
 
   if (exceptions.length && process.env.SMTP_USER) {
     await sendAdminNotice("DLT reporting exception", exceptions.map((item) => `${item.quizSubmissionId}: ${item.reason}`));
