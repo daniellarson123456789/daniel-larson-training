@@ -56,6 +56,7 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npm test
+      - run: mkdir -p .state
       - run: npm run run
       - if: always()
         uses: actions/cache/save@v4

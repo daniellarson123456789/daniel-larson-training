@@ -2,11 +2,8 @@ import { COURSE_MAP, POLL_WINDOW_HOURS } from "./config.js";
 
 const ENDPOINT = "https://api.thinkific.com/stable/graphql";
 
-const QUERY = `
-  query ReportingData(
-    $surveyFilter: SurveySubmissionsFilter,
-    $quizFilter: QuizSubmissionFilter
-  ) {
+const SURVEY_QUERY = `
+  query ReportingSurveys($surveyFilter: SurveySubmissionsFilter) {
     site {
       surveySubmissions(first: 100, filter: $surveyFilter) {
         nodes {
@@ -14,7 +11,7 @@ const QUERY = `
           completedAt
           course { id name }
           user { gid email }
-          userAnswers(first: 10) {
+          userAnswers(first: 5) {
             nodes {
               textResponse
               question { id position prompt }
@@ -22,6 +19,13 @@ const QUERY = `
           }
         }
       }
+    }
+  }
+`;
+
+const QUIZ_QUERY = `
+  query ReportingQuizzes($quizFilter: QuizSubmissionFilter) {
+    site {
       quizSubmissions(first: 100, filter: $quizFilter) {
         nodes {
           id
@@ -36,28 +40,32 @@ const QUERY = `
   }
 `;
 
-async function queryCourse(token, courseId, from) {
+async function postGraphql(token, query, variables) {
   const response = await fetch(ENDPOINT, {
     method: "POST",
     headers: {
       authorization: `Bearer ${token}`,
       "content-type": "application/json"
     },
-    body: JSON.stringify({
-      query: QUERY,
-      variables: {
-        surveyFilter: { courseIds: [courseId], completedAt: { from } },
-        quizFilter: { courseIds: [courseId], completedAt: { from } }
-      }
-    })
+    body: JSON.stringify({ query, variables })
   });
   const payload = await response.json();
   if (!response.ok || payload.errors?.length) {
     throw new Error(`Thinkific API error: ${JSON.stringify(payload.errors ?? payload)}`);
   }
+  return payload.data?.site ?? {};
+}
+
+async function queryCourse(token, courseId, from) {
+  const surveyFilter = { courseIds: [courseId], completedAt: { from } };
+  const quizFilter = { courseIds: [courseId], completedAt: { from } };
+  const [surveySite, quizSite] = await Promise.all([
+    postGraphql(token, SURVEY_QUERY, { surveyFilter }),
+    postGraphql(token, QUIZ_QUERY, { quizFilter })
+  ]);
   return {
-    surveys: payload.data?.site?.surveySubmissions?.nodes ?? [],
-    quizzes: (payload.data?.site?.quizSubmissions?.nodes ?? []).map((quiz) => ({ ...quiz, courseId }))
+    surveys: surveySite.surveySubmissions?.nodes ?? [],
+    quizzes: (quizSite.quizSubmissions?.nodes ?? []).map((quiz) => ({ ...quiz, courseId }))
   };
 }
 
