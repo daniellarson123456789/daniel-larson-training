@@ -1,0 +1,43 @@
+import nodemailer from "nodemailer";
+import { dbprDate } from "./records.js";
+
+function transporter(env) {
+  if (!env.SMTP_USER || !env.SMTP_APP_PASSWORD) throw new Error("SMTP credentials are required.");
+  return nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: { user: env.SMTP_USER, pass: env.SMTP_APP_PASSWORD }
+  });
+}
+
+export async function sendStudentConfirmation(candidate, env = process.env) {
+  const mail = transporter(env);
+  await mail.sendMail({
+    from: `Daniel Larson Training <${env.SMTP_USER}>`,
+    to: candidate.studentEmail,
+    replyTo: env.SMTP_USER,
+    subject: "Your course completion was reported to Florida DBPR",
+    text: [
+      `Hi ${candidate.firstName},`,
+      "",
+      `Your ${candidate.thinkificCourseName} completion was submitted to the Florida DBPR.`,
+      `Completion date: ${dbprDate(candidate.completedAt)}`,
+      `License: ${candidate.license.full}`,
+      "",
+      "DBPR may take up to 48 hours to finish processing the record.",
+      "",
+      "Daniel Larson Training"
+    ].join("\n")
+  });
+}
+
+export async function sendAdminNotice(subject, lines, env = process.env) {
+  const mail = transporter(env);
+  await mail.sendMail({
+    from: `DLT Reporting Bot <${env.SMTP_USER}>`,
+    to: env.ADMIN_EMAIL || env.SMTP_USER,
+    subject,
+    text: lines.join("\n")
+  });
+}
