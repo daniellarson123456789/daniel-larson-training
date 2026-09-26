@@ -53,7 +53,10 @@ async function postGraphql(token, query, variables) {
     const payload = await response.json();
     const rateLimited = response.status === 429 || payload.errors?.some((error) => error.extensions?.code === "RATE_LIMITED");
     if (rateLimited && attempt < 3) {
-      await new Promise((resolve) => setTimeout(resolve, 1000 * (2 ** attempt)));
+      const resetAt = Date.parse(payload.extensions?.rateLimit?.resetAt ?? "");
+      const resetDelay = Number.isNaN(resetAt) ? 0 : resetAt - Date.now() + 1000;
+      const delay = Math.min(65_000, Math.max(1000 * (2 ** attempt), resetDelay));
+      await new Promise((resolve) => setTimeout(resolve, delay));
       continue;
     }
     if (!response.ok || payload.errors?.length) {
@@ -64,27 +67,26 @@ async function postGraphql(token, query, variables) {
   throw new Error("Thinkific API rate limit did not clear.");
 }
 
-async function queryCourse(token, courseId, from) {
-  const surveyFilter = { courseIds: [courseId], completedAt: { from } };
+async function querySurveys(token, courseIds, from) {
+  const surveyFilter = { courseIds, completedAt: { from } };
+  const site = await postGraphql(token, SURVEY_QUERY, { surveyFilter });
+  return site.surveySubmissions?.nodes ?? [];
+}
+
+async function queryCourseQuizzes(token, courseId, from) {
   const quizFilter = { courseIds: [courseId], completedAt: { from } };
-  const surveySite = await postGraphql(token, SURVEY_QUERY, { surveyFilter });
   const quizSite = await postGraphql(token, QUIZ_QUERY, { quizFilter });
-  return {
-    surveys: surveySite.surveySubmissions?.nodes ?? [],
-    quizzes: (quizSite.quizSubmissions?.nodes ?? []).map((quiz) => ({ ...quiz, courseId }))
-  };
+  return (quizSite.quizSubmissions?.nodes ?? []).map((quiz) => ({ ...quiz, courseId }));
 }
 
 export async function fetchThinkificData(token, now = new Date()) {
   if (!token) throw new Error("THINKIFIC_API_TOKEN is required.");
   const from = new Date(now.getTime() - POLL_WINDOW_HOURS * 60 * 60 * 1000).toISOString();
   const courseIds = Object.keys(COURSE_MAP);
-  const results = [];
+  const surveys = await querySurveys(token, courseIds, from);
+  const quizzes = [];
   for (const courseId of courseIds) {
-    results.push(await queryCourse(token, courseId, from));
+    quizzes.push(...await queryCourseQuizzes(token, courseId, from));
   }
-  return {
-    surveys: results.flatMap((result) => result.surveys),
-    quizzes: results.flatMap((result) => result.quizzes)
-  };
+  return { surveys, quizzes };
 }
