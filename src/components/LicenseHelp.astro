@@ -1,0 +1,88 @@
+---
+type Props = {
+  course: "post" | "ce";
+};
+
+const { course } = Astro.props;
+---
+
+<section class="shell license-help" aria-labelledby="license-help-heading">
+  <h2 id="license-help-heading">Florida real estate license problem? <span>We can help.</span></h2>
+  <div class="license-help-copy">
+    {course === "post" ? (
+      <p>
+        Missed your Post-Licensing deadline? Failed a final exam at another school?
+        Couldn’t access your course or finish before your first renewal? Does your
+        DBPR license record show “null and void”?
+      </p>
+    ) : (
+      <p>
+        Missed your CE or license renewal deadline? Does your Florida real estate
+        license show “involuntarily inactive”? Couldn’t log in, failed a final exam
+        at another school, or completed CE that isn’t showing in your DBPR record?
+      </p>
+    )}
+    <p>
+      Talk directly with <strong>Daniel Larson, a licensed Florida real estate
+      instructor and owner of Daniel Larson Training.</strong> We understand how
+      serious a license lapse can be for your ability to work, REALTOR® membership,
+      MLS access, and income.
+    </p>
+    {course === "post" ? (
+      <p>
+        We’ll help you understand your education options, resolve questions about
+        missing course credit, and determine whether a documented hardship request
+        to DBPR may apply. Any hardship relief requires DBPR approval.
+      </p>
+    ) : (
+      <p>
+        We’ll help you determine whether you need 14-hour CE, a 28-hour reactivation
+        course, a completion-report correction, or another renewal step.
+      </p>
+    )}
+    <p class="license-help-next">
+      <strong>Text or email us below with your license number and what happened.
+      We’ll help you find the fastest available next step.</strong>
+    </p>
+  </div>
+</section>
+
+<style>
+  .license-help {
+    margin-top: clamp(56px, 6vw, 80px);
+  }
+
+  .license-help h2 {
+    max-width: none;
+    margin: 0 0 24px;
+    color: #fff;
+    font-size: clamp(2rem, 3.3vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -.04em;
+    text-wrap: balance;
+  }
+
+  .license-help h2 span {
+    display: inline-block;
+    color: #9bc9ff;
+  }
+
+  .license-help-copy {
+    max-width: 1040px;
+    color: #c0d0e2;
+    font-size: 1.04rem;
+    line-height: 1.6;
+  }
+
+  .license-help-copy p {
+    margin: 0 0 16px;
+  }
+
+  .license-help-copy strong {
+    color: #fff;
+  }
+
+  .license-help-copy .license-help-next {
+    margin: 24px 0 0;
+  }
+</style>

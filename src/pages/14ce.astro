@@ -1,5 +1,6 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import LicenseHelp from "../components/LicenseHelp.astro";
 import { site } from "../data/site";
 import "../styles/14ce.css";
 
@@ -152,6 +153,7 @@ const schema = [
           <small>Not sure whether you need CE or Post-Licensing? <a href="sms:+12394718500">Text Daniel · {site.phoneDisplay}</a></small>
         </aside>
       </div>
+      <LicenseHelp course="ce" />
     </section>
   </div>
 </SiteLayout>
