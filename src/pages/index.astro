@@ -98,13 +98,13 @@ const schema = [
 <article class="package featured">
 <span class="badge blue">Most Popular</span>
 <h3>FastPass</h3>
-<div class="subplan">Required pre-license education + exam prep + three FastPass exams</div>
+<div class="subplan">Required pre-license education + FastPass certification + exam prep</div>
 <div class="price">$380</div>
 <div class="price-note">one-time enrollment</div>
 <ul>
-<li>Everything in the Course 1 option</li>
-<li>Three Florida licensing-exam-style FastPass exams</li>
-<li>Structured preparation + certification path</li>
+<li>Three FastPass certification exams</li>
+<li>Full 63-hour Course 1 included</li>
+<li>State exam math — Exam Math Basics</li>
 <li>Audio ebook review</li>
 <li>500+ Q&amp;A and explanations</li>
 <li>One year of access</li>
@@ -180,7 +180,7 @@ const schema = [
 <div class="section-head">
 <div class="eyebrow" style="color:#1766c7">Compare the bundles</div>
 <h2>Compare your sales licensing paths.</h2>
-<p>The required Florida pre-license education is included in every option. Choose Course 1, add FastPass for the three-exam certification path, or add Post-Licensing to cover your first-renewal period.</p>
+<p>Every option includes the required Florida pre-license education. Earn your course certification through the traditional final exam or test out with the three FastPass exams when you’re ready. Add Post-Licensing to cover your first-renewal period.</p>
 </div>
 <div class="comparison">
 <table class="comparison-table">
@@ -207,10 +207,10 @@ const schema = [
 <td class="yes">✓ Included</td>
 </tr>
 <tr>
-<th scope="row">Traditional course final exam</th>
-<td class="yes">✓ Included</td>
-<td class="yes best">✓ Included</td>
-<td class="yes">✓ Included</td>
+<th scope="row">Course certification method</th>
+<td>Traditional final exam</td>
+<td class="best">Three FastPass exams</td>
+<td>Three FastPass exams</td>
 </tr>
 <tr>
 <th scope="row">State exam math — Exam Math Basics</th>
@@ -249,6 +249,14 @@ const schema = [
 <td class="yes">✓ Included</td>
 </tr>
 </tbody>
+<tfoot>
+<tr>
+<th scope="row">Enroll</th>
+<td><a class="btn btn-primary" data-plan="course1" data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/2513050" target="_top">Enroll in Course 1</a></td>
+<td class="best"><a class="btn btn-primary" data-plan="fastpass" data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/2270663" target="_top">Enroll in FastPass</a></td>
+<td><a class="btn btn-primary" data-plan="fastpass-post" data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/2270667" target="_top">Enroll in FastPass + Post</a></td>
+</tr>
+</tfoot>
 </table>
 </div>
 </div>
@@ -294,7 +302,7 @@ const schema = [
 </div>
 <div class="faq-list">
 <details><summary>What is included in the $280 licensing course option?</summary><p>The package includes the DBPR-approved 63-hour Florida Sales Associate pre-licensing Course 1, a traditional course final exam, Exam Math Basics, one year of access, and direct support from Daniel.</p></details>
-<details><summary>What does FastPass add?</summary><p>FastPass adds three Florida licensing-exam-style exams, audio ebook review, and 500+ Q&amp;A with explanations, along with a structured preparation path designed to build exam timing, speed, confidence, and familiarity with the testing experience.</p></details>
+<details><summary>How is FastPass different?</summary><p>FastPass uses three certification exams in place of the traditional course final exam. Test out when you’re ready, with the full Course 1, Exam Math Basics, audio ebook review, and 500+ Q&amp;A with explanations available to help you prepare. The Florida state licensing exam is separate.</p></details>
 <details><summary>Does FastPass replace the Florida state licensing exam?</summary><p>No. The Florida state licensing exam is a separate exam administered by <a href="https://www.pearsonvue.com/us/en/fl/dbpr.html" rel="noopener" target="_blank">Pearson Professional Assessments</a> (formerly Pearson VUE). FastPass is preparation and part of the course-certification path; you still take the state exam separately.</p></details>
 <details><summary>How long do I have access?</summary><p>Course bundles include one year of online access.</p></details>
 <details><summary>Can I contact the owner directly?</summary><p>Yes. You can text the owner directly at <a href="sms:+12394718500">239.471.8500</a> or email <a href="mailto:daniel@daniellarsontraining.com">daniel@daniellarsontraining.com</a> about the course, exam preparation, or your licensing steps.</p></details>
@@ -325,6 +333,7 @@ document.addEventListener('click', function(e){
       if(a.dataset.plan){
         window.gtag('event','select_course_package',{
           course_package:a.dataset.plan,
+          link_placement:a.dataset.placement,
           link_url:a.href
         });
       }

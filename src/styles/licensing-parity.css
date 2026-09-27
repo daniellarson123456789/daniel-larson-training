@@ -183,6 +183,9 @@
   }
   .licensing-parity .comparison-table thead small{display:block;color:#b9cae0;font-weight:600;margin-top:3px}
   .licensing-parity .comparison-table tbody th{color:var(--darktext);font-weight:500;background:#fff}
+  .licensing-parity .comparison-table tfoot th,
+  .licensing-parity .comparison-table tfoot td{border-top:1px solid #e5ebf2;border-bottom:0}
+  .licensing-parity .comparison-table tfoot .btn{display:flex;width:100%;min-height:60px;padding:12px 10px;font-size:13px;text-align:center}
   .licensing-parity .yes{font-weight:900;color:#0f5db8}
   .licensing-parity .dash{color:#64788f}
   .licensing-parity .best{background:#edf5ff;color:#153a64}

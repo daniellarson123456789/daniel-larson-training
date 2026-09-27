@@ -98,13 +98,13 @@ const schema = [
 <article class="package featured">
 <span class="badge blue">Most Popular</span>
 <h3>FastPass</h3>
-<div class="subplan">Required broker pre-license education + exam prep + three FastPass exams</div>
+<div class="subplan">Required broker pre-license education + FastPass certification + exam prep</div>
 <div class="price">$380</div>
 <div class="price-note">one-time enrollment</div>
 <ul>
-<li>Everything in the Course 2 option</li>
-<li>Three Broker FastPass exams</li>
-<li>Structured preparation + certification path</li>
+<li>Three Broker FastPass certification exams</li>
+<li>Full 72-hour Broker Course 2 included</li>
+<li>State exam math — Exam Math Basics</li>
 <li>Audio ebook review</li>
 <li>500+ Q&amp;A and explanations</li>
 <li>One year of access</li>
@@ -186,7 +186,7 @@ const schema = [
 <div class="section-head">
 <div class="eyebrow" style="color:#1766c7">Compare the broker bundles</div>
 <h2>Compare your broker licensing paths.</h2>
-<p>The required Florida broker pre-license education is included in every option. Choose Course 2, add Broker FastPass for the three-exam certification path, or add Broker Post-Licensing to cover your first-renewal period.</p>
+<p>Every option includes the required Florida broker pre-license education. Earn your course certification through the traditional final exam or test out with the three Broker FastPass exams when you’re ready. Add Broker Post-Licensing to cover your first-renewal period.</p>
 </div>
 <div class="comparison">
 <table class="comparison-table">
@@ -202,7 +202,7 @@ const schema = [
 </thead>
 <tbody>
 <tr><th scope="row">DBPR-approved 72-hour Course 2</th><td class="yes">✓ Included</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
-<tr><th scope="row">Traditional course final exam</th><td class="yes">✓ Included</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
+<tr><th scope="row">Course certification method</th><td>Traditional final exam</td><td class="best">Three FastPass exams</td><td>Three FastPass exams</td></tr>
 <tr><th scope="row">State exam math — Exam Math Basics</th><td class="yes">✓ Included</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
 <tr><th scope="row">One-year access + direct instructor support</th><td class="yes">✓ Included</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
 <tr><th scope="row">Free FastPass book</th><td class="yes">✓ Included</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
@@ -211,6 +211,14 @@ const schema = [
 <tr><th scope="row">Three Broker FastPass exams</th><td class="dash">—</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
 <tr><th scope="row">Required Broker Post-Licensing course</th><td class="dash">—</td><td class="dash best">—</td><td class="yes">✓ Included</td></tr>
 </tbody>
+<tfoot>
+<tr>
+<th scope="row">Enroll</th>
+<td><a class="btn btn-primary" data-plan="broker-course2" data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/2925908" target="_top">Enroll in Course 2</a></td>
+<td class="best"><a class="btn btn-primary" data-plan="broker-fastpass" data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/2860201" target="_top">Enroll in Broker FastPass</a></td>
+<td><a class="btn btn-primary" data-plan="broker-career-launch" data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/3643107" target="_top">Enroll in FastPass + Post</a></td>
+</tr>
+</tfoot>
 </table>
 </div>
 </div>
@@ -256,7 +264,7 @@ const schema = [
 </div>
 <div class="faq-list">
 <details><summary>What is included in the $280 broker licensing option?</summary><p>The package includes the DBPR-approved 72-hour Florida Broker Course 2, a traditional course final exam, Exam Math Basics, one year of access, a free FastPass book on request, and direct support from Daniel.</p></details>
-<details><summary>What does Broker FastPass add?</summary><p>Broker FastPass adds three FastPass exams, audio ebook review, and 500+ Q&amp;A with explanations, along with a more structured certification and exam-preparation path built around the Florida broker licensing exam.</p></details>
+<details><summary>How is Broker FastPass different?</summary><p>Broker FastPass uses three certification exams in place of the traditional course final exam. Test out when you’re ready, with the full Broker Course 2, Exam Math Basics, audio ebook review, and 500+ Q&amp;A with explanations available to help you prepare. The Florida broker licensing exam is separate.</p></details>
 <details><summary>Does FastPass replace the Florida broker licensing exam?</summary><p>No. The Florida broker licensing exam is a separate exam administered through <a href="https://www.pearsonvue.com/us/en/fl/dbpr.html" rel="noopener" target="_blank">Pearson Professional Assessments</a> (formerly Pearson VUE). FastPass is preparation and part of the Course 2 certification path; you still take the state exam separately.</p></details>
 <details><summary>What is FastPass + Post?</summary><p>FastPass + Post combines Course 2, Broker FastPass, and your required Broker Post-Licensing course so your next education step is already included.</p></details>
 <details><summary>Do broker students get the FastPass book?</summary><p>Yes. Broker students can request the printed FastPass book free. Other printed course books are also available on request at no charge.</p></details>
@@ -284,6 +292,7 @@ document.addEventListener('click', function(e){
     if(typeof window.gtag === 'function'){
       window.gtag('event','select_course_package',{
         course_package:a.dataset.plan,
+        link_placement:a.dataset.placement,
         link_url:a.href
       });
     }
