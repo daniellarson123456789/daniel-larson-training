@@ -14,6 +14,7 @@ const paths = [
   "/license-guides/sales-associate-vs-realtor/",
   "/license-guides/post-licensing-vs-ce/",
   "/license-guides/florida-real-estate-math/",
+  "/license-guides/florida-real-estate-license-problems/",
 ];
 
 export function GET() {

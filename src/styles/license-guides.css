@@ -270,4 +270,4 @@
   .license-guides .button { transition: none; }
 }
 .license-guides .aside { top: 150px; }
-.license-guides .article-body section, .license-guides #sales, .license-guides #broker, .license-guides #exam, .license-guides #after { scroll-margin-top: 150px; }
+.license-guides .article-body section, .license-guides #sales, .license-guides #broker, .license-guides #exam, .license-guides #after, .license-guides #license-problems { scroll-margin-top: 150px; }

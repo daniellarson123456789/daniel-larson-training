@@ -5,6 +5,7 @@ import exam from "../content/license-guides/school-certificate-and-state-exam.ht
 import realtor from "../content/license-guides/sales-associate-vs-realtor.html?raw";
 import renewal from "../content/license-guides/post-licensing-vs-ce.html?raw";
 import math from "../content/license-guides/florida-real-estate-math.html?raw";
+import problems from "../content/license-guides/florida-real-estate-license-problems.html?raw";
 
 export const guides = [
   { slug: undefined, title: "Florida Real Estate License Knowledge Center", description: "Florida sales associate and broker licensing steps, course certification, state exams, and renewal requirements explained.", markup: hub, heading: "Florida real estate licensing, explained." },
@@ -14,4 +15,5 @@ export const guides = [
   { slug: "sales-associate-vs-realtor", title: "Florida Sales Associate License vs. REALTOR®", description: "A Florida sales associate license is issued by DBPR; REALTOR® refers to NAR membership. Learn the difference and the licensing steps.", markup: realtor, heading: "Sales associate and REALTOR®: what’s the difference?" },
   { slug: "post-licensing-vs-ce", title: "Florida Post-Licensing vs. 14-Hour CE", description: "Find the right Florida first-renewal Post-Licensing or later 14-hour CE requirement for sales associates and brokers.", markup: renewal, heading: "Post-Licensing or 14-Hour CE?" },
   { slug: "florida-real-estate-math", title: "Florida Real Estate Math: Commissions, Profit, Prorations, and Land", description: "Learn Florida real estate exam math with worked examples of commission splits, profit percentages, tax prorations, and land acreage.", markup: math, heading: "Florida real estate math, explained" },
+  { slug: "florida-real-estate-license-problems", title: "Florida Real Estate License Problems? Get Help", description: "Missed Post-Licensing or CE, an inactive license, failed final, or missing DBPR credit? Daniel Larson can help you understand your options and next steps.", markup: problems, heading: "Florida real estate license problem? We can help." },
 ];
