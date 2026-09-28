@@ -2,6 +2,12 @@ import nodemailer from "nodemailer";
 import { dbprDate } from "./records.js";
 import { sendMailWithRetry } from "./mail-delivery.js";
 
+const STUDENT_COURSE_NAMES = Object.freeze({
+  "2436207": "14-Hour Continuing Education",
+  "2436300": "Sales Post-Licensing",
+  "3313434": "Broker Post-Licensing"
+});
+
 function transporter(env) {
   if (!env.SMTP_USER || !env.SMTP_APP_PASSWORD) throw new Error("SMTP credentials are required.");
   return nodemailer.createTransport({
@@ -13,6 +19,8 @@ function transporter(env) {
 }
 
 export async function sendStudentConfirmation(candidate, env = process.env) {
+  const courseName = STUDENT_COURSE_NAMES[String(candidate.thinkificCourseId)];
+  if (!courseName) throw new Error("Student confirmation course is not mapped.");
   const mail = transporter(env);
   await sendMailWithRetry(mail, {
     from: `Daniel Larson Training <${env.SMTP_USER}>`,
@@ -24,7 +32,7 @@ export async function sendStudentConfirmation(candidate, env = process.env) {
       "",
       "Thank you for choosing Daniel Larson Training to complete your required real estate education.",
       "",
-      `Your ${candidate.thinkificCourseName} completion was reported to Florida DBPR.`,
+      `Your ${courseName} completion was reported to Florida DBPR.`,
       `Completion date: ${dbprDate(candidate.completedAt)}`,
       `License: ${candidate.license.full}`,
       "",
