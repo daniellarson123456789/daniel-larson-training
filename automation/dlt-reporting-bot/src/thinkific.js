@@ -1,4 +1,4 @@
-import { COURSE_MAP, POLL_WINDOW_HOURS } from "./config.js";
+import { COURSE_MAP, POLL_WINDOW_HOURS, MATCH_WINDOW_DAYS } from "./config.js";
 
 const ENDPOINT = "https://api.thinkific.com/stable/graphql";
 
@@ -70,20 +70,29 @@ async function postGraphql(token, query, variables) {
 async function querySurveys(token, courseIds, from) {
   const surveyFilter = { courseIds, completedAt: { from } };
   const site = await postGraphql(token, SURVEY_QUERY, { surveyFilter });
-  return site.surveySubmissions?.nodes ?? [];
+  return checkedNodes(site.surveySubmissions?.nodes, "survey");
+}
+
+function checkedNodes(nodes, kind) {
+  if (!Array.isArray(nodes)) throw new Error(`Thinkific ${kind} response is missing; reporting stopped.`);
+  // The current query requests 100 records. Stop rather than silently ignore
+  // records if volume reaches this limit; pagination must then be configured.
+  if (nodes.length >= 100) throw new Error(`Thinkific ${kind} query reached its 100-record limit; reporting stopped for review.`);
+  return nodes;
 }
 
 async function queryCourseQuizzes(token, courseId, from) {
   const quizFilter = { courseIds: [courseId], completedAt: { from } };
   const quizSite = await postGraphql(token, QUIZ_QUERY, { quizFilter });
-  return (quizSite.quizSubmissions?.nodes ?? []).map((quiz) => ({ ...quiz, courseId }));
+  return checkedNodes(quizSite.quizSubmissions?.nodes, "quiz").map((quiz) => ({ ...quiz, courseId }));
 }
 
 export async function fetchThinkificData(token, now = new Date()) {
   if (!token) throw new Error("THINKIFIC_API_TOKEN is required.");
   const from = new Date(now.getTime() - POLL_WINDOW_HOURS * 60 * 60 * 1000).toISOString();
+  const surveyFrom = new Date(Date.parse(from) - MATCH_WINDOW_DAYS * 24 * 60 * 60 * 1000).toISOString();
   const courseIds = Object.keys(COURSE_MAP);
-  const surveys = await querySurveys(token, courseIds, from);
+  const surveys = await querySurveys(token, courseIds, surveyFrom);
   const quizzes = [];
   for (const courseId of courseIds) {
     quizzes.push(...await queryCourseQuizzes(token, courseId, from));

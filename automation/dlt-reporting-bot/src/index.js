@@ -2,7 +2,7 @@ import path from "node:path";
 import { COURSE_MAP, reportingMode } from "./config.js";
 import { fetchThinkificData } from "./thinkific.js";
 import { candidateKey, matchCandidates } from "./records.js";
-import { loadLedger, markProcessed, pruneLedger, saveLedger } from "./ledger.js";
+import { loadLedger, markProcessed, pruneLedger, saveLedger, unnotifiedExceptions, markExceptionsNotified } from "./ledger.js";
 import { reportToDbpr } from "./dbpr.js";
 import { sendAdminNotice, sendStudentConfirmation } from "./email.js";
 import { notifyWithoutBlocking } from "./mail-delivery.js";
@@ -12,7 +12,7 @@ const ledgerPath = process.env.LEDGER_PATH || path.resolve(".state/processed.jso
 
 async function main() {
   console.log(JSON.stringify({ reportingMode: reportingMode(process.env) }));
-  const ledger = await loadLedger(ledgerPath);
+  const ledger = await loadLedger(ledgerPath, { required: process.env.LEDGER_REQUIRED === "true" });
   pruneLedger(ledger);
   const data = await fetchThinkificData(process.env.THINKIFIC_API_TOKEN);
 
@@ -38,8 +38,13 @@ async function main() {
       .map((item) => item.diagnostics)
   }));
 
-  if (exceptions.length && process.env.SMTP_USER) {
-    await notifyWithoutBlocking(() => sendAdminNotice("DLT reporting exception", exceptions.map((item) => `${item.quizSubmissionId}: ${item.reason}`)));
+  const newExceptions = unnotifiedExceptions(ledger, exceptions, process.env.LEDGER_HMAC_KEY);
+  if (newExceptions.length && process.env.SMTP_USER) {
+    const delivered = await notifyWithoutBlocking(() => sendAdminNotice("DLT reporting exception", newExceptions.map((item) => `${item.quizSubmissionId}: ${item.reason}`)));
+    if (delivered) {
+      markExceptionsNotified(ledger, newExceptions, process.env.LEDGER_HMAC_KEY);
+      await saveLedger(ledgerPath, ledger);
+    }
   }
 
   for (const candidate of pending) {
