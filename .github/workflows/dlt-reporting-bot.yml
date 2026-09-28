@@ -66,6 +66,7 @@ jobs:
       ADMIN_EMAIL: daniel@daniellarsontraining.com
       LEDGER_HMAC_KEY: ${{ secrets.LEDGER_HMAC_KEY }}
       LEDGER_PATH: .state/processed.json
+      REPORTING_REQUESTED: ${{ github.event_name == 'schedule' || inputs.production == true }}
       REPORTING_ENABLED: ${{ (github.event_name == 'schedule' || inputs.production) && secrets.REPORTING_ENABLED || 'DRY_RUN' }}
     steps:
       - uses: actions/checkout@v4

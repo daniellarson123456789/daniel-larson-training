@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import { dbprDate } from "./records.js";
+import { sendMailWithRetry } from "./mail-delivery.js";
 
 function transporter(env) {
   if (!env.SMTP_USER || !env.SMTP_APP_PASSWORD) throw new Error("SMTP credentials are required.");
@@ -13,7 +14,7 @@ function transporter(env) {
 
 export async function sendStudentConfirmation(candidate, env = process.env) {
   const mail = transporter(env);
-  await mail.sendMail({
+  await sendMailWithRetry(mail, {
     from: `Daniel Larson Training <${env.SMTP_USER}>`,
     to: candidate.studentEmail,
     replyTo: env.SMTP_USER,
@@ -41,10 +42,11 @@ export async function sendStudentConfirmation(candidate, env = process.env) {
 
 export async function sendAdminNotice(subject, lines, env = process.env) {
   const mail = transporter(env);
-  await mail.sendMail({
+  await sendMailWithRetry(mail, {
     from: `DLT Reporting Bot <${env.SMTP_USER}>`,
     to: env.ADMIN_EMAIL || env.SMTP_USER,
     subject,
     text: lines.join("\n")
   });
 }
+
