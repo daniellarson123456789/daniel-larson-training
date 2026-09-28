@@ -29,7 +29,10 @@ async function main() {
     passingMatches: matches.length,
     pending: pending.length,
     exceptions: exceptions.length,
-    exceptionReasons
+    exceptionReasons,
+    exceptionDiagnostics: exceptions
+      .filter((item) => item.diagnostics)
+      .map((item) => item.diagnostics)
   }));
 
   if (exceptions.length && process.env.SMTP_USER) {

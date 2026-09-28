@@ -37,6 +37,41 @@ function answersByMeaning(submission) {
   return values;
 }
 
+// Only structural information belongs in the public Actions log. Never include
+// student responses, names, emails, license numbers, or free-form prompts.
+export function surveyDiagnostics(submission) {
+  const answers = answersByMeaning(submission);
+  const license = cleanText(answers.license);
+  const compact = license.toUpperCase().replace(/[\s-]/g, "");
+  return {
+    course: COURSE_MAP[String(submission.course?.id)]?.thinkificName ?? "unmapped",
+    fieldsFound: {
+      firstName: Object.hasOwn(answers, "firstName"),
+      lastName: Object.hasOwn(answers, "lastName"),
+      license: Object.hasOwn(answers, "license")
+    },
+    licenseResponse: {
+      length: license.length,
+      validFormat: /^(SL|BK|BL)\d{1,10}$/.test(compact),
+      hasHtmlEntity: /&(?:#\d+|#x[\da-f]+|[a-z]+);/i.test(license),
+      hasOtherCharacters: /[^a-z\d\s-]/i.test(license)
+    },
+    answers: (submission.userAnswers?.nodes ?? []).map((answer) => {
+      const prompt = cleanText(answer.question?.prompt).toLowerCase();
+      const response = cleanText(answer.textResponse);
+      return {
+        matchesFirstName: /first\s+name/.test(prompt),
+        matchesLastName: /last\s+name/.test(prompt),
+        matchesLicense: /license\s+(number|#)/.test(prompt),
+        promptHasHtmlEntity: /&(?:#\d+|#x[\da-f]+|[a-z]+);/i.test(prompt),
+        responseType: answer.textResponse === null ? "null" : typeof answer.textResponse,
+        responseLength: response.length,
+        responseHasLicenseFormat: /^(SL|BK|BL)\d{1,10}$/.test(response.toUpperCase().replace(/[\s-]/g, ""))
+      };
+    })
+  };
+}
+
 function validateName(value, label) {
   const normalized = cleanText(value);
   if (!normalized || normalized.length > 45) throw new Error(`${label} is missing or too long.`);
@@ -119,7 +154,11 @@ export function matchCandidates(quizSubmissions, surveySubmissions) {
     try {
       matches.push(buildCandidate(quiz, possible[0]));
     } catch (error) {
-      exceptions.push({ quizSubmissionId: String(quiz.id), reason: error.message });
+      exceptions.push({
+        quizSubmissionId: String(quiz.id),
+        reason: error.message,
+        diagnostics: surveyDiagnostics(possible[0])
+      });
     }
   }
   return { matches, exceptions };

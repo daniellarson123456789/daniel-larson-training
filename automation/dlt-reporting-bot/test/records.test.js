@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { buildCandidate, candidateKey, dbprDate, matchCandidates, normalizeLicense } from "../src/records.js";
+import { buildCandidate, candidateKey, dbprDate, matchCandidates, normalizeLicense, surveyDiagnostics } from "../src/records.js";
 
 function survey(overrides = {}) {
   return {
@@ -65,4 +65,30 @@ test("keeps the duplicate key stable if Thinkific later changes completion time"
   const candidate = buildCandidate(quiz(), survey());
   const updated = { ...candidate, completedAt: "2026-09-27T19:10:00.000Z" };
   assert.equal(candidateKey(candidate, "secret"), candidateKey(updated, "secret"));
+});
+
+test("diagnostics distinguish a missing license field without exposing responses", () => {
+  const submission = survey();
+  submission.userAnswers.nodes[2].question.prompt = "Real estate credential";
+  const result = matchCandidates([quiz()], [submission]);
+  assert.equal(result.matches.length, 0);
+  const diagnostics = result.exceptions[0].diagnostics;
+  assert.equal(diagnostics.fieldsFound.license, false);
+  assert.equal(diagnostics.answers[2].responseHasLicenseFormat, true);
+  const serialized = JSON.stringify(diagnostics);
+  for (const privateValue of ["Jane", "De La Cruz", "0012345", "student@example.com", "Real estate credential"]) {
+    assert.equal(serialized.includes(privateValue), false);
+  }
+});
+
+test("diagnostics identify an invalid returned response without accepting it", () => {
+  const submission = survey();
+  submission.userAnswers.nodes[2].textResponse = "SL&#48;012345";
+  const result = matchCandidates([quiz()], [submission]);
+  assert.equal(result.matches.length, 0);
+  const diagnostics = result.exceptions[0].diagnostics;
+  assert.equal(diagnostics.fieldsFound.license, true);
+  assert.equal(diagnostics.licenseResponse.validFormat, false);
+  assert.equal(diagnostics.licenseResponse.hasHtmlEntity, true);
+  assert.equal(JSON.stringify(diagnostics).includes("SL&#48;012345"), false);
 });
