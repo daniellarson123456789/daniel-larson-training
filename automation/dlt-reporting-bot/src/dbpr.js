@@ -3,6 +3,7 @@ import { DBPR, REPORTING_SWITCH } from "./config.js";
 import { assertSafeCandidate, dbprDate } from "./records.js";
 import { verifyPendingAttendee } from "./dbpr-attendees.js";
 import { captureDbprFailure } from "./dbpr-diagnostics.js";
+import { installRosterUploadGuard, prepareAttendeeForm, verifyRosterData } from "./dbpr-form.js";
 
 function redactCandidate(candidate) {
   return {
@@ -23,8 +24,8 @@ export async function reportToDbpr(candidate, env = process.env) {
   if (!env.DBPR_USERNAME || !env.DBPR_PASSWORD) throw new Error("DBPR credentials are required.");
 
   const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage();
-  let submitClicked = false;
+  const page = await browser.newPage({ serviceWorkers: "block" });
+  let uploadGuard;
   let stage = "login";
   try {
     await page.goto(DBPR.loginUrl, { waitUntil: "domcontentloaded" });
@@ -43,29 +44,37 @@ export async function reportToDbpr(candidate, env = process.env) {
     await providerRow.getByRole("link", { name: "Select", exact: true }).click();
 
     stage = "select_course";
+    await page.waitForLoadState("domcontentloaded");
     await page.locator("#coursedte").fill(dbprDate(candidate.completedAt));
+    await page.locator("#coursedte").dispatchEvent("change");
+    await page.locator("#coursedte").blur();
     const courseRow = page.getByRole("row", { name: new RegExp(candidate.dbprCourseNumber) });
     await courseRow.getByRole("link", { name: "Select", exact: true }).click();
 
+    stage = "prepare_attendee_form";
+    uploadGuard = await installRosterUploadGuard(page, candidate);
+    await prepareAttendeeForm(page, candidate);
     stage = "add_attendee";
     await page.locator("#last-name").fill(candidate.lastName);
     await page.locator("#first-name").fill(candidate.firstName);
+    await page.locator("#mid-name").fill("");
     await page.locator("#rank").selectOption(candidate.license.occupation);
     await page.locator("#license").fill(candidate.license.number);
     await page.getByRole("button", { name: "Add", exact: true }).click();
 
     await verifyPendingAttendee(page, candidate);
+    await verifyRosterData(page, candidate);
 
     // Final safety gate immediately before the irreversible click.
     assertSafeCandidate(candidate);
     if (env.REPORTING_ENABLED !== REPORTING_SWITCH) throw new Error("Production reporting switch changed before submit.");
     stage = "submit";
+    await uploadGuard.authorize();
     await page.getByRole("button", { name: "Submit", exact: true }).click();
-    submitClicked = true;
     await page.waitForLoadState("domcontentloaded");
 
     const body = await page.locator("body").innerText();
-    if (!/success|successfully|allow 48 hours/i.test(body)) {
+    if (!uploadGuard.sent || !uploadGuard.acceptedResponse || !/Your education course roster has been submitted/i.test(body)) {
       throw new Error("DBPR did not display its successful-reporting confirmation.");
     }
     return {
@@ -75,7 +84,7 @@ export async function reportToDbpr(candidate, env = process.env) {
     };
   } catch (error) {
     await captureDbprFailure(page, error, stage);
-    if (submitClicked) {
+    if (uploadGuard?.sent) {
       error.code = "DBPR_SUBMISSION_UNCERTAIN";
     }
     throw error;

@@ -1,0 +1,264 @@
+<!doctype html><html><body>
+<div id="instructions">Course Code: 0025288<br>Course Date: 09/27/2026</div>
+<div id="message"></div>
+<form id="submit-form" class="smart-form" action="" method="POST">
+<input id="hiddenTableData" name="hiddenTableData" type = "hidden" value="" />
+<fieldset>
+<div class="row">
+<section class="col col-6">
+<label class="input"> <i class="icon-append fa fa-th"></i>
+<input id="last-name" type="text" name="last-name" placeholder="Last Name" onkeypress='return event.charCode >= 32 && event.charCode <= 126'>
+</label>
+</section>
+<section class="col col-6">
+<label class="input"> <i class="icon-append fa fa-briefcase"></i>
+<input id="first-name" type="text" name="first-name" placeholder="First Name" onkeypress='return event.charCode >= 32 && event.charCode <= 126'>
+</label>
+</section>
+</div>
+<div class="row">
+<section class="col col-6">
+<label class="input"> <i class="icon-append fa fa-th"></i>
+<input id="mid-name" type="text" name="mid-name" placeholder="Middle Initial" onkeypress='return event.charCode >= 32 && event.charCode <= 126'>
+</label>
+</section>
+</div>
+<div class="row">
+<section class="col col-6">
+<label class="select">
+<select id="rank" name="rank">
+<option value="rank" selected="" disabled="">Occupation Code</option>
+<option value="BK">BK - Real Estate Broker</option>
+<option value="BL">BL - Real Estate Broker Sales Associate</option>
+<option value="ZH">ZH - Real Estate Instructor</option>
+<option value="SL">SL - Real Estate Sales Associate</option>
+</select> <i></i>
+</label>
+</section>
+<section class="col col-6">
+<label class="input"> <i class="icon-append fa fa-briefcase"></i>
+<input id="license" name="license" placeholder="License Number" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+</label>
+</section>
+</div>
+</fieldset>
+<style>
+.add, .clear {
+float: left;
+}
+.submit {
+float: right;
+}
+</style>
+<footer style="text-align:center">
+<div class="add">
+<button class="btn btn btn-primary" onclick="add_check(); return false;">
+Add
+</button>
+</div>
+<div class="clear">
+<button   class="btn btn-info" onclick="clear_check(); return false;">
+Clear
+</button>
+</div>
+<div class="submit">
+<button  class="btn btn-success" onclick="submit_check(); return ftpReady;">
+Submit
+</button>
+</div>
+</footer>
+</form>
+<table class="table table-hover" id='courseTable'>
+<thead>
+<tr>
+<th>Course Number</th>
+<th>Course Description</th>
+<th>Course Date</th>
+<th>Student Name</th>
+<th>Occupation Code</th>
+<th>License Number</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<script>
+/* Minimal DOM adapter for DBPR's jQuery calls; no external resources. */
+window.$ = window.jQuery = function(selector) {
+ const el = document.querySelector(selector);
+ const api = {
+  val(value) { if (arguments.length) { el.value = value; return api; } return el.value; },
+  parent() { return api; }, addClass() { return api; }, removeClass() { return api; },
+  css() { return api; }, empty() { return api; }, append() { return api; }
+ }; return api;
+};
+var ftpReady = false;
+var tempNewRec;
+function deleteRow(rowID){
+var row = document.getElementById(rowID);
+row.parentNode.removeChild(row);
+deleteRowHidden(rowID);
+return false;
+}
+function deleteRowHidden(rowID){
+var tempTableData = document.getElementById('hiddenTableData').value;
+var array = tempTableData.split("@@");
+array.pop();
+var index = array.length;
+var rowMatch;
+for (i = 0; i < index; i++) {
+if(array[i].indexOf(rowID) != -1) {
+rowMatch = i;
+}
+}
+array.splice(rowMatch,1);
+tempTableData = array.join('@@');
+document.getElementById('hiddenTableData').value = tempTableData;
+}
+var encodeHTML = (function() {
+var encodeHTMLmap = {
+"&" : "&amp;",
+"'" : "&#39;",
+'"' : "&quot;",
+"<" : "&lt;",
+">" : "&gt;"
+};
+function encodeHTMLmapper(ch) {
+return encodeHTMLmap[ch];
+}
+return function(text) {
+return text.replace(/[&"'<>]/g, encodeHTMLmapper);
+};
+})();
+var encodeJS = (function() {
+function toUnicodeHex(ch) {
+var c = ch.charCodeAt(0),
+s = c.toString(16);
+if (c < 0x100) {
+return "\\x" + ("00" + s).slice(-2);
+}
+return "\\u" + ("0000" + s).slice(-4);
+}
+return function(text) {
+return text.replace(/[\\\/"'&<>\x00-\x1f\x7f-\xa0\u2000-\u200f\u2028-\u202f]/g, toUnicodeHex);
+};
+})();
+var CourseDescription = encodeJS('(DISTANCE) SALES  POST LICENSE');
+function add_check()
+{
+removeCurrentErrors();
+var hasError = false;
+var firstName = $('#first-name').val();
+var lastName = $('#last-name').val();
+var midName = $('#mid-name').val();
+var rank = $('#rank').val();
+var license = $('#license').val();
+if(firstName.length == 0) {
+$('#first-name').parent().addClass('state-error');
+hasError = true;
+}
+if(lastName.length == 0) {
+$('#last-name').parent().addClass('state-error');
+hasError = true;
+}
+if(license.length == 0) {
+$('#license').parent().addClass('state-error');
+hasError = true;
+}
+if(midName.length == 0) {
+midName = " ";
+}
+if(hasError) {
+$('#message').css('display','block');
+$('#message').addClass('alert-danger');
+$('#message').empty();
+$('#message').append('<i id="message-icon" class="fa-fw fa fa-times"></i>	<strong>Error!</strong> All fields are required.');
+event.preventDefault();
+} else{
+var tableRef = document.getElementById('courseTable').getElementsByTagName('tbody')[0];
+var rowCounter = tableRef.rows.length;
+var newRow   = tableRef.insertRow(tableRef.rows.length);
+var cell1 = newRow.insertCell(0);
+var cell2 = newRow.insertCell(1);
+var cell3 = newRow.insertCell(2);
+var cell4 = newRow.insertCell(3);
+var cell5 = newRow.insertCell(4);
+var cell6 = newRow.insertCell(5);
+var newText1  = document.createTextNode('0025288');
+var newText2  = document.createTextNode(CourseDescription);
+var newText3  = document.createTextNode('09/27/2026');
+var newText4  = document.createTextNode(lastName + ", " + firstName + " " + midName);
+var newText5  = document.createTextNode(rank);
+var newText6  = document.createTextNode(license);
+cell1.appendChild(newText1);
+cell2.appendChild(newText2);
+cell3.appendChild(newText3);
+cell4.appendChild(newText4);
+cell5.appendChild(newText5);
+cell6.appendChild(newText6);
+var cell7 = newRow.insertCell(6);
+var buttonElement = document.createElement('button');
+buttonElement.setAttribute("class","btn btn-danger btn-xs");
+var rowID = "row_" + rowCounter;
+buttonElement.setAttribute("id",rowID);
+buttonElement.onclick  = function() {deleteRow(rowID); return false;};
+buttonElement.innerHTML=" ";
+cell7.appendChild(buttonElement);
+newRow.id = rowID;
+tableRef.appendChild(newRow);
+setHiddenInputTable(lastName,firstName,midName,rank,license,rowID);
+clearFields();
+}
+return false;
+}
+function setHiddenInputTable(lastName,firstName,midName,rank,license,rowID){
+tempNewRec	= document.getElementById('hiddenTableData').value;
+tempNewRec 	= tempNewRec + lastName + "$$" + firstName + "$$" + midName + "$$" + rank + "$$" + license + "$$" + rowID  + "@@";
+document.getElementById('hiddenTableData').value = tempNewRec;
+}
+function clear_check()
+{
+removeCurrentErrors();
+clearFields();
+return false;
+}
+function submit_check()
+{
+var tableRef = document.getElementById('courseTable').getElementsByTagName('tbody')[0];
+var rowCount = tableRef.rows.length;
+var returnFlag = false;
+if (rowCount !== null && rowCount > 0) {
+ftpReady = true;
+} else {
+$('#message').css('display','block');
+$('#message').addClass('alert-danger');
+$('#message').empty();
+$('#message').append('<i id="message-icon" class="fa-fw fa fa-times"></i>	<strong>Error!</strong> Student records are required.');
+returnFlag = false;
+}
+return returnFlag;
+}
+function clearFields() {
+$('#first-name').val('');
+$('#last-name').val('');
+$('#mid-name').val('');
+$('#rank').val('Occupation Code');
+$('#license').val('');
+}
+function removeCurrentErrors() {
+resetMessage();
+$('#first-name').parent().removeClass('state-error');
+$('#last-name').parent().removeClass('state-error');
+$('#mid-name').parent().removeClass('state-error');
+$('#rank').parent().removeClass('state-error');
+$('#license').parent().removeClass('state-error');
+}
+function resetMessage() {
+$('#message').css('display','none');
+$('#message').removeClass('alert-danger');
+$('#message').removeClass('alert-success');
+$('#message').empty();
+$('#message').append("");
+}
+</script></body></html>
