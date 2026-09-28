@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { buildCandidate, candidateKey, dbprDate, matchCandidates, normalizeLicense, surveyDiagnostics } from "../src/records.js";
+import { buildCandidate, candidateKey, dbprDate, matchCandidates, normalizeLicense } from "../src/records.js";
 
 function survey(overrides = {}) {
   return {
@@ -91,4 +91,24 @@ test("diagnostics identify an invalid returned response without accepting it", (
   assert.equal(diagnostics.licenseResponse.validFormat, false);
   assert.equal(diagnostics.licenseResponse.hasHtmlEntity, true);
   assert.equal(JSON.stringify(diagnostics).includes("SL&#48;012345"), false);
+});
+
+test("recognizes a license question when rich text splits a word", () => {
+  const submission = survey();
+  submission.userAnswers.nodes[2].question.prompt = "<p>What is your real estate licen<strong>se num</strong>ber, including the SL, BK, or BL prefix?</p>";
+  const result = matchCandidates([quiz()], [submission]);
+  assert.equal(result.matches.length, 1);
+  assert.equal(result.exceptions.length, 0);
+  assert.equal(result.matches[0].license.full, "SL0012345");
+  assert.equal(result.matches[0].lastName, "De La Cruz");
+});
+
+test("ignores invisible question formatting while preserving license validation", () => {
+  const submission = survey();
+  submission.userAnswers.nodes[2].question.prompt = "Real estate licen\u200Bse num\uFEFFber";
+  assert.equal(buildCandidate(quiz(), submission).license.full, "SL0012345");
+  submission.userAnswers.nodes[2].textResponse = "0012345";
+  assert.throws(() => buildCandidate(quiz(), submission), /License must begin/);
+  submission.userAnswers.nodes[2].textResponse = "SL123";
+  assert.throws(() => buildCandidate(quiz(), submission), /Blocked test license/);
 });
