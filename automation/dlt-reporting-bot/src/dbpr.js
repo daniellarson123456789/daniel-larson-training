@@ -2,6 +2,7 @@ import { chromium } from "playwright";
 import { DBPR, REPORTING_SWITCH } from "./config.js";
 import { assertSafeCandidate, dbprDate } from "./records.js";
 import { verifyPendingAttendee } from "./dbpr-attendees.js";
+import { captureDbprFailure } from "./dbpr-diagnostics.js";
 
 function redactCandidate(candidate) {
   return {
@@ -24,6 +25,7 @@ export async function reportToDbpr(candidate, env = process.env) {
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage();
   let submitClicked = false;
+  let stage = "login";
   try {
     await page.goto(DBPR.loginUrl, { waitUntil: "domcontentloaded" });
     await page.locator("#username").fill(env.DBPR_USERNAME);
@@ -35,14 +37,17 @@ export async function reportToDbpr(candidate, env = process.env) {
     if (await page.getByText(/Username or password was invalid/i).count()) throw new Error("DBPR rejected the stored login.");
     if (!(await page.getByText(env.DBPR_USERNAME, { exact: false }).count())) throw new Error("DBPR login could not be verified.");
 
+    stage = "select_provider";
     await page.goto(DBPR.providerPageUrl, { waitUntil: "domcontentloaded" });
     const providerRow = page.getByRole("row", { name: new RegExp(DBPR.providerNumber) });
     await providerRow.getByRole("link", { name: "Select", exact: true }).click();
 
+    stage = "select_course";
     await page.locator("#coursedte").fill(dbprDate(candidate.completedAt));
     const courseRow = page.getByRole("row", { name: new RegExp(candidate.dbprCourseNumber) });
     await courseRow.getByRole("link", { name: "Select", exact: true }).click();
 
+    stage = "add_attendee";
     await page.locator("#last-name").fill(candidate.lastName);
     await page.locator("#first-name").fill(candidate.firstName);
     await page.locator("#rank").selectOption(candidate.license.occupation);
@@ -54,6 +59,7 @@ export async function reportToDbpr(candidate, env = process.env) {
     // Final safety gate immediately before the irreversible click.
     assertSafeCandidate(candidate);
     if (env.REPORTING_ENABLED !== REPORTING_SWITCH) throw new Error("Production reporting switch changed before submit.");
+    stage = "submit";
     await page.getByRole("button", { name: "Submit", exact: true }).click();
     submitClicked = true;
     await page.waitForLoadState("domcontentloaded");
@@ -68,6 +74,7 @@ export async function reportToDbpr(candidate, env = process.env) {
       receiptText: body.slice(0, 5000)
     };
   } catch (error) {
+    await captureDbprFailure(page, error, stage);
     if (submitClicked) {
       error.code = "DBPR_SUBMISSION_UNCERTAIN";
     }
