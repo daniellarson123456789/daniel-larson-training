@@ -1,6 +1,7 @@
 import { chromium } from "playwright";
 import { DBPR, REPORTING_SWITCH } from "./config.js";
 import { assertSafeCandidate, dbprDate } from "./records.js";
+import { verifyPendingAttendee } from "./dbpr-attendees.js";
 
 function redactCandidate(candidate) {
   return {
@@ -48,8 +49,7 @@ export async function reportToDbpr(candidate, env = process.env) {
     await page.locator("#license").fill(candidate.license.number);
     await page.getByRole("button", { name: "Add", exact: true }).click();
 
-    const attendeeRow = page.getByRole("row", { name: new RegExp(`${candidate.dbprCourseNumber}.*${candidate.license.occupation}.*${candidate.license.number}`) });
-    if (!(await attendeeRow.count())) throw new Error("DBPR did not add the attendee to the pending report.");
+    await verifyPendingAttendee(page, candidate);
 
     // Final safety gate immediately before the irreversible click.
     assertSafeCandidate(candidate);
