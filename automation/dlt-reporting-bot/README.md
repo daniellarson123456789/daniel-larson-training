@@ -24,7 +24,11 @@ The initial state is guarded. `REPORTING_ENABLED` must equal the exact productio
 
 The scheduled job also requires the repository variable `DLT_REPORTING_BOT_ENABLED=true`. Leave it unset until the manual dry run is clean.
 
-The workflow keeps its HMAC-only duplicate ledger in an Actions cache and polls only the last 48 hours. DBPR's official upload and processing-result emails remain the authoritative receipts in the provider mailbox.
+The workflow keeps its HMAC-only duplicate ledger in an Actions cache and requires that history on every run. Missing or corrupt history stops reporting; do not replace it with an empty file. Recent exams are polled for 48 hours, with preceding surveys available across the full 30-day matching window. A query reaching the current 100-record limit stops for review instead of silently ignoring records. DBPR's official upload and processing-result emails remain the authoritative receipts in the provider mailbox.
+
+Missing-information notices are sent once per exam and reason. Successfully delivered notices are recorded as HMAC fingerprints in the ledger. Delivery failures remain eligible for a later notification attempt.
+
+When enabled, the workflow is scheduled every ten minutes; GitHub can delay scheduled jobs. Disable automatic runs by setting `DLT_REPORTING_BOT_ENABLED=false`. The variable only gates scheduled runs; manual production runs still require the explicit production option and the authorization secret.
 
 If the bot clicks **Submit** but cannot verify DBPR's response, it marks the record for manual review and will not retry it automatically. A confirmed DBPR submission is saved before student email is attempted, so an email outage cannot trigger a duplicate filing.
 
