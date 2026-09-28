@@ -30,7 +30,7 @@ export async function sendStudentConfirmation(candidate, env = process.env) {
       "",
       "DBPR may take up to 48 hours to finish processing the record.",
       "",
-      "Please remember to renew your real estate license at https://www.myfloridalicense.com once it is open for renewal. Completing your education does not automatically renew your license, so be sure to complete the renewal process before your license expires.",
+      "Completing your education does not automatically renew your license, so be sure to complete the renewal process at https://www.myfloridalicense.com before your license expires.",
       "",
       "If you felt it was as Fast, Easy, and Simple as possible, please tell your friends! Our biggest source of growth is referrals!",
       "",
