@@ -1,14 +1,16 @@
 import path from "node:path";
-import { COURSE_MAP } from "./config.js";
+import { COURSE_MAP, reportingMode } from "./config.js";
 import { fetchThinkificData } from "./thinkific.js";
 import { candidateKey, matchCandidates } from "./records.js";
 import { loadLedger, markProcessed, pruneLedger, saveLedger } from "./ledger.js";
 import { reportToDbpr } from "./dbpr.js";
 import { sendAdminNotice, sendStudentConfirmation } from "./email.js";
+import { notifyWithoutBlocking } from "./mail-delivery.js";
 
 const ledgerPath = process.env.LEDGER_PATH || path.resolve(".state/processed.json");
 
 async function main() {
+  console.log(JSON.stringify({ reportingMode: reportingMode(process.env) }));
   const ledger = await loadLedger(ledgerPath);
   pruneLedger(ledger);
   const data = await fetchThinkificData(process.env.THINKIFIC_API_TOKEN);
@@ -36,7 +38,7 @@ async function main() {
   }));
 
   if (exceptions.length && process.env.SMTP_USER) {
-    await sendAdminNotice("DLT reporting exception", exceptions.map((item) => `${item.quizSubmissionId}: ${item.reason}`));
+    await notifyWithoutBlocking(() => sendAdminNotice("DLT reporting exception", exceptions.map((item) => `${item.quizSubmissionId}: ${item.reason}`)));
   }
 
   for (const candidate of pending) {
