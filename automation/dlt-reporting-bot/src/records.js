@@ -25,14 +25,21 @@ export function normalizeLicense(value) {
   };
 }
 
+function answerField(value) {
+  // Thinkific's rich-text question can split words across inline elements or
+  // contain invisible formatting that is absent from the CSV export.
+  const prompt = cleanText(value).toLowerCase().replace(/[\s\u200B-\u200D\uFEFF]/g, "");
+  if (prompt.includes("firstname")) return "firstName";
+  if (prompt.includes("lastname")) return "lastName";
+  if (/license(?:number|#)/.test(prompt)) return "license";
+  return null;
+}
+
 function answersByMeaning(submission) {
   const values = {};
   for (const answer of submission.userAnswers?.nodes ?? []) {
-    const prompt = cleanText(answer.question?.prompt).toLowerCase();
-    const response = cleanText(answer.textResponse);
-    if (/first\s+name/.test(prompt)) values.firstName = response;
-    else if (/last\s+name/.test(prompt)) values.lastName = response;
-    else if (/license\s+(number|#)/.test(prompt)) values.license = response;
+    const field = answerField(answer.question?.prompt);
+    if (field) values[field] = cleanText(answer.textResponse);
   }
   return values;
 }
@@ -58,11 +65,12 @@ export function surveyDiagnostics(submission) {
     },
     answers: (submission.userAnswers?.nodes ?? []).map((answer) => {
       const prompt = cleanText(answer.question?.prompt).toLowerCase();
+      const field = answerField(answer.question?.prompt);
       const response = cleanText(answer.textResponse);
       return {
-        matchesFirstName: /first\s+name/.test(prompt),
-        matchesLastName: /last\s+name/.test(prompt),
-        matchesLicense: /license\s+(number|#)/.test(prompt),
+        matchesFirstName: field === "firstName",
+        matchesLastName: field === "lastName",
+        matchesLicense: field === "license",
         promptHasHtmlEntity: /&(?:#\d+|#x[\da-f]+|[a-z]+);/i.test(prompt),
         responseType: answer.textResponse === null ? "null" : typeof answer.textResponse,
         responseLength: response.length,
