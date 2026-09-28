@@ -6,6 +6,7 @@ import { loadLedger, markProcessed, pruneLedger, saveLedger } from "./ledger.js"
 import { reportToDbpr } from "./dbpr.js";
 import { sendAdminNotice, sendStudentConfirmation } from "./email.js";
 import { notifyWithoutBlocking } from "./mail-delivery.js";
+import { dbprFailureAttachments } from "./dbpr-diagnostics.js";
 
 const ledgerPath = process.env.LEDGER_PATH || path.resolve(".state/processed.json");
 
@@ -84,7 +85,7 @@ async function main() {
               `License: ${candidate.license.full}`,
               `Reason: ${error.message}`,
               "Do not resubmit until the DBPR result email and portal status are checked."
-            ]);
+            ], process.env, dbprFailureAttachments(error));
           } catch {}
         }
         continue;
@@ -98,7 +99,9 @@ async function main() {
 main().catch(async (error) => {
   console.error(error.stack || error.message);
   if (process.env.SMTP_USER) {
-    try { await sendAdminNotice("DLT reporting bot failed", [error.message]); } catch {}
+    try {
+      await sendAdminNotice("DLT reporting bot failed", [error.message], process.env, dbprFailureAttachments(error));
+    } catch {}
   }
   process.exitCode = 1;
 });

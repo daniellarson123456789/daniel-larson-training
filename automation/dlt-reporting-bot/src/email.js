@@ -40,13 +40,13 @@ export async function sendStudentConfirmation(candidate, env = process.env) {
   });
 }
 
-export async function sendAdminNotice(subject, lines, env = process.env) {
+export async function sendAdminNotice(subject, lines, env = process.env, attachments = []) {
   const mail = transporter(env);
   await sendMailWithRetry(mail, {
     from: `DLT Reporting Bot <${env.SMTP_USER}>`,
     to: env.ADMIN_EMAIL || env.SMTP_USER,
     subject,
-    text: lines.join("\n")
+    text: lines.join("\n"),
+    attachments
   });
 }
-
