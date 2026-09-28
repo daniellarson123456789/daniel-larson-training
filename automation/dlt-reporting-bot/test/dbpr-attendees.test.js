@@ -42,7 +42,7 @@ test("accepts leading-zero formatting without accepting a different identifier",
     await verifyPendingAttendee(page, candidate, { timeout: 200 });
     formatted[5] = "10098765";
     await page.setContent(tableHtml(rowHtml(formatted)));
-    await assert.rejects(verifyPendingAttendee(page, candidate, { timeout: 100 }), /Submit was not clicked/);
+    await assert.rejects(verifyPendingAttendee(page, candidate, { timeout: 100 }), /upload authorization withheld/);
   } finally { await page.close(); }
 });
 
@@ -54,13 +54,13 @@ test("blocks wrong course, date, name, occupation, license, and an empty list", 
       wrong[index] = value;
       await page.setContent(tableHtml(rowHtml(wrong)));
       await assert.rejects(verifyPendingAttendee(page, candidate, { timeout: 100 }), error => {
-        assert.match(error.message, /Submit was not clicked/);
+        assert.match(error.message, /upload authorization withheld/);
         for (const privateText of ["Jane", "Cruz", "0098765", "09/27/2026"]) assert.equal(error.message.includes(privateText), false);
         return true;
       });
     }
     await page.setContent(tableHtml());
-    await assert.rejects(verifyPendingAttendee(page, candidate, { timeout: 100 }), /Submit was not clicked/);
+    await assert.rejects(verifyPendingAttendee(page, candidate, { timeout: 100 }), /upload authorization withheld/);
   } finally { await page.close(); }
 });
 
@@ -69,7 +69,7 @@ test("blocks duplicate and unexpected extra attendees", async () => {
   try {
     for (const extra of [cells, ["0025288", "SALES POST LICENSE", "09/27/2026", "Doe, John", "SL", "0012345"]]) {
       await page.setContent(tableHtml(rowHtml() + rowHtml(extra)));
-      await assert.rejects(verifyPendingAttendee(page, candidate, { timeout: 100 }), /Submit was not clicked/);
+      await assert.rejects(verifyPendingAttendee(page, candidate, { timeout: 100 }), /upload authorization withheld/);
     }
   } finally { await page.close(); }
 });

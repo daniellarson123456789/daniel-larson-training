@@ -39,6 +39,6 @@ export async function verifyPendingAttendee(page, candidate, { timeout = 15000 }
       diagnostics[field] = await rows.filter({ has: page.getByRole("cell", { name: pattern }) }).count();
     }
     diagnostics.exactMatches = await attendee.count();
-    throw new Error(`DBPR pending attendee could not be verified; Submit was not clicked. Checks: ${JSON.stringify(diagnostics)}`);
+    throw new Error(`DBPR pending attendee could not be verified; upload authorization withheld. Checks: ${JSON.stringify(diagnostics)}`);
   }
 }
