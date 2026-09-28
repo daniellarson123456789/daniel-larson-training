@@ -28,7 +28,7 @@ The workflow keeps its HMAC-only duplicate ledger in an Actions cache and requir
 
 Missing-information notices are sent once per exam and reason. Successfully delivered notices are recorded as HMAC fingerprints in the ledger. Delivery failures remain eligible for a later notification attempt.
 
-When enabled, the workflow is scheduled every ten minutes; GitHub can delay scheduled jobs. Disable automatic runs by setting `DLT_REPORTING_BOT_ENABLED=false`. The variable only gates scheduled runs; manual production runs still require the explicit production option and the authorization secret.
+When enabled, the workflow is scheduled twice daily at **8:17 a.m. and 8:17 p.m. America/New_York**, including daylight-saving changes. The cron expression is `17 8,20 * * *` with `timezone: America/New_York`. GitHub can delay or drop scheduled jobs, so these are target times rather than a delivery guarantee. A separate read-only health check should verify the expected run after a two-hour grace period and alert on a missing, failed, skipped, or non-live report job. Push-triggered dry runs do not count as successful scheduled reporting. Disable automatic runs by setting `DLT_REPORTING_BOT_ENABLED=false`. The variable only gates scheduled runs; manual production runs still require the explicit production option and the authorization secret.
 
 If the bot clicks **Submit** but cannot verify DBPR's response, it marks the record for manual review and will not retry it automatically. A confirmed DBPR submission is saved before student email is attempted, so an email outage cannot trigger a duplicate filing.
 

@@ -19,7 +19,9 @@ on:
         default: false
         type: boolean
   schedule:
-    - cron: "*/10 * * * *"
+    # Twice daily, away from the top-of-hour rush; follows Eastern daylight saving time.
+    - cron: "17 8,20 * * *"
+      timezone: "America/New_York"
 
 permissions:
   contents: read
