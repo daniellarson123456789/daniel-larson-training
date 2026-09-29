@@ -19,9 +19,8 @@ on:
         default: false
         type: boolean
   schedule:
-    # Twice daily, away from the top-of-hour rush; follows Eastern daylight saving time.
-    - cron: "17 8,20 * * *"
-      timezone: "America/New_York"
+    # Check for new course completions every 10 minutes.
+    - cron: "*/10 * * * *"
 
 permissions:
   contents: read
