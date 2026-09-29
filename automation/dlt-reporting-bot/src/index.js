@@ -7,6 +7,7 @@ import { reportToDbpr } from "./dbpr.js";
 import { sendAdminNotice, sendStudentConfirmation } from "./email.js";
 import { notifyWithoutBlocking } from "./mail-delivery.js";
 import { dbprFailureAttachments } from "./dbpr-diagnostics.js";
+import { reconcileManualSubmissions } from "./manual-submissions.js";
 
 const ledgerPath = process.env.LEDGER_PATH || path.resolve(".state/processed.json");
 
@@ -21,6 +22,10 @@ async function main() {
     .filter((quiz) => /exam|final/i.test(String(quiz.quiz?.name ?? "")));
 
   const { matches, exceptions } = matchCandidates(quizzes, data.surveys);
+  // Persist verified manual submissions before constructing the reporting queue.
+  // These candidates must not trigger another DBPR filing or student email.
+  const manuallyReconciled = reconcileManualSubmissions(ledger, matches, process.env.LEDGER_HMAC_KEY);
+  if (manuallyReconciled) await saveLedger(ledgerPath, ledger);
   const pending = matches.filter((candidate) => !ledger.processed[candidateKey(candidate, process.env.LEDGER_HMAC_KEY)]);
   const exceptionReasons = exceptions.reduce((counts, item) => {
     counts[item.reason] = (counts[item.reason] ?? 0) + 1;
@@ -31,6 +36,7 @@ async function main() {
     surveys: data.surveys.length,
     passingMatches: matches.length,
     pending: pending.length,
+    manuallyReconciled,
     exceptions: exceptions.length,
     exceptionReasons,
     exceptionDiagnostics: exceptions
