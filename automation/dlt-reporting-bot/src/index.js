@@ -34,6 +34,7 @@ async function main() {
 
   console.log(JSON.stringify({
     surveys: data.surveys.length,
+    lookupUsers: data.userCount,
     passingMatches: matches.length,
     pending: pending.length,
     manuallyReconciled,

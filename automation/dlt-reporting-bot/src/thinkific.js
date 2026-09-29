@@ -1,6 +1,21 @@
 import { COURSE_MAP, POLL_WINDOW_HOURS, MATCH_WINDOW_DAYS } from "./config.js";
 
 const ENDPOINT = "https://api.thinkific.com/stable/graphql";
+const USER_BATCH_SIZE = 100;
+
+// The unscoped quiz resolver can time out even for first: 1. Numeric user IDs
+// select a working scoped lookup; User.gid is a different identifier and must
+// not be passed to QuizSubmissionFilter.userIds (it returns empty results).
+const USERS_QUERY = `
+  query ReportingUsers($after: String, $first: Int!) {
+    site {
+      users(first: $first, after: $after) {
+        pageInfo { hasNextPage endCursor }
+        nodes { id }
+      }
+    }
+  }
+`;
 
 const SURVEY_QUERY = `
   query ReportingSurveys($surveyFilter: SurveySubmissionsFilter, $after: String, $first: Int!) {
@@ -116,8 +131,9 @@ async function queryAllPages(token, query, variables, field, label) {
   throw new Error(`Thinkific ${label} exceeded 100 pages; reporting stopped for review.`);
 }
 
-async function queryCourseQuizzes(token, courseId, from) {
-  const quizFilter = { courseIds: [courseId], completedAt: { from } };
+async function queryCourseQuizzes(token, courseId, from, userIds) {
+  if (!userIds.length) throw new Error("An unscoped exam lookup is not permitted.");
+  const quizFilter = { courseIds: [courseId], completedAt: { from }, userIds };
   const quizzes = await queryAllPages(token, QUIZ_QUERY, { quizFilter }, "quizSubmissions", `quizzes course ${courseId}`);
   return quizzes.map((quiz) => ({ ...quiz, courseId }));
 }
@@ -128,9 +144,21 @@ export async function fetchThinkificData(token, now = new Date()) {
   const surveyFrom = new Date(Date.parse(from) - MATCH_WINDOW_DAYS * 24 * 60 * 60 * 1000).toISOString();
   const courseIds = Object.keys(COURSE_MAP);
   const surveys = await querySurveys(token, courseIds, surveyFrom);
+  // Fetch every user, not only survey respondents: a passed exam without a
+  // matching survey still needs to produce the existing reporting exception.
+  const users = await queryAllPages(token, USERS_QUERY, {}, "users", "user directory");
+  const userIds = users.map(user => String(user.id));
+  if (userIds.some(id => !/^\d+$/.test(id))) {
+    throw new Error("Thinkific user directory did not return numeric IDs; reporting stopped.");
+  }
+  if (surveys.length && !userIds.length) {
+    throw new Error("Thinkific user directory is empty despite survey records; reporting stopped.");
+  }
   const quizzes = [];
   for (const courseId of courseIds) {
-    quizzes.push(...await queryCourseQuizzes(token, courseId, from));
+    for (let start = 0; start < userIds.length; start += USER_BATCH_SIZE) {
+      quizzes.push(...await queryCourseQuizzes(token, courseId, from, userIds.slice(start, start + USER_BATCH_SIZE)));
+    }
   }
-  return { surveys, quizzes };
+  return { surveys, quizzes, userCount: userIds.length };
 }
