@@ -86,9 +86,11 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm test
       - run: mkdir -p .state
-      - run: npm run run
+      - name: Run reporting bot
+        if: ${{ !contains(github.event.head_commit.message, '[thinkific-diagnostics]') }}
+        run: npm run run
       - name: Read-only Thinkific timeout diagnostics
-        if: ${{ failure() && github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' && (failure() || contains(github.event.head_commit.message, '[thinkific-diagnostics]')) }}
         run: node src/thinkific-diagnostics.js
       - if: always()
         uses: actions/cache/save@v4

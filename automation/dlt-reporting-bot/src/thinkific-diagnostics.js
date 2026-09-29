@@ -17,23 +17,27 @@ async function probe(label, query, variables = {}) {
     const errors = (payload.errors ?? []).map(e => ({ code: e.extensions?.code ?? "API_ERROR", message: String(e.message ?? "").slice(0,200) }));
     const connection = payload.data?.site?.quizSubmissions;
     console.log(JSON.stringify({ diagnostic: label, ms: Date.now() - start, http: response.status, errors, nodes: connection?.nodes?.length, hasNextPage: connection?.pageInfo?.hasNextPage }));
-    if (payload.data?.__type) console.log(JSON.stringify({ diagnostic: label, schema: payload.data.__type }));
-    return !payload.errors?.length && response.ok;
+    if (payload.data?.__type) {
+      const schema = payload.data.__type;
+      if (schema.fields) schema.fields = schema.fields.filter(f => /user|enrollment|quiz/i.test(f.name));
+      console.log(JSON.stringify({ diagnostic: label, schema }));
+    }
+    return !payload.errors?.length && response.ok ? payload.data : null;
   } catch (error) {
     console.log(JSON.stringify({ diagnostic: label, ms: Date.now() - start, errorType: error.name }));
     return false;
   }
 }
 
-await probe("quiz-filter-schema", `query ReportingFilterSchema { __type(name: "QuizSubmissionFilter") { name inputFields { name type { kind name ofType { kind name ofType { kind name } } } } } }`);
+await probe("site-connection-schema", `query ReportingSiteSchema { __type(name: "Site") { name fields { name args { name type { kind name ofType { kind name ofType { kind name } } } } type { kind name ofType { kind name } } } } }`);
 const query = fields => `query ReportingDiagnostic($filter: QuizSubmissionFilter) { site { quizSubmissions(first: 1, filter: $filter) { pageInfo { hasNextPage } nodes { ${fields} } } } }`;
 const from = new Date(Date.now() - 48 * 60 * 60 * 1000).toISOString();
-await probe("quiz-unfiltered-minimal", query("id"));
-await probe("quiz-course-only-minimal", query("id"), { filter: { courseIds: ["2436207"] } });
-await probe("quiz-date-only-minimal", query("id"), { filter: { completedAt: { from } } });
-const filter = { courseIds: ["2436207"], completedAt: { from } };
-const minimal = await probe("quiz-course-date-minimal", query("id completedAt passed"), { filter });
-if (minimal) {
-  await probe("quiz-with-quiz-relationship", query("id completedAt passed quiz { id name }"), { filter });
-  await probe("quiz-with-user-relationship", query("id completedAt passed user { gid email }"), { filter });
+const surveys = await probe("recent-survey-user-lookup", `query ReportingSurveyUsers($filter: SurveySubmissionsFilter) { site { surveySubmissions(first: 25, filter: $filter) { nodes { user { gid } } } } }`, { filter: { courseIds: ["2436207"], completedAt: { from } } });
+const userIds = [...new Set((surveys?.site?.surveySubmissions?.nodes ?? []).map(n => n.user?.gid).filter(Boolean))];
+console.log(JSON.stringify({ diagnostic: "survey-user-count", count: userIds.length }));
+if (userIds.length) {
+  const filter = { courseIds: ["2436207"], completedAt: { from }, userIds: [userIds[0]] };
+  await probe("quiz-one-user-minimal", query("id completedAt passed"), { filter });
+  await probe("quiz-one-user-full", query("id completedAt passed quiz { id name } user { gid email }"), { filter });
+  await probe("quiz-user-batch-full", query("id completedAt passed quiz { id name } user { gid email }"), { filter: { ...filter, userIds } });
 }
