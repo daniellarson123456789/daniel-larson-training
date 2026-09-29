@@ -3,9 +3,9 @@ import { COURSE_MAP, POLL_WINDOW_HOURS, MATCH_WINDOW_DAYS } from "./config.js";
 const ENDPOINT = "https://api.thinkific.com/stable/graphql";
 
 const SURVEY_QUERY = `
-  query ReportingSurveys($surveyFilter: SurveySubmissionsFilter, $after: String) {
+  query ReportingSurveys($surveyFilter: SurveySubmissionsFilter, $after: String, $first: Int!) {
     site {
-      surveySubmissions(first: 25, after: $after, filter: $surveyFilter) {
+      surveySubmissions(first: $first, after: $after, filter: $surveyFilter) {
         pageInfo { hasNextPage endCursor }
         nodes {
           id
@@ -25,15 +25,14 @@ const SURVEY_QUERY = `
 `;
 
 const QUIZ_QUERY = `
-  query ReportingQuizzes($quizFilter: QuizSubmissionFilter, $after: String) {
+  query ReportingQuizzes($quizFilter: QuizSubmissionFilter, $after: String, $first: Int!) {
     site {
-      quizSubmissions(first: 25, after: $after, filter: $quizFilter) {
+      quizSubmissions(first: $first, after: $after, filter: $quizFilter) {
         pageInfo { hasNextPage endCursor }
         nodes {
           id
           completedAt
           passed
-          attempts
           quiz { id name }
           user { gid email }
         }
@@ -43,6 +42,7 @@ const QUIZ_QUERY = `
 `;
 
 async function postGraphql(token, query, variables, label) {
+  let first = 25;
   for (let attempt = 0; attempt < 4; attempt += 1) {
     let response;
     let payload;
@@ -53,7 +53,7 @@ async function postGraphql(token, query, variables, label) {
         authorization: `Bearer ${token}`,
         "content-type": "application/json"
       },
-        body: JSON.stringify({ query, variables }),
+        body: JSON.stringify({ query, variables: { ...variables, first } }),
         signal: AbortSignal.timeout(30_000)
       });
       payload = await response.json();
@@ -69,10 +69,11 @@ async function postGraphql(token, query, variables, label) {
     const rateLimited = response.status === 429 || payload.errors?.some((error) => error.extensions?.code === "RATE_LIMITED");
     const gatewayFailure = [502, 503, 504].includes(response.status) || payload.errors?.some((error) => error.extensions?.code === "GATEWAY_TIMEOUT");
     if ((rateLimited || gatewayFailure) && attempt < 3) {
-      const resetAt = Date.parse(payload.extensions?.rateLimit?.resetAt ?? "");
+      if (gatewayFailure) first = Math.max(1, Math.floor(first / 5));
+      const resetAt = rateLimited ? Date.parse(payload.extensions?.rateLimit?.resetAt ?? "") : NaN;
       const resetDelay = Number.isNaN(resetAt) ? 0 : resetAt - Date.now() + 1000;
       const delay = Math.min(65_000, Math.max(1000 * (2 ** attempt), resetDelay));
-      console.warn(`Thinkific ${label}: ${rateLimited ? "rate limited" : "gateway timeout/unavailable"}; retry ${attempt + 1}/3.`);
+      console.warn(`Thinkific ${label}: ${rateLimited ? "rate limited" : "gateway timeout/unavailable"}; retry ${attempt + 1}/3, page size ${first}.`);
       await new Promise((resolve) => setTimeout(resolve, delay));
       continue;
     }

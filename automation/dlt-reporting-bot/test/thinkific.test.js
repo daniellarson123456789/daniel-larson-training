@@ -39,7 +39,8 @@ test("reads all pages with unchanged filters and deduplicates overlapping record
   t.mock.method(globalThis, "fetch", async (_url, options) => {
     const body = JSON.parse(options.body);
     calls.push(body);
-    assert.match(body.query, /first: 25, after: \$after/);
+    assert.match(body.query, /first: \$first, after: \$after/);
+    assert.equal(body.variables.first, 25);
     const survey = Boolean(body.variables.surveyFilter);
     const prefix = survey ? "survey" : body.variables.quizFilter.courseIds[0];
     return response(body.variables.after === null
@@ -70,11 +71,13 @@ test("a repeating cursor or absent next cursor stops reporting", async (t) => {
 
 test("retries a GraphQL gateway timeout and a non-JSON 503 then recovers", async (t) => {
   const delays = [];
+  const sizes = [];
   t.mock.method(globalThis, "setTimeout", (callback, delay) => { delays.push(delay); callback(); });
   t.mock.method(console, "warn", () => {});
   let calls = 0;
   t.mock.method(globalThis, "fetch", async (_url, options) => {
     calls += 1;
+    sizes.push(JSON.parse(options.body).variables.first);
     if (calls === 1) return { ok: true, status: 200, json: async () => ({ errors: [{ extensions: { code: "GATEWAY_TIMEOUT" } }] }) };
     if (calls === 2) return { ok: false, status: 503, json: async () => { throw new SyntaxError("non-JSON"); } };
     return response({ nodes: [], pageInfo: { hasNextPage: false } }, Boolean(JSON.parse(options.body).variables.surveyFilter));
@@ -82,21 +85,28 @@ test("retries a GraphQL gateway timeout and a non-JSON 503 then recovers", async
   await fetchThinkificData("synthetic-token");
   assert.equal(calls, 6);
   assert.deepEqual(delays, [1000, 2000]);
+  assert.deepEqual(sizes.slice(0, 3), [25, 5, 5]);
 });
 
 test("persistent gateway failures exhaust four attempts without accepting partial data", async (t) => {
-  t.mock.method(globalThis, "setTimeout", (callback) => callback());
+  const delays = [];
+  const sizes = [];
+  t.mock.method(globalThis, "setTimeout", (callback, delay) => { delays.push(delay); callback(); });
   t.mock.method(console, "warn", () => {});
   let calls = 0;
-  t.mock.method(globalThis, "fetch", async () => {
+  t.mock.method(globalThis, "fetch", async (_url, options) => {
     calls += 1;
+    sizes.push(JSON.parse(options.body).variables.first);
     return { ok: true, status: 200, json: async () => ({
       data: { site: { surveySubmissions: { nodes: [], pageInfo: { hasNextPage: false } } } },
+      extensions: { rateLimit: { resetAt: new Date(Date.now() + 60000).toISOString() } },
       errors: [{ extensions: { code: "GATEWAY_TIMEOUT" } }]
     }) };
   });
   await assert.rejects(fetchThinkificData("synthetic-token"), /GATEWAY_TIMEOUT; reporting stopped/);
   assert.equal(calls, 4);
+  assert.deepEqual(sizes, [25, 5, 1, 1]);
+  assert.deepEqual(delays, [1000, 2000, 4000]);
 });
 
 test("authorization failures are not retried", async (t) => {
