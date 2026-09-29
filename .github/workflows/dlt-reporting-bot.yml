@@ -87,6 +87,9 @@ jobs:
       - run: npm test
       - run: mkdir -p .state
       - run: npm run run
+      - name: Read-only Thinkific timeout diagnostics
+        if: ${{ failure() && github.event_name == 'push' }}
+        run: node src/thinkific-diagnostics.js
       - if: always()
         uses: actions/cache/save@v4
         with:
