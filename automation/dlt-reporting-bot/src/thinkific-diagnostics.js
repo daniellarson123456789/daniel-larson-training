@@ -19,7 +19,7 @@ async function probe(label, query, variables = {}) {
     console.log(JSON.stringify({ diagnostic: label, ms: Date.now() - start, http: response.status, errors, nodes: connection?.nodes?.length, hasNextPage: connection?.pageInfo?.hasNextPage }));
     if (payload.data?.__type) {
       const schema = payload.data.__type;
-      if (schema.fields) schema.fields = schema.fields.filter(f => /user|enrollment|quiz/i.test(f.name));
+      if (schema.fields) schema.fields = schema.fields.filter(f => /user|enrollment|quiz|^id$|^gid$/i.test(f.name));
       console.log(JSON.stringify({ diagnostic: label, schema }));
     }
     return !payload.errors?.length && response.ok ? payload.data : null;
@@ -29,15 +29,17 @@ async function probe(label, query, variables = {}) {
   }
 }
 
-await probe("site-connection-schema", `query ReportingSiteSchema { __type(name: "Site") { name fields { name args { name type { kind name ofType { kind name ofType { kind name } } } } type { kind name ofType { kind name } } } } }`);
+const userSchema = await probe("user-schema", `query ReportingUserSchema { __type(name: "User") { name fields { name type { kind name ofType { kind name } } } } }`);
 const query = fields => `query ReportingDiagnostic($filter: QuizSubmissionFilter) { site { quizSubmissions(first: 1, filter: $filter) { pageInfo { hasNextPage } nodes { ${fields} } } } }`;
 const from = new Date(Date.now() - 48 * 60 * 60 * 1000).toISOString();
-const surveys = await probe("recent-survey-user-lookup", `query ReportingSurveyUsers($filter: SurveySubmissionsFilter) { site { surveySubmissions(first: 25, filter: $filter) { nodes { user { gid } } } } }`, { filter: { courseIds: ["2436207"], completedAt: { from } } });
-const userIds = [...new Set((surveys?.site?.surveySubmissions?.nodes ?? []).map(n => n.user?.gid).filter(Boolean))];
-console.log(JSON.stringify({ diagnostic: "survey-user-count", count: userIds.length }));
+const hasId = userSchema?.__type?.fields?.some(f => f.name === "id");
+const surveys = await probe("recent-survey-user-lookup", `query ReportingSurveyUsers($filter: SurveySubmissionsFilter) { site { surveySubmissions(first: 25, filter: $filter) { nodes { user { ${hasId ? "id" : ""} gid } } } } }`, { filter: { courseIds: ["2436207"], completedAt: { from } } });
+const users = (surveys?.site?.surveySubmissions?.nodes ?? []).map(n => n.user).filter(Boolean);
+const userIds = [...new Set(users.map(u => u.id).filter(Boolean))];
+console.log(JSON.stringify({ diagnostic: "survey-user-id-shapes", count: users.length, hasId, idIsNumeric: users.map(u => /^\d+$/.test(String(u.id ?? ""))), gidIsNumeric: users.map(u => /^\d+$/.test(String(u.gid ?? ""))) }));
 if (userIds.length) {
   const filter = { courseIds: ["2436207"], completedAt: { from }, userIds: [userIds[0]] };
-  await probe("quiz-one-user-minimal", query("id completedAt passed"), { filter });
-  await probe("quiz-one-user-full", query("id completedAt passed quiz { id name } user { gid email }"), { filter });
-  await probe("quiz-user-batch-full", query("id completedAt passed quiz { id name } user { gid email }"), { filter: { ...filter, userIds } });
+  await probe("quiz-one-legacy-user-full", query("id completedAt passed quiz { id name } user { gid email }"), { filter });
+  await probe("quiz-legacy-user-batch-full", query("id completedAt passed quiz { id name } user { gid email }"), { filter: { ...filter, userIds } });
 }
+await probe("user-directory-minimal", `query ReportingUsers { site { users(first: 1) { pageInfo { hasNextPage endCursor } nodes { ${hasId ? "id" : ""} gid } } } }`);
