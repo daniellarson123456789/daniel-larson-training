@@ -8,6 +8,7 @@ import { sendAdminNotice, sendStudentConfirmation } from "./email.js";
 import { notifyWithoutBlocking } from "./mail-delivery.js";
 import { dbprFailureAttachments } from "./dbpr-diagnostics.js";
 import { reconcileManualSubmissions } from "./manual-submissions.js";
+import { exceptionNotice } from "./exception-notice.js";
 
 const ledgerPath = process.env.LEDGER_PATH || path.resolve(".state/processed.json");
 
@@ -47,7 +48,8 @@ async function main() {
 
   const newExceptions = unnotifiedExceptions(ledger, exceptions, process.env.LEDGER_HMAC_KEY);
   if (newExceptions.length && process.env.SMTP_USER) {
-    const delivered = await notifyWithoutBlocking(() => sendAdminNotice("DLT reporting exception", newExceptions.map((item) => `${item.quizSubmissionId}: ${item.reason}`)));
+    const notice = exceptionNotice(newExceptions);
+    const delivered = await notifyWithoutBlocking(() => sendAdminNotice(notice.subject, notice.lines));
     if (delivered) {
       markExceptionsNotified(ledger, newExceptions, process.env.LEDGER_HMAC_KEY);
       await saveLedger(ledgerPath, ledger);

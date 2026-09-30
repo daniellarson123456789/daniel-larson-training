@@ -138,6 +138,21 @@ function sameUser(a, b) {
   return String(a.user?.email ?? "").toLowerCase() === String(b.user?.email ?? "").toLowerCase();
 }
 
+// Private email context only: never log this object or persist it in the ledger.
+function exceptionDetails(quiz, survey) {
+  const answers = survey ? answersByMeaning(survey) : {};
+  const course = COURSE_MAP[String(quiz.courseId)];
+  return {
+    firstName: answers.firstName ?? "",
+    lastName: answers.lastName ?? "",
+    studentEmail: cleanText(quiz.user?.email || survey?.user?.email),
+    submittedLicense: answers.license ?? "",
+    courseName: course?.thinkificName ?? cleanText(survey?.course?.name),
+    dbprCourseNumber: course?.dbprCourseNumber ?? "",
+    completedAt: quiz.completedAt
+  };
+}
+
 export function matchCandidates(quizSubmissions, surveySubmissions) {
   const matches = [];
   const exceptions = [];
@@ -155,7 +170,11 @@ export function matchCandidates(quizSubmissions, surveySubmissions) {
       .sort((a, b) => new Date(b.completedAt) - new Date(a.completedAt));
 
     if (!possible.length) {
-      exceptions.push({ quizSubmissionId: String(quiz.id), reason: "No preceding license survey matched this passing exam." });
+      exceptions.push({
+        quizSubmissionId: String(quiz.id),
+        reason: "No preceding license survey matched this passing exam.",
+        adminDetails: exceptionDetails(quiz)
+      });
       continue;
     }
 
@@ -165,6 +184,7 @@ export function matchCandidates(quizSubmissions, surveySubmissions) {
       exceptions.push({
         quizSubmissionId: String(quiz.id),
         reason: error.message,
+        adminDetails: exceptionDetails(quiz, possible[0]),
         diagnostics: surveyDiagnostics(possible[0])
       });
     }
