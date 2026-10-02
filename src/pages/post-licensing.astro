@@ -1,6 +1,8 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
 import { site } from "../data/site";
+import { products } from "../data/products";
+import { courseOffer } from "../lib/courseOffer";
 import "../styles/post-licensing.css";
 
 const salesPostUrl = "https://portal.daniellarsontraining.com/bundles/post-licensing";
@@ -25,6 +27,7 @@ const schema = [
       "Self-paced Sales Associate first-renewal Post-Licensing with section PDFs, narrated lessons, review questions, and an included FastPass final exam.",
     provider: { "@id": `${site.url}/#organization` },
     inLanguage: "en-US",
+    offers: courseOffer(products.salesPost),
   },
   {
     "@type": "Course",
@@ -34,6 +37,7 @@ const schema = [
       "Self-paced Broker and Broker Associate first-renewal Post-Licensing with course material and an included FastPass final exam.",
     provider: { "@id": `${site.url}/#organization` },
     inLanguage: "en-US",
+    offers: courseOffer(products.brokerPost),
   },
 ];
 ---

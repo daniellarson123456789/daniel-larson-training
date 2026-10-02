@@ -1,5 +1,7 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import { products } from "../data/products";
+import { courseOffer } from "../lib/courseOffer";
 import "../styles/licensing-parity.css";
 
 const schema = [
@@ -11,7 +13,12 @@ const schema = [
     "provider": {
       "@id": "https://daniellarsontraining.com/#organization"
     },
-    "inLanguage": "en-US"
+    "inLanguage": "en-US",
+    "offers": [
+      courseOffer(products.salesCourse1, "Course 1 + Traditional Final"),
+      courseOffer(products.salesFastPass, "Sales Course 1 + FastPass"),
+      courseOffer(products.salesFastPassPost, "Sales FastPass + Post-Licensing"),
+    ]
   },
   {
     "@type": "WebPage",

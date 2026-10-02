@@ -1,23 +1,27 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
 import { site } from "../data/site";
+import { products } from "../data/products";
+import { courseOffer } from "../lib/courseOffer";
 
 const schema = [
   {
     "@type": "Course",
     "@id": `${site.url}/exam-prep/#sales`,
     name: "Sales Exam Prep + FastPass Only",
-    description: "Florida Sales Associate exam preparation for students taking or already finished with their required pre-license course.",
+    description: "Florida Sales Associate exam preparation for students taking or already finished with their required pre-license course. Exam preparation only; does not include the required pre-license course or completion certificate.",
     provider: { "@id": `${site.url}/#organization` },
     inLanguage: "en-US",
+    offers: courseOffer(products.salesExamPrep, "Sales Exam Prep + FastPass Only"),
   },
   {
     "@type": "Course",
     "@id": `${site.url}/exam-prep/#broker`,
     name: "Broker Exam Prep + FastPass Only",
-    description: "Florida Broker exam preparation for students taking or already finished with their required broker pre-license course.",
+    description: "Florida Broker exam preparation for students taking or already finished with their required broker pre-license course. Exam preparation only; does not include the required pre-license course or completion certificate.",
     provider: { "@id": `${site.url}/#organization` },
     inLanguage: "en-US",
+    offers: courseOffer(products.brokerExamPrep, "Broker Exam Prep + FastPass Only"),
   },
   {
     "@type": "WebPage",

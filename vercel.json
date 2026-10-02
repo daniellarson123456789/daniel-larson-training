@@ -1,5 +1,9 @@
 {
   "redirects": [
+    { "source": "/broker", "destination": "/broker-licensing/", "permanent": true },
+    { "source": "/broker/", "destination": "/broker-licensing/", "permanent": true },
+    { "source": "/whyus", "destination": "/about/", "permanent": true },
+    { "source": "/whyus/", "destination": "/about/", "permanent": true },
     { "source": "/brokerlicensing", "destination": "/broker-licensing/", "permanent": true },
     { "source": "/brokerlicensing/", "destination": "/broker-licensing/", "permanent": true },
     { "source": "/postlicensing", "destination": "/post-licensing/", "permanent": true },

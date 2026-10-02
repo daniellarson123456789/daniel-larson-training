@@ -1,6 +1,8 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
 import { site } from "../data/site";
+import { products } from "../data/products";
+import { courseOffer } from "../lib/courseOffer";
 import "../styles/14ce.css";
 
 const bundleUrl = "https://portal.daniellarsontraining.com/bundles/14ce";
@@ -14,6 +16,7 @@ const schema = [
       "Self-paced Florida 14-Hour CE with downloadable PDFs, audio-guided lessons, review questions, and an included FastPass final exam.",
     provider: { "@id": `${site.url}/#organization` },
     inLanguage: "en-US",
+    offers: courseOffer(products.ce14),
   },
   {
     "@type": "WebPage",
