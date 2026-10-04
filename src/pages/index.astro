@@ -59,7 +59,7 @@ const schema = [
 <p class="hero-kicker">No 63-hour video marathon. No endless PDF grind.</p>
 <div class="hero-actions">
 <a class="btn btn-primary" href="#packages">See licensing options ↓</a>
-<a class="btn btn-ghost" data-trial="hero" href="https://portal.daniellarsontraining.com/courses/starthere?utm_source=dlt_homepage&amp;utm_medium=site&amp;utm_campaign=sales_licensing&amp;utm_content=hero_try_fastpass" target="_top">Try FastPass Free</a>
+<a class="btn btn-ghost" data-trial="hero" href="https://portal.daniellarsontraining.com/courses/starthere" target="_top">Try FastPass Free</a>
 </div>
 </div>
 <aside aria-label="Direct instructor support" class="hero-card">
@@ -100,7 +100,7 @@ const schema = [
 <li>Free printed books available on request</li>
 <li>Direct support from Daniel</li>
 </ul>
-<a class="btn btn-primary" data-plan="course1" href="https://portal.daniellarsontraining.com/bundles/course1?utm_source=dlt_homepage&amp;utm_medium=site&amp;utm_campaign=sales_licensing&amp;utm_content=course1" target="_top">Enroll in Course 1</a>
+<a class="btn btn-primary" data-placement="package_card" data-plan={products.salesCourse1.id} href="https://portal.daniellarsontraining.com/bundles/course1" target="_top">Enroll in Course 1</a>
 </article>
 <article class="package featured">
 <span class="badge blue">Most Popular</span>
@@ -118,7 +118,7 @@ const schema = [
 <li>One year of access</li>
 <li>Direct support from Daniel</li>
 </ul>
-<a class="btn btn-primary" data-plan="fastpass" href="https://portal.daniellarsontraining.com/bundles/fastpass1?utm_source=dlt_homepage&amp;utm_medium=site&amp;utm_campaign=sales_licensing&amp;utm_content=fastpass" target="_top">Enroll in FastPass</a>
+<a class="btn btn-primary" data-placement="package_card" data-plan={products.salesFastPass.id} href="https://portal.daniellarsontraining.com/bundles/fastpass1" target="_top">Enroll in FastPass</a>
 </article>
 <article class="package">
 <span class="badge">Best Value</span>
@@ -135,14 +135,14 @@ const schema = [
 <li>Free printed books available on request</li>
 <li>Direct support from Daniel</li>
 </ul>
-<a class="btn btn-primary" data-plan="fastpass-post" href="https://portal.daniellarsontraining.com/bundles/ADDPOST1?utm_source=dlt_homepage&amp;utm_medium=site&amp;utm_campaign=sales_licensing&amp;utm_content=fastpass_post" target="_top">Enroll in FastPass + Post</a>
+<a class="btn btn-primary" data-placement="package_card" data-plan={products.salesFastPassPost.id} href="https://portal.daniellarsontraining.com/bundles/ADDPOST1" target="_top">Enroll in FastPass + Post</a>
 </article>
 </div>
 </div>
 </section>
 <section class="fastpass" data-motion-section="fastpass" id="fastpass">
 <div class="wrap fast-grid">
-<div class="mark-scene"><a aria-label="Enroll in FastPass" class="mark" data-plan="fastpass-logo" href="https://portal.daniellarsontraining.com/order?ct=fc19745b-d664-4fa7-a77d-961a5792599b" target="_top"><img alt="FastPass Florida real estate exam preparation" src="/fastpass-logo.webp"/></a></div>
+<div class="mark-scene"><a aria-label="Enroll in FastPass" class="mark" data-placement="logo" data-plan={products.salesFastPass.id} href="https://portal.daniellarsontraining.com/order?ct=fc19745b-d664-4fa7-a77d-961a5792599b" target="_top"><img alt="FastPass Florida real estate exam preparation" src="/fastpass-logo.webp"/></a></div>
 <div>
 <div class="section-head">
 <div class="eyebrow" style="color:#1766c7">The FastPass approach</div>
@@ -266,9 +266,9 @@ const schema = [
 <tfoot>
 <tr>
 <th scope="row">Enroll</th>
-<td><a class="btn btn-primary" data-plan="course1" data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/2513050" target="_top">Enroll in Course 1</a></td>
-<td class="best"><a class="btn btn-primary" data-plan="fastpass" data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/2270663" target="_top">Enroll in FastPass</a></td>
-<td><a class="btn btn-primary" data-plan="fastpass-post" data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/2270667" target="_top">Enroll in FastPass + Post</a></td>
+<td><a class="btn btn-primary" data-plan={products.salesCourse1.id} data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/2513050" target="_top">Enroll in Course 1</a></td>
+<td class="best"><a class="btn btn-primary" data-plan={products.salesFastPass.id} data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/2270663" target="_top">Enroll in FastPass</a></td>
+<td><a class="btn btn-primary" data-plan={products.salesFastPassPost.id} data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/2270667" target="_top">Enroll in FastPass + Post</a></td>
 </tr>
 </tfoot>
 </table>
@@ -329,8 +329,8 @@ const schema = [
 <h2>Ready to get your Florida real estate license?</h2>
 <p>Start with a free FastPass preview, or enroll in FastPass and begin working toward your Florida licensing exam.</p>
 <div class="hero-actions" style="justify-content:center">
-<a class="btn btn-primary" data-trial="final_cta" href="https://portal.daniellarsontraining.com/courses/starthere?utm_source=dlt_homepage&amp;utm_medium=site&amp;utm_campaign=sales_licensing&amp;utm_content=final_try_fastpass" target="_top">Try FastPass Free</a>
-<a class="btn btn-ghost" data-plan="fastpass-final" href="https://portal.daniellarsontraining.com/bundles/fastpass1?utm_source=dlt_homepage&amp;utm_medium=site&amp;utm_campaign=sales_licensing&amp;utm_content=final_fastpass" target="_top">Enroll in FastPass</a>
+<a class="btn btn-primary" data-trial="final_cta" href="https://portal.daniellarsontraining.com/courses/starthere" target="_top">Try FastPass Free</a>
+<a class="btn btn-ghost" data-placement="final_cta" data-plan={products.salesFastPass.id} href="https://portal.daniellarsontraining.com/bundles/fastpass1" target="_top">Enroll in FastPass</a>
 </div>
 <a class="final-link" href="#packages">See all course options ↑</a>
 </div>

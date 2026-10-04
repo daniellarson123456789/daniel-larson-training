@@ -59,7 +59,7 @@ const schema = [
 <p class="hero-kicker">No 72-hour video marathon. No endless PDF grind.</p>
 <div class="hero-actions">
 <a class="btn btn-primary" href="#packages">See broker licensing options ↓</a>
-<a class="btn btn-ghost" data-plan="broker-fastpass-hero" href="https://portal.daniellarsontraining.com/bundles/brokerfastpass?utm_source=dlt_broker_page&amp;utm_medium=site&amp;utm_campaign=broker_licensing&amp;utm_content=hero_fastpass" target="_top">Broker FastPass</a>
+<a class="btn btn-ghost" data-placement="hero" data-plan={products.brokerFastPass.id} href="https://portal.daniellarsontraining.com/bundles/brokerfastpass" target="_top">Broker FastPass</a>
 </div>
 </div>
 <aside aria-label="Direct broker licensing support" class="hero-card">
@@ -99,7 +99,7 @@ const schema = [
 <li>One year of access</li>
 <li>Direct support from Daniel</li>
 </ul>
-<a class="btn btn-primary" data-plan="broker-course2" href="https://portal.daniellarsontraining.com/bundles/brokerexamblast?utm_source=dlt_broker_page&amp;utm_medium=site&amp;utm_campaign=broker_licensing&amp;utm_content=course2" target="_top">Enroll in Course 2</a>
+<a class="btn btn-primary" data-placement="package_card" data-plan={products.brokerCourse2.id} href="https://portal.daniellarsontraining.com/bundles/brokerexamblast" target="_top">Enroll in Course 2</a>
 </article>
 <article class="package featured">
 <span class="badge blue">Most Popular</span>
@@ -117,7 +117,7 @@ const schema = [
 <li>One year of access</li>
 <li>Direct support from Daniel</li>
 </ul>
-<a class="btn btn-primary" data-plan="broker-fastpass" href="https://portal.daniellarsontraining.com/bundles/brokerfastpass?utm_source=dlt_broker_page&amp;utm_medium=site&amp;utm_campaign=broker_licensing&amp;utm_content=fastpass" target="_top">Enroll in Broker FastPass</a>
+<a class="btn btn-primary" data-placement="package_card" data-plan={products.brokerFastPass.id} href="https://portal.daniellarsontraining.com/bundles/brokerfastpass" target="_top">Enroll in Broker FastPass</a>
 </article>
 <article class="package">
 <span class="badge">Best Value</span>
@@ -134,7 +134,7 @@ const schema = [
 <li>Broker FastPass Workbook — online + PDF</li>
 <li>Direct support from Daniel</li>
 </ul>
-<a class="btn btn-primary" data-plan="broker-career-launch" href="https://portal.daniellarsontraining.com/bundles/broker-career-launch?utm_source=dlt_broker_page&amp;utm_medium=site&amp;utm_campaign=broker_licensing&amp;utm_content=career_launch" target="_top">Enroll in FastPass + Post</a>
+<a class="btn btn-primary" data-placement="package_card" data-plan={products.brokerCareerLaunch.id} href="https://portal.daniellarsontraining.com/bundles/broker-career-launch" target="_top">Enroll in FastPass + Post</a>
 </article>
 </div>
 </div>
@@ -142,7 +142,7 @@ const schema = [
 <section class="fastpass" data-motion-section="fastpass" id="fastpass">
 <div class="wrap fast-grid">
 <div class="mark-scene">
-<a aria-label="Enroll in Broker FastPass" class="mark" data-plan="broker-fastpass-logo" href="https://portal.daniellarsontraining.com/bundles/brokerfastpass" target="_top">
+<a aria-label="Enroll in Broker FastPass" class="mark" data-placement="logo" data-plan={products.brokerFastPass.id} href="https://portal.daniellarsontraining.com/bundles/brokerfastpass" target="_top">
 <img alt="FastPass Florida broker exam preparation" src="/fastpass-logo.webp" width="700" height="700" />
 </a>
 </div>
@@ -222,9 +222,9 @@ const schema = [
 <tfoot>
 <tr>
 <th scope="row">Enroll</th>
-<td><a class="btn btn-primary" data-plan="broker-course2" data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/2925908" target="_top">Enroll in Course 2</a></td>
-<td class="best"><a class="btn btn-primary" data-plan="broker-fastpass" data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/2860201" target="_top">Enroll in Broker FastPass</a></td>
-<td><a class="btn btn-primary" data-plan="broker-career-launch" data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/3643107" target="_top">Enroll in FastPass + Post</a></td>
+<td><a class="btn btn-primary" data-plan={products.brokerCourse2.id} data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/2925908" target="_top">Enroll in Course 2</a></td>
+<td class="best"><a class="btn btn-primary" data-plan={products.brokerFastPass.id} data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/2860201" target="_top">Enroll in Broker FastPass</a></td>
+<td><a class="btn btn-primary" data-plan={products.brokerCareerLaunch.id} data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/3643107" target="_top">Enroll in FastPass + Post</a></td>
 </tr>
 </tfoot>
 </table>

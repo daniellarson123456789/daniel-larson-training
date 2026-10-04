@@ -29,6 +29,7 @@ const {
 const canonical = new URL(canonicalPath, site.url).toString();
 const socialImage = new URL(ogImage, site.url).toString();
 const allowIndex = import.meta.env.PUBLIC_SITE_ENV === "production";
+const allowAnalytics = allowIndex && (!process.env.VERCEL_ENV || process.env.VERCEL_ENV === "production");
 const robotsContent = robots ?? (allowIndex
   ? "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
   : "noindex,nofollow");
@@ -105,14 +106,24 @@ const structuredData = {
 
     <title>{title}</title>
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
-    {allowIndex && (
+    {allowAnalytics && (
       <>
-        <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-2DMNXG3KHZ"></script>
         <script is:inline>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-2DMNXG3KHZ');
+          (() => {
+            if (!['daniellarsontraining.com', 'www.daniellarsontraining.com'].includes(location.hostname)) return;
+            window.dataLayer = window.dataLayer || [];
+            window.gtag = window.gtag || function(){window.dataLayer.push(arguments);};
+            window.gtag('set', 'linker', {
+              domains: ['daniellarsontraining.com', 'flrealestatelicenseguide.com'],
+              accept_incoming: true
+            });
+            window.gtag('js', new Date());
+            window.gtag('config', 'G-2DMNXG3KHZ');
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-2DMNXG3KHZ';
+            document.head.appendChild(script);
+          })();
         </script>
       </>
     )}
