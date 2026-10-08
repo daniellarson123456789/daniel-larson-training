@@ -85,12 +85,16 @@ const schema = [
 <h2 id="packages">Choose your path. Fast to thorough — it’s up to you.</h2>
 <p>Florida-required pre-license education + exam-prep tools. With FastPass, you can go straight into the three FastPass exams and use the full course, Q&A, audio, video, and study materials as much or as little as you need. Pass FastPass to complete your course-certification path, then head to the state exam prepared. Add Post-Licensing to cover your first-renewal period.</p>
 </div>
+<aside class="licensing-offer" aria-label="Licensing enrollment offer">
+<div class="licensing-offer-main"><strong>Save $100 on your licensing package.</strong><span>Use code <b>FP100</b> at checkout.</span></div>
+</aside>
 <div class="package-grid">
 <article class="package">
 <span class="badge">Course + Traditional Final</span>
 <h3>Course 1</h3>
 <div class="subplan">Required pre-license education + traditional final exam + state exam math</div>
 <div class="price">$360</div>
+<div class="coupon-price"><strong>$260</strong> with code <b>FP100</b></div>
 <div class="price-note">one-time enrollment</div>
 <ul>
 <li>DBPR-approved 63-hour Course 1</li>
@@ -107,6 +111,7 @@ const schema = [
 <h3>FastPass</h3>
 <div class="subplan">Required pre-license education + FastPass certification + exam prep</div>
 <div class="price">$460</div>
+<div class="coupon-price"><strong>$360</strong> with code <b>FP100</b></div>
 <div class="price-note">one-time enrollment</div>
 <ul>
 <li>Three FastPass certification exams</li>
@@ -125,6 +130,7 @@ const schema = [
 <h3>FastPass + Post</h3>
 <div class="subplan">Everything in FastPass + your required Sales Post-Licensing course</div>
 <div class="price">$560</div>
+<div class="coupon-price"><strong>$460</strong> with code <b>FP100</b></div>
 <div class="price-note">one-time enrollment</div>
 <ul>
 <li>Everything in FastPass</li>
@@ -266,9 +272,9 @@ const schema = [
 <tfoot>
 <tr>
 <th scope="row">Enroll</th>
-<td><a class="btn btn-primary" data-plan={products.salesCourse1.id} data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/2513050" target="_top">Enroll in Course 1</a></td>
-<td class="best"><a class="btn btn-primary" data-plan={products.salesFastPass.id} data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/2270663" target="_top">Enroll in FastPass</a></td>
-<td><a class="btn btn-primary" data-plan={products.salesFastPassPost.id} data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/2270667" target="_top">Enroll in FastPass + Post</a></td>
+<td><div class="coupon-price"><strong>$260</strong> with code <b>FP100</b></div><a class="btn btn-primary" data-plan={products.salesCourse1.id} data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/2513050" target="_top">Enroll in Course 1</a></td>
+<td class="best"><div class="coupon-price"><strong>$360</strong> with code <b>FP100</b></div><a class="btn btn-primary" data-plan={products.salesFastPass.id} data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/2270663" target="_top">Enroll in FastPass</a></td>
+<td><div class="coupon-price"><strong>$460</strong> with code <b>FP100</b></div><a class="btn btn-primary" data-plan={products.salesFastPassPost.id} data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/2270667" target="_top">Enroll in FastPass + Post</a></td>
 </tr>
 </tfoot>
 </table>
