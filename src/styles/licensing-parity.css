@@ -97,16 +97,14 @@
   .licensing-parity .subplan{color:#c6d4e6;font-weight:800;font-size:13px;min-height:42px}
   .licensing-parity .price{font-size:48px;font-weight:950;letter-spacing:-.05em;margin:18px 0 2px}
   .licensing-parity .original-price{position:relative;display:inline-block;white-space:nowrap}
-  .licensing-parity .price-brush{position:absolute;left:-6%;top:50%;width:112%;height:1.05em;overflow:visible;transform:translateY(-50%);pointer-events:none;filter:drop-shadow(0 0 3px rgba(68,188,255,.22))}
-  .licensing-parity .price-brush-stroke{fill:none;stroke:#4cbeff;stroke-width:4.8;stroke-linecap:round;stroke-linejoin:round}
-  .licensing-parity .price-brush-highlight{stroke:#c4f1ff;stroke-width:1.2;opacity:.5}
-  .licensing-parity .comparison-table .price-brush{filter:none}
-  @keyframes priceBrushDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+  .licensing-parity .price-brush{position:absolute;left:-1%;top:52%;width:102%;height:.8em;overflow:visible;transform:translateY(-50%);pointer-events:none;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 88%,transparent)}
+  .licensing-parity .price-brush-wash{fill:#ef685e;opacity:.28;filter:blur(.025em);transform:scaleY(1.15);transform-origin:center}
+  .licensing-parity .price-brush-stroke{fill:#e94e48;opacity:.92;filter:blur(.007em)}
+  @keyframes priceBrushDraw{from{clip-path:inset(-10% 100% -10% -10%)}to{clip-path:inset(-10% -10% -10% -10%)}}
   @keyframes priceSavingsReveal{from{opacity:.45;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
   @media (prefers-reduced-motion:no-preference) and (min-width:621px){
-    html.motion-enabled .licensing-parity .package.motion-reveal .price-brush-stroke{stroke-dasharray:1;stroke-dashoffset:1}
-    html.motion-enabled .licensing-parity .package.motion-in .price-brush-stroke{animation:priceBrushDraw 560ms cubic-bezier(.22,.7,.2,1) both;animation-delay:calc(var(--reveal-delay,0ms) + 250ms)}
-    html.motion-enabled .licensing-parity .package.motion-in .price-brush-highlight{animation-delay:calc(var(--reveal-delay,0ms) + 320ms)}
+    html.motion-enabled .licensing-parity .package.motion-reveal .price-brush{clip-path:inset(-10% 100% -10% -10%)}
+    html.motion-enabled .licensing-parity .package.motion-in .price-brush{animation:priceBrushDraw 560ms cubic-bezier(.22,.7,.2,1) both;animation-delay:calc(var(--reveal-delay,0ms) + 250ms)}
     html.motion-enabled .licensing-parity .package.motion-in .coupon-price{animation:priceSavingsReveal 380ms ease-out both;animation-delay:calc(var(--reveal-delay,0ms) + 520ms)}
   }
   .licensing-parity .coupon-price{color:#9bc9ff;font-size:16px;font-weight:600;line-height:1.5;margin:0 0 5px}
