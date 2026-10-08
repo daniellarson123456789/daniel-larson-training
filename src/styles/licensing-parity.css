@@ -97,7 +97,7 @@
   .licensing-parity .subplan{color:#c6d4e6;font-weight:800;font-size:13px;min-height:42px}
   .licensing-parity .price{font-size:48px;font-weight:950;letter-spacing:-.05em;margin:18px 0 2px}
   .licensing-parity .original-price{position:relative;display:inline-block;white-space:nowrap}
-  .licensing-parity .original-price::after{content:"";position:absolute;left:-5%;top:50%;width:110%;height:2px;border-radius:2px;background:#9bc9ff;transform:rotate(-12deg);pointer-events:none}
+  .licensing-parity .original-price::after{content:"";position:absolute;left:50%;top:50%;width:90%;height:clamp(2px,.085em,4px);border-radius:999px;background:#58c8ff;transform:translate(-50%,-50%) rotate(-40deg);pointer-events:none}
   .licensing-parity .coupon-price{color:#9bc9ff;font-size:16px;font-weight:600;line-height:1.5;margin:0 0 5px}
   .licensing-parity .coupon-price strong{font-size:20px;font-weight:900}
   .licensing-parity .coupon-price b{white-space:nowrap}
