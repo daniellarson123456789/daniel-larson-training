@@ -97,7 +97,7 @@
   .licensing-parity .subplan{color:#c6d4e6;font-weight:800;font-size:13px;min-height:42px}
   .licensing-parity .price{font-size:48px;font-weight:950;letter-spacing:-.05em;margin:18px 0 2px}
   .licensing-parity .original-price{position:relative;display:inline-block;white-space:nowrap}
-  .licensing-parity .price-brush{position:absolute;left:-1%;top:52%;width:102%;height:.8em;overflow:visible;transform:translateY(-50%);pointer-events:none;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 88%,transparent)}
+  .licensing-parity .price-brush{position:absolute;left:-9%;top:52%;width:118%;height:.8em;overflow:visible;transform:translateY(-50%);pointer-events:none;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 88%,transparent)}
   .licensing-parity .price-brush-wash{fill:#89d8ff;opacity:.28;filter:blur(.025em);transform:scaleY(1.15);transform-origin:center}
   .licensing-parity .price-brush-stroke{fill:#4cbeff;opacity:.92;filter:blur(.007em)}
   @keyframes priceBrushDraw{from{clip-path:inset(-10% 100% -10% -10%)}to{clip-path:inset(-10% -10% -10% -10%)}}
