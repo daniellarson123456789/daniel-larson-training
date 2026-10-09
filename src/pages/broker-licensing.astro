@@ -26,7 +26,7 @@ const schema = [
     "@id": "https://daniellarsontraining.com/broker-licensing/#webpage",
     "url": "https://daniellarsontraining.com/broker-licensing/",
     "name": "Florida Real Estate Broker License Course Online | Daniel Larson Training",
-    "description": "Prepare for your Florida real estate broker license online with required broker pre-license education, Broker FastPass certification and exam preparation, 500+ Q&A, free printed books, one-year access, and direct instructor support. Options from $360.",
+    "description": "Florida 72-hour Broker Course 2: $40 with FP200. Course + FastPass $140; FastPass + Post $240. Online learning, one-year access, and direct instructor support.",
     "isPartOf": {
       "@id": "https://daniellarsontraining.com/#website"
     },
@@ -43,7 +43,7 @@ const schema = [
 
 <SiteLayout
   title="Florida Real Estate Broker License Course Online | Daniel Larson Training"
-  description="Prepare for your Florida real estate broker license online with required broker pre-license education, Broker FastPass certification and exam preparation, 500+ Q&A, free printed books, one-year access, and direct instructor support. Options from $360."
+  description="Florida 72-hour Broker Course 2: $40 with FP200. Course + FastPass $140; FastPass + Post $240. Online learning, one-year access, and direct instructor support."
   shareTitle="Broker Licensing"
   ogImage="/share-license-expanded-v2.png"
   canonicalPath="/broker-licensing/"
@@ -60,7 +60,7 @@ const schema = [
 <p class="hero-kicker">No 72-hour video marathon. No endless PDF grind.</p>
 <div class="hero-actions">
 <a class="btn btn-primary" href="#packages">See broker licensing options ↓</a>
-<a class="btn btn-ghost" data-placement="hero" data-plan={products.brokerFastPass.id} href="https://portal.daniellarsontraining.com/bundles/brokerfastpass" target="_top">Broker FastPass</a>
+<a class="btn btn-ghost" data-placement="hero" data-plan={products.brokerFastPass.id} href={products.brokerFastPass.checkoutUrl} target="_top">Broker FastPass</a>
 </div>
 </div>
 <aside aria-label="Direct broker licensing support" class="hero-card">
@@ -87,15 +87,15 @@ const schema = [
 <p>Florida-required pre-license education + exam-prep tools. With FastPass, you can go straight into the three FastPass exams and use the full course, Q&A, audio, video, and study materials as much or as little as you need. Pass FastPass to complete your course-certification path, then head to the state exam prepared. Add Post-Licensing to cover your first-renewal period.</p>
 </div>
 <aside class="licensing-offer" aria-label="Licensing enrollment offer">
-<div class="licensing-offer-main"><strong>Save $100 on your licensing package.</strong><span>Use code <b>FP100</b> at checkout.</span></div>
+<div class="licensing-offer-main"><strong>Save $200 on your licensing package.</strong><span>Use code <b>FP200</b> at checkout. Package links include the code; confirm your discounted total before paying.</span></div>
 </aside>
 <div class="package-grid">
 <article class="package">
 <span class="badge">Course + Traditional Final</span>
 <h3>Course 2</h3>
 <div class="subplan">Required broker pre-license education + traditional final exam + state exam math</div>
-<div class="price"><OriginalPrice amount={360} /></div>
-<div class="coupon-price"><strong>$260</strong> with code <b>FP100</b></div>
+<div class="price"><OriginalPrice amount={products.brokerCourse2.price} /></div>
+<div class="coupon-price"><strong>${products.brokerCourse2.price - (products.brokerCourse2.discountAmount ?? 0)}</strong> with code <b>{products.brokerCourse2.couponCode}</b></div>
 <div class="price-note">one-time enrollment</div>
 <ul>
 <li>DBPR-approved 72-hour Broker Course 2</li>
@@ -104,14 +104,14 @@ const schema = [
 <li>One year of access</li>
 <li>Direct support from Daniel</li>
 </ul>
-<a class="btn btn-primary" data-placement="package_card" data-plan={products.brokerCourse2.id} href="https://portal.daniellarsontraining.com/bundles/brokerexamblast" target="_top">Enroll in Course 2</a>
+<a class="btn btn-primary" data-placement="package_card" data-plan={products.brokerCourse2.id} href={products.brokerCourse2.checkoutUrl} target="_top">Enroll in Course 2</a>
 </article>
 <article class="package featured">
 <span class="badge blue">Most Popular</span>
 <h3>FastPass</h3>
 <div class="subplan">Required broker pre-license education + FastPass certification + exam prep</div>
-<div class="price"><OriginalPrice amount={460} /></div>
-<div class="coupon-price"><strong>$360</strong> with code <b>FP100</b></div>
+<div class="price"><OriginalPrice amount={products.brokerFastPass.price} /></div>
+<div class="coupon-price"><strong>${products.brokerFastPass.price - (products.brokerFastPass.discountAmount ?? 0)}</strong> with code <b>{products.brokerFastPass.couponCode}</b></div>
 <div class="price-note">one-time enrollment</div>
 <ul>
 <li>Three Broker FastPass certification exams</li>
@@ -123,14 +123,14 @@ const schema = [
 <li>One year of access</li>
 <li>Direct support from Daniel</li>
 </ul>
-<a class="btn btn-primary" data-placement="package_card" data-plan={products.brokerFastPass.id} href="https://portal.daniellarsontraining.com/bundles/brokerfastpass" target="_top">Enroll in Broker FastPass</a>
+<a class="btn btn-primary" data-placement="package_card" data-plan={products.brokerFastPass.id} href={products.brokerFastPass.checkoutUrl} target="_top">Enroll in Broker FastPass</a>
 </article>
 <article class="package">
 <span class="badge">Best Value</span>
 <h3>FastPass + Post</h3>
 <div class="subplan">Everything in FastPass + your required Broker Post-Licensing course</div>
-<div class="price"><OriginalPrice amount={560} /></div>
-<div class="coupon-price"><strong>$460</strong> with code <b>FP100</b></div>
+<div class="price"><OriginalPrice amount={products.brokerCareerLaunch.price} /></div>
+<div class="coupon-price"><strong>${products.brokerCareerLaunch.price - (products.brokerCareerLaunch.discountAmount ?? 0)}</strong> with code <b>{products.brokerCareerLaunch.couponCode}</b></div>
 <div class="price-note">one-time enrollment</div>
 <ul>
 <li>Everything in Broker FastPass</li>
@@ -141,7 +141,7 @@ const schema = [
 <li>Broker FastPass Workbook — online + PDF</li>
 <li>Direct support from Daniel</li>
 </ul>
-<a class="btn btn-primary" data-placement="package_card" data-plan={products.brokerCareerLaunch.id} href="https://portal.daniellarsontraining.com/bundles/broker-career-launch" target="_top">Enroll in FastPass + Post</a>
+<a class="btn btn-primary" data-placement="package_card" data-plan={products.brokerCareerLaunch.id} href={products.brokerCareerLaunch.checkoutUrl} target="_top">Enroll in FastPass + Post</a>
 </article>
 </div>
 </div>
@@ -149,7 +149,7 @@ const schema = [
 <section class="fastpass" data-motion-section="fastpass" id="fastpass">
 <div class="wrap fast-grid">
 <div class="mark-scene">
-<a aria-label="Enroll in Broker FastPass" class="mark" data-placement="logo" data-plan={products.brokerFastPass.id} href="https://portal.daniellarsontraining.com/bundles/brokerfastpass" target="_top">
+<a aria-label="Enroll in Broker FastPass" class="mark" data-placement="logo" data-plan={products.brokerFastPass.id} href={products.brokerFastPass.checkoutUrl} target="_top">
 <img alt="FastPass Florida broker exam preparation" src="/fastpass-logo.webp" width="700" height="700" />
 </a>
 </div>
@@ -209,9 +209,9 @@ const schema = [
 <thead>
 <tr>
 <th scope="col">Included</th>
-<th scope="col">Course 2<small><OriginalPrice amount={360} /></small></th>
-<th class="best-head" scope="col">FastPass<small><OriginalPrice amount={460} /> · Most Popular</small></th>
-<th scope="col">FastPass + Post<small><OriginalPrice amount={560} /> · Best Value</small></th>
+<th scope="col">Course 2<small><OriginalPrice amount={products.brokerCourse2.price} /></small></th>
+<th class="best-head" scope="col">FastPass<small><OriginalPrice amount={products.brokerFastPass.price} /> · Most Popular</small></th>
+<th scope="col">FastPass + Post<small><OriginalPrice amount={products.brokerCareerLaunch.price} /> · Best Value</small></th>
 </tr>
 </thead>
 <tbody>
@@ -229,9 +229,9 @@ const schema = [
 <tfoot>
 <tr>
 <th scope="row">Enroll</th>
-<td><div class="coupon-price"><strong>$260</strong> with code <b>FP100</b></div><a class="btn btn-primary" data-plan={products.brokerCourse2.id} data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/2925908" target="_top">Enroll in Course 2</a></td>
-<td class="best"><div class="coupon-price"><strong>$360</strong> with code <b>FP100</b></div><a class="btn btn-primary" data-plan={products.brokerFastPass.id} data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/2860201" target="_top">Enroll in Broker FastPass</a></td>
-<td><div class="coupon-price"><strong>$460</strong> with code <b>FP100</b></div><a class="btn btn-primary" data-plan={products.brokerCareerLaunch.id} data-placement="comparison" href="https://portal.daniellarsontraining.com/enroll/3643107" target="_top">Enroll in FastPass + Post</a></td>
+<td><div class="coupon-price"><strong>${products.brokerCourse2.price - (products.brokerCourse2.discountAmount ?? 0)}</strong> with code <b>{products.brokerCourse2.couponCode}</b></div><a class="btn btn-primary" data-plan={products.brokerCourse2.id} data-placement="comparison" href={products.brokerCourse2.checkoutUrl} target="_top">Enroll in Course 2</a></td>
+<td class="best"><div class="coupon-price"><strong>${products.brokerFastPass.price - (products.brokerFastPass.discountAmount ?? 0)}</strong> with code <b>{products.brokerFastPass.couponCode}</b></div><a class="btn btn-primary" data-plan={products.brokerFastPass.id} data-placement="comparison" href={products.brokerFastPass.checkoutUrl} target="_top">Enroll in Broker FastPass</a></td>
+<td><div class="coupon-price"><strong>${products.brokerCareerLaunch.price - (products.brokerCareerLaunch.discountAmount ?? 0)}</strong> with code <b>{products.brokerCareerLaunch.couponCode}</b></div><a class="btn btn-primary" data-plan={products.brokerCareerLaunch.id} data-placement="comparison" href={products.brokerCareerLaunch.checkoutUrl} target="_top">Enroll in FastPass + Post</a></td>
 </tr>
 </tfoot>
 </table>
@@ -278,7 +278,7 @@ const schema = [
 <h2>Florida Broker Licensing FAQ</h2>
 </div>
 <div class="faq-list">
-<details><summary>What is included in the $360 broker licensing option?</summary><p>The package includes the DBPR-approved 72-hour Florida Broker Course 2, a traditional course final exam, Exam Math Basics, one year of access, and direct support from Daniel.</p></details>
+<details><summary>What is included in the $40 broker licensing offer?</summary><p>Pay $40 with FP200 (regularly $240). The package includes the DBPR-approved 72-hour Florida Broker Course 2, a traditional course final exam, Exam Math Basics, one year of access, and direct support from Daniel.</p></details>
 <details><summary>How is Broker FastPass different?</summary><p>Broker FastPass uses three certification exams in place of the traditional course final exam. Test out when you’re ready, with the full Broker Course 2, Exam Math Basics, audio ebook review, and 500+ Q&amp;A with explanations available to help you prepare. The Florida broker licensing exam is separate.</p></details>
 <details><summary>Does FastPass replace the Florida broker licensing exam?</summary><p>No. The Florida broker licensing exam is a separate exam administered through <a href="https://www.pearsonvue.com/us/en/fl/dbpr.html" rel="noopener" target="_blank">Pearson Professional Assessments</a> (formerly Pearson VUE). FastPass is preparation and part of the Course 2 certification path; you still take the state exam separately.</p></details>
 <details><summary>What is FastPass + Post?</summary><p>FastPass + Post combines Course 2, Broker FastPass, and your required Broker Post-Licensing course so your next education step is already included.</p></details>
