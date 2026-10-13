@@ -1,6 +1,27 @@
 /* Scoped styles from the approved Knowledge Center draft. */
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap");
 
+/* Shared sales and broker cost charts. */
+.license-guides .licensing-budget .budget-label { display:block; margin-bottom:10px; color:#1763bd; font:800 .76rem/1.4 Inter,sans-serif; letter-spacing:.1em; text-transform:uppercase; }
+.license-guides .budget-table { table-layout:fixed; }
+.license-guides .budget-table caption { text-align:left; font-size:.85rem; color:#5b6e83; margin-bottom:10px; }
+.license-guides .budget-table th:first-child { width:46%; }
+.license-guides .budget-table tbody th, .license-guides .budget-table tfoot th { background:white; font-size:inherit; letter-spacing:normal; text-transform:none; }
+.license-guides .budget-table small { display:block; margin-top:5px; font-size:.78rem; line-height:1.4; font-weight:400; color:#5b6e83; }
+.license-guides .budget-table td { font-variant-numeric:tabular-nums; font-weight:700; }
+.license-guides .budget-table tfoot th, .license-guides .budget-table tfoot td { background:#eaf3fe; color:#0d345d; font-weight:800; }
+.license-guides .budget-fingerprints { padding:17px 20px; border-left:4px solid #2578ea; background:#f2f8ff; border-radius:0 10px 10px 0; margin-bottom:20px; line-height:1.55; }
+.license-guides .budget-fingerprints strong { display:block; }
+.license-guides .licensing-budget .budget-scope { font-size:.92rem; color:#5b6e83; line-height:1.6; }
+.license-guides .licensing-budget .actions { display:flex; flex-wrap:wrap; gap:10px; }
+@media (max-width:480px) {
+  .license-guides .budget-table th, .license-guides .budget-table td { padding:10px 8px; }
+  .license-guides .budget-table thead th { font-size:.7rem; letter-spacing:.02em; }
+  .license-guides .budget-table th:first-child { width:44%; }
+  .license-guides .budget-table small { font-size:.72rem; }
+  .license-guides .licensing-budget .actions .button { width:100%; }
+}
+
   .license-guides {
   --night: #080426;
   --navy: #0a1236;
