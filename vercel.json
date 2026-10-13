@@ -1,5 +1,7 @@
 {
   "redirects": [
+    {"source":"/post/how-to-get-your-florida-real-estate-license-in-2025-a-step-by-step-guide","destination":"/license-guides/how-to-get-florida-real-estate-license/","permanent":true},
+    {"source":"/post/how-to-get-your-florida-real-estate-license-in-2025-a-step-by-step-guide/","destination":"/license-guides/how-to-get-florida-real-estate-license/","permanent":true},
     { "source": "/broker", "destination": "/broker-licensing/", "permanent": true },
     { "source": "/broker/", "destination": "/broker-licensing/", "permanent": true },
     { "source": "/whyus", "destination": "/about/", "permanent": true },
