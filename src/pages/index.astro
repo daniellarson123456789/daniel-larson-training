@@ -1,6 +1,5 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
-import OriginalPrice from "../components/OriginalPrice.astro";
 import { products } from "../data/products";
 import { courseOffer } from "../lib/courseOffer";
 import "../styles/licensing-parity.css";
@@ -26,7 +25,7 @@ const schema = [
     "@id": "https://daniellarsontraining.com/#webpage",
     "url": "https://daniellarsontraining.com/",
     "name": "Florida Real Estate License Course Online | Daniel Larson Training",
-    "description": "Florida 63-hour Course 1: $80 with RELIC160. Course + FastPass $140; FastPass + Post $240 with FP200. One-year access and direct instructor support.",
+    "description": "Florida 63-hour Course 1: $240. Course + FastPass $340; FastPass + Post $440. One-year access and direct instructor support.",
     "isPartOf": {
       "@id": "https://daniellarsontraining.com/#website"
     },
@@ -43,7 +42,7 @@ const schema = [
 
 <SiteLayout
   title="Florida Real Estate License Course Online | Daniel Larson Training"
-  description="Florida 63-hour Course 1: $80 with RELIC160. Course + FastPass $140; FastPass + Post $240 with FP200. One-year access and direct instructor support."
+  description="Florida 63-hour Course 1: $240. Course + FastPass $340; FastPass + Post $440. One-year access and direct instructor support."
   shareTitle="Sales Licensing"
   ogImage="/share-license-expanded-v2.png"
   canonicalPath="/"
@@ -86,16 +85,12 @@ const schema = [
 <h2 id="packages">Choose your path. Fast to thorough — it’s up to you.</h2>
 <p>Florida-required pre-license education + exam-prep tools. With FastPass, you can go straight into the three FastPass exams and use the full course, Q&A, audio, video, and study materials as much or as little as you need. Pass FastPass to complete your course-certification path, then head to the state exam prepared. Add Post-Licensing to cover your first-renewal period.</p>
 </div>
-<aside class="licensing-offer" aria-label="Licensing enrollment offer">
-<div class="licensing-offer-main"><strong>Course 1 for $80. Save $160 with RELIC160.</strong><span>FastPass packages: save $200 with <b>FP200</b>. Enrollment links include the matching code; confirm your discounted total before paying.</span></div>
-</aside>
 <div class="package-grid">
 <article class="package">
 <span class="badge">Course + Traditional Final</span>
 <h3>Course 1</h3>
 <div class="subplan">Required pre-license education + traditional final exam + state exam math</div>
-<div class="price"><OriginalPrice amount={products.salesCourse1.price} /></div>
-<div class="coupon-price"><strong>${products.salesCourse1.price - (products.salesCourse1.discountAmount ?? 0)}</strong> with code <b>{products.salesCourse1.couponCode}</b></div>
+<div class="price">${products.salesCourse1.price}</div>
 <div class="price-note">one-time enrollment</div>
 <ul>
 <li>DBPR-approved 63-hour Course 1</li>
@@ -111,8 +106,7 @@ const schema = [
 <span class="badge blue">Most Popular</span>
 <h3>FastPass</h3>
 <div class="subplan">Required pre-license education + FastPass certification + exam prep</div>
-<div class="price"><OriginalPrice amount={products.salesFastPass.price} /></div>
-<div class="coupon-price"><strong>${products.salesFastPass.price - (products.salesFastPass.discountAmount ?? 0)}</strong> with code <b>{products.salesFastPass.couponCode}</b></div>
+<div class="price">${products.salesFastPass.price}</div>
 <div class="price-note">one-time enrollment</div>
 <ul>
 <li>Three FastPass certification exams</li>
@@ -130,8 +124,7 @@ const schema = [
 <span class="badge">Best Value</span>
 <h3>FastPass + Post</h3>
 <div class="subplan">Everything in FastPass + your required Sales Post-Licensing course</div>
-<div class="price"><OriginalPrice amount={products.salesFastPassPost.price} /></div>
-<div class="coupon-price"><strong>${products.salesFastPassPost.price - (products.salesFastPassPost.discountAmount ?? 0)}</strong> with code <b>{products.salesFastPassPost.couponCode}</b></div>
+<div class="price">${products.salesFastPassPost.price}</div>
 <div class="price-note">one-time enrollment</div>
 <ul>
 <li>Everything in FastPass</li>
@@ -209,9 +202,9 @@ const schema = [
 <thead>
 <tr>
 <th scope="col">Included</th>
-<th scope="col">Course 1<small><OriginalPrice amount={products.salesCourse1.price} /></small></th>
-<th class="best-head" scope="col">FastPass<small><OriginalPrice amount={products.salesFastPass.price} /> · Most Popular</small></th>
-<th scope="col">FastPass + Post<small><OriginalPrice amount={products.salesFastPassPost.price} /> · Best Value</small></th>
+<th scope="col">Course 1<small>${products.salesCourse1.price}</small></th>
+<th class="best-head" scope="col">FastPass<small>${products.salesFastPass.price} · Most Popular</small></th>
+<th scope="col">FastPass + Post<small>${products.salesFastPassPost.price} · Best Value</small></th>
 </tr>
 </thead>
 <tbody>
@@ -273,9 +266,9 @@ const schema = [
 <tfoot>
 <tr>
 <th scope="row">Enroll</th>
-<td><div class="coupon-price"><strong>${products.salesCourse1.price - (products.salesCourse1.discountAmount ?? 0)}</strong> with code <b>{products.salesCourse1.couponCode}</b></div><a class="btn btn-primary" data-plan={products.salesCourse1.id} data-placement="comparison" href={products.salesCourse1.checkoutUrl} target="_top">Enroll in Course 1</a></td>
-<td class="best"><div class="coupon-price"><strong>${products.salesFastPass.price - (products.salesFastPass.discountAmount ?? 0)}</strong> with code <b>{products.salesFastPass.couponCode}</b></div><a class="btn btn-primary" data-plan={products.salesFastPass.id} data-placement="comparison" href={products.salesFastPass.checkoutUrl} target="_top">Enroll in FastPass</a></td>
-<td><div class="coupon-price"><strong>${products.salesFastPassPost.price - (products.salesFastPassPost.discountAmount ?? 0)}</strong> with code <b>{products.salesFastPassPost.couponCode}</b></div><a class="btn btn-primary" data-plan={products.salesFastPassPost.id} data-placement="comparison" href={products.salesFastPassPost.checkoutUrl} target="_top">Enroll in FastPass + Post</a></td>
+<td><a class="btn btn-primary" data-plan={products.salesCourse1.id} data-placement="comparison" href={products.salesCourse1.checkoutUrl} target="_top">Enroll in Course 1</a></td>
+<td class="best"><a class="btn btn-primary" data-plan={products.salesFastPass.id} data-placement="comparison" href={products.salesFastPass.checkoutUrl} target="_top">Enroll in FastPass</a></td>
+<td><a class="btn btn-primary" data-plan={products.salesFastPassPost.id} data-placement="comparison" href={products.salesFastPassPost.checkoutUrl} target="_top">Enroll in FastPass + Post</a></td>
 </tr>
 </tfoot>
 </table>
@@ -323,7 +316,7 @@ const schema = [
 <h2>Florida Real Estate Licensing FAQ</h2>
 </div>
 <div class="faq-list">
-<details><summary>What is included in the $80 licensing course offer?</summary><p>Pay $80 with RELIC160 (regularly $240). The package includes the DBPR-approved 63-hour Florida Sales Associate pre-licensing Course 1, a traditional course final exam, Exam Math Basics, one year of access, and direct support from Daniel.</p></details>
+<details><summary>What is included in the $240 licensing course?</summary><p>The $240 package includes the DBPR-approved 63-hour Florida Sales Associate pre-licensing Course 1, a traditional course final exam, Exam Math Basics, one year of access, and direct support from Daniel.</p></details>
 <details><summary>How is FastPass different?</summary><p>FastPass uses three certification exams in place of the traditional course final exam. Test out when you’re ready, with the full Course 1, Exam Math Basics, audio ebook review, and 500+ Q&amp;A with explanations available to help you prepare. The Florida state licensing exam is separate.</p></details>
 <details><summary>Does FastPass replace the Florida state licensing exam?</summary><p>No. The Florida state licensing exam is a separate exam administered by <a href="https://www.pearsonvue.com/us/en/fl/dbpr.html" rel="noopener" target="_blank">Pearson Professional Assessments</a> (formerly Pearson VUE). FastPass is preparation and part of the course-certification path; you still take the state exam separately.</p></details>
 <details><summary>How long do I have access?</summary><p>Course bundles include one year of online access.</p></details>
