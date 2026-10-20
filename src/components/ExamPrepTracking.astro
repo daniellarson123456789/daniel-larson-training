@@ -1,0 +1,19 @@
+<script is:inline>
+(() => {
+  // Use the existing package-selection event; a click is not a purchase.
+  document.addEventListener('click', (event) => {
+    if (!(event.target instanceof Element)) return;
+    const link = event.target.closest('a[data-plan]');
+    if (!link || typeof window.gtag !== 'function') return;
+    const destination = new URL(link.href);
+    if (destination.hostname !== 'portal.daniellarsontraining.com') return;
+    window.gtag('event', 'select_course_package', {
+      course_package: link.dataset.plan,
+      link_placement: link.dataset.placement || 'exam_prep',
+      link_url: destination.origin + destination.pathname,
+      page_path: window.location.pathname,
+      transport_type: 'beacon'
+    });
+  });
+})();
+</script>

@@ -1,0 +1,373 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import FAQ from "../components/FAQ.astro";
+import ExamPrepTracking from "../components/ExamPrepTracking.astro";
+import { products } from "../data/products";
+import { site } from "../data/site";
+import { courseOffer } from "../lib/courseOffer";
+
+const pagePath = "/florida-broker-exam-prep/";
+const pageUrl = `${site.url}${pagePath}`;
+const fastPass = products.brokerFastPass;
+const prepOnly = products.brokerExamPrep;
+const faqItems = [
+  {
+    question: "Is this preparation specifically for the Florida broker exam?",
+    answer: "Yes. Broker FastPass and Broker Exam Prep Only are the broker-specific options from Daniel Larson Training. They use Florida broker materials, practice questions, explanations, math review, and the Broker FastPass Workbook. Choose Sales Associate Exam Prep instead if you are preparing for the sales associate exam.",
+  },
+  {
+    question: "Does Broker FastPass include my Course 2 certification?",
+    answer: `The $${fastPass.price} Broker FastPass package includes the required 72-hour Broker Course 2, the three Broker FastPass certification exams, and exam preparation. Pass the three Broker FastPass exams to complete your Course 2 certification path. The Florida state licensing exam administered through Pearson is a separate exam, and DBPR exam eligibility still applies.`,
+  },
+  {
+    question: "Can I use this if I took Course 2 with another school?",
+    answer: `Yes. The $${prepOnly.price} Broker Exam Prep Only option is for candidates taking or already finished with Course 2 elsewhere. It includes broker exam preparation and the Broker FastPass Workbook. It does not include Course 2 or issue a Course 2 completion certificate; your licensing school handles your course completion.`,
+  },
+  {
+    question: "Can I get a printed Broker FastPass Workbook?",
+    answer: "Yes. The Broker FastPass Workbook is included online and as a downloadable PDF with both broker prep options on this page. A printed copy is free on request. Text or email Daniel with your name, shipping address, and course.",
+  },
+  {
+    question: "Who answers my study questions?",
+    answer: `Daniel Larson provides direct instructor support. He writes and produces the school's Florida course and exam-prep materials. Call or text ${site.phoneDisplay}, or email ${site.email} for help with a question, a study topic, or which package fits your situation.`,
+  },
+  {
+    question: "Where should I check current exam information?",
+    answer: "Use DBPR's Candidate Information Booklets page and select Real Estate – Broker for the official broker exam bulletin. Use Pearson's Florida Real Estate page for testing and scheduling information. Links to both appear in the official exam information section below. The state and testing provider control their requirements.",
+  },
+];
+
+const schema = [
+  {
+    "@type": "WebPage",
+    "@id": `${pageUrl}#webpage`,
+    url: pageUrl,
+    name: "Florida Broker Exam Prep & Broker FastPass | Daniel Larson Training",
+    description: "Florida broker-specific exam preparation with practice questions, explanations, a workbook, math and audio review, and direct help from course author Daniel Larson.",
+    isPartOf: { "@id": `${site.url}/#website` },
+    publisher: { "@id": `${site.url}/#organization` },
+    author: { "@id": `${site.url}/#daniel-larson` },
+    about: [ { "@id": `${pageUrl}#broker-fastpass` }, { "@id": `${pageUrl}#prep-only` } ],
+    inLanguage: "en-US",
+  },
+  {
+    "@type": "Course",
+    "@id": `${pageUrl}#broker-fastpass`,
+    name: "Broker FastPass — Course 2, Certification & Exam Prep",
+    description: "Florida 72-hour Broker Course 2 with three Broker FastPass certification exams, 500+ questions and explanations, audio review, the Broker FastPass Workbook, math review, one-year access, and direct instructor support.",
+    provider: { "@id": `${site.url}/#organization` },
+    inLanguage: "en-US",
+    offers: courseOffer(fastPass),
+  },
+  {
+    "@type": "Course",
+    "@id": `${pageUrl}#prep-only`,
+    name: "Florida Broker Exam Prep Only",
+    description: "Florida broker exam preparation for candidates taking or already finished with their required course elsewhere. Broker FastPass prep, questions and explanations, workbook, audio, math review, and direct support. Does not include Course 2 or a course completion certificate.",
+    provider: { "@id": `${site.url}/#organization` },
+    inLanguage: "en-US",
+    offers: courseOffer(prepOnly),
+  },
+  {
+    "@type": "FAQPage",
+    "@id": `${pageUrl}#faq`,
+    mainEntity: faqItems.map(({ question, answer }) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  },
+];
+---
+
+<SiteLayout
+  title="Florida Broker Exam Prep & Broker FastPass | Daniel Larson Training"
+  description="Prepare for the Florida broker exam with Broker FastPass: broker-specific questions, explanations, workbook, audio, math, and direct support from Daniel Larson."
+  shareTitle="Florida Broker Exam Prep"
+  ogImage="/share-exam-prep-2026-09.png"
+  canonicalPath={pagePath}
+  schema={schema}
+>
+  <div class="broker-prep-page">
+    <section class="prep-hero">
+      <div class="shell hero-grid">
+        <div>
+          <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/broker-licensing/">Broker licensing</a><span aria-hidden="true">/</span><span>Broker FastPass</span></nav>
+          <p class="eyebrow">BROKER FASTPASS · DANIEL LARSON TRAINING</p>
+          <h1>Florida Broker FastPass.<br /><em>Course, certification &amp; exam prep.</em></h1>
+          <p class="hero-deck">Your complete Florida broker licensing package: Course 2, three FastPass certification exams, and focused preparation for the separate state exam. Get broker-specific practice, explanations, a workbook, math review, and direct help from the instructor who wrote the materials.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#broker-fastpass">Explore Broker FastPass · ${fastPass.price}</a>
+            <a class="button hero-secondary" href="#how-to-study">How Broker FastPass works ↓</a>
+          </div>
+        </div>
+        <aside class="hero-proof" aria-label="Broker FastPass highlights">
+          <img src="/fastpass-logo.webp" alt="FastPass" width="640" height="640" class="fastpass-mark" />
+          <h2>Built for your next step.</h2>
+          <p>You already know real estate. Use focused testing and explanations to find what still needs work before your broker exam.</p>
+          <ul>
+            <li>Florida broker focus</li>
+            <li>Broker FastPass Workbook included</li>
+            <li>Direct support from Daniel</li>
+          </ul>
+        </aside>
+      </div>
+      <div class="shell proof-strip" aria-label="School credentials">
+        <div><strong>20+ years</strong><span>in real estate education</span></div>
+        <div><strong>Original materials</strong><span>written and produced by Daniel</span></div>
+        <div><strong>Broker + instructor</strong><span>Florida real estate experience</span></div>
+      </div>
+    </section>
+
+    <section class="content-section" id="how-to-study" aria-labelledby="study-heading">
+      <div class="shell study-grid">
+        <div class="section-introduction">
+          <p class="eyebrow dark-eyebrow">THE BROKER FASTPASS APPROACH</p>
+          <h2 id="study-heading">Start with the target.<br />Study where you need it.</h2>
+          <p>With the full Broker FastPass package, use the three Broker FastPass exams as your starting point and your finish line. Course 2 and the supporting resources are your toolbox along the way.</p>
+          <a class="text-link" href="/broker-licensing/#fastpass">Explore the full broker licensing path →</a>
+        </div>
+        <ol class="study-steps">
+          <li><span class="step-number">01</span><div><h3>Find your weak areas.</h3><p>Start with Broker FastPass to see which concepts need attention. Use practice questions and explanations to understand why an answer works.</p></div></li>
+          <li><span class="step-number">02</span><div><h3>Use the tools that help.</h3><p>Review the workbook, 500+ Q&amp;A, audio, videos, math, and Course 2 material as much or as little as you need.</p></div></li>
+          <li><span class="step-number">03</span><div><h3>Complete certification. Prepare for Pearson.</h3><p>Pass the three Broker FastPass exams to complete your Course 2 certification path. Then take the separate Florida broker state exam through Pearson when eligible.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="content-section prep-options" id="choose-your-prep" aria-labelledby="options-heading">
+      <div class="shell">
+        <div class="section-introduction options-intro">
+          <p class="eyebrow">THE COMPLETE BROKER FASTPASS PACKAGE</p>
+          <h2 id="options-heading">Get your course, certification,<br />and state-exam preparation together.</h2>
+          <p>Broker FastPass combines the required Course 2 with a clear certification path and a full set of study tools. One enrollment. One year of access. Direct support from Daniel.</p>
+        </div>
+        <div class="option-grid">
+          <article class="option-card featured" id="broker-fastpass">
+            <p class="option-label">COURSE 2 + CERTIFICATION + EXAM PREP</p>
+            <div class="option-title"><h3>Broker FastPass</h3><div class="option-price">${fastPass.price}<small>one-time enrollment</small></div></div>
+            <p class="option-description">A complete broker licensing and preparation path, with one year of access.</p>
+            <ul class="inclusion-list">
+              <li>DBPR-approved 72-hour Broker Course 2</li>
+              <li>Three Broker FastPass certification exams</li>
+              <li>500+ broker questions and explanations</li>
+              <li>Audio ebook review and exam math</li>
+              <li>Broker FastPass Workbook — online + PDF</li>
+              <li>Free printed workbook and course books on request</li>
+              <li>Direct instructor support from Daniel</li>
+            </ul>
+            <a class="button button-primary" href={fastPass.checkoutUrl} data-plan={fastPass.id} data-placement="broker_prep_package" target="_top">Enroll in Broker FastPass</a>
+          </article>
+          <article class="option-card prep-only-card" id="prep-only">
+            <p class="option-label">ALREADY HAVE YOUR COURSE ELSEWHERE?</p>
+            <div class="option-title"><h3>Broker Exam Prep Only</h3><div class="option-price">${prepOnly.price}<small>one-time enrollment</small></div></div>
+            <p class="option-description">A separate option for candidates who need only preparation for the Florida broker state exam.</p>
+            <ul class="inclusion-list">
+              <li>Broker FastPass prep, practice, and explanations</li>
+              <li>Audio and math review</li>
+              <li>Workbook online + PDF; free print copy on request</li>
+              <li>Direct instructor support</li>
+            </ul>
+            <p class="scope-note">Exam Prep Only does not include Course 2 or issue a Course 2 completion certificate. Your licensing school remains responsible for course completion.</p>
+            <a class="button button-secondary" href={prepOnly.checkoutUrl} data-plan={prepOnly.id} data-placement="broker_prep_package" target="_top">Enroll in Broker Exam Prep Only</a>
+          </article>
+        </div>
+        <p class="bundle-note">Planning ahead? <a href="/broker-licensing/#packages">Broker FastPass + Post is ${products.brokerCareerLaunch.price}</a> and includes your broker first-renewal education. State application, fingerprinting, and state-exam fees are separate.</p>
+      </div>
+    </section>
+
+    <section class="content-section" aria-labelledby="quality-heading">
+      <div class="shell">
+        <div class="section-introduction quality-intro">
+          <p class="eyebrow dark-eyebrow">CHOOSING YOUR PREPARATION</p>
+          <h2 id="quality-heading">What makes broker exam prep a good fit?</h2>
+          <p>Look at the exam it prepares you for, how it helps you learn, and who can answer your questions.</p>
+        </div>
+        <div class="quality-grid">
+          <article><span class="quality-number">01</span><h3>The right exam.</h3><p>Choose Florida broker preparation. DLT has a separate Broker FastPass path and Broker FastPass Workbook for candidates taking the broker exam.</p></article>
+          <article><span class="quality-number">02</span><h3>Explanations you can use.</h3><p>Practice should show you where your understanding breaks down. Questions, explanations, math review, and the workbook give you ways to work through it.</p></article>
+          <article><span class="quality-number">03</span><h3>A person behind the material.</h3><p>Daniel writes, teaches, and supports the school’s courses. You can ask the course author about the material and your next step.</p></article>
+          <article><span class="quality-number">04</span><h3>Official exam references.</h3><p>Check the broker candidate bulletin and testing provider’s instructions as you prepare. Use the official links below to verify exam information.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section author-section" aria-labelledby="author-heading">
+      <div class="shell author-grid">
+        <img class="author-photo" src="/daniel-larson-teaching.webp" alt="Daniel Larson teaching real estate" width="1200" height="675" loading="lazy" decoding="async" />
+        <div class="section-introduction">
+          <p class="eyebrow dark-eyebrow">MEET YOUR INSTRUCTOR</p>
+          <h2 id="author-heading">Written here.<br />Supported by Daniel.</h2>
+          <p>Daniel Larson is a Florida real estate broker, instructor, and course author with more than two decades in real estate education. His experience includes national training leadership with Kaplan and writing and producing Florida licensing, renewal, and exam-prep materials.</p>
+          <p>Questions about broker exam preparation? Call or text <a href={site.phoneHref}>{site.phoneDisplay}</a>, or <a href={`mailto:${site.email}`}>email Daniel</a>.</p>
+          <div class="author-links"><a class="text-link" href="/about/">About Daniel Larson Training →</a><a href="https://www.royalshellrealestate.com/real-estate-agent/846/daniel-larson">Daniel’s Royal Shell professional profile</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" aria-labelledby="faq-heading">
+      <div class="shell faq-shell">
+        <div class="section-introduction">
+          <p class="eyebrow dark-eyebrow">BEFORE YOU ENROLL</p>
+          <h2 id="faq-heading">Florida broker exam prep questions.</h2>
+        </div>
+        <FAQ items={faqItems} />
+      </div>
+    </section>
+
+    <section class="official-section" id="official-sources" aria-labelledby="official-heading">
+      <div class="shell official-grid">
+        <div>
+          <p class="eyebrow dark-eyebrow">OFFICIAL EXAM INFORMATION</p>
+          <h2 id="official-heading">Check the source before test day.</h2>
+          <p>Use DBPR and Pearson for official exam information, eligibility, scheduling, and test-day instructions.</p>
+          <p class="source-date">Exam information links checked October 20, 2026.</p>
+        </div>
+        <div class="source-links">
+          <a href="https://www2.myfloridalicense.com/examination-information/candidate-information-booklets/"><strong>DBPR Candidate Information Booklets →</strong><span>Select “Real Estate – Broker” for the broker exam bulletin.</span></a>
+          <a href="https://www.pearsonvue.com/us/en/fl/realestate.html"><strong>Pearson: Florida Real Estate →</strong><span>Testing and scheduling information for Florida real estate candidates.</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="shell final-cta-inner">
+        <div><h2>Get ready for your Florida broker license.</h2><p>Course 2, FastPass certification, and exam prep—with Daniel in your corner.</p></div>
+        <div class="final-cta-actions"><a class="button button-primary" href={fastPass.checkoutUrl} data-plan={fastPass.id} data-placement="broker_prep_final" target="_top">Get Broker FastPass · ${fastPass.price}</a><a class="button button-secondary" href="#broker-fastpass">See what’s included</a></div>
+      </div>
+    </section>
+  </div>
+  <ExamPrepTracking />
+</SiteLayout>
+
+<style>
+  .broker-prep-page section[id], .broker-prep-page article[id] { scroll-margin-top: 145px; }
+  .prep-hero { color: #fff; padding: 38px 0 0; background: radial-gradient(700px 450px at 10% 0%, rgba(59,140,255,.24), transparent 70%), linear-gradient(125deg,#0d0640,#0a1b37); }
+  .hero-grid { display: grid; grid-template-columns: 1.4fr .7fr; gap: 54px; align-items: center; padding-bottom: 52px; }
+  .breadcrumbs { display: flex; flex-wrap: wrap; gap: 10px; color: #c7d7ee; font-size: .8rem; margin-bottom: 30px; }
+  .breadcrumbs a { text-underline-offset: 3px; }
+  h1 { margin: 0; font-size: clamp(2.7rem, 5.2vw, 4.6rem); line-height: 1.02; letter-spacing: -.05em; }
+  h1 em { display: inline-block; margin-top: 13px; color: #a8d0ff; font-size: .71em; }
+  .hero-deck { max-width: 700px; color: #c8d7eb; font-size: 1.12rem; line-height: 1.65; margin: 24px 0 0; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 25px; }
+  .hero-secondary { border: 1px solid rgba(255,255,255,.25); color: #fff; background: rgba(255,255,255,.05); }
+  .hero-proof { margin-top: 38px; padding: 28px; border-radius: 20px; border: 1px solid rgba(255,255,255,.18); background: rgba(4,10,32,.5); }
+  .fastpass-mark { display: block; width: 86px; height: 86px; border-radius: 20px; margin-bottom: 20px; }
+  .hero-proof h2 { font-size: 1.6rem; line-height: 1.12; margin: 0 0 10px; }
+  .hero-proof p, .hero-proof li { color: #c9d7e8; font-size: .9rem; }
+  .hero-proof ul { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 9px; }
+  .hero-proof li::before { content: "✓"; color: #8fc3ff; margin-right: 9px; }
+  .proof-strip { display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid rgba(255,255,255,.15); }
+  .proof-strip div { display: flex; flex-direction: column; padding: 20px 15px; text-align: center; border-right: 1px solid rgba(255,255,255,.12); }
+  .proof-strip div:last-child { border: 0; }
+  .proof-strip strong { font-size: 1rem; }
+  .proof-strip span { color: #b4c8df; font-size: .78rem; margin-top: 3px; }
+  .dark-eyebrow { color: #1766c7; }
+  .section-introduction h2, .official-section h2 { font-size: clamp(2rem,3.7vw,3rem); line-height: 1.07; letter-spacing: -.04em; margin: 0; }
+  .section-introduction > p:not(.eyebrow), .official-section p { color: #53667d; line-height: 1.65; }
+  .text-link { color: #155eae; font-weight: 800; text-underline-offset: 4px; }
+  .study-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 65px; align-items: start; }
+  .study-steps { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+  .study-steps li { display: grid; grid-template-columns: 42px 1fr; gap: 16px; padding: 20px; background: #f8fbff; border: 1px solid #dce6f1; border-radius: 14px; }
+  .step-number { display: grid; place-items: center; height: 36px; width: 36px; background: #e9f2ff; color: #1766c7; border-radius: 9px; font-weight: 900; }
+  .study-steps h3 { font-size: 1.02rem; margin: 0 0 5px; }
+  .study-steps p { margin: 0; color: #53667d; font-size: .9rem; line-height: 1.6; }
+  .prep-options { color: #fff; background: linear-gradient(155deg,#0a1d38,#080426); }
+  .options-intro { max-width: 820px; margin-bottom: 30px; }
+  .options-intro > p:not(.eyebrow) { color: #bdcce0; }
+  .option-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 22px; align-items: start; }
+  .option-card { display: flex; flex-direction: column; padding: 30px; border-radius: 18px; border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.045); }
+  .option-card.featured { border: 2px solid #6aa9ff; background: linear-gradient(145deg,rgba(37,120,234,.22),rgba(255,255,255,.03)); }
+  .prep-only-card { margin-top: 34px; }
+  .prep-only-card .option-title { flex-direction: column; gap: 14px; }
+  .prep-only-card .option-title h3 { font-size: 1.4rem; max-width: none; }
+  .prep-only-card .option-price { font-size: 2rem; text-align: left; }
+  .prep-only-card .option-price small { display: inline; margin-left: 8px; }
+  .option-label { color: #9ecaff; font-size: .67rem; letter-spacing: .08em; font-weight: 900; margin: 0 0 18px; }
+  .option-title { display: flex; justify-content: space-between; align-items: start; gap: 18px; }
+  .option-title h3 { font-size: 1.7rem; line-height: 1.13; margin: 0; max-width: 12ch; letter-spacing: -.03em; }
+  .option-price { font-size: 2.5rem; font-weight: 900; line-height: 1; letter-spacing: -.04em; text-align: right; }
+  .option-price small { display: block; color: #bdcce0; font-size: .65rem; line-height: 1.5; font-weight: 500; letter-spacing: 0; margin-top: 8px; white-space: nowrap; }
+  .option-description { color: #d2ddec; font-size: .94rem; margin: 20px 0 0; }
+  .inclusion-list { margin: 22px 0 25px; padding: 0; list-style: none; display: grid; gap: 10px; font-size: .9rem; color: #d2ddec; }
+  .inclusion-list li { display: grid; grid-template-columns: 15px 1fr; gap: 8px; }
+  .inclusion-list li::before { content: "✓"; color: #8dc0ff; font-weight: 900; }
+  .option-card .button { margin-top: auto; width: 100%; }
+  .scope-note { color: #c7d5e7; border-top: 1px solid rgba(255,255,255,.15); padding-top: 15px; margin: 0 0 24px; font-size: .8rem; }
+  .bundle-note { margin: 25px 0 0; color: #b8c9df; font-size: .85rem; max-width: 950px; }
+  .bundle-note a { color: #d9eaff; font-weight: 800; text-underline-offset: 3px; }
+  .quality-intro { max-width: 760px; margin-bottom: 30px; }
+  .quality-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; }
+  .quality-grid article { border-top: 2px solid #c9dcf3; padding-top: 18px; }
+  .quality-number { color: #1766c7; font-size: .75rem; font-weight: 900; }
+  .quality-grid h3 { font-size: 1.14rem; line-height: 1.2; margin: 10px 0; }
+  .quality-grid p { margin: 0; color: #53667d; font-size: .9rem; line-height: 1.65; }
+  .author-section { background: #f4f8fd; }
+  .author-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 52px; align-items: center; }
+  .author-photo { width: 100%; border-radius: 18px; aspect-ratio: 4/3; object-fit: cover; object-position: 42% center; }
+  .author-links { display: flex; flex-direction: column; align-items: start; gap: 10px; font-size: .88rem; }
+  .author-links a:last-child { color: #53667d; text-underline-offset: 3px; }
+  .faq-shell { max-width: 900px; }
+  .faq-shell .section-introduction { margin-bottom: 28px; }
+  .official-section { padding: 45px 0; background: #f4f8fd; border-top: 1px solid #dce6f1; }
+  .official-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+  .official-section h2 { font-size: 1.8rem; }
+  .official-section p { font-size: .88rem; }
+  .official-section .source-date { font-size: .75rem; margin-bottom: 0; }
+  .source-links { display: grid; gap: 12px; }
+  .source-links a { display: flex; flex-direction: column; gap: 5px; border: 1px solid #d7e3f0; border-radius: 12px; padding: 16px 18px; background: #fff; text-decoration: none; }
+  .source-links strong { color: #155eae; font-size: .9rem; }
+  .source-links span { color: #53667d; font-size: .8rem; }
+  .source-links a:hover strong { text-decoration: underline; }
+  .final-cta-inner { grid-template-columns: 1fr .8fr; }
+  .final-cta-actions { justify-content: flex-end; }
+  @media (max-width: 980px) {
+    .hero-grid { grid-template-columns: 1.2fr .8fr; gap: 28px; }
+    .hero-proof { padding: 22px; }
+    .study-grid { gap: 32px; }
+    .quality-grid { grid-template-columns: repeat(2,1fr); }
+    .author-grid { gap: 32px; }
+    .option-card { padding: 24px; }
+    .option-title { flex-direction: column; }
+    .option-title h3 { max-width: none; }
+    .option-price { text-align: left; }
+  }
+  @media (max-width: 760px) {
+    .hero-grid, .study-grid, .option-grid, .author-grid, .official-grid, .final-cta-inner { grid-template-columns: 1fr; }
+    .hero-grid { padding-bottom: 34px; }
+    .hero-proof { margin-top: 0; }
+    .hero-proof .fastpass-mark { float: right; width: 64px; height: 64px; margin: 0 0 15px 15px; }
+    .hero-proof p { max-width: 440px; }
+    .proof-strip div { padding-inline: 8px; }
+    .proof-strip strong { font-size: .83rem; }
+    .proof-strip span { font-size: .7rem; }
+    .content-section { padding: 52px 0; }
+    .option-title { flex-direction: row; }
+    .prep-only-card { margin-top: 0; }
+    .option-price { text-align: right; }
+    .author-photo { max-height: 340px; }
+    .official-grid { gap: 22px; }
+    .final-cta-actions { justify-content: flex-start; }
+  }
+  @media (max-width: 480px) {
+    .hero-actions { display: grid; }
+    .hero-actions .button { width: 100%; font-size: .9rem; }
+    .breadcrumbs { margin-bottom: 25px; }
+    .hero-grid .eyebrow { font-size: .63rem; }
+    h1 { font-size: 2.65rem; }
+    h1 em { font-size: .74em; }
+    .hero-deck { font-size: 1rem; }
+    .quality-grid { gap: 25px 18px; }
+    .quality-grid h3 { font-size: 1rem; }
+    .quality-grid p { font-size: .84rem; }
+    .study-steps li { padding: 16px; gap: 10px; grid-template-columns: 34px 1fr; }
+    .step-number { width: 30px; height: 30px; font-size: .8rem; }
+    .option-card { padding: 22px 20px; }
+    .option-title h3 { font-size: 1.5rem; max-width: 11ch; }
+    .option-price { font-size: 2.2rem; }
+    .option-price small { font-size: .6rem; }
+    .proof-strip { grid-template-columns: 1fr; }
+    .proof-strip div { flex-direction: row; justify-content: space-between; align-items: baseline; padding: 12px 0; border: 0; border-bottom: 1px solid rgba(255,255,255,.12); gap: 12px; text-align: left; }
+    .proof-strip span { text-align: right; }
+  }
+</style>
