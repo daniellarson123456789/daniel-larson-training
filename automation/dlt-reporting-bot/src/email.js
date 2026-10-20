@@ -30,7 +30,7 @@ export async function sendStudentConfirmation(candidate, env = process.env) {
     text: [
       `Hello ${candidate.firstName},`,
       "",
-      "Thank you for choosing Daniel Larson Training to complete your required real estate education.",
+      "Thank you for choosing Daniel Larson Training for your required real estate education.",
       "",
       `Your ${courseName} completion was reported to Florida DBPR.`,
       `Completion date: ${dbprDate(candidate.completedAt)}`,
