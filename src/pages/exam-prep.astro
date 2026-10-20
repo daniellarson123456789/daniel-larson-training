@@ -1,5 +1,6 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import TrustpilotReviews from "../components/TrustpilotReviews.astro";
 import { site } from "../data/site";
 import { products } from "../data/products";
 import { courseOffer } from "../lib/courseOffer";
@@ -89,6 +90,7 @@ const schema = [
 <li>Direct instructor support</li>
 </ul>
 <a class="btn primary" data-plan={products.salesExamPrep.id} data-placement="package_card" href={products.salesExamPrep.checkoutUrl} target="_top">Enroll in Sales Exam Prep</a>
+<p><a href="/florida-sales-associate-exam-prep/">Need Course 1 and certification too? Explore the full Sales FastPass package →</a></p>
 </article>
 <article class="pkg broker" data-hover-lift="" data-reveal="">
 <span class="badge">Broker Exam Prep</span>
@@ -159,6 +161,7 @@ const schema = [
 </div>
 </div>
 </section>
+<TrustpilotReviews />
 <section class="reviews">
 <div class="shell">
 <div class="section-head" data-reveal="">

@@ -1,5 +1,6 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import TrustpilotReviews from "../components/TrustpilotReviews.astro";
 import { products } from "../data/products";
 import { courseOffer } from "../lib/courseOffer";
 import "../styles/licensing-parity.css";
@@ -24,8 +25,8 @@ const schema = [
     "@type": "WebPage",
     "@id": "https://daniellarsontraining.com/#webpage",
     "url": "https://daniellarsontraining.com/",
-    "name": "Florida Real Estate License Course Online | Daniel Larson Training",
-    "description": "Florida 63-hour Course 1: $240. Course + FastPass $340; FastPass + Post $440. One-year access and direct instructor support.",
+    "name": "Florida Real Estate License Course & FastPass | Daniel Larson Training",
+    "description": `Florida Sales FastPass combines Course 1, three certification exams, 500+ practice questions, a workbook, and direct support from course author Daniel Larson. $${products.salesFastPass.price}; one year of access.`,
     "isPartOf": {
       "@id": "https://daniellarsontraining.com/#website"
     },
@@ -41,8 +42,8 @@ const schema = [
 ---
 
 <SiteLayout
-  title="Florida Real Estate License Course Online | Daniel Larson Training"
-  description="Florida 63-hour Course 1: $240. Course + FastPass $340; FastPass + Post $440. One-year access and direct instructor support."
+  title="Florida Real Estate License Course & FastPass | Daniel Larson Training"
+  description={`Florida Sales FastPass combines Course 1, three certification exams, 500+ practice questions, a workbook, and direct support from course author Daniel Larson. $${products.salesFastPass.price}; one year of access.`}
   shareTitle="Sales Licensing"
   ogImage="/share-license-expanded-v2.png"
   canonicalPath="/"
@@ -148,6 +149,7 @@ const schema = [
 <div class="eyebrow" style="color:#1766c7">The FastPass approach</div>
 <h2>Go straight into FastPass. Use everything else to get you through it.</h2>
 <p>Once you enroll, you can begin with the three FastPass exams. Pass all three to complete your Course 1 testing path and qualify to sit for the separate Florida licensing exam administered by Pearson Professional Assessments (formerly Pearson VUE). Your full Course 1, 500+ practice questions, ebook, audio reviews, videos, and study materials are there as a toolbox — use as much or as little as you need.</p>
+<p><a href="/florida-sales-associate-exam-prep/">Explore Sales FastPass: Course 1, certification, exam-prep tools, instructor experience, and official exam references →</a></p>
 </div>
 <div class="steps">
 <div class="step"><div class="stepnum">01</div><div><h3>Start with FastPass.</h3><p>Go right into the FastPass exams. They give you a clear target and quickly show you what you already know — and what you still need to review.</p></div></div>
@@ -276,6 +278,7 @@ const schema = [
 <p style="margin:22px 0 0;text-align:center">State application, fingerprints, and the state exam are paid separately. <a href="/license-guides/how-to-get-florida-real-estate-license/#costs" style="color:#145fad;font-weight:700;text-underline-offset:3px">Plan your licensing budget →</a></p>
 </div>
 </section>
+<TrustpilotReviews />
 <section class="reviews" data-motion-section="reviews" id="reviews">
 <div class="wrap">
 <div class="section-head">
