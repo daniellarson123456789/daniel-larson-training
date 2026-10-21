@@ -4,7 +4,7 @@ import { site } from "../data/site";
 
 <footer class="site-footer">
   <div class="shell footer-grid">
-    <div>
+    <div class="footer-identity">
       <strong class="footer-brand">{site.name}</strong>
       <p class="footer-copy">
         Florida Licensed Real Estate School #{site.schoolLicense}<br />
@@ -12,19 +12,26 @@ import { site } from "../data/site";
       </p>
     </div>
 
-    <div class="footer-contact">
-      <a href={site.phoneHref}>{site.phoneDisplay}</a>
-      <a href={`mailto:${site.email}`}>{site.email}</a>
+    <nav class="footer-links" aria-label="Footer courses">
+      <h2 class="footer-label">Courses</h2>
       <a href="/course-portal/">Course Portal</a>
-      <a href="/refund-policy/">Refund policy</a>
       <a href="/florida-sales-associate-exam-prep/">Sales FastPass &amp; Exam Prep</a>
       <a href="/florida-broker-exam-prep/">Broker FastPass &amp; Exam Prep</a>
-      <a href="https://www.trustpilot.com/review/daniellarsontraining.com">Customer reviews on Trustpilot</a>
+    </nav>
+
+    <div class="footer-links footer-contact">
+      <h2 class="footer-label">Contact &amp; Reviews</h2>
+      <a href={site.phoneHref}>{site.phoneDisplay}</a>
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+      <a href="https://www.trustpilot.com/review/daniellarsontraining.com">Read our Trustpilot reviews <span aria-hidden="true">↗</span></a>
     </div>
   </div>
 
   <div class="shell footer-bottom">
     <span>Florida real estate education, exam preparation, post-licensing, and continuing education.</span>
-    <span>© {new Date().getFullYear()} {site.name}</span>
+    <div class="footer-legal">
+      <a href="/refund-policy/">Refund policy</a>
+      <span>© {new Date().getFullYear()} {site.name}</span>
+    </div>
   </div>
 </footer>
