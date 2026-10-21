@@ -1,0 +1,29 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+---
+
+<SiteLayout
+  title="Refund policy | Daniel Larson Training"
+  description="Refund terms for Daniel Larson Training licensing packages and standalone exam prep."
+  canonicalPath="/refund-policy/"
+>
+  <article class="policy shell">
+    <nav aria-label="Breadcrumb"><a href="/">Home</a> / Refund policy</nav>
+    <h1>Refund policy</h1>
+    <p class="meta">Effective October 21, 2026 (Eastern Time)</p>
+    <p>Refund requests must be received within <strong>seven calendar days of purchase</strong>. Eligible refunds are the amount paid <strong>less a $20 processing fee</strong>.</p>
+    <p><strong>No refund is available after completing the requirements for course credit or certification</strong> in any included course, including through FastPass, even if the certificate has not yet been issued. Standalone exam prep has no credit or certification requirement; its seven-day window applies regardless of completion.</p>
+    <p>Unused courses or delayed starts do not extend the deadline. Bundles are one purchase; unused components are not separately refundable. Approved refunds go to the original payment method and end access to the refunded purchase.</p>
+    <p>Contact <a href="mailto:daniel@daniellarsontraining.com">daniel@daniellarsontraining.com</a> or <a href="sms:+12394718500">text 239.471.8500</a> with your name and order number.</p>
+    <p class="meta">Applies to licensing packages and standalone exam prep purchased from October 21, 2026; excludes standalone post-licensing and CE. Earlier purchases retain their original terms. The fee does not apply to refunds correcting duplicate charges or school errors, or where prohibited by law. Statutory rights are unaffected.</p>
+  </article>
+</SiteLayout>
+
+<style>
+  .policy { max-width: 800px; padding-block: 48px 64px; }
+  .policy nav { color: #53667d; font-size: .88rem; }
+  .policy h1 { margin: 24px 0 8px; font-size: clamp(2.2rem, 5vw, 3.2rem); line-height: 1.1; letter-spacing: -.035em; }
+  .policy p { margin-block: 22px; line-height: 1.75; }
+  .policy .meta { color: #53667d; font-size: .88rem; }
+  .policy a { color: #155eae; text-underline-offset: 3px; overflow-wrap: anywhere; }
+</style>

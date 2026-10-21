@@ -9,6 +9,7 @@ const paths = [
   "/florida-sales-associate-exam-prep/",
   "/florida-broker-exam-prep/",
   "/about/",
+  "/refund-policy/",
   "/license-guides/",
   "/license-guides/how-to-get-florida-real-estate-license/",
   "/license-guides/florida-broker-license-requirements/",
@@ -22,11 +23,13 @@ const paths = [
 export function GET() {
   // Content review dates, not build dates. Update only when the page changes.
   const modified: Record<string, string> = {
-    "/": "2026-10-20",
-    "/exam-prep/": "2026-10-20",
-    "/florida-sales-associate-exam-prep/": "2026-10-20",
-    "/florida-broker-exam-prep/": "2026-10-20",
-    "/broker-licensing/": "2026-10-20",
+    "/": "2026-10-21",
+    "/about/": "2026-10-21",
+    "/refund-policy/": "2026-10-21",
+    "/exam-prep/": "2026-10-21",
+    "/florida-sales-associate-exam-prep/": "2026-10-21",
+    "/florida-broker-exam-prep/": "2026-10-21",
+    "/broker-licensing/": "2026-10-21",
     "/license-guides/florida-broker-license-requirements/": "2026-10-20",
     "/license-guides/how-to-get-florida-real-estate-license/": "2026-10-20",
   };

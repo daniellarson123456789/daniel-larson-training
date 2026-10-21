@@ -1,4 +1,5 @@
 ---
+import TrustpilotReviews from "../components/TrustpilotReviews.astro";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import { site } from "../data/site";
 
@@ -139,20 +140,7 @@ const schema = [
 </div>
 </div>
 </section>
-<section class="reviews">
-<div class="shell">
-<div class="section-head" data-reveal="">
-<div class="eyebrow" style="color:#1766c7">WHAT STUDENTS NOTICE</div>
-<h2>The difference shows up when students need help — and when they take the exam.</h2>
-<p>Specific experiences from Florida students and brokers.</p>
-</div>
-<div class="quote-grid">
-<article class="quote" data-hover-lift="" data-reveal=""><div class="stars">★★★★★</div><p>“When you have questions, Daniel will be available — actually Daniel — not a customer service person.”</p><b>Von Howard · Fort Myers</b></article>
-<article class="quote" data-hover-lift="" data-reveal=""><div class="stars">★★★★★</div><p>“FastPass is the slam dunk. I walked into PearsonVUE ready to go.”</p><b>John S. · Cape Coral</b></article>
-<article class="quote" data-hover-lift="" data-reveal=""><div class="stars">★★★★★</div><p>“I literally heard his explanations in my head as I was taking the test.”</p><b>Alyssa L. · Bonita Springs</b></article>
-</div>
-</div>
-</section>
+<TrustpilotReviews />
 <section class="contact">
 <div class="shell contact-grid" data-reveal="">
 <div>
@@ -241,13 +229,6 @@ const schema = [
 .course-line strong{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:rgba(37,120,234,.18);color:#bcd7ff}
 .course-line h4{margin:0 0 4px;font-size:15px}.course-line p{margin:0;color:#aebfd4;font-size:13px;line-height:1.45}
 
-.reviews{padding:82px 0;background:#fff}
-.reviews .section-head p{color:#53667d}
-.quote-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.quote{padding:22px;border:1px solid #dce6f1;border-radius:15px;background:#fbfdff}
-.stars{letter-spacing:.06em;margin-bottom:10px;color:#0a1d36}
-.quote p{font-size:14px;line-height:1.55;color:#4e6278}
-.quote b{display:block;margin-top:12px;font-size:12px;color:#0a1d36}
 
 .contact{padding:78px 0;color:#fff;background:linear-gradient(135deg,#091a34,#06162d)}
 .contact-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:42px;align-items:center}
@@ -275,7 +256,6 @@ const schema = [
  .hero-grid,.story-grid,.authorship-grid,.contact-grid,.timeline-intro{grid-template-columns:1fr}
  .hero-grid{padding-top:34px}
  .timeline-grid,.belief-grid{grid-template-columns:1fr 1fr}
- .quote-grid{grid-template-columns:1fr}
  .trust{grid-template-columns:1fr 1fr}.trust div:last-child{grid-column:1/-1}
  .story-portrait{max-width:520px}
 }

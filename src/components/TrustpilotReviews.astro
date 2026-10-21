@@ -1,29 +1,57 @@
 ---
+// Public Trustpilot review excerpts, checked October 21, 2026. Dates are publication dates.
 const reviews = [
   {
-    name: "John Colin Simoneau",
-    excerpt: "great information and quick replies.",
-    url: "https://www.trustpilot.com/reviews/6ad7b5da844c403076fb3a7c",
+    "name": "Alejandro Hinostroza",
+    "excerpt": "This was a very effective coursework that allowed me to pass the Florida State Exam.",
+    "url": "https://www.trustpilot.com/reviews/6ad7fd76b7e46dd0d32d3776",
+    "date": "2026-10-21",
+    "dateLabel": "October 21, 2026"
   },
   {
-    name: "Cheryl V",
-    excerpt: "I passed easily and I learned a lot.",
-    url: "https://www.trustpilot.com/reviews/6ad7b1ceb64b7c7d04ab8e08",
+    "name": "Mike",
+    "excerpt": "What a great course to navigate and learn.",
+    "url": "https://www.trustpilot.com/reviews/6ad7e1566804a4ff30dc43db",
+    "date": "2026-10-20",
+    "dateLabel": "October 20, 2026"
   },
   {
-    name: "Jessica Ann Linville",
-    excerpt: "The course was so easy to navigate",
-    url: "https://www.trustpilot.com/reviews/6ad7b0511aa85a375c2daba4",
+    "name": "Catalina Grisalez",
+    "excerpt": "His method of teaching, explaining, thorough examples to assist his students to understand this industry is outstanding.",
+    "url": "https://www.trustpilot.com/reviews/6ad7c261dd53c1f686bf0f8e",
+    "date": "2026-10-20",
+    "dateLabel": "October 20, 2026"
   },
+  {
+    "name": "John Colin Simoneau",
+    "excerpt": "great information and quick replies.",
+    "url": "https://www.trustpilot.com/reviews/6ad7b5da844c403076fb3a7c",
+    "date": "2026-10-20",
+    "dateLabel": "October 20, 2026"
+  },
+  {
+    "name": "Cheryl V",
+    "excerpt": "I passed easily and I learned a lot.",
+    "url": "https://www.trustpilot.com/reviews/6ad7b1ceb64b7c7d04ab8e08",
+    "date": "2026-10-20",
+    "dateLabel": "October 20, 2026"
+  },
+  {
+    "name": "Jessica Ann Linville",
+    "excerpt": "The course was so easy to navigate",
+    "url": "https://www.trustpilot.com/reviews/6ad7b0511aa85a375c2daba4",
+    "date": "2026-10-20",
+    "dateLabel": "October 20, 2026"
+  }
 ];
 ---
 
 <section class="tp-section" id="trustpilot-reviews" aria-labelledby="trustpilot-heading">
-  <div class="tp-container">
+  <div class="tp-container" id="reviews">
     <header class="tp-heading">
       <p class="tp-eyebrow">DANIEL LARSON TRAINING</p>
       <h2 id="trustpilot-heading">Customer reviews on Trustpilot</h2>
-      <p class="tp-intro">A few words from our customers. Follow each link to read the full review.</p>
+      <p class="tp-intro">Six customer reviews, with links to the full stories on Trustpilot.</p>
     </header>
 
     <div class="tp-grid">
@@ -35,7 +63,7 @@ const reviews = [
           <blockquote><p>“{review.excerpt}”</p></blockquote>
           <footer class="tp-attribution">
             <strong>{review.name}</strong>
-            <time datetime="2026-10-20">October 20, 2026</time>
+            <time datetime={review.date}>{review.dateLabel}</time>
             <a href={review.url} aria-label={`Read ${review.name}'s review on Trustpilot`}>Read on Trustpilot →</a>
           </footer>
         </article>
