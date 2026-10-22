@@ -1,5 +1,7 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import TrustpilotReviews from "../components/TrustpilotReviews.astro";
+import TrustpilotReviewLink from "../components/TrustpilotReviewLink.astro";
 import { site } from "../data/site";
 import { products } from "../data/products";
 import { courseOffer } from "../lib/courseOffer";
@@ -65,6 +67,7 @@ const schema = [
             <a class="button button-primary" href="#post-options">Choose your Post course ↓</a>
             <a class="button button-secondary post-ghost" href="#post-course">See the course material</a>
           </div>
+          <TrustpilotReviewLink />
         </div>
 
         <aside class="post-help-card" data-tilt>
@@ -147,6 +150,8 @@ const schema = [
         <p class="post-partner-note"><strong>Have a Partner Code?</strong> Enter it at checkout after reviewing the bundle. No code? Ask your broker, office manager, recruiter, or trainer.</p>
       </div>
     </section>
+
+    <TrustpilotReviews context="post" />
 
     <section class="post-course-system" id="post-course">
       <div class="shell post-system-grid">

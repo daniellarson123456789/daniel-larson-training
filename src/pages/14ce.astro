@@ -1,5 +1,7 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import TrustpilotReviews from "../components/TrustpilotReviews.astro";
+import TrustpilotReviewLink from "../components/TrustpilotReviewLink.astro";
 import { site } from "../data/site";
 import { products } from "../data/products";
 import { courseOffer } from "../lib/courseOffer";
@@ -54,6 +56,7 @@ const schema = [
             <a class="button button-primary" href={bundleUrl} target="_top">Explore 14-Hour CE + FastPass →</a>
             <a class="button button-secondary ce-ghost" href="#ce-inside">See the course material ↓</a>
           </div>
+          <TrustpilotReviewLink />
         </div>
 
         <aside class="ce-buy-card" data-tilt>
@@ -79,6 +82,8 @@ const schema = [
         <div><strong>Sales + Brokers</strong><span>after Post-Licensing</span></div>
       </div>
     </section>
+
+    <TrustpilotReviews context="ce" />
 
     <section class="ce-learn" id="ce-inside">
       <div class="shell ce-learn-grid">

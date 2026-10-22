@@ -1,0 +1,14 @@
+---
+import { trustpilotProfileUrl } from "../data/reviews";
+---
+
+<p class="review-proof">
+  <a href={trustpilotProfileUrl}>Read student reviews on Trustpilot <span aria-hidden="true">↗</span></a>
+</p>
+
+<style>
+  .review-proof { margin: 18px 0 0; font-size: .88rem; line-height: 1.5; }
+  .review-proof a { display: inline-block; padding-block: 5px; color: #dcecff; font-weight: 750; text-decoration: underline; text-underline-offset: 4px; }
+  .review-proof a:hover { color: #fff; }
+  .review-proof a:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; border-radius: 2px; }
+</style>

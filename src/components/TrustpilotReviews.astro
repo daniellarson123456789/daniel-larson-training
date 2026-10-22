@@ -1,66 +1,28 @@
 ---
-// Public Trustpilot review excerpts, checked October 21, 2026. Dates are publication dates.
-const reviews = [
-  {
-    "name": "Alejandro Hinostroza",
-    "excerpt": "This was a very effective coursework that allowed me to pass the Florida State Exam.",
-    "url": "https://www.trustpilot.com/reviews/6ad7fd76b7e46dd0d32d3776",
-    "date": "2026-10-21",
-    "dateLabel": "October 21, 2026"
-  },
-  {
-    "name": "Mike",
-    "excerpt": "What a great course to navigate and learn.",
-    "url": "https://www.trustpilot.com/reviews/6ad7e1566804a4ff30dc43db",
-    "date": "2026-10-20",
-    "dateLabel": "October 20, 2026"
-  },
-  {
-    "name": "Catalina Grisalez",
-    "excerpt": "His method of teaching, explaining, thorough examples to assist his students to understand this industry is outstanding.",
-    "url": "https://www.trustpilot.com/reviews/6ad7c261dd53c1f686bf0f8e",
-    "date": "2026-10-20",
-    "dateLabel": "October 20, 2026"
-  },
-  {
-    "name": "John Colin Simoneau",
-    "excerpt": "great information and quick replies.",
-    "url": "https://www.trustpilot.com/reviews/6ad7b5da844c403076fb3a7c",
-    "date": "2026-10-20",
-    "dateLabel": "October 20, 2026"
-  },
-  {
-    "name": "Cheryl V",
-    "excerpt": "I passed easily and I learned a lot.",
-    "url": "https://www.trustpilot.com/reviews/6ad7b1ceb64b7c7d04ab8e08",
-    "date": "2026-10-20",
-    "dateLabel": "October 20, 2026"
-  },
-  {
-    "name": "Jessica Ann Linville",
-    "excerpt": "The course was so easy to navigate",
-    "url": "https://www.trustpilot.com/reviews/6ad7b0511aa85a375c2daba4",
-    "date": "2026-10-20",
-    "dateLabel": "October 20, 2026"
-  }
-];
+import { reviews, reviewSelections, trustpilotProfileUrl, type ReviewContext } from "../data/reviews";
+
+type Props = { context?: ReviewContext };
+const { context = "school" } = Astro.props;
+const selection = reviewSelections[context];
+const selectedReviews = selection.ids.map((id) => reviews[id]);
 ---
 
 <section class="tp-section" id="trustpilot-reviews" aria-labelledby="trustpilot-heading">
   <div class="tp-container" id="reviews">
     <header class="tp-heading">
       <p class="tp-eyebrow">DANIEL LARSON TRAINING</p>
-      <h2 id="trustpilot-heading">Customer reviews on Trustpilot</h2>
-      <p class="tp-intro">Six customer reviews, with links to the full stories on Trustpilot.</p>
+      <h2 id="trustpilot-heading">{selection.title}</h2>
+      <p class="tp-intro">{selection.intro}</p>
     </header>
 
     <div class="tp-grid">
-      {reviews.map((review) => (
+      {selectedReviews.map((review) => (
         <article class="tp-card">
-          <div class="tp-stars" role="img" aria-label="5 out of 5 stars">
-            <span aria-hidden="true">★★★★★</span>
+          <p class="tp-topic">{review.topic}</p>
+          <div class="tp-stars" role="img" aria-label={`${review.rating} out of 5 stars`}>
+            <span aria-hidden="true">{"★".repeat(review.rating)}</span>
           </div>
-          <blockquote><p>“{review.excerpt}”</p></blockquote>
+          <blockquote cite={review.url}><p>“{review.excerpt}”</p></blockquote>
           <footer class="tp-attribution">
             <strong>{review.name}</strong>
             <time datetime={review.date}>{review.dateLabel}</time>
@@ -71,7 +33,7 @@ const reviews = [
     </div>
 
     <div class="tp-actions">
-      <a class="tp-button tp-primary" href="https://www.trustpilot.com/review/daniellarsontraining.com">Read all reviews</a>
+      <a class="tp-button tp-primary" href={trustpilotProfileUrl}>Read all reviews on Trustpilot</a>
       <div class="tp-invitation">
         <span>Already a student? Share your experience.</span>
         <a class="tp-button tp-secondary" href="https://www.trustpilot.com/evaluate/daniellarsontraining.com">Leave a review</a>
@@ -116,6 +78,7 @@ const reviews = [
     background: #fff;
     box-shadow: 0 10px 28px rgba(6,28,54,.04);
   }
+  .tp-topic { margin: 0 0 16px; min-height: 2.8em; color: #53667d; font-size: .74rem; font-weight: 850; line-height: 1.4; letter-spacing: .035em; text-transform: uppercase; }
   .tp-stars { color: #1766c7; font-size: 1.15rem; line-height: 1; letter-spacing: .12em; }
   .tp-card blockquote { margin: 18px 0 24px; }
   .tp-card blockquote p { margin: 0; font-size: 1.13rem; font-weight: 650; line-height: 1.5; }
@@ -131,12 +94,18 @@ const reviews = [
   .tp-secondary:hover { border-color: #1766c7; background: #edf5ff; }
   .tp-invitation { display: flex; align-items: center; gap: 15px; }
   .tp-invitation span { max-width: 260px; color: #53667d; font-size: .84rem; line-height: 1.5; }
+  @media (max-width: 1000px) {
+    .tp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
   @media (max-width: 800px) {
-    .tp-grid { grid-template-columns: 1fr; gap: 13px; }
     .tp-card { padding: 22px; }
     .tp-card blockquote { margin-bottom: 19px; }
     .tp-actions { align-items: flex-start; }
     .tp-invitation { align-items: flex-start; flex-direction: column; gap: 10px; }
+  }
+  @media (max-width: 600px) {
+    .tp-grid { grid-template-columns: 1fr; gap: 13px; }
+    .tp-topic { min-height: 0; }
   }
   @media (max-width: 520px) {
     .tp-section { padding: 48px 0; }

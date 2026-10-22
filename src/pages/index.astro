@@ -1,6 +1,7 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
 import TrustpilotReviews from "../components/TrustpilotReviews.astro";
+import TrustpilotReviewLink from "../components/TrustpilotReviewLink.astro";
 import { products } from "../data/products";
 import { courseOffer } from "../lib/courseOffer";
 import "../styles/licensing-parity.css";
@@ -62,6 +63,7 @@ const schema = [
 <a class="btn btn-primary" href="#packages">See licensing options ↓</a>
 <a class="btn btn-ghost" data-trial="hero" href="https://portal.daniellarsontraining.com/courses/starthere" target="_top">Try FastPass Free</a>
 </div>
+<TrustpilotReviewLink />
 </div>
 <aside aria-label="Direct instructor support" class="hero-card">
 <div class="eyebrow">Personalized answers</div>
@@ -141,6 +143,8 @@ const schema = [
 </div>
 </div>
 </section>
+    <TrustpilotReviews context="school" />
+
 <section class="fastpass" data-motion-section="fastpass" id="fastpass">
 <div class="wrap fast-grid">
 <div class="mark-scene"><a aria-label="Enroll in FastPass" class="mark" data-placement="logo" data-plan={products.salesFastPass.id} href={products.salesFastPass.checkoutUrl} target="_top"><img alt="FastPass Florida real estate exam preparation" src="/fastpass-logo.webp"/></a></div>
@@ -278,7 +282,6 @@ const schema = [
 <p style="margin:22px 0 0;text-align:center">State application, fingerprints, and the state exam are paid separately. <a href="/license-guides/how-to-get-florida-real-estate-license/#costs" style="color:#145fad;font-weight:700;text-underline-offset:3px">Plan your licensing budget →</a></p>
 </div>
 </section>
-<TrustpilotReviews />
 <section class="about" data-motion-section="about">
 <div class="wrap about-grid">
 <div>

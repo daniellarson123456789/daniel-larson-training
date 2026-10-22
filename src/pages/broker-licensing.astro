@@ -1,6 +1,7 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
 import TrustpilotReviews from "../components/TrustpilotReviews.astro";
+import TrustpilotReviewLink from "../components/TrustpilotReviewLink.astro";
 import { products } from "../data/products";
 import { courseOffer } from "../lib/courseOffer";
 import "../styles/licensing-parity.css";
@@ -62,6 +63,7 @@ const schema = [
 <a class="btn btn-primary" href="#packages">See broker licensing options ↓</a>
 <a class="btn btn-ghost" data-placement="hero" data-plan={products.brokerFastPass.id} href={products.brokerFastPass.checkoutUrl} target="_top">Broker FastPass</a>
 </div>
+<TrustpilotReviewLink />
 </div>
 <aside aria-label="Direct broker licensing support" class="hero-card">
 <div class="eyebrow">Personalized answers</div>
@@ -140,6 +142,8 @@ const schema = [
 </div>
 </div>
 </section>
+    <TrustpilotReviews context="broker" />
+
 <section class="fastpass" data-motion-section="fastpass" id="fastpass">
 <div class="wrap fast-grid">
 <div class="mark-scene">
@@ -234,7 +238,6 @@ const schema = [
 <p style="margin:22px 0 0;text-align:center">State application, fingerprints, and the state exam are paid separately. <a href="/license-guides/florida-broker-license-requirements/#costs" style="color:#145fad;font-weight:700;text-underline-offset:3px">Plan your licensing budget →</a></p>
 </div>
 </section>
-<TrustpilotReviews />
 <section class="about" data-motion-section="about">
 <div class="wrap about-grid">
 <div>
