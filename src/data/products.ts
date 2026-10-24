@@ -9,54 +9,70 @@ export type Product = {
   checkoutUrl: string;
 };
 
+export const licensingSale = { code: "fastpass50", percent: 50 } as const;
+
+export const salePrice = (product: Product) => product.price - (product.discountAmount ?? 0);
+
 export const products: Record<string, Product> = {
   salesCourse1: {
     id: "sales-course-1",
     name: "Florida 63-Hour Sales Associate Course 1",
     shortName: "Course 1",
     price: 240,
+    couponCode: licensingSale.code,
+    discountAmount: 240 * licensingSale.percent / 100,
     category: "sales",
-    checkoutUrl: "https://portal.daniellarsontraining.com/bundles/course1",
+    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/course1?coupon=${licensingSale.code}`,
   },
   salesFastPass: {
     id: "sales-fastpass",
     name: "Sales FastPass",
     shortName: "FastPass",
     price: 340,
+    couponCode: licensingSale.code,
+    discountAmount: 340 * licensingSale.percent / 100,
     category: "sales",
-    checkoutUrl: "https://portal.daniellarsontraining.com/bundles/fastpass1",
+    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/fastpass1?coupon=${licensingSale.code}`,
   },
   salesFastPassPost: {
     id: "sales-fastpass-post",
     name: "FastPass + Post-Licensing",
     shortName: "FastPass + Post",
     price: 440,
+    couponCode: licensingSale.code,
+    discountAmount: 440 * licensingSale.percent / 100,
     category: "sales",
-    checkoutUrl: "https://portal.daniellarsontraining.com/bundles/ADDPOST1",
+    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/ADDPOST1?coupon=${licensingSale.code}`,
   },
   brokerCourse2: {
     id: "broker-course-2",
     name: "Florida 72-Hour Broker Course 2",
     shortName: "Course 2",
     price: 240,
+    couponCode: licensingSale.code,
+    discountAmount: 240 * licensingSale.percent / 100,
     category: "broker",
-    checkoutUrl: "https://portal.daniellarsontraining.com/bundles/brokerexamblast",
+    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/brokerexamblast?coupon=${licensingSale.code}`,
   },
   brokerFastPass: {
     id: "broker-fastpass",
     name: "Broker FastPass",
     shortName: "Broker FastPass",
     price: 340,
+    couponCode: licensingSale.code,
+    discountAmount: 340 * licensingSale.percent / 100,
     category: "broker",
-    checkoutUrl: "https://portal.daniellarsontraining.com/bundles/brokerfastpass",
+    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/brokerfastpass?coupon=${licensingSale.code}`,
   },
   brokerCareerLaunch: {
     id: "broker-career-launch",
     name: "Broker Career Launch",
     shortName: "Broker Career Launch",
     price: 440,
+    couponCode: licensingSale.code,
+    discountAmount: 440 * licensingSale.percent / 100,
     category: "broker",
-    checkoutUrl: "https://portal.daniellarsontraining.com/bundles/broker-career-launch",
+    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/broker-career-launch?coupon=${licensingSale.code}`,
   },
   salesPost: {
     id: "sales-post",

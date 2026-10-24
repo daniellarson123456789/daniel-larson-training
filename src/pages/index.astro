@@ -2,7 +2,8 @@
 import SiteLayout from "../layouts/SiteLayout.astro";
 import TrustpilotReviews from "../components/TrustpilotReviews.astro";
 import TrustpilotReviewLink from "../components/TrustpilotReviewLink.astro";
-import { products } from "../data/products";
+import SalePrice from "../components/SalePrice.astro";
+import { products, salePrice, licensingSale } from "../data/products";
 import { courseOffer } from "../lib/courseOffer";
 import "../styles/licensing-parity.css";
 
@@ -27,7 +28,7 @@ const schema = [
     "@id": "https://daniellarsontraining.com/#webpage",
     "url": "https://daniellarsontraining.com/",
     "name": "Florida Real Estate License Course & FastPass | Daniel Larson Training",
-    "description": `Florida Sales FastPass combines Course 1, three certification exams, 500+ practice questions, a workbook, and direct support from course author Daniel Larson. $${products.salesFastPass.price}; one year of access.`,
+    "description": `Florida Sales FastPass combines Course 1, three certification exams, 500+ practice questions, a workbook, and direct support from course author Daniel Larson. $${salePrice(products.salesFastPass)} with code ${licensingSale.code} (50% off); one year of access.`,
     "isPartOf": {
       "@id": "https://daniellarsontraining.com/#website"
     },
@@ -44,7 +45,7 @@ const schema = [
 
 <SiteLayout
   title="Florida Real Estate License Course & FastPass | Daniel Larson Training"
-  description={`Florida Sales FastPass combines Course 1, three certification exams, 500+ practice questions, a workbook, and direct support from course author Daniel Larson. $${products.salesFastPass.price}; one year of access.`}
+  description={`Florida Sales FastPass combines Course 1, three certification exams, 500+ practice questions, a workbook, and direct support from course author Daniel Larson. $${salePrice(products.salesFastPass)} with code ${licensingSale.code} (50% off); one year of access.`}
   shareTitle="Sales Licensing"
   ogImage="/share-license-expanded-v2.png"
   canonicalPath="/"
@@ -60,7 +61,7 @@ const schema = [
 <p class="hero-deck">Get licensed on your schedule with required Florida pre-license education, FastPass certification and exam preparation, 500+ Q&amp;A, audio/video instruction, and direct help from the instructor who built the system.</p>
 <p class="hero-kicker">No 63-hour video marathon. No endless PDF grind.</p>
 <div class="hero-actions">
-<a class="btn btn-primary" href="#packages">See licensing options ↓</a>
+<a class="btn btn-primary" href="#packages">See 50% off packages ↓</a>
 <a class="btn btn-ghost" data-trial="hero" href="https://portal.daniellarsontraining.com/courses/starthere" target="_top">Try FastPass Free</a>
 </div>
 <TrustpilotReviewLink />
@@ -93,8 +94,7 @@ const schema = [
 <span class="badge">Course + Traditional Final</span>
 <h3>Course 1</h3>
 <div class="subplan">Required pre-license education + traditional final exam + state exam math</div>
-<div class="price">${products.salesCourse1.price}</div>
-<div class="price-note">one-time enrollment</div>
+<SalePrice product={products.salesCourse1} />
 <ul>
 <li>DBPR-approved 63-hour Course 1</li>
 <li>Traditional course final exam</li>
@@ -109,8 +109,7 @@ const schema = [
 <span class="badge blue">Most Popular</span>
 <h3>FastPass</h3>
 <div class="subplan">Required pre-license education + FastPass certification + exam prep</div>
-<div class="price">${products.salesFastPass.price}</div>
-<div class="price-note">one-time enrollment</div>
+<SalePrice product={products.salesFastPass} />
 <ul>
 <li>Three FastPass certification exams</li>
 <li>Full 63-hour Course 1 included</li>
@@ -127,8 +126,7 @@ const schema = [
 <span class="badge">Best Value</span>
 <h3>FastPass + Post</h3>
 <div class="subplan">Everything in FastPass + your required Sales Post-Licensing course</div>
-<div class="price">${products.salesFastPassPost.price}</div>
-<div class="price-note">one-time enrollment</div>
+<SalePrice product={products.salesFastPassPost} />
 <ul>
 <li>Everything in FastPass</li>
 <li>Sales Post-Licensing — required before first renewal</li>
@@ -208,9 +206,9 @@ const schema = [
 <thead>
 <tr>
 <th scope="col">Included</th>
-<th scope="col">Course 1<small>${products.salesCourse1.price}</small></th>
-<th class="best-head" scope="col">FastPass<small>${products.salesFastPass.price} · Most Popular</small></th>
-<th scope="col">FastPass + Post<small>${products.salesFastPassPost.price} · Best Value</small></th>
+<th scope="col">Course 1<small><s>${products.salesCourse1.price}</s> ${salePrice(products.salesCourse1)} with {licensingSale.code}</small></th>
+<th class="best-head" scope="col">FastPass<small><s>${products.salesFastPass.price}</s> ${salePrice(products.salesFastPass)} with {licensingSale.code} · Most Popular</small></th>
+<th scope="col">FastPass + Post<small><s>${products.salesFastPassPost.price}</s> ${salePrice(products.salesFastPassPost)} with {licensingSale.code} · Best Value</small></th>
 </tr>
 </thead>
 <tbody>
@@ -305,7 +303,7 @@ const schema = [
 <h2>Florida Real Estate Licensing FAQ</h2>
 </div>
 <div class="faq-list">
-<details><summary>What is included in the ${products.salesFastPass.price} FastPass package?</summary><p>The ${products.salesFastPass.price} FastPass package includes the DBPR-approved 63-hour Course 1, three FastPass certification exams, Exam Math Basics, 500+ practice questions and explanations, audio ebook review, the FastPass Workbook, one year of access, and direct support from Daniel.</p></details>
+<details><summary>What is included in the FastPass package?</summary><p>FastPass is ${salePrice(products.salesFastPass)} with code <strong>{licensingSale.code}</strong> during the 50% off sale (regularly ${products.salesFastPass.price}). The package includes the DBPR-approved 63-hour Course 1, three FastPass certification exams, Exam Math Basics, 500+ practice questions and explanations, audio ebook review, the FastPass Workbook, one year of access, and direct support from Daniel.</p></details>
 <details><summary>How is FastPass different?</summary><p>FastPass uses three certification exams in place of the traditional course final exam. Test out when you’re ready, with the full Course 1, Exam Math Basics, audio ebook review, and 500+ Q&amp;A with explanations available to help you prepare. The Florida state licensing exam is separate.</p></details>
 <details><summary>Does FastPass replace the Florida state licensing exam?</summary><p>No. The Florida state licensing exam is a separate exam administered by <a href="https://www.pearsonvue.com/us/en/fl/dbpr.html" rel="noopener" target="_blank">Pearson Professional Assessments</a> (formerly Pearson VUE). FastPass is preparation and part of the course-certification path; you still take the state exam separately.</p></details>
 <details><summary>How long do I have access?</summary><p>Course bundles include one year of online access.</p></details>

@@ -2,7 +2,8 @@
 import SiteLayout from "../layouts/SiteLayout.astro";
 import TrustpilotReviews from "../components/TrustpilotReviews.astro";
 import TrustpilotReviewLink from "../components/TrustpilotReviewLink.astro";
-import { products } from "../data/products";
+import SalePrice from "../components/SalePrice.astro";
+import { products, salePrice, licensingSale } from "../data/products";
 import { courseOffer } from "../lib/courseOffer";
 import "../styles/licensing-parity.css";
 
@@ -27,7 +28,7 @@ const schema = [
     "@id": "https://daniellarsontraining.com/broker-licensing/#webpage",
     "url": "https://daniellarsontraining.com/broker-licensing/",
     "name": "Florida Broker Course & FastPass Exam Prep | Daniel Larson Training",
-    "description": `Florida Broker FastPass combines Course 2, three certification exams, 500+ practice questions, a workbook, and direct support from course author Daniel Larson. $${products.brokerFastPass.price}; one year of access.`,
+    "description": `Florida Broker FastPass combines Course 2, three certification exams, 500+ practice questions, a workbook, and direct support from course author Daniel Larson. $${salePrice(products.brokerFastPass)} with code ${licensingSale.code} (50% off); one year of access.`,
     "isPartOf": {
       "@id": "https://daniellarsontraining.com/#website"
     },
@@ -44,7 +45,7 @@ const schema = [
 
 <SiteLayout
   title="Florida Broker Course & FastPass Exam Prep | Daniel Larson Training"
-  description={`Florida Broker FastPass combines Course 2, three certification exams, 500+ practice questions, a workbook, and direct support from course author Daniel Larson. $${products.brokerFastPass.price}; one year of access.`}
+  description={`Florida Broker FastPass combines Course 2, three certification exams, 500+ practice questions, a workbook, and direct support from course author Daniel Larson. $${salePrice(products.brokerFastPass)} with code ${licensingSale.code} (50% off); one year of access.`}
   shareTitle="Broker Licensing"
   ogImage="/share-license-expanded-v2.png"
   canonicalPath="/broker-licensing/"
@@ -60,7 +61,7 @@ const schema = [
 <p class="hero-deck">Move toward your Florida broker license with required broker pre-license education, Broker FastPass certification and exam preparation, 500+ Q&amp;A, free printed books, and direct help from the instructor who built the system.</p>
 <p class="hero-kicker">No 72-hour video marathon. No endless PDF grind.</p>
 <div class="hero-actions">
-<a class="btn btn-primary" href="#packages">See broker licensing options ↓</a>
+<a class="btn btn-primary" href="#packages">See 50% off packages ↓</a>
 <a class="btn btn-ghost" data-placement="hero" data-plan={products.brokerFastPass.id} href={products.brokerFastPass.checkoutUrl} target="_top">Broker FastPass</a>
 </div>
 <TrustpilotReviewLink />
@@ -93,8 +94,7 @@ const schema = [
 <span class="badge">Course + Traditional Final</span>
 <h3>Course 2</h3>
 <div class="subplan">Required broker pre-license education + traditional final exam + state exam math</div>
-<div class="price">${products.brokerCourse2.price}</div>
-<div class="price-note">one-time enrollment</div>
+<SalePrice product={products.brokerCourse2} />
 <ul>
 <li>DBPR-approved 72-hour Broker Course 2</li>
 <li>Traditional course final exam</li>
@@ -108,8 +108,7 @@ const schema = [
 <span class="badge blue">Most Popular</span>
 <h3>FastPass</h3>
 <div class="subplan">Required broker pre-license education + FastPass certification + exam prep</div>
-<div class="price">${products.brokerFastPass.price}</div>
-<div class="price-note">one-time enrollment</div>
+<SalePrice product={products.brokerFastPass} />
 <ul>
 <li>Three Broker FastPass certification exams</li>
 <li>Full 72-hour Broker Course 2 included</li>
@@ -126,8 +125,7 @@ const schema = [
 <span class="badge">Best Value</span>
 <h3>FastPass + Post</h3>
 <div class="subplan">Everything in FastPass + your required Broker Post-Licensing course</div>
-<div class="price">${products.brokerCareerLaunch.price}</div>
-<div class="price-note">one-time enrollment</div>
+<SalePrice product={products.brokerCareerLaunch} />
 <ul>
 <li>Everything in Broker FastPass</li>
 <li>Broker Post-Licensing — required before first renewal</li>
@@ -208,9 +206,9 @@ const schema = [
 <thead>
 <tr>
 <th scope="col">Included</th>
-<th scope="col">Course 2<small>${products.brokerCourse2.price}</small></th>
-<th class="best-head" scope="col">FastPass<small>${products.brokerFastPass.price} · Most Popular</small></th>
-<th scope="col">FastPass + Post<small>${products.brokerCareerLaunch.price} · Best Value</small></th>
+<th scope="col">Course 2<small><s>${products.brokerCourse2.price}</s> ${salePrice(products.brokerCourse2)} with {licensingSale.code}</small></th>
+<th class="best-head" scope="col">FastPass<small><s>${products.brokerFastPass.price}</s> ${salePrice(products.brokerFastPass)} with {licensingSale.code} · Most Popular</small></th>
+<th scope="col">FastPass + Post<small><s>${products.brokerCareerLaunch.price}</s> ${salePrice(products.brokerCareerLaunch)} with {licensingSale.code} · Best Value</small></th>
 </tr>
 </thead>
 <tbody>
@@ -261,7 +259,7 @@ const schema = [
 <h2>Florida Broker Licensing FAQ</h2>
 </div>
 <div class="faq-list">
-<details><summary>What is included in the ${products.brokerFastPass.price} Broker FastPass package?</summary><p>The ${products.brokerFastPass.price} Broker FastPass package includes the DBPR-approved 72-hour Broker Course 2, three FastPass certification exams, Exam Math Basics, 500+ practice questions and explanations, audio ebook review, the FastPass Workbook, one year of access, and direct support from Daniel.</p></details>
+<details><summary>What is included in the Broker FastPass package?</summary><p>Broker FastPass is ${salePrice(products.brokerFastPass)} with code <strong>{licensingSale.code}</strong> during the 50% off sale (regularly ${products.brokerFastPass.price}). The package includes the DBPR-approved 72-hour Broker Course 2, three FastPass certification exams, Exam Math Basics, 500+ practice questions and explanations, audio ebook review, the FastPass Workbook, one year of access, and direct support from Daniel.</p></details>
 <details><summary>How is Broker FastPass different?</summary><p>Broker FastPass uses three certification exams in place of the traditional course final exam. Test out when you’re ready, with the full Broker Course 2, Exam Math Basics, audio ebook review, and 500+ Q&amp;A with explanations available to help you prepare. The Florida broker licensing exam is separate.</p></details>
 <details><summary>Does FastPass replace the Florida broker licensing exam?</summary><p>No. The Florida broker licensing exam is a separate exam administered through <a href="https://www.pearsonvue.com/us/en/fl/dbpr.html" rel="noopener" target="_blank">Pearson Professional Assessments</a> (formerly Pearson VUE). FastPass is preparation and part of the Course 2 certification path; you still take the state exam separately.</p></details>
 <details><summary>What is FastPass + Post?</summary><p>FastPass + Post combines Course 2, Broker FastPass, and your required Broker Post-Licensing course so your next education step is already included.</p></details>
