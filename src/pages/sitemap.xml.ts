@@ -23,15 +23,15 @@ const paths = [
 export function GET() {
   // Content review dates, not build dates. Update only when the page changes.
   const modified: Record<string, string> = {
-    "/": "2026-10-21",
+    "/": "2026-10-24",
     "/about/": "2026-10-21",
     "/refund-policy/": "2026-10-21",
     "/exam-prep/": "2026-10-21",
-    "/florida-sales-associate-exam-prep/": "2026-10-21",
-    "/florida-broker-exam-prep/": "2026-10-21",
-    "/broker-licensing/": "2026-10-21",
-    "/license-guides/florida-broker-license-requirements/": "2026-10-20",
-    "/license-guides/how-to-get-florida-real-estate-license/": "2026-10-20",
+    "/florida-sales-associate-exam-prep/": "2026-10-24",
+    "/florida-broker-exam-prep/": "2026-10-24",
+    "/broker-licensing/": "2026-10-24",
+    "/license-guides/florida-broker-license-requirements/": "2026-10-24",
+    "/license-guides/how-to-get-florida-real-estate-license/": "2026-10-24",
   };
   const urls = paths.map((path) => `  <url><loc>${new URL(path, site.url).toString()}</loc>${modified[path] ? `<lastmod>${modified[path]}</lastmod>` : ""}</url>`).join("\n");
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
