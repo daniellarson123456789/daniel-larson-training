@@ -1,0 +1,116 @@
+---
+import { products, salePrice } from "../data/products";
+import { site } from "../data/site";
+
+const previewProducts = Object.values(products).map((product) => ({
+  path: new URL(product.checkoutUrl).pathname.replace(/\/$/, "").toLowerCase(),
+  name: product.name,
+  price: product.price,
+  code: product.couponCode ?? null,
+  discount: product.discountAmount ?? 0,
+  total: salePrice(product),
+}));
+---
+
+<aside class="preview-notice" aria-label="Website preview">
+  <div class="preview-notice-inner">
+    <span><span class="preview-dot" aria-hidden="true"></span><strong>Design preview</strong> — not the live website</span>
+    <a href={site.url} target="_blank" rel="noopener">View live site <span aria-hidden="true">↗</span></a>
+  </div>
+</aside>
+<noscript><p class="preview-no-script">Enrollment is disabled in this design preview. You can still explore all of the course information.</p></noscript>
+
+<dialog class="preview-dialog" id="preview-enrollment" aria-labelledby="preview-product-name" aria-describedby="preview-checkout-description" data-preview-products={JSON.stringify(previewProducts)}>
+  <form method="dialog"><button class="preview-close" aria-label="Close enrollment preview" autofocus>×</button></form>
+  <p class="preview-eyebrow">ENROLLMENT PREVIEW</p>
+  <h2 id="preview-product-name">Your selected course</h2>
+  <p id="preview-checkout-description">This is a design preview. No purchase or enrollment will be created.</p>
+  <dl class="preview-summary" id="preview-price-summary">
+    <div><dt>Course price</dt><dd id="preview-base-price"></dd></div>
+    <div id="preview-discount-row"><dt>Code <strong id="preview-code"></strong></dt><dd id="preview-discount"></dd></div>
+    <div class="preview-total"><dt>Total with code</dt><dd id="preview-total"></dd></div>
+  </dl>
+  <p class="preview-amount-note" id="preview-amount-note">One-time enrollment. State application, fingerprinting, and state-exam fees are separate.</p>
+  <form method="dialog"><button class="preview-return">Continue exploring</button></form>
+</dialog>
+
+<script>
+  (() => {
+    const dialog = document.querySelector<HTMLDialogElement>("#preview-enrollment");
+    if (!dialog) return;
+
+    type PreviewProduct = { path: string; name: string; price: number; code: string | null; discount: number; total: number };
+    const previewProducts: PreviewProduct[] = JSON.parse(dialog.dataset.previewProducts || "[]");
+    const money = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+    let trigger: HTMLAnchorElement | null = null;
+
+    // Middleware removes live checkout destinations from the generated HTML.
+    // These attributes remain available without requiring a client-side rewrite.
+
+    const setText = (id: string, value: string) => {
+      const element = document.getElementById(id);
+      if (element) element.textContent = value;
+    };
+
+    document.addEventListener("click", (event) => {
+      const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>("a[data-preview-checkout-path]") : null;
+      if (!link) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      trigger = link;
+      const product = previewProducts.find((entry) => entry.path === link.dataset.previewCheckoutPath);
+      setText("preview-product-name", product?.name ?? "Enrollment preview");
+      const summary = document.getElementById("preview-price-summary");
+      const amountNote = document.getElementById("preview-amount-note");
+      if (summary) summary.hidden = !product;
+      if (amountNote) amountNote.hidden = !product;
+      if (product) {
+        setText("preview-base-price", money.format(product.price));
+        setText("preview-code", product.code ?? "");
+        setText("preview-discount", `−${money.format(product.discount)}`);
+        setText("preview-total", money.format(product.total));
+        const discountRow = document.getElementById("preview-discount-row");
+        if (discountRow) discountRow.hidden = !product.code || product.discount <= 0;
+        const totalLabel = dialog.querySelector(".preview-total dt");
+        if (totalLabel) totalLabel.textContent = product.code && product.discount > 0 ? "Total with code" : "Total";
+      }
+      if (!dialog.open) dialog.showModal();
+    }, { capture: true });
+
+    dialog.addEventListener("click", (event) => {
+      if (event.target !== dialog) return;
+      const bounds = dialog.getBoundingClientRect();
+      if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.close();
+    });
+    dialog.addEventListener("close", () => trigger?.focus());
+  })();
+</script>
+
+<style>
+  .preview-notice { color: #20344b; background: #edf3f8; border-bottom: 1px solid #d8e2ec; font: 12px/1.5 Inter, system-ui, sans-serif; }
+  .preview-notice-inner { max-width: 1180px; margin: auto; padding: 8px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .preview-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #3778ba; margin-right: 7px; vertical-align: middle; }
+  .preview-notice a { color: #1b568c; font-weight: 700; white-space: nowrap; text-decoration: none; }
+  .preview-notice a:hover { text-decoration: underline; }
+  .preview-no-script { margin: 0; padding: 10px 20px; color: #20344b; background: #f6f8fb; text-align: center; font: 12px/1.5 Inter, system-ui, sans-serif; }
+  .preview-dialog { box-sizing: border-box; width: min(480px, calc(100% - 32px)); max-height: calc(100dvh - 48px); padding: 36px; overflow-y: auto; border: 1px solid #dce5ee; border-radius: 20px; background: #fff; color: #102b45; box-shadow: 0 24px 90px #07152640; font: 15px/1.55 Inter, system-ui, sans-serif; }
+  .preview-dialog::backdrop { background: #071526a3; backdrop-filter: blur(4px); }
+  .preview-dialog form { margin: 0; }
+  .preview-close { position: absolute; top: 10px; right: 12px; width: 38px; height: 38px; border: 0; border-radius: 50%; background: transparent; color: #53667d; font-size: 28px; cursor: pointer; }
+  .preview-close:hover { background: #edf3f8; }
+  .preview-eyebrow { margin: 0 36px 12px 0; color: #2670b7; font-size: 10px; font-weight: 800; letter-spacing: .13em; }
+  .preview-dialog h2 { margin: 0 0 12px; font-size: 27px; line-height: 1.2; letter-spacing: -.035em; }
+  #preview-checkout-description { margin: 0; color: #53667d; }
+  .preview-summary { margin: 24px 0 14px; padding: 18px; border: 1px solid #dce5ee; border-radius: 12px; background: #f8fafc; }
+  .preview-summary div { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; padding: 5px 0; font-size: 14px; }
+  .preview-summary dd { margin: 0; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .preview-summary strong { font-weight: 600; }
+  .preview-summary .preview-total { margin-top: 10px; padding-top: 14px; border-top: 1px solid #dce5ee; font-weight: 800; }
+  .preview-total dd { font-size: 24px; }
+  .preview-amount-note { color: #64748b; font-size: 12px; margin: 0 0 24px; }
+  .preview-return { width: 100%; padding: 13px 16px; border: 0; border-radius: 9px; background: #155fc0; color: #fff; font: inherit; font-weight: 750; cursor: pointer; }
+  .preview-return:hover { background: #104d9f; }
+  .preview-dialog button:focus-visible, .preview-notice a:focus-visible { outline: 3px solid #1768d7; outline-offset: 3px; }
+  .preview-dialog [hidden] { display: none !important; }
+  @media (max-width: 480px) { .preview-notice-inner { align-items: flex-start; font-size: 10px; padding-inline: 14px; } .preview-dialog { padding: 30px 22px 24px; } .preview-dialog h2 { font-size: 24px; } }
+</style>

@@ -1,0 +1,352 @@
+---
+import { products, salePrice, licensingSale } from "../data/products";
+
+const plans = [
+  {
+    product: products.salesFastPass,
+    position: "fastpass",
+    label: "Recommended",
+    chooseIf: "Choose this for a flexible certification path and more ways to prepare.",
+    features: [
+      "Three FastPass certification exams",
+      "500+ practice questions with explanations",
+      "Workbook PDF and audio ebook review",
+    ],
+    buttonLabel: "Choose FastPass",
+  },
+  {
+    product: products.salesCourse1,
+    position: "course",
+    label: "The essentials",
+    chooseIf: "Choose this if you want the required course with a traditional final exam.",
+    features: [
+      "DBPR-approved 63-hour Course 1",
+      "Traditional course final exam",
+      "Exam Math Basics",
+    ],
+    buttonLabel: "Choose Course 1",
+  },
+  {
+    product: products.salesFastPassPost,
+    position: "post",
+    label: "Plan ahead",
+    chooseIf: "Choose this to include the education required for your first license renewal.",
+    features: [
+      "Everything in FastPass",
+      "45-hour Sales Post-Licensing course",
+      "Your first-renewal education included",
+    ],
+    buttonLabel: "Choose FastPass + Post",
+  },
+];
+---
+
+<section class="guided-packages" id="packages" aria-labelledby="guided-packages-title">
+  <div class="guided-packages-inner">
+    <header class="guided-packages-heading">
+      <p class="guided-eyebrow">YOUR NEXT STEP</p>
+      <h2 id="guided-packages-title">Choose the package that fits your plan.</h2>
+      <p class="guided-intro">Every package includes Course 1, one year of access, and direct help from Daniel.</p>
+    </header>
+
+    <div class="guided-plan-grid">
+      {plans.map(({ product, position, label, chooseIf, features, buttonLabel }) => (
+        <article
+          class:list={["guided-plan", `guided-plan-${position}`, { "guided-plan-recommended": position === "fastpass" }]}
+          aria-labelledby={`${product.id}-guided-title`}
+        >
+          <div class="guided-plan-heading">
+            <p class="guided-plan-label">{label}</p>
+            <h3 id={`${product.id}-guided-title`}>{product.shortName}</h3>
+            <p class="guided-plan-fit">{chooseIf}</p>
+          </div>
+
+          <div class="guided-plan-pricing">
+            <p class="guided-plan-price">${product.price}</p>
+            <p class="guided-plan-payment">One-time enrollment</p>
+            <p class="guided-plan-discount">
+              Save ${licensingSale.discountAmount} at checkout with <strong>{licensingSale.code}</strong>.
+              <span>Pay <strong>${salePrice(product)}</strong> with code.</span>
+            </p>
+          </div>
+
+          <ul class="guided-plan-features">
+            {features.map((feature) => (
+              <li><span class="guided-check" aria-hidden="true">✓</span><span>{feature}</span></li>
+            ))}
+          </ul>
+
+          <a
+            class="guided-plan-link"
+            href={product.checkoutUrl}
+            target="_top"
+            data-plan={product.id}
+            data-placement="guided_package"
+          >
+            {buttonLabel}<span aria-hidden="true">→</span>
+          </a>
+        </article>
+      ))}
+    </div>
+
+    <ul class="guided-shared-benefits" aria-label="Included with every package">
+      <li><span aria-hidden="true">✓</span> State-exam math included</li>
+      <li><span aria-hidden="true">✓</span> Free printed books on request</li>
+      <li><span aria-hidden="true">✓</span> Direct instructor support</li>
+    </ul>
+
+    <p class="guided-fees">
+      State application, fingerprints, and the state exam are paid separately.
+      <a href="/license-guides/how-to-get-florida-real-estate-license/#costs">Plan your licensing budget <span aria-hidden="true">→</span></a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .guided-packages {
+    padding: 88px 0 72px;
+    color: #10243b;
+    background: #f4f7fb;
+    scroll-margin-top: 120px;
+  }
+
+  .guided-packages-inner {
+    width: min(1180px, calc(100% - 48px));
+    margin-inline: auto;
+  }
+
+  .guided-packages-heading {
+    max-width: 740px;
+    margin-bottom: 36px;
+  }
+
+  .guided-eyebrow {
+    margin: 0 0 12px;
+    color: #1768d7;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+  }
+
+  .guided-packages-heading h2 {
+    margin: 0;
+    color: #10243b;
+    font-size: clamp(30px, 3.6vw, 44px);
+    font-weight: 750;
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  .guided-intro {
+    margin: 16px 0 0;
+    color: #536479;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .guided-plan-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    align-items: stretch;
+  }
+
+  .guided-plan {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 30px 28px 28px;
+    border: 1px solid #dce4ef;
+    border-radius: 12px;
+    color: #10243b;
+    background: #fff;
+  }
+
+  .guided-plan-course { grid-column: 1; grid-row: 1; }
+  .guided-plan-fastpass { grid-column: 2; grid-row: 1; }
+  .guided-plan-post { grid-column: 3; grid-row: 1; }
+
+  .guided-plan-recommended {
+    border-color: #10243b;
+    color: #fff;
+    background: #10243b;
+    box-shadow: inset 0 3px 0 #1768d7;
+  }
+
+  .guided-plan-label {
+    margin: 0 0 18px;
+    color: #536479;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .guided-plan-recommended .guided-plan-label { color: #91c1ff; }
+
+  .guided-plan h3 {
+    margin: 0;
+    color: inherit;
+    font-size: 25px;
+    font-weight: 750;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+  }
+
+  .guided-plan-fit {
+    min-height: 72px;
+    margin: 13px 0 0;
+    color: #536479;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .guided-plan-recommended .guided-plan-fit { color: #ced9e7; }
+
+  .guided-plan-pricing { margin-top: 28px; }
+
+  .guided-plan-price {
+    margin: 0;
+    color: inherit;
+    font-size: 48px;
+    font-weight: 780;
+    line-height: 1.1;
+    letter-spacing: -0.05em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .guided-plan-payment {
+    margin: 7px 0 0;
+    color: #657489;
+    font-size: 12px;
+  }
+
+  .guided-plan-recommended .guided-plan-payment { color: #bacadd; }
+
+  .guided-plan-discount {
+    margin: 18px 0 0;
+    color: #41566f;
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .guided-plan-discount strong { font-weight: 750; }
+  .guided-plan-discount > span { display: block; }
+  .guided-plan-recommended .guided-plan-discount { color: #dce8f6; }
+
+  .guided-plan-features {
+    display: grid;
+    gap: 13px;
+    margin: 26px 0 30px;
+    padding: 24px 0 0;
+    border-top: 1px solid #e2e8f1;
+    list-style: none;
+  }
+
+  .guided-plan-features li {
+    display: grid;
+    grid-template-columns: 16px minmax(0, 1fr);
+    gap: 8px;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .guided-check { color: #1768d7; font-weight: 800; }
+  .guided-plan-recommended .guided-check { color: #91c1ff; }
+  .guided-plan-recommended .guided-plan-features { border-top-color: #34485e; }
+
+  .guided-plan-link {
+    display: flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: auto;
+    padding: 13px 16px;
+    border: 1px solid #cbd8e8;
+    border-radius: 6px;
+    color: #10243b;
+    background: #fff;
+    font-size: 13px;
+    font-weight: 750;
+    line-height: 1.4;
+    text-decoration: none;
+  }
+
+  .guided-plan-link:hover { border-color: #1768d7; background: #f0f6ff; }
+
+  .guided-plan-recommended .guided-plan-link {
+    border-color: #1768d7;
+    color: #fff;
+    background: #1768d7;
+  }
+
+  .guided-plan-recommended .guided-plan-link:hover { border-color: #125abf; background: #125abf; }
+
+  .guided-plan-link:focus-visible,
+  .guided-fees a:focus-visible {
+    outline: 3px solid #1768d7;
+    outline-offset: 4px;
+  }
+
+  .guided-plan-recommended .guided-plan-link:focus-visible { outline-color: #a6ceff; }
+
+  .guided-shared-benefits {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 30px;
+    margin: 30px 0 0;
+    padding: 0;
+    color: #41566f;
+    font-size: 12px;
+    list-style: none;
+  }
+
+  .guided-shared-benefits li { display: flex; align-items: baseline; gap: 7px; }
+  .guided-shared-benefits li > span { color: #1768d7; font-weight: 800; }
+
+  .guided-fees {
+    margin: 24px 0 0;
+    color: #536479;
+    font-size: 12px;
+    line-height: 1.7;
+    text-align: center;
+  }
+
+  .guided-fees a {
+    display: inline-block;
+    margin-left: 6px;
+    color: #1768d7;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .guided-fees a:hover { color: #104b9d; }
+
+  @media (max-width: 1000px) {
+    .guided-plan { padding: 26px 22px 22px; }
+    .guided-plan-grid { gap: 14px; }
+    .guided-plan h3 { font-size: 23px; }
+    .guided-plan-fit { min-height: 94px; }
+  }
+
+  @media (max-width: 760px) {
+    .guided-packages { padding: 60px 0 48px; scroll-margin-top: 96px; }
+    .guided-packages-inner { width: min(520px, calc(100% - 40px)); }
+    .guided-packages-heading { margin-bottom: 28px; }
+    .guided-intro { font-size: 15px; }
+    .guided-plan-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    .guided-plan { grid-column: auto; grid-row: auto; padding: 28px 26px 26px; }
+    .guided-plan h3 { font-size: 25px; }
+    .guided-plan-fit { min-height: 0; max-width: 340px; }
+    .guided-plan-pricing { margin-top: 24px; }
+    .guided-shared-benefits { justify-content: flex-start; gap: 12px; margin-top: 26px; }
+    .guided-shared-benefits li { flex-basis: 100%; }
+    .guided-fees { text-align: left; }
+    .guided-fees a { margin: 8px 0 0; }
+  }
+</style>
+

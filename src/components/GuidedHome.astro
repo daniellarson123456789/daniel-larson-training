@@ -1,0 +1,107 @@
+---
+import GuidedPackages from './GuidedPackages.astro';
+import { reviews } from '../data/reviews';
+import { licensingSale } from '../data/products';
+import '../styles/guided-home.css';
+
+const steps = [
+  { title: 'Apply & get fingerprinted', short: 'Start your Florida application.', tag: 'WITH THE STATE', heading: 'Get the paperwork moving while you learn.', text: 'Submit your sales associate application to Florida’s Department of Business and Professional Regulation (DBPR), then arrange electronic fingerprints.', bullets: ['You can apply while taking your course.', 'Use an FDLE-approved Livescan provider.', 'Application and fingerprint fees are separate from tuition.'], href: 'https://www.myfloridalicense.com/CheckListDetail.asp?SID=&XACT_DEFN_ID=744&clientCode=2501&xactCode=1010', link: 'See the DBPR application requirements' },
+  { title: 'Complete your course', short: 'This is where FastPass comes in.', tag: 'INSIDE FASTPASS', heading: 'Your required education, with a clear target.', text: 'FastPass includes the approved 63-hour Course 1 and a certification path built around three FastPass exams. Use the lessons and study tools to work through what you need to learn.', bullets: ['Start with the FastPass exams to guide your study.', 'Review with video, audio, reading, and practice questions.', 'Pass all three FastPass exams to complete your school certification.'], href: '#inside-fastpass', link: 'Explore how FastPass works' },
+  { title: 'Pass the state exam', short: 'A separate exam after certification.', tag: 'WITH PEARSON VUE', heading: 'Take your preparation to the state exam.', text: 'After DBPR approves your application, schedule the Florida sales associate state exam through Pearson VUE. You must have your valid course certificate by exam day.', bullets: ['The state exam is separate from your school exams.', 'Bring the required ID and course certificate.', 'Keep using your FastPass study tools to prepare.'], href: 'https://www.pearsonvue.com/us/en/fl/realestate.html', link: 'See state-exam information' },
+  { title: 'Activate & start your career', short: 'Join a broker. Put your license to work.', tag: 'YOUR NEXT CHAPTER', heading: 'Find your brokerage and make it official.', text: 'After passing the state exam and receiving your license number, activate your license with an employing broker before practicing real estate.', bullets: ['Choose the brokerage that fits your goals.', 'Complete license activation with your broker.', 'Plan for 45-hour post-licensing before your first renewal.'], href: '/license-guides/how-to-get-florida-real-estate-license/', link: 'Read the complete licensing guide' },
+];
+const faqs = [
+  ['Is this a live class? Can I still ask questions?', 'The course is online and self-paced, so you can study on your own schedule. You can text or email Daniel directly when you need help with a concept, your coursework, or your next licensing step.'],
+  ['What does FastPass actually do?', 'FastPass combines the required Course 1 education with three school certification exams and study tools. Start with the exams and use the full course, videos, audio, workbook, and practice questions to learn what you need. Passing the three FastPass exams completes your school certification path. The Florida state exam is separate.'],
+  ['Do I have to finish the course before applying to the state?', 'No. You can submit your DBPR application and arrange your fingerprints while you study. You will need DBPR approval and your course completion certificate before taking the state exam.'],
+  ['Does tuition cover every licensing cost?', 'Tuition covers your selected course package and one year of access. State application, fingerprinting, and state-exam fees are paid separately. Use the licensing guide to plan your full budget.'],
+  ['Are printed books available?', 'Yes. Free printed books are available on request with your enrollment. You can also use the online materials, audio, and video.'],
+  ['Which package should I choose?', 'Course 1 covers the required course with a traditional final exam. FastPass adds the three-exam certification path and preparation tools. FastPass + Post also includes the 45-hour course required before your first license renewal. Daniel can help you choose if you are unsure.'],
+];
+---
+
+<div class="guided-home">
+  <noscript><style is:global>.gh-steps{display:none!important}.gh-panels{display:block!important}.gh-step-panel[hidden]{display:flex!important}.gh-step-panel{border-bottom:1px solid #52647a}</style></noscript>
+  <a class="gh-offer" href="#packages">Save ${licensingSale.discountAmount} on licensing packages <span>Use <strong>{licensingSale.code}</strong> at checkout ↗</span></a>
+  <section class="gh-hero">
+    <div class="gh-wrap gh-hero-grid">
+      <div class="gh-hero-copy">
+        <p class="gh-eyebrow">FLORIDA SALES ASSOCIATE LICENSING</p>
+        <h1>Your Florida license.<br/>A clear path<br/><em>to get there.</em></h1>
+        <p class="gh-lead">Learn on your schedule with FastPass. Know what to do next, and get help directly from Daniel when you need it.</p>
+        <div class="gh-actions"><a class="gh-button" href="#your-path">Show me the steps <span>↓</span></a><a class="gh-text-link" data-trial="guided_hero" href="https://portal.daniellarsontraining.com/courses/starthere">Try FastPass free ↗</a></div>
+        <ul class="gh-hero-facts"><li>DBPR-approved Course 1</li><li>1 year of access</li><li>Direct instructor help</li></ul>
+      </div>
+      <div class="gh-instructor">
+        <figure class="gh-photo"><img src="/daniel-larson-teaching.webp" alt="Daniel Larson teaching at a whiteboard" width="1200" height="675" fetchpriority="high"/><figcaption><span>MEET YOUR INSTRUCTOR</span><strong>Daniel Larson</strong><p>Course author. Teacher. Your point of contact.</p></figcaption></figure>
+        <div class="gh-help-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-8 8H5l-4 3 1.8-6A8 8 0 1 1 20 11.5Z"/><path d="M6 10h8M6 14h5"/></svg><div><strong>Online learning. A real person to ask.</strong><a href="sms:+12394718500">Text Daniel: 239.471.8500 ↗</a></div></div>
+      </div>
+    </div>
+    <div class="gh-wrap gh-hero-bottom"><span>YOUR NEXT CHAPTER STARTS WITH A PLAN.</span><a href="#your-path">Here’s how it works ↓</a></div>
+  </section>
+
+  <section class="gh-section gh-wrap" id="your-path" aria-labelledby="path-heading">
+    <header class="gh-section-heading"><p class="gh-eyebrow">THE BIG PICTURE</p><h2 id="path-heading">Your Florida license,<br/>in four steps.</h2><p>You don’t have to figure it all out at once. Start your application and your course together, then take it one step at a time.</p></header>
+    <div class="gh-roadmap">
+      <div class="gh-steps" role="tablist" aria-label="Licensing steps" aria-orientation="vertical">
+        {steps.map((step, i) => <button id={`step-tab-${i}`} class="gh-step" type="button" role="tab" aria-selected={i === 0 ? 'true' : 'false'} aria-controls={`step-panel-${i}`} tabindex={i === 0 ? 0 : -1}><span class="gh-step-number">0{i + 1}</span><span><strong>{step.title}</strong><small>{step.short}</small></span><span class="gh-step-arrow" aria-hidden="true">↗</span></button>)}
+      </div>
+      <div class="gh-panels">{steps.map((step, i) => <div class="gh-step-panel" id={`step-panel-${i}`} role="tabpanel" aria-labelledby={`step-tab-${i}`} tabindex="0" hidden={i !== 0}><div class="gh-panel-top"><span>{step.tag}</span><span>0{i + 1} / 04</span></div><h3>{step.heading}</h3><p>{step.text}</p><ul>{step.bullets.map(b => <li>{b}</li>)}</ul><a href={step.href}>{step.link} <span aria-hidden="true">↗</span></a></div>)}</div>
+    </div>
+    <p class="gh-small gh-roadmap-note">FastPass completes your school certification path. DBPR approves your license application; Pearson VUE administers the separate state exam.</p>
+  </section>
+
+  <section class="gh-learning gh-section" id="inside-fastpass">
+    <div class="gh-wrap"><header class="gh-section-heading"><p class="gh-eyebrow">INSIDE FASTPASS</p><h2>A clear target.<br/>Tools for every step.</h2><p>Start with the three FastPass exams. Use the full course and study tools whenever you need them, with Daniel available for questions along the way.</p></header>
+      <div class="gh-learning-grid">
+        <article><span class="gh-big-number">01</span><h3>See what you need to know.</h3><p>Begin with the FastPass exams to guide your study. See where you’re comfortable and what needs more attention.</p></article>
+        <article><span class="gh-big-number">02</span><h3>Learn in the way that clicks.</h3><p>Watch a lesson, listen to the audio, read the material, or work through practice questions. Ask Daniel when you need help.</p></article>
+        <article><span class="gh-big-number">03</span><h3>Complete your certification.</h3><p>Pass all three FastPass exams to complete your school certification. Then use your materials to prepare for the separate state exam.</p></article>
+      </div>
+      <div class="gh-toolbox"><p>YOUR FASTPASS TOOLBOX</p><ul><li>Full Course 1</li><li>500+ practice questions</li><li>Video & audio</li><li>Workbook</li><li>Exam Math Basics</li><li>Printed books on request</li></ul></div>
+      <a class="gh-text-link" data-trial="guided_fastpass" href="https://portal.daniellarsontraining.com/courses/starthere">Take a look inside. Try FastPass free <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+
+  <section class="gh-section gh-wrap gh-support" id="ask-daniel">
+    <div class="gh-support-photo"><img src="/daniel-larson-suit.webp" alt="Daniel Larson, your course author and instructor" width="720" height="1080" loading="lazy"/><p>Daniel Larson <span>Florida real estate instructor · ZH1003217</span></p></div>
+    <div class="gh-support-copy"><p class="gh-eyebrow">STUDY ON YOUR SCHEDULE. ASK WHEN YOU NEED HELP.</p><h2>Self-paced.<br/>With someone<br/> in your corner.</h2><p>This isn’t a live class, but you still have a teacher. If a concept doesn’t click or you’re unsure about your next licensing step, text or email me directly.</p><p>I wrote the course and built FastPass. I’m here to help you work through it.</p><div class="gh-actions"><a class="gh-button" href="sms:+12394718500">Text Daniel <span>↗</span></a><a class="gh-text-link" href="mailto:daniel@daniellarsontraining.com">Send an email ↗</a></div><p class="gh-phone">239.471.8500</p><blockquote><p>“{reviews.cassidy.excerpt}”</p><cite>{reviews.cassidy.name} · <a href={reviews.cassidy.url} target="_blank" rel="noopener">Read on Trustpilot ↗</a></cite></blockquote></div>
+  </section>
+
+  <GuidedPackages />
+
+  <section class="gh-section gh-wrap gh-reviews" aria-labelledby="reviews-heading"><div class="gh-review-heading"><p class="gh-eyebrow">IN THEIR OWN WORDS</p><h2 id="reviews-heading">Real students.<br/>Different starting points.</h2><p>Selected excerpts from individual Trustpilot reviews.</p></div><div class="gh-review-grid">{[reviews.alejandro, reviews.mike, reviews.cheryl].map(review => <blockquote><span class="gh-review-stars" aria-label="5 out of 5 stars">★★★★★</span><p>“{review.excerpt}”</p><cite>{review.name}<a href={review.url} target="_blank" rel="noopener">Read full review ↗</a></cite></blockquote>)}</div></section>
+
+  <section class="gh-faq gh-section"><div class="gh-wrap gh-faq-grid"><header><p class="gh-eyebrow">A FEW THINGS YOU MAY BE WONDERING</p><h2>Let’s clear<br/>things up.</h2><p>Still have a question?<br/><a class="gh-text-link" href="sms:+12394718500">Ask Daniel directly ↗</a></p></header><div>{faqs.map(([question, answer]) => <details><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div></div></section>
+
+  <section class="gh-finish"><div class="gh-wrap"><p class="gh-eyebrow">LET’S TAKE THE FIRST STEP</p><h2>A new career starts with<br/>knowing where to begin.</h2><p>Explore FastPass, choose your package, or ask me a question.</p><div class="gh-actions"><a class="gh-button" href="#packages">Choose your package <span>↑</span></a><a class="gh-text-link" href="sms:+12394718500">Talk to Daniel ↗</a></div><small>Florida licensed real estate school · ZH1002860</small></div></section>
+</div>
+
+<script>
+  const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('.gh-step'));
+  const selectStep = (tab: HTMLButtonElement) => {
+    tabs.forEach(item => {
+      const selected = item === tab;
+      item.setAttribute('aria-selected', String(selected));
+      item.tabIndex = selected ? 0 : -1;
+      const panel = document.getElementById(item.getAttribute('aria-controls') || '');
+      if (panel) panel.hidden = !selected;
+    });
+  };
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => selectStep(tab));
+    tab.addEventListener('keydown', event => {
+      let next = index;
+      if (event.key === 'ArrowDown') next = (index + 1) % tabs.length;
+      else if (event.key === 'ArrowUp') next = (index - 1 + tabs.length) % tabs.length;
+      else if (event.key === 'Home') next = 0;
+      else if (event.key === 'End') next = tabs.length - 1;
+      else return;
+      event.preventDefault();
+      selectStep(tabs[next]);
+      tabs[next].focus();
+    });
+  });
+</script>
+
+
