@@ -11,7 +11,6 @@ import { courseOffer } from "../lib/courseOffer";
 const pagePath = "/florida-sales-associate-exam-prep/";
 const pageUrl = `${site.url}${pagePath}`;
 const fastPass = products.salesFastPass;
-const fastPassPrice = salePrice(fastPass);
 const prepOnly = products.salesExamPrep;
 const faqItems = [
   {
@@ -20,7 +19,7 @@ const faqItems = [
   },
   {
     question: "Does Sales FastPass include my Course 1 certification?",
-    answer: `Sales FastPass is $${fastPassPrice} with code ${licensingSale.code} during the 50% off sale (regularly $${fastPass.price}). It includes the required 63-hour Sales Associate Course 1, the three Sales FastPass certification exams, and exam preparation. Pass the three Sales FastPass exams to complete your Course 1 certification path. The Florida state licensing exam administered through Pearson is a separate exam, and DBPR exam eligibility still applies.`,
+    answer: `Sales FastPass is $${fastPass.price}. Use code ${licensingSale.code} for $100 off at checkout, bringing your total to $${salePrice(fastPass)}. It includes the required 63-hour Sales Associate Course 1, the three Sales FastPass certification exams, and exam preparation. Pass the three Sales FastPass exams to complete your Course 1 certification path. The Florida state licensing exam administered through Pearson is a separate exam, and DBPR exam eligibility still applies.`,
   },
   {
     question: "Can I use this if I took Course 1 with another school?",
@@ -99,8 +98,9 @@ const schema = [
           <p class="eyebrow">SALES FASTPASS · DANIEL LARSON TRAINING</p>
           <h1>Florida Sales FastPass.<br /><em>Course, certification &amp; exam prep.</em></h1>
           <p class="hero-deck">Your complete Florida sales associate licensing package: Course 1, three FastPass certification exams, and focused preparation for the separate state exam. Get sales associate practice, explanations, a workbook, math review, and direct help from the instructor who wrote the materials.</p>
+          <p>Use code <strong>{licensingSale.code}</strong> for $100 off at checkout.</p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#sales-fastpass">Explore Sales FastPass · ${fastPassPrice} with {licensingSale.code}</a>
+            <a class="button button-primary" href="#sales-fastpass">Explore Sales FastPass · ${fastPass.price}</a>
             <a class="button hero-secondary" href="#how-to-study">How Sales FastPass works ↓</a>
           </div>
         </div>
@@ -175,7 +175,7 @@ const schema = [
             <a class="button button-secondary" href={prepOnly.checkoutUrl} data-plan={prepOnly.id} data-placement="sales_prep_package" target="_top">Enroll in Sales Associate Exam Prep Only</a>
           </article>
         </div>
-        <p class="bundle-note">Planning ahead? <a href="/#packages">Sales FastPass + Post is ${salePrice(products.salesFastPassPost)} with {licensingSale.code}</a> and includes your sales associate first-renewal education. State application, fingerprinting, and state-exam fees are separate.</p>
+        <p class="bundle-note">Planning ahead? <a href="/#packages">Sales FastPass + Post is ${products.salesFastPassPost.price}</a> ($100 off at checkout with <strong>{licensingSale.code}</strong>) and includes your sales associate first-renewal education. State application, fingerprinting, and state-exam fees are separate.</p>
       </div>
     </section>
 
@@ -237,8 +237,8 @@ const schema = [
 
     <section class="final-cta">
       <div class="shell final-cta-inner">
-        <div><h2>Get ready for your Florida sales associate license.</h2><p>Course 1, FastPass certification, and exam prep—with Daniel in your corner.</p></div>
-        <div class="final-cta-actions"><a class="button button-primary" href={fastPass.checkoutUrl} data-plan={fastPass.id} data-placement="sales_prep_final" target="_top">Get Sales FastPass · ${fastPassPrice} with {licensingSale.code}</a><a class="button button-secondary" href="#sales-fastpass">See what’s included</a></div>
+        <div><h2>Get ready for your Florida sales associate license.</h2><p>Course 1, FastPass certification, and exam prep—with Daniel in your corner. Use code <strong>{licensingSale.code}</strong> for $100 off at checkout.</p></div>
+        <div class="final-cta-actions"><a class="button button-primary" href={fastPass.checkoutUrl} data-plan={fastPass.id} data-placement="sales_prep_final" target="_top">Get Sales FastPass · ${fastPass.price}</a><a class="button button-secondary" href="#sales-fastpass">See what’s included</a></div>
       </div>
     </section>
   </div>

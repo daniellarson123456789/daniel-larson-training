@@ -9,7 +9,7 @@ export type Product = {
   checkoutUrl: string;
 };
 
-export const licensingSale = { code: "fastpass50", percent: 50 } as const;
+export const licensingSale = { code: "fastpass100", discountAmount: 100 } as const;
 
 export const salePrice = (product: Product) => product.price - (product.discountAmount ?? 0);
 
@@ -20,7 +20,7 @@ export const products: Record<string, Product> = {
     shortName: "Course 1",
     price: 240,
     couponCode: licensingSale.code,
-    discountAmount: 240 * licensingSale.percent / 100,
+    discountAmount: licensingSale.discountAmount,
     category: "sales",
     checkoutUrl: `https://portal.daniellarsontraining.com/bundles/course1?coupon=${licensingSale.code}`,
   },
@@ -30,7 +30,7 @@ export const products: Record<string, Product> = {
     shortName: "FastPass",
     price: 340,
     couponCode: licensingSale.code,
-    discountAmount: 340 * licensingSale.percent / 100,
+    discountAmount: licensingSale.discountAmount,
     category: "sales",
     checkoutUrl: `https://portal.daniellarsontraining.com/bundles/fastpass1?coupon=${licensingSale.code}`,
   },
@@ -40,7 +40,7 @@ export const products: Record<string, Product> = {
     shortName: "FastPass + Post",
     price: 440,
     couponCode: licensingSale.code,
-    discountAmount: 440 * licensingSale.percent / 100,
+    discountAmount: licensingSale.discountAmount,
     category: "sales",
     checkoutUrl: `https://portal.daniellarsontraining.com/bundles/ADDPOST1?coupon=${licensingSale.code}`,
   },
@@ -50,7 +50,7 @@ export const products: Record<string, Product> = {
     shortName: "Course 2",
     price: 240,
     couponCode: licensingSale.code,
-    discountAmount: 240 * licensingSale.percent / 100,
+    discountAmount: licensingSale.discountAmount,
     category: "broker",
     checkoutUrl: `https://portal.daniellarsontraining.com/bundles/brokerexamblast?coupon=${licensingSale.code}`,
   },
@@ -60,7 +60,7 @@ export const products: Record<string, Product> = {
     shortName: "Broker FastPass",
     price: 340,
     couponCode: licensingSale.code,
-    discountAmount: 340 * licensingSale.percent / 100,
+    discountAmount: licensingSale.discountAmount,
     category: "broker",
     checkoutUrl: `https://portal.daniellarsontraining.com/bundles/brokerfastpass?coupon=${licensingSale.code}`,
   },
@@ -70,7 +70,7 @@ export const products: Record<string, Product> = {
     shortName: "Broker Career Launch",
     price: 440,
     couponCode: licensingSale.code,
-    discountAmount: 440 * licensingSale.percent / 100,
+    discountAmount: licensingSale.discountAmount,
     category: "broker",
     checkoutUrl: `https://portal.daniellarsontraining.com/bundles/broker-career-launch?coupon=${licensingSale.code}`,
   },

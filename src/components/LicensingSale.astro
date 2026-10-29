@@ -8,14 +8,14 @@ const packageLink = path === "/" || path === "/broker-licensing/"
   : `${isBroker ? "/broker-licensing/" : "/"}#packages`;
 ---
 
-<aside class="licensing-sale" aria-label="50 percent off licensing and certification sale">
+<aside class="licensing-sale" aria-label="$100 off licensing and certification at checkout">
   <div class="sale-inner">
-    <div class="sale-discount" aria-label="50 percent off">
-      <span>50<span class="sale-percent">%</span></span><strong>OFF</strong>
+    <div class="sale-discount" aria-label="$100 off">
+      <span><span class="sale-currency">$</span>{licensingSale.discountAmount}</span><strong>OFF</strong>
     </div>
     <div class="sale-message">
-      <span class="sale-eyebrow">LICENSING + CERTIFICATION SALE</span>
-      <p>Your course. <strong>Half the price.</strong></p>
+      <span class="sale-eyebrow">LICENSING + CERTIFICATION</span>
+      <p>Your next step. <strong>Save $100 at checkout.</strong></p>
       <span class="sale-scope">All six sales &amp; broker licensing packages.</span>
     </div>
     <div class="sale-actions">
@@ -23,7 +23,7 @@ const packageLink = path === "/" || path === "/broker-licensing/"
         <span>Use code</span><strong>{licensingSale.code}</strong>
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M15 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h3" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
       </button>
-      <a href={packageLink}>Shop the sale <span aria-hidden="true">→</span></a>
+      <a href={packageLink}>See packages <span aria-hidden="true">→</span></a>
       <span class="sale-copy-status" role="status" aria-live="polite"></span>
     </div>
   </div>
@@ -49,7 +49,7 @@ const packageLink = path === "/" || path === "/broker-licensing/"
   .sale-inner { width: min(1180px, calc(100% - 40px)); margin: auto; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 30px; padding: 23px 0; }
   .sale-discount { display: flex; align-items: center; gap: 10px; padding-right: 30px; border-right: 1px solid #ffffff50; white-space: nowrap; }
   .sale-discount > span { font-size: clamp(54px, 6vw, 76px); font-weight: 950; line-height: .95; letter-spacing: -.065em; text-shadow: 0 4px 24px #001b4d55; }
-  .sale-percent { font-size: .55em; vertical-align: top; line-height: 1.3; letter-spacing: -.035em; }
+  .sale-currency { font-size: .55em; vertical-align: top; line-height: 1.3; letter-spacing: -.035em; }
   .sale-discount > strong { font-size: 20px; writing-mode: vertical-rl; transform: rotate(180deg); letter-spacing: .12em; }
   .sale-eyebrow { font-size: 10px; font-weight: 850; letter-spacing: .14em; color: #d9ecff; }
   .sale-message p { font-size: clamp(21px, 2.1vw, 29px); line-height: 1.15; margin: 5px 0 6px; letter-spacing: -.025em; }
