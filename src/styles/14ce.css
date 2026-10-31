@@ -106,11 +106,25 @@
 }
 
 .ce-price{
+  display:flex;
+  align-items:baseline;
+  flex-wrap:wrap;
+  gap:22px;
   font-size:clamp(3.65rem,5vw,5rem);
   font-weight:950;
   letter-spacing:-.06em;
   line-height:1;
 }
+
+.ce-price-was{color:#c7d8ed;font-size:.6em}
+.ce-price-now{color:#fff}
+.ce-price .original-price{position:relative;display:inline-block;white-space:nowrap}
+.ce-price .price-brush{position:absolute;left:-9%;top:52%;width:118%;height:.8em;overflow:visible;transform:translateY(-50%);pointer-events:none}
+.ce-price .price-brush-wash{fill:#89d8ff;opacity:.28}
+.ce-price .price-brush-stroke{fill:#4cbeff;opacity:1}
+.ce-coupon-note{margin:12px 0 0;color:#9bc9ff;font-size:.9rem;line-height:1.5}
+.ce-coupon-note strong{color:#d6ebff;letter-spacing:.025em}
+.ce-price-compact{font-size:3rem}
 
 .ce-buy-card h2{
   margin:18px 0 0;
@@ -301,3 +315,4 @@
   .ce-tool-grid article,
   .ce-curriculum-grid article{transform:none !important;transition:none !important}
 }
+

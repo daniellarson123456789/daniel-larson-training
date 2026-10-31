@@ -10,10 +10,11 @@ export function courseOffer(product: Product, name = product.name) {
     name,
     price,
     ...(product.couponCode ? {
-      description: `Pay $${price} with ${product.couponCode}; regular price $${product.price}. One-time enrollment. The product link includes the code; confirm the discounted total at checkout. State application, fingerprinting, and state-exam fees are separate.`,
+      description: `Pay $${price} with ${product.couponCode}; regular price $${product.price}. One-time enrollment. The product link includes the code; confirm the discounted total at checkout. ${product.category === "ce" ? "Includes the full 14-hour CE course, FastPass final exam, and DBPR completion reporting. State license renewal fees are separate." : "State application, fingerprinting, and state-exam fees are separate."}`,
     } : {}),
     priceCurrency: "USD",
     url: product.checkoutUrl,
     seller: { "@id": `${site.url}/#organization` },
   };
 }
+

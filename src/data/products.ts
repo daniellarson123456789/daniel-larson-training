@@ -10,6 +10,7 @@ export type Product = {
 };
 
 export const licensingSale = { code: "fastpass100", discountAmount: 100 } as const;
+export const ceSale = { code: "ce1314", discountAmount: 52 } as const;
 
 export const salePrice = (product: Product) => product.price - (product.discountAmount ?? 0);
 
@@ -95,8 +96,10 @@ export const products: Record<string, Product> = {
     name: "Florida 14-Hour Continuing Education",
     shortName: "14-Hour CE",
     price: 65,
+    couponCode: ceSale.code,
+    discountAmount: ceSale.discountAmount,
     category: "ce",
-    checkoutUrl: "https://portal.daniellarsontraining.com/bundles/14ce",
+    checkoutUrl: `https://portal.daniellarsontraining.com/enroll/2621207?coupon=${ceSale.code}`,
   },
   salesExamPrep: {
     id: "sales-exam-prep",
@@ -115,3 +118,4 @@ export const products: Record<string, Product> = {
     checkoutUrl: "https://portal.daniellarsontraining.com/bundles/brokeruncertifiedfastpass",
   },
 };
+
