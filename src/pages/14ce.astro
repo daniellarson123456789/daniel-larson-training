@@ -12,13 +12,14 @@ import "../styles/14ce.css";
 const ce = products.ce14;
 const offerPrice = salePrice(ce);
 const bundleUrl = ce.checkoutUrl;
-const pageTitle = `Florida 14-Hour CE $${offerPrice} with Coupon | Daniel Larson Training`;
-const pageDescription = `Florida 14-Hour CE with FastPass final exam for $${offerPrice} with code ${ce.couponCode} (regularly $${ce.price}). Self-paced course, PDFs, audio, and automated DBPR reporting included.`;
+const pageTitle = `Florida 14-Hour Real Estate CE $${offerPrice} with Coupon | Daniel Larson Training`;
+const pageDescription = `Florida 14-hour real estate continuing education with FastPass final exam for $${offerPrice} with code ${ce.couponCode} (regularly $${ce.price}). Self-paced course and DBPR reporting included.`;
 
 const schema = [
   {
     "@type": "Course",
     "@id": `${site.url}/14ce/#course`,
+    url: `${site.url}/14ce/`,
     name: "Florida 14-Hour Real Estate Continuing Education with FastPass final exam",
     description: pageDescription,
     provider: { "@id": `${site.url}/#organization` },
@@ -34,6 +35,7 @@ const schema = [
     dateModified: "2026-10-31",
     isPartOf: { "@id": `${site.url}/#website` },
     about: { "@id": `${site.url}/14ce/#course` },
+    mainEntity: { "@id": `${site.url}/14ce/#course` },
     publisher: { "@id": `${site.url}/#organization` },
     inLanguage: "en-US",
   },
@@ -53,7 +55,7 @@ const schema = [
     <section class="ce-hero">
       <div class="shell ce-hero-grid">
         <div class="ce-hero-copy">
-          <p class="ce-eyebrow">Florida 14-Hour Continuing Education</p>
+          <p class="ce-eyebrow">Florida 14-Hour Real Estate Continuing Education</p>
           <h1>Self-paced CE.<br /><span>With FastPass final exam.</span></h1>
           <p class="ce-lead">
             <strong>Already know the material? Go straight to the included FastPass final exam when you're ready to test out.</strong>
@@ -150,6 +152,38 @@ const schema = [
             <p>Planning, client service, market analysis, and pricing logic.</p>
           </article>
         </div>
+      </div>
+    </section>
+
+    <section class="ce-questions" aria-labelledby="ce-questions-heading">
+      <div class="shell">
+        <div class="ce-section-head">
+          <p class="ce-eyebrow">Before you enroll</p>
+          <h2 id="ce-questions-heading">Florida CE questions, answered.</h2>
+        </div>
+        <div class="ce-faq">
+          <details open>
+            <summary>What does the ${offerPrice} CE bundle include?</summary>
+            <p>Use code <strong>{ce.couponCode}</strong> to pay <strong>${offerPrice}</strong> for the complete 14-hour CE course with FastPass final exam, downloadable section PDFs, audio-guided lessons, review questions, and DBPR completion reporting. Regular enrollment is ${ce.price}; the coupon saves ${ce.discountAmount}. This is a one-time enrollment, and our purchase links apply the coupon automatically. State license renewal fees are separate and paid through DBPR.</p>
+          </details>
+          <details>
+            <summary>Who needs Florida 14-hour real estate CE?</summary>
+            <p>Florida sales associates and brokers generally take 14-hour continuing education for renewals after their Post-Licensing stage. The first renewal generally requires 45-hour Sales Post-Licensing or 60-hour Broker Post-Licensing instead. Check your license record for your requirements and deadline, or use our <a href="/license-guides/post-licensing-vs-ce/">Post-Licensing vs. CE guide and renewal calculator</a>.</p>
+          </details>
+          <details>
+            <summary>What are the required 14 hours?</summary>
+            <p>Florida's continuing education requirement consists of <strong>3 hours of Core Law, 3 hours of Ethics and Business Practices, and 8 hours of specialty education</strong>. See the <a href="https://www2.myfloridalicense.com/real-estate-commission/education/">official DBPR education requirements</a> for the state requirements and exemptions.</p>
+          </details>
+          <details>
+            <summary>Is the FastPass final exam included?</summary>
+            <p>Yes. The FastPass final exam is included in your CE enrollment. If you already know the material, go straight to the final when you're ready to test out. The full course remains available to read, listen to, and review at your own pace, with no page timers or forced lesson stops.</p>
+          </details>
+          <details>
+            <summary>How is my completion reported to DBPR?</summary>
+            <p>Your licensed name and license number are collected before the final exam. After you pass, Daniel Larson Training reports your completion to DBPR automatically within 1 business day, guaranteed. You still complete your separate license renewal and pay the state renewal fee through <a href="https://www.myfloridalicense.com/">MyFloridaLicense.com</a>.</p>
+          </details>
+        </div>
+        <p class="ce-faq-support">Questions before purchasing? <a href="/about/">Review our school credentials</a>, <a href="/refund-policy/">read the refund policy</a>, or <a href="tel:+12394718500">call 239.471.8500</a>.</p>
       </div>
     </section>
 

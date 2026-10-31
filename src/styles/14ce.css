@@ -169,6 +169,7 @@
 
 .ce-learn,
 .ce-curriculum,
+.ce-questions,
 .ce-finish{
   padding:clamp(72px,8vw,104px) 0;
 }
@@ -186,6 +187,7 @@
 }
 
 .ce-learn .ce-eyebrow,
+.ce-questions .ce-eyebrow,
 .ce-curriculum .ce-eyebrow{color:#1766c7}
 
 .ce-section-head{max-width:800px;margin-bottom:30px}
@@ -249,6 +251,15 @@
 }
 
 .ce-curriculum-grid h3{margin:12px 0 7px;font-size:1.27rem}
+
+.ce-questions{background:#fff}
+.ce-faq{max-width:940px;border-top:1px solid #dce7f3}
+.ce-faq details{padding:21px 0;border-bottom:1px solid #dce7f3}
+.ce-faq summary{cursor:pointer;font-size:1.1rem;font-weight:850;line-height:1.45}
+.ce-faq summary:focus-visible{outline:3px solid #287ee8;outline-offset:5px}
+.ce-faq p{margin:14px 0 0;color:var(--ce-muted);line-height:1.65}
+.ce-faq a,.ce-faq-support a{color:#145eb8;text-underline-offset:3px}
+.ce-faq-support{max-width:940px;margin:24px 0 0;color:var(--ce-muted);font-size:.9rem;line-height:1.6}
 
 .ce-finish{
   color:#fff;
