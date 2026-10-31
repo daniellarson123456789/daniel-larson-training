@@ -3,16 +3,21 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 import TrustpilotReviews from "../components/TrustpilotReviews.astro";
 import TrustpilotReviewLink from "../components/TrustpilotReviewLink.astro";
 import SalePrice from "../components/SalePrice.astro";
-import { products, salePrice, licensingSale } from "../data/products";
+import { products, salePrice } from "../data/products";
 import { courseOffer } from "../lib/courseOffer";
 import "../styles/licensing-parity.css";
+
+const pageTitle = `Florida Real Estate License Course $${salePrice(products.salesCourse1)} with Code | Daniel Larson Training`;
+const pageDescription = `Florida 63-hour pre-license course $${salePrice(products.salesCourse1)} with ${products.salesCourse1.couponCode}. FastPass $${salePrice(products.salesFastPass)} with ${products.salesFastPass.couponCode}; Full Package with Post $${salePrice(products.salesFastPassPost)} with ${products.salesFastPassPost.couponCode}. One-year access.`;
+const pricingAnswer = `Course 1 is $${salePrice(products.salesCourse1)} with ${products.salesCourse1.couponCode}, saving $${products.salesCourse1.discountAmount} from the regular $${products.salesCourse1.price}. FastPass is $${salePrice(products.salesFastPass)} with ${products.salesFastPass.couponCode}, saving $${products.salesFastPass.discountAmount} from $${products.salesFastPass.price}. The Full Package, FastPass + Post, is $${salePrice(products.salesFastPassPost)} with ${products.salesFastPassPost.couponCode}, saving $${products.salesFastPassPost.discountAmount} from $${products.salesFastPassPost.price}. Enrollment links include the matching coupon. Each price is a one-time enrollment payment; state application, fingerprinting, and state-exam fees are separate.`;
+const booksAnswer = "No. All course content is included online. FastPass and the Full Package, FastPass + Post, also include the FastPass Workbook to read online or download as a PDF. Printed books included on request with the Full Package. Full Package students can text or email Daniel their shipping address; books and shipping are included.";
 
 const schema = [
   {
     "@type": "Course",
     "@id": "https://daniellarsontraining.com/#course1",
     "name": "Florida 63-Hour Sales Associate Pre-License Course (Course 1)",
-    "description": "Florida Sales Associate pre-license education with FastPass certification and exam preparation, audio/video instruction, 500+ questions and explanations, one-year access, free printed books on request, and direct instructor support.",
+    "description": `Florida 63-hour Sales Associate pre-license education from $${salePrice(products.salesCourse1)} with ${products.salesCourse1.couponCode}. FastPass adds course certification and exam preparation, audio/video instruction, and 500+ questions and explanations. All packages include one-year access and direct instructor support. Printed books included on request with the Full Package, FastPass + Post.`,
     "provider": {
       "@id": "https://daniellarsontraining.com/#organization"
     },
@@ -27,8 +32,8 @@ const schema = [
     "@type": "WebPage",
     "@id": "https://daniellarsontraining.com/#webpage",
     "url": "https://daniellarsontraining.com/",
-    "name": "Florida Real Estate License Course & FastPass | Daniel Larson Training",
-    "description": `Florida Sales FastPass combines Course 1, three certification exams, 500+ practice questions, a workbook, and direct support from course author Daniel Larson. $${products.salesFastPass.price}; save $100 at checkout with code ${licensingSale.code}. One year of access.`,
+    "name": pageTitle,
+    "description": pageDescription,
     "isPartOf": {
       "@id": "https://daniellarsontraining.com/#website"
     },
@@ -39,13 +44,29 @@ const schema = [
       "@id": "https://daniellarsontraining.com/#organization"
     },
     "inLanguage": "en-US"
+  },
+  {
+    "@type": "FAQPage",
+    "@id": "https://daniellarsontraining.com/#faq",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How much do the sales licensing packages cost?",
+        "acceptedAnswer": { "@type": "Answer", "text": pricingAnswer }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need printed course books?",
+        "acceptedAnswer": { "@type": "Answer", "text": booksAnswer }
+      }
+    ]
   }
 ];
 ---
 
 <SiteLayout
-  title="Florida Real Estate License Course & FastPass | Daniel Larson Training"
-  description={`Florida Sales FastPass combines Course 1, three certification exams, 500+ practice questions, a workbook, and direct support from course author Daniel Larson. $${products.salesFastPass.price}; save $100 at checkout with code ${licensingSale.code}. One year of access.`}
+  title={pageTitle}
+  description={pageDescription}
   shareTitle="Sales Licensing"
   ogImage="/share-license-expanded-v2.png"
   canonicalPath="/"
@@ -100,7 +121,6 @@ const schema = [
 <li>Traditional course final exam</li>
 <li>State exam math — Exam Math Basics</li>
 <li>One year of access</li>
-<li>Free printed books available on request</li>
 <li>Direct support from Daniel</li>
 </ul>
 <a class="btn btn-primary" data-placement="package_card" data-plan={products.salesCourse1.id} href={products.salesCourse1.checkoutUrl} target="_top">Enroll in Course 1</a>
@@ -123,9 +143,9 @@ const schema = [
 <a class="btn btn-primary" data-placement="package_card" data-plan={products.salesFastPass.id} href={products.salesFastPass.checkoutUrl} target="_top">Enroll in FastPass</a>
 </article>
 <article class="package">
-<span class="badge">Best Value</span>
-<h3>FastPass + Post</h3>
-<div class="subplan">Everything in FastPass + your required Sales Post-Licensing course</div>
+<span class="badge">Full Package · Best Value</span>
+<h3>Full Package</h3>
+<div class="subplan">Sales FastPass + your required 45-hour Sales Post-Licensing course</div>
 <SalePrice product={products.salesFastPassPost} />
 <ul>
 <li>Everything in FastPass</li>
@@ -133,7 +153,7 @@ const schema = [
 <li>Bundle your next required education step now</li>
 <li>FastPass Workbook — online + PDF</li>
 <li>One year of access</li>
-<li>Free printed books available on request</li>
+<li>Printed books included on request with the Full Package.</li>
 <li>Direct support from Daniel</li>
 </ul>
 <a class="btn btn-primary" data-placement="package_card" data-plan={products.salesFastPassPost.id} href={products.salesFastPassPost.checkoutUrl} target="_top">Enroll in FastPass + Post</a>
@@ -181,8 +201,8 @@ const schema = [
 <section class="books" data-motion-section="books">
 <div class="wrap">
 <div class="bookcard">
-<div><h2>Want course books? Easy — just ask.</h2><p>FastPass and FastPass + Post include the FastPass Workbook to read online or download as a PDF. Prefer a printed copy? Just ask. Printed course books and shipping are also free.</p></div>
-<div class="bookaside"><b>Free printed course books</b><span>Text or email your name, shipping address, and course. There is no charge for the books or shipping.</span></div>
+<div><h2>Printed books with the Full Package.</h2><p>FastPass and the Full Package, FastPass + Post, include the FastPass Workbook to read online or download as a PDF. Printed books included on request with the Full Package.</p></div>
+<div class="bookaside"><b>Full Package book requests</b><span>Text or email your name, shipping address, and course. Books and shipping are included with the Full Package.</span></div>
 <div class="credential">Written &amp; published by Daniel Larson — DBPR-approved Course 1, Course 2, Post-Licensing &amp; 14-Hour CE — plus Exam Prep and FastPass.</div>
 </div>
 </div>
@@ -206,9 +226,9 @@ const schema = [
 <thead>
 <tr>
 <th scope="col">Included</th>
-<th scope="col">Course 1<small>${products.salesCourse1.price}<br />$100 off at checkout with {licensingSale.code}</small></th>
-<th class="best-head" scope="col">FastPass<small>${products.salesFastPass.price}<br />$100 off at checkout with {licensingSale.code} · Most Popular</small></th>
-<th scope="col">FastPass + Post<small>${products.salesFastPassPost.price}<br />$100 off at checkout with {licensingSale.code} · Best Value</small></th>
+<th scope="col">Course 1<small>${salePrice(products.salesCourse1)} with {products.salesCourse1.couponCode}<br />Regular ${products.salesCourse1.price} · Save ${products.salesCourse1.discountAmount}</small></th>
+<th class="best-head" scope="col">FastPass<small>${salePrice(products.salesFastPass)} with {products.salesFastPass.couponCode}<br />Regular ${products.salesFastPass.price} · Save ${products.salesFastPass.discountAmount} · Most Popular</small></th>
+<th scope="col">FastPass + Post<small>${salePrice(products.salesFastPassPost)} with {products.salesFastPassPost.couponCode}<br />Regular ${products.salesFastPassPost.price} · Save ${products.salesFastPassPost.discountAmount} · Full Package</small></th>
 </tr>
 </thead>
 <tbody>
@@ -266,6 +286,12 @@ const schema = [
 <td class="dash best">—</td>
 <td class="yes">✓ Included</td>
 </tr>
+<tr>
+<th scope="row">Printed books on request, shipping included</th>
+<td class="dash">—</td>
+<td class="dash best">—</td>
+<td class="yes">✓ Full Package</td>
+</tr>
 </tbody>
 <tfoot>
 <tr>
@@ -303,12 +329,13 @@ const schema = [
 <h2>Florida Real Estate Licensing FAQ</h2>
 </div>
 <div class="faq-list">
-<details><summary>What is included in the FastPass package?</summary><p>FastPass is ${products.salesFastPass.price}. Use code <strong>{licensingSale.code}</strong> for $100 off at checkout, bringing your total to ${salePrice(products.salesFastPass)}. The package includes the DBPR-approved 63-hour Course 1, three FastPass certification exams, Exam Math Basics, 500+ practice questions and explanations, audio ebook review, the FastPass Workbook, one year of access, and direct support from Daniel.</p></details>
+<details><summary>How much do the sales licensing packages cost?</summary><p>{pricingAnswer}</p></details>
+<details><summary>What is included in the FastPass package?</summary><p>FastPass is ${salePrice(products.salesFastPass)} with code <strong>{products.salesFastPass.couponCode}</strong>, saving ${products.salesFastPass.discountAmount} from the regular ${products.salesFastPass.price}. The package includes the DBPR-approved 63-hour Course 1, three FastPass certification exams, Exam Math Basics, 500+ practice questions and explanations, audio ebook review, the FastPass Workbook online and as a PDF, one year of access, and direct support from Daniel.</p></details>
 <details><summary>How is FastPass different?</summary><p>FastPass uses three certification exams in place of the traditional course final exam. Test out when you’re ready, with the full Course 1, Exam Math Basics, audio ebook review, and 500+ Q&amp;A with explanations available to help you prepare. The Florida state licensing exam is separate.</p></details>
 <details><summary>Does FastPass replace the Florida state licensing exam?</summary><p>No. The Florida state licensing exam is a separate exam administered by <a href="https://www.pearsonvue.com/us/en/fl/dbpr.html" rel="noopener" target="_blank">Pearson Professional Assessments</a> (formerly Pearson VUE). FastPass is preparation and part of the course-certification path; you still take the state exam separately.</p></details>
 <details><summary>How long do I have access?</summary><p>Course bundles include one year of online access.</p></details>
 <details><summary>Can I contact the owner directly?</summary><p>Yes. You can text the owner directly at <a href="sms:+12394718500">239.471.8500</a> or email <a href="mailto:daniel@daniellarsontraining.com">daniel@daniellarsontraining.com</a> about the course, exam preparation, or your licensing steps.</p></details>
-<details><summary>Do I need printed course books?</summary><p>No. All course content is included online. FastPass and FastPass + Post also include the FastPass Workbook to read online or download as a PDF. If you prefer printed books, just request them and Daniel will ship them to you free.</p></details>
+<details><summary>Do I need printed course books?</summary><p>{booksAnswer}</p></details>
 </div>
 </div>
 </section>
@@ -369,3 +396,4 @@ document.addEventListener('click', function(e){
   });
 </script>
 </SiteLayout>
+

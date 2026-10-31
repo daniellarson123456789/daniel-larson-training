@@ -2,7 +2,7 @@
 import SiteLayout from "../layouts/SiteLayout.astro";
 import TrustpilotReviews from "../components/TrustpilotReviews.astro";
 import { site } from "../data/site";
-import { products } from "../data/products";
+import { products, salePrice } from "../data/products";
 import { courseOffer } from "../lib/courseOffer";
 import ExamPrepTracking from "../components/ExamPrepTracking.astro";
 
@@ -75,6 +75,7 @@ const schema = [
 <div class="eyebrow">CHOOSE THE RIGHT EXAM PREP</div>
 <h2>Choose the prep that matches your Florida licensing exam.</h2>
 <p>Add preparation while taking your licensing course or after earning your completion certificate. Choose Sales Associate or Broker to match the state exam you are preparing for.</p>
+<p>Compare the current full-course offers before enrolling: <a href="/florida-sales-associate-exam-prep/">Sales FastPass is ${salePrice(products.salesFastPass)} with {products.salesFastPass.couponCode}</a> and <a href="/florida-broker-exam-prep/">Broker FastPass is ${salePrice(products.brokerFastPass)} with {products.brokerFastPass.couponCode}</a>. Both include the required licensing course and exam preparation. Standalone prep remains ${products.salesExamPrep.price} for Sales and ${products.brokerExamPrep.price} for Broker.</p>
 </div>
 <div class="pkg-grid">
 <article class="pkg" data-hover-lift="" data-reveal="">
@@ -89,8 +90,8 @@ const schema = [
 <li>Florida-focused explanations</li>
 <li>Direct instructor support</li>
 </ul>
+<p>Current offer: <a href="/florida-sales-associate-exam-prep/">Course 1 with Sales FastPass is ${salePrice(products.salesFastPass)} with code {products.salesFastPass.couponCode}</a> and also includes exam preparation.</p>
 <a class="btn primary" data-plan={products.salesExamPrep.id} data-placement="package_card" href={products.salesExamPrep.checkoutUrl} target="_top">Enroll in Sales Exam Prep</a>
-<p><a href="/florida-sales-associate-exam-prep/">Need Course 1 and certification too? Explore the full Sales FastPass package →</a></p>
 </article>
 <article class="pkg broker" data-hover-lift="" data-reveal="">
 <span class="badge">Broker Exam Prep</span>
@@ -104,8 +105,8 @@ const schema = [
 <li>Florida broker exam focus</li>
 <li>Direct instructor support</li>
 </ul>
+<p>Current offer: <a href="/florida-broker-exam-prep/">Course 2 with Broker FastPass is ${salePrice(products.brokerFastPass)} with code {products.brokerFastPass.couponCode}</a> and also includes exam preparation.</p>
 <a class="btn primary" data-plan={products.brokerExamPrep.id} data-placement="package_card" href={products.brokerExamPrep.checkoutUrl} target="_top">Enroll in Broker Exam Prep</a>
-<p><a href="/florida-broker-exam-prep/">Need Course 2 and certification too? Explore the full Broker FastPass package →</a></p>
 </article>
 </div>
 </div>
@@ -117,7 +118,7 @@ const schema = [
 <div class="section-head" data-reveal="">
 <div class="eyebrow" style="color:#1766c7">THE FASTPASS APPROACH</div>
 <h2>Use FastPass and the study tools where you need them.</h2>
-<p>Use FastPass together with the practice questions, audio review, explanations, math help, and direct support to identify weak areas while studying or after completing your licensing course. Both prep packages include the matching FastPass Workbook to read online or download as a PDF. Prefer a printed copy? Request one free.</p>
+<p>Use FastPass together with the practice questions, audio review, explanations, math help, and direct support to identify weak areas while studying or after completing your licensing course. Both prep packages include the matching FastPass Workbook to read online or download as a PDF. Printed books with shipping on request are included only with the full licensing FastPass + Post packages: <a href={products.salesFastPassPost.checkoutUrl} target="_top">Sales ${salePrice(products.salesFastPassPost)} with {products.salesFastPassPost.couponCode}</a> or <a href={products.brokerCareerLaunch.checkoutUrl} target="_top">Broker ${salePrice(products.brokerCareerLaunch)} with {products.brokerCareerLaunch.couponCode}</a>. Existing students keep the printed-book benefits included with their purchase.</p>
 </div>
 <div class="steps">
 <div class="step" data-reveal=""><strong>01</strong><div><h4>Start with the practice.</h4><p>Work through exam-style questions and see where the weak areas actually are.</p></div></div>
@@ -154,8 +155,8 @@ const schema = [
 <div class="note-choice">
 <div class="note-card" data-reveal=""><div class="tag">Use a licensing package instead if...</div><h3>You want to complete your licensing education with us.</h3><p>Our Sales FastPass and Broker FastPass packages combine required pre-license education, the DLT certification path, and exam preparation. You must complete our certification requirements; prior coursework does not automatically transfer.</p></div>
 <div class="note-actions">
-  <a class="note-btn" data-plan={products.salesFastPass.id} data-placement="licensing_alternative" href={products.salesFastPass.checkoutUrl} target="_top">Sales FastPass</a>
-  <a class="note-btn" data-plan={products.brokerFastPass.id} data-placement="licensing_alternative" href={products.brokerFastPass.checkoutUrl} target="_top">Broker FastPass</a>
+  <a class="note-btn" data-plan={products.salesFastPass.id} data-placement="licensing_alternative" href={products.salesFastPass.checkoutUrl} target="_top">Sales FastPass · ${salePrice(products.salesFastPass)} with {products.salesFastPass.couponCode}</a>
+  <a class="note-btn" data-plan={products.brokerFastPass.id} data-placement="licensing_alternative" href={products.brokerFastPass.checkoutUrl} target="_top">Broker FastPass · ${salePrice(products.brokerFastPass)} with {products.brokerFastPass.couponCode}</a>
 </div>
 </div>
 </div>
@@ -379,3 +380,4 @@ const schema = [
 }
 
 </style>
+

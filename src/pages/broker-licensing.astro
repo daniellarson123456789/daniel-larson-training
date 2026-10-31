@@ -3,16 +3,19 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 import TrustpilotReviews from "../components/TrustpilotReviews.astro";
 import TrustpilotReviewLink from "../components/TrustpilotReviewLink.astro";
 import SalePrice from "../components/SalePrice.astro";
-import { products, salePrice, licensingSale } from "../data/products";
+import { products, salePrice } from "../data/products";
 import { courseOffer } from "../lib/courseOffer";
 import "../styles/licensing-parity.css";
+
+const pageTitle = `Florida Broker License Course $${salePrice(products.brokerCourse2)} with Code | Daniel Larson Training`;
+const pageDescription = `Florida 72-hour broker course $${salePrice(products.brokerCourse2)} with ${products.brokerCourse2.couponCode}; FastPass $${salePrice(products.brokerFastPass)} with ${products.brokerFastPass.couponCode}; Full Package with 60-hour post $${salePrice(products.brokerCareerLaunch)} with ${products.brokerCareerLaunch.couponCode}. One-time tuition.`;
 
 const schema = [
   {
     "@type": "Course",
     "@id": "https://daniellarsontraining.com/broker-licensing/#course2",
     "name": "Florida 72-Hour Broker Pre-License Course (Course 2)",
-    "description": "Florida broker pre-license education with Broker FastPass certification and exam preparation, audio/video instruction, 500+ questions and explanations, one-year access, free printed books on request, and direct instructor support.",
+    "description": `${pageDescription} FastPass includes certification exams, 500+ questions and explanations, audio/video instruction, and a digital workbook. Every licensing package includes one-year access and direct instructor support. Printed books included on request with the Full Package.`,
     "provider": {
       "@id": "https://daniellarsontraining.com/#organization"
     },
@@ -20,15 +23,15 @@ const schema = [
     "offers": [
       courseOffer(products.brokerCourse2, "Broker Course 2 + Traditional Final"),
       courseOffer(products.brokerFastPass, "Broker Course 2 + FastPass"),
-      courseOffer(products.brokerCareerLaunch, "Broker FastPass + Post-Licensing"),
+      courseOffer(products.brokerCareerLaunch, "Full Package: Broker FastPass + 60-Hour Post-Licensing"),
     ]
   },
   {
     "@type": "WebPage",
     "@id": "https://daniellarsontraining.com/broker-licensing/#webpage",
     "url": "https://daniellarsontraining.com/broker-licensing/",
-    "name": "Florida Broker Course & FastPass Exam Prep | Daniel Larson Training",
-    "description": `Florida Broker FastPass combines Course 2, three certification exams, 500+ practice questions, a workbook, and direct support from course author Daniel Larson. $${products.brokerFastPass.price}; save $100 at checkout with code ${licensingSale.code}. One year of access.`,
+    "name": pageTitle,
+    "description": pageDescription,
     "isPartOf": {
       "@id": "https://daniellarsontraining.com/#website"
     },
@@ -44,9 +47,9 @@ const schema = [
 ---
 
 <SiteLayout
-  title="Florida Broker Course & FastPass Exam Prep | Daniel Larson Training"
-  description={`Florida Broker FastPass combines Course 2, three certification exams, 500+ practice questions, a workbook, and direct support from course author Daniel Larson. $${products.brokerFastPass.price}; save $100 at checkout with code ${licensingSale.code}. One year of access.`}
-  shareTitle="Broker Licensing"
+  title={pageTitle}
+  description={pageDescription}
+  shareTitle={`Florida Broker Licensing from $${salePrice(products.brokerCourse2)} with Code`}
   ogImage="/share-license-expanded-v2.png"
   canonicalPath="/broker-licensing/"
   schema={schema}
@@ -58,7 +61,7 @@ const schema = [
 <div>
 <div class="eyebrow">Florida Broker Licensing</div>
 <h1>Get your Florida real estate broker license <em>fast.</em></h1>
-<p class="hero-deck">Move toward your Florida broker license with required broker pre-license education, Broker FastPass certification and exam preparation, 500+ Q&amp;A, free printed books, and direct help from the instructor who built the system.</p>
+<p class="hero-deck">Move toward your Florida broker license with required broker pre-license education, Broker FastPass certification and exam preparation, 500+ Q&amp;A, and direct help from the instructor who built the system. Printed books included on request with the Full Package.</p>
 <p class="hero-kicker">No 72-hour video marathon. No endless PDF grind.</p>
 <div class="hero-actions">
 <a class="btn btn-primary" href="#packages">See licensing packages ↓</a>
@@ -78,7 +81,7 @@ const schema = [
 <div><b>1 year</b>online access</div>
 <div><b>DBPR approved</b>Course 2</div>
 <div><b>500+ Q&amp;A</b>plus explainers</div>
-<div><b>Free FastPass book</b>with Broker FastPass</div>
+<div><b>Printed books</b>on request with Full Package</div>
 <div class="support-trust"><b>Direct Support</b><a href="mailto:daniel@daniellarsontraining.com">daniel@daniellarsontraining.com</a></div>
 </div>
 </section>
@@ -123,19 +126,19 @@ const schema = [
 </article>
 <article class="package">
 <span class="badge">Best Value</span>
-<h3>FastPass + Post</h3>
-<div class="subplan">Everything in FastPass + your required Broker Post-Licensing course</div>
+<h3>Full Package</h3>
+<div class="subplan">Broker FastPass + your required 60-hour Broker Post-Licensing course</div>
 <SalePrice product={products.brokerCareerLaunch} />
 <ul>
 <li>Everything in Broker FastPass</li>
-<li>Broker Post-Licensing — required before first renewal</li>
+<li>60-hour Broker Post-Licensing — required before first renewal</li>
 <li>Bundle your next required education step now</li>
-<li>Free FastPass book + free printed course books</li>
+<li>Printed books included on request with the Full Package.</li>
 <li>One year of access</li>
 <li>Broker FastPass Workbook — online + PDF</li>
 <li>Direct support from Daniel</li>
 </ul>
-<a class="btn btn-primary" data-placement="package_card" data-plan={products.brokerCareerLaunch.id} href={products.brokerCareerLaunch.checkoutUrl} target="_top">Enroll in FastPass + Post</a>
+<a class="btn btn-primary" data-placement="package_card" data-plan={products.brokerCareerLaunch.id} href={products.brokerCareerLaunch.checkoutUrl} target="_top">Get the Full Package</a>
 </article>
 </div>
 </div>
@@ -177,7 +180,7 @@ const schema = [
 <div class="feature"><b>PDF study supplements</b><span>Printable reference material, checklists, and review tools.</span></div>
 <div class="feature"><b>Audio review</b><span>Review key material away from the screen.</span></div>
 <div class="feature"><b>500+ broker Q&amp;A</b><span>Practice questions with explanations and exam-focused repetition.</span></div>
-<div class="feature"><b>Broker FastPass Workbook included</b><span>Read online or download the PDF. A printed copy is free on request.</span></div>
+<div class="feature"><b>Broker FastPass Workbook included</b><span>Read online or download the PDF with FastPass. Printed books included on request with the Full Package.</span></div>
 <div class="feature"><b>State-exam focus</b><span>Preparation built around the content and testing experience you are working toward.</span></div>
 <div class="feature"><b>Ongoing support</b><span>Real help from the person who wrote the course.</span></div>
 </div>
@@ -186,8 +189,8 @@ const schema = [
 <section class="books" data-motion-section="books">
 <div class="wrap">
 <div class="bookcard">
-<div><h2>Your Broker FastPass Workbook is included.</h2><p>Broker FastPass and FastPass + Post include the workbook to read online or download as a PDF. Prefer a printed copy? Just ask. Printed course books are also available on request at no charge.</p></div>
-<div class="bookaside"><b>Free printed broker materials</b><span>Text or email your name, shipping address, and course. FastPass books are included with FastPass packages; printed course books and shipping are free.</span></div>
+<div><h2>Your Broker FastPass Workbook is included.</h2><p>Broker FastPass and the Full Package include the workbook to read online or download as a PDF. Printed books included on request with the Full Package.</p></div>
+<div class="bookaside"><b>Printed books with the Full Package</b><span>Choose Broker FastPass + Post, then text or email your name, shipping address, and course to request your printed books.</span></div>
 <div class="credential">Written &amp; published by Daniel Larson — DBPR-approved Course 1, Course 2, Post-Licensing &amp; 14-Hour CE — plus Exam Prep and FastPass.</div>
 </div>
 </div>
@@ -206,9 +209,9 @@ const schema = [
 <thead>
 <tr>
 <th scope="col">Included</th>
-<th scope="col">Course 2<small>${products.brokerCourse2.price}<br />$100 off at checkout with {licensingSale.code}</small></th>
-<th class="best-head" scope="col">FastPass<small>${products.brokerFastPass.price}<br />$100 off at checkout with {licensingSale.code} · Most Popular</small></th>
-<th scope="col">FastPass + Post<small>${products.brokerCareerLaunch.price}<br />$100 off at checkout with {licensingSale.code} · Best Value</small></th>
+<th scope="col">Course 2<small>${salePrice(products.brokerCourse2)} with {products.brokerCourse2.couponCode}<br />Regularly ${products.brokerCourse2.price} · Save ${products.brokerCourse2.discountAmount}</small></th>
+<th class="best-head" scope="col">FastPass<small>${salePrice(products.brokerFastPass)} with {products.brokerFastPass.couponCode}<br />Regularly ${products.brokerFastPass.price} · Save ${products.brokerFastPass.discountAmount}</small></th>
+<th scope="col">Full Package<small>${salePrice(products.brokerCareerLaunch)} with {products.brokerCareerLaunch.couponCode}<br />FastPass + Post · Save ${products.brokerCareerLaunch.discountAmount}</small></th>
 </tr>
 </thead>
 <tbody>
@@ -217,18 +220,18 @@ const schema = [
 <tr><th scope="row">State exam math — Exam Math Basics</th><td class="yes">✓ Included</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
 <tr><th scope="row">One-year access + direct instructor support</th><td class="yes">✓ Included</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
 <tr><th scope="row">Broker FastPass Workbook — online + PDF</th><td class="dash">—</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
-<tr><th scope="row">Printed FastPass book on request</th><td class="dash">—</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
+<tr><th scope="row">Printed books on request</th><td class="dash">—</td><td class="dash best">—</td><td class="yes">✓ Included</td></tr>
 <tr><th scope="row">Audio ebook review</th><td class="dash">—</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
 <tr><th scope="row">500+ Q&amp;A and explanations</th><td class="dash">—</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
 <tr><th scope="row">Three Broker FastPass exams</th><td class="dash">—</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
-<tr><th scope="row">Required Broker Post-Licensing course</th><td class="dash">—</td><td class="dash best">—</td><td class="yes">✓ Included</td></tr>
+<tr><th scope="row">Required 60-hour Broker Post-Licensing course</th><td class="dash">—</td><td class="dash best">—</td><td class="yes">✓ Included</td></tr>
 </tbody>
 <tfoot>
 <tr>
 <th scope="row">Enroll</th>
 <td><a class="btn btn-primary" data-plan={products.brokerCourse2.id} data-placement="comparison" href={products.brokerCourse2.checkoutUrl} target="_top">Enroll in Course 2</a></td>
 <td class="best"><a class="btn btn-primary" data-plan={products.brokerFastPass.id} data-placement="comparison" href={products.brokerFastPass.checkoutUrl} target="_top">Enroll in Broker FastPass</a></td>
-<td><a class="btn btn-primary" data-plan={products.brokerCareerLaunch.id} data-placement="comparison" href={products.brokerCareerLaunch.checkoutUrl} target="_top">Enroll in FastPass + Post</a></td>
+<td><a class="btn btn-primary" data-plan={products.brokerCareerLaunch.id} data-placement="comparison" href={products.brokerCareerLaunch.checkoutUrl} target="_top">Get the Full Package</a></td>
 </tr>
 </tfoot>
 </table>
@@ -259,11 +262,12 @@ const schema = [
 <h2>Florida Broker Licensing FAQ</h2>
 </div>
 <div class="faq-list">
-<details><summary>What is included in the Broker FastPass package?</summary><p>Broker FastPass is ${products.brokerFastPass.price}. Use code <strong>{licensingSale.code}</strong> for $100 off at checkout, bringing your total to ${salePrice(products.brokerFastPass)}. The package includes the DBPR-approved 72-hour Broker Course 2, three FastPass certification exams, Exam Math Basics, 500+ practice questions and explanations, audio ebook review, the FastPass Workbook, one year of access, and direct support from Daniel.</p></details>
+<details><summary>How much is the Florida 72-hour broker course?</summary><p>Course 2 is <strong>${salePrice(products.brokerCourse2)} with code {products.brokerCourse2.couponCode}</strong>, regularly ${products.brokerCourse2.price}. Save ${products.brokerCourse2.discountAmount} on the complete DBPR-approved 72-hour course, traditional final, and Exam Math Basics. One-time enrollment includes one year of access and direct instructor support. State application, fingerprinting, and state-exam fees are separate.</p></details>
+<details><summary>What is included in the Broker FastPass package?</summary><p>Broker FastPass is <strong>${salePrice(products.brokerFastPass)} with code {products.brokerFastPass.couponCode}</strong>, regularly ${products.brokerFastPass.price}. Save ${products.brokerFastPass.discountAmount} at checkout. The package includes the DBPR-approved 72-hour Broker Course 2, three FastPass certification exams, Exam Math Basics, 500+ practice questions and explanations, audio ebook review, the FastPass Workbook online and as a PDF, one year of access, and direct support from Daniel.</p></details>
 <details><summary>How is Broker FastPass different?</summary><p>Broker FastPass uses three certification exams in place of the traditional course final exam. Test out when you’re ready, with the full Broker Course 2, Exam Math Basics, audio ebook review, and 500+ Q&amp;A with explanations available to help you prepare. The Florida broker licensing exam is separate.</p></details>
 <details><summary>Does FastPass replace the Florida broker licensing exam?</summary><p>No. The Florida broker licensing exam is a separate exam administered through <a href="https://www.pearsonvue.com/us/en/fl/dbpr.html" rel="noopener" target="_blank">Pearson Professional Assessments</a> (formerly Pearson VUE). FastPass is preparation and part of the Course 2 certification path; you still take the state exam separately.</p></details>
-<details><summary>What is FastPass + Post?</summary><p>FastPass + Post combines Course 2, Broker FastPass, and your required Broker Post-Licensing course so your next education step is already included.</p></details>
-<details><summary>Which broker packages include the FastPass Workbook?</summary><p>Broker FastPass and FastPass + Post include the Broker FastPass Workbook to read online or download as a PDF. A printed copy is free on request. Printed course books are also available on request at no charge.</p></details>
+<details><summary>What is the Full Package with FastPass + Post?</summary><p>The Full Package is <strong>${salePrice(products.brokerCareerLaunch)} with code {products.brokerCareerLaunch.couponCode}</strong>, regularly ${products.brokerCareerLaunch.price}. Save ${products.brokerCareerLaunch.discountAmount} on Course 2, Broker FastPass, and your required 60-hour Broker Post-Licensing course. Printed books included on request with the Full Package.</p></details>
+<details><summary>Which broker packages include the FastPass Workbook?</summary><p>Broker FastPass and the Full Package include the Broker FastPass Workbook to read online or download as a PDF. Printed books included on request with the Full Package.</p></details>
 <details><summary>How long do I have access?</summary><p>Broker course bundles include one year of online access.</p></details>
 <details><summary>Can I contact the owner directly?</summary><p>Yes. You can text the owner directly at <a href="sms:+12394718500">239.471.8500</a> or email <a href="mailto:daniel@daniellarsontraining.com">daniel@daniellarsontraining.com</a> about broker licensing, exam preparation, post-licensing, or your next licensing step.</p></details>
 </div>
@@ -319,3 +323,4 @@ document.addEventListener('click', function(e){
   }
 </style>
 </SiteLayout>
+

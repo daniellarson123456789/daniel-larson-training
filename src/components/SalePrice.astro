@@ -1,18 +1,28 @@
 ---
 import { salePrice, type Product } from "../data/products";
+import OriginalPrice from "./OriginalPrice.astro";
 type Props = { product: Product; compact?: boolean };
 const { product, compact = false } = Astro.props;
 const discounted = Boolean(product.couponCode && product.discountAmount);
 ---
 
 <div class:list={["sale-price", { compact }]}>
-  <div class="sale-price-current">${product.price}</div>
+  <div class="sale-price-amounts">
+    {discounted && <span class="sale-price-original" aria-label={`Regular price $${product.price}`}><OriginalPrice amount={product.price} /></span>}
+    <div class="sale-price-current">${salePrice(product)}</div>
+  </div>
   <div class="sale-price-note">one-time enrollment</div>
-  {discounted && <div class="sale-price-code">Take ${product.discountAmount} off at checkout with <strong>{product.couponCode}</strong><br />Pay ${salePrice(product)} with code.</div>}
+  {discounted && <div class="sale-price-code">With code <strong>{product.couponCode}</strong> · Save ${product.discountAmount}<br />Coupon applied through your purchase link.</div>}
 </div>
 
 <style>
   .sale-price { margin: 20px 0 0; }
+  .sale-price-amounts { display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; }
+  .sale-price-original { color: #afc2db; font-size: 30px; font-weight: 800; }
+  .sale-price-original :global(.original-price) { position: relative; display: inline-block; white-space: nowrap; }
+  .sale-price-original :global(.price-brush) { position: absolute; left: -9%; top: 52%; width: 118%; height: .8em; transform: translateY(-50%); overflow: visible; pointer-events: none; }
+  .sale-price-original :global(.price-brush-wash) { fill: #89d8ff; opacity: .28; }
+  .sale-price-original :global(.price-brush-stroke) { fill: #4cbeff; opacity: .95; }
   .sale-price-current { color: #fff; font-size: 58px; font-weight: 950; letter-spacing: -.055em; line-height: 1.15; margin: 3px 0; }
   .sale-price-code { color: #c8e6ff; font-size: 13px; line-height: 1.5; margin-top: 10px; }
   .sale-price-code strong { font-weight: 850; letter-spacing: .02em; }
@@ -21,3 +31,4 @@ const discounted = Boolean(product.couponCode && product.discountAmount);
   .compact .sale-price-current { font-size: 46px; }
   .compact .sale-price-code { font-size: 11px; }
 </style>
+
