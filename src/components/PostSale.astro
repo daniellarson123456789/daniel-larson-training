@@ -1,0 +1,77 @@
+---
+import { products, salePrice } from "../data/products";
+const offers = [products.salesPost, products.brokerPost];
+---
+
+<aside class="post-sale" aria-label="Florida Post-Licensing coupon offers">
+  <div class="post-sale-inner">
+    <div class="post-sale-message">
+      <span>FLORIDA POST-LICENSING</span>
+      <p>Your first renewal.<br /><strong>For less.</strong></p>
+      <small>With FastPass final exam. DBPR reporting included.</small>
+    </div>
+    {offers.map((product) => (
+      <div class="post-sale-offer">
+        <a class="post-sale-price" href={product.checkoutUrl} target="_top">
+          <span>{product.shortName}</span><strong>${salePrice(product)}</strong>
+          <small>Save ${product.discountAmount} with code</small>
+        </a>
+        <button type="button" data-copy-post-code={product.couponCode} aria-label={`Copy ${product.shortName} coupon ${product.couponCode}`}>
+          <span>Use code</span><strong>{product.couponCode}</strong>
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M15 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h3" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+        </button>
+        <span class="post-sale-status" role="status" aria-live="polite"></span>
+      </div>
+    ))}
+  </div>
+</aside>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>("[data-copy-post-code]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const status = button.parentElement?.querySelector("[role='status']");
+      try {
+        await navigator.clipboard.writeText(button.dataset.copyPostCode!);
+        if (status) status.textContent = "Code copied!";
+      } catch {
+        if (status) status.textContent = `Enter ${button.dataset.copyPostCode} at checkout.`;
+      }
+    });
+  });
+</script>
+
+<style>
+  .post-sale{color:#fff;background:radial-gradient(ellipse at 30% 0%,#378bff 0%,transparent 62%),linear-gradient(110deg,#134ba3,#1154be 54%,#092d74);border-bottom:1px solid #72b5ff}
+  .post-sale-inner{width:min(1180px,calc(100% - 40px));margin:auto;display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:30px;align-items:center;padding:25px 0 30px}
+  .post-sale-message > span{font-size:10px;font-weight:850;letter-spacing:.14em;color:#d9ecff}
+  .post-sale-message p{margin:5px 0 7px;font-size:clamp(23px,2.3vw,31px);line-height:1.12;letter-spacing:-.025em}
+  .post-sale-message small{display:block;max-width:32ch;color:#e0eeff;font-size:12px;line-height:1.5}
+  .post-sale-offer{position:relative;display:grid;justify-items:center;gap:10px;padding-left:25px;border-left:1px solid #ffffff50}
+  .post-sale-price{display:grid;grid-template-columns:1fr auto;gap:0 15px;align-items:center;color:#fff;text-decoration:none}
+  .post-sale-price > span{font-size:17px;font-weight:850}
+  .post-sale-price strong{grid-column:2;grid-row:1 / 3;font-size:clamp(40px,4.7vw,60px);line-height:1;letter-spacing:-.06em}
+  .post-sale-price small{font-size:11px;color:#e0eeff}
+  .post-sale-price:hover > span{text-decoration:underline;text-underline-offset:4px}
+  .post-sale-offer button{display:inline-flex;align-items:center;gap:10px;padding:10px 15px;border:1px dashed #a6d5ff;border-radius:9px;background:#06285985;color:#fff;cursor:pointer}
+  .post-sale-offer button > span{font-size:11px;color:#d2e7ff}
+  .post-sale-offer button strong{font-size:18px;letter-spacing:.035em}
+  .post-sale-offer button:hover{background:#062859;border-color:#fff}
+  .post-sale-offer button:focus-visible,.post-sale-price:focus-visible{outline:3px solid #fff;outline-offset:5px}
+  .post-sale-status{position:absolute;top:100%;padding-top:3px;font-size:11px;color:#e3f1ff}
+  @media(max-width:900px){
+    .post-sale-inner{grid-template-columns:1fr 1fr;gap:22px}
+    .post-sale-message{grid-column:1 / -1;text-align:center}
+    .post-sale-message p br{display:none}
+    .post-sale-message p strong::before{content:' '}
+    .post-sale-message small{max-width:none}
+    .post-sale-offer{padding-left:0;border-left:0}
+  }
+  @media(max-width:420px){
+    .post-sale-inner{gap:20px 12px}
+    .post-sale-price{display:flex;flex-direction:column;gap:5px;text-align:center}
+    .post-sale-price strong{font-size:44px}
+    .post-sale-offer button{padding:8px;gap:7px}
+    .post-sale-offer button > span{display:none}
+    .post-sale-offer button strong{font-size:16px}
+  }
+</style>

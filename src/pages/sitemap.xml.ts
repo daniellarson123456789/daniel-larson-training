@@ -24,6 +24,7 @@ export function GET() {
   // Content review dates, not build dates. Update only when the page changes.
   const modified: Record<string, string> = {
     "/14ce/": "2026-10-31",
+    "/post-licensing/": "2026-10-31",
     "/": "2026-10-28",
     "/about/": "2026-10-21",
     "/refund-policy/": "2026-10-21",

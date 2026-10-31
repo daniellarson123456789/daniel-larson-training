@@ -2,28 +2,38 @@
 import SiteLayout from "../layouts/SiteLayout.astro";
 import TrustpilotReviews from "../components/TrustpilotReviews.astro";
 import TrustpilotReviewLink from "../components/TrustpilotReviewLink.astro";
+import PostSale from "../components/PostSale.astro";
+import OriginalPrice from "../components/OriginalPrice.astro";
 import { site } from "../data/site";
-import { products } from "../data/products";
+import { products, salePrice } from "../data/products";
 import { courseOffer } from "../lib/courseOffer";
 import "../styles/post-licensing.css";
 
-const salesPostUrl = "https://portal.daniellarsontraining.com/bundles/post-licensing";
-const brokerPostUrl = "https://portal.daniellarsontraining.com/bundles/broker-post-licensing";
+const sales = products.salesPost;
+const broker = products.brokerPost;
+const salesPostUrl = sales.checkoutUrl;
+const brokerPostUrl = broker.checkoutUrl;
+const pageTitle = `Florida Post-Licensing: Sales $${salePrice(sales)}, Broker $${salePrice(broker)} with Codes | Daniel Larson Training`;
+const pageDescription = `Florida 45-hour Sales Post $${salePrice(sales)} with ${sales.couponCode}; 60-hour Broker Post $${salePrice(broker)} with ${broker.couponCode}. Complete self-paced courses with FastPass final exam and DBPR reporting.`;
 
 const schema = [
   {
     "@type": "WebPage",
     "@id": `${site.url}/post-licensing/#webpage`,
     url: `${site.url}/post-licensing/`,
-    name: "Florida Real Estate Post-Licensing Courses | Daniel Larson Training",
-    description:
-      "Self-paced Florida Sales and Broker Post-Licensing with complete course materials and an included FastPass final exam when you're ready to test out.",
+    name: pageTitle,
+    description: pageDescription,
     isPartOf: { "@id": `${site.url}/#website` },
     publisher: { "@id": `${site.url}/#organization` },
+    mainEntity: [
+      { "@id": `${site.url}/post-licensing/#sales-post` },
+      { "@id": `${site.url}/post-licensing/#broker-post` },
+    ],
   },
   {
     "@type": "Course",
     "@id": `${site.url}/post-licensing/#sales-post`,
+    url: `${site.url}/post-licensing/#sales-post`,
     name: "Florida 45-Hour Sales Associate Post-Licensing",
     description:
       "Self-paced Sales Associate first-renewal Post-Licensing with section PDFs, narrated lessons, review questions, and an included FastPass final exam.",
@@ -34,6 +44,7 @@ const schema = [
   {
     "@type": "Course",
     "@id": `${site.url}/post-licensing/#broker-post`,
+    url: `${site.url}/post-licensing/#broker-post`,
     name: "Florida 60-Hour Broker Post-Licensing",
     description:
       "Self-paced Broker and Broker Associate first-renewal Post-Licensing with course material and an included FastPass final exam.",
@@ -45,21 +56,22 @@ const schema = [
 ---
 
 <SiteLayout
-  title="Florida Post-Licensing: Self-Paced + FastPass | Daniel Larson Training"
-  description="Sales and Broker Post-Licensing with a complete self-paced course and an included FastPass final. Study what you need, then test out when you're ready."
-  shareTitle="Post Licensing"
+  title={pageTitle}
+  description={pageDescription}
+  shareTitle={`Florida Post-Licensing · Sales $${salePrice(sales)} / Broker $${salePrice(broker)} with Codes`}
   ogImage="/share-renewal-expanded-v2.png"
   canonicalPath="/post-licensing/"
   schema={schema}
 >
   <div class="post-page">
+    <PostSale />
     <section class="post-hero">
       <div class="shell post-hero-grid">
         <div class="post-hero-copy">
-          <p class="post-eyebrow">Florida Post-Licensing · First Renewal</p>
-          <h1>Self-paced Post.<br /><span>FastPass when you're ready.</span></h1>
+          <p class="post-eyebrow">Florida Real Estate Post-Licensing · First Renewal</p>
+          <h1>Self-paced Post.<br /><span>With FastPass final exam.</span></h1>
           <p class="post-lead">
-            <strong>Know the material? Go straight to the included FastPass final when you're ready to test out.</strong>
+            <strong>Know the material? Go straight to the included FastPass final exam when you're ready to test out.</strong>
             Want a refresher? Read, listen, and review the complete course at your own pace.
             No page timers or forced lesson stops.
           </p>
@@ -77,7 +89,7 @@ const schema = [
           </div>
           <h2>A full course when you want it. A final when you're ready.</h2>
           <p>
-            Your enrollment includes the Post course and its FastPass final.
+            Your enrollment includes the Post course and its FastPass final exam.
             Use the materials to prepare, or test out when you feel ready.
           </p>
           <span class="post-help-rule">No waiting through a lesson clock.</span>
@@ -85,7 +97,7 @@ const schema = [
       </div>
       <div class="post-trust" aria-label="Post-Licensing highlights">
         <div><strong>Self-paced</strong><span>move through material freely</span></div>
-        <div><strong>FastPass final</strong><span>test out when ready</span></div>
+        <div><strong>FastPass final exam</strong><span>test out when ready</span></div>
         <div><strong>Sales or Broker</strong><span>choose your license path</span></div>
         <div><strong>Complete course</strong><span>PDFs, audio + review</span></div>
       </div>
@@ -96,20 +108,24 @@ const schema = [
         <header class="post-section-head" data-post-reveal>
           <p class="post-eyebrow">Choose by license type</p>
           <h2>Which Post course do you need?</h2>
-          <p>Both options include the complete course and a FastPass final you can take when you're ready.</p>
+          <p>Both options include the complete course with FastPass final exam and automated DBPR completion reporting.</p>
         </header>
         <div class="post-options-grid">
-          <article class="post-option" data-post-reveal>
+          <article class="post-option" id="sales-post" data-post-reveal>
             <div class="post-option-top">
               <div>
                 <p class="post-option-kicker">Sales Associate · First Renewal</p>
                 <h3>45-Hour Sales Post</h3>
               </div>
-              <div class="post-price">$130</div>
             </div>
+            <div class="post-price">
+              <span class="post-price-was" aria-label={`Regular price $${sales.price}`}><OriginalPrice amount={sales.price} /></span>
+              <span aria-label={`$${salePrice(sales)} with code ${sales.couponCode}`}>${salePrice(sales)}</span>
+            </div>
+            <p class="post-coupon-note">With code <strong>{sales.couponCode}</strong> · Save ${sales.discountAmount}</p>
             <p class="post-option-copy">For Florida sales associates completing first-renewal Post-Licensing.</p>
             <p class="post-fastpass">
-              <span>FastPass included</span>
+              <span>With FastPass final exam</span>
               <strong>Ready to test out? Take the final without waiting through lessons.</strong>
             </p>
             <p class="post-material-label">The course is there when you need it</p>
@@ -119,21 +135,26 @@ const schema = [
               <li>Review questions and Florida practice material</li>
             </ul>
             <a class="button button-primary post-option-button" href={salesPostUrl} target="_top">
-              View Sales Post course + FastPass →
+              Purchase Sales Post Bundle →
             </a>
+            <p class="post-checkout-note">Coupon applied automatically. One-time enrollment.</p>
           </article>
 
-          <article class="post-option" data-post-reveal>
+          <article class="post-option" id="broker-post" data-post-reveal>
             <div class="post-option-top">
               <div>
                 <p class="post-option-kicker">Broker or Broker Associate · First Renewal</p>
                 <h3>60-Hour Broker Post</h3>
               </div>
-              <div class="post-price">$160</div>
             </div>
+            <div class="post-price">
+              <span class="post-price-was" aria-label={`Regular price $${broker.price}`}><OriginalPrice amount={broker.price} /></span>
+              <span aria-label={`$${salePrice(broker)} with code ${broker.couponCode}`}>${salePrice(broker)}</span>
+            </div>
+            <p class="post-coupon-note">With code <strong>{broker.couponCode}</strong> · Save ${broker.discountAmount}</p>
             <p class="post-option-copy">For Florida brokers and broker associates completing first-renewal Post-Licensing.</p>
             <p class="post-fastpass">
-              <span>FastPass included</span>
+              <span>With FastPass final exam</span>
               <strong>Ready to test out? Take the final without waiting through lessons.</strong>
             </p>
             <p class="post-material-label">The course is there when you need it</p>
@@ -143,11 +164,12 @@ const schema = [
               <li>Review questions and brokerage practice material</li>
             </ul>
             <a class="button button-primary post-option-button" href={brokerPostUrl} target="_top">
-              View Broker Post course + FastPass →
+              Purchase Broker Post Bundle →
             </a>
+            <p class="post-checkout-note">Coupon applied automatically. One-time enrollment.</p>
           </article>
         </div>
-        <p class="post-partner-note"><strong>Have a Partner Code?</strong> Enter it at checkout after reviewing the bundle. No code? Ask your broker, office manager, recruiter, or trainer.</p>
+        <p class="post-partner-note">Course materials, FastPass final exam, and completion reporting included. State license renewal fees are separate.</p>
       </div>
     </section>
 
@@ -161,7 +183,7 @@ const schema = [
           <p>
             Each Post course includes clear, downloadable section PDFs, narrated lessons, and review questions.
             Work through the material at your own pace or go straight to a topic you want to brush up on.
-            Take the FastPass final when you're ready.
+            Take the FastPass final exam when you're ready.
           </p>
         </header>
         <div class="post-tool-grid">
@@ -184,25 +206,55 @@ const schema = [
       </div>
     </section>
 
+    <section class="post-questions" aria-labelledby="post-questions-heading">
+      <div class="shell">
+        <header class="post-section-head">
+          <p class="post-eyebrow">Before your first renewal</p>
+          <h2 id="post-questions-heading">Post-Licensing questions, answered.</h2>
+        </header>
+        <div class="post-faq">
+          <details open>
+            <summary>How much are the complete Sales and Broker Post courses?</summary>
+            <p>The complete 45-hour Sales Associate Post-Licensing course is <strong>${salePrice(sales)} with code {sales.couponCode}</strong> (regularly ${sales.price}). The complete 60-hour Broker Post-Licensing course is <strong>${salePrice(broker)} with code {broker.couponCode}</strong> (regularly ${broker.price}). Each is a one-time enrollment including course materials, FastPass final exam, and DBPR completion reporting. Purchase links apply the corresponding coupon automatically. State license renewal fees are separate.</p>
+          </details>
+          <details>
+            <summary>Do I need 45-hour Sales Post or 60-hour Broker Post?</summary>
+            <p>For the first renewal of a Florida sales associate license, choose the 45-hour Sales Post course. For the first renewal of a broker or broker associate license, choose the 60-hour Broker Post course. After that first renewal, the regular education requirement is generally <a href="/14ce/">14-hour continuing education</a>. See our <a href="/license-guides/post-licensing-vs-ce/">Post-Licensing vs. CE guide and renewal calculator</a>, or check <a href="https://www2.myfloridalicense.com/real-estate-commission/education/" target="_blank" rel="noopener noreferrer">DBPR's education requirements</a> for your situation.</p>
+          </details>
+          <details>
+            <summary>Is the FastPass final exam included?</summary>
+            <p>Yes. Both Post bundles include the complete course with FastPass final exam. Read the section PDFs, listen to narrated lessons, and work through review questions at your own pace. If you already know the material, go straight to the included final exam when you're ready to test out. There are no page timers or forced lesson stops.</p>
+          </details>
+          <details>
+            <summary>How is my completion reported to DBPR?</summary>
+            <p>Your licensed name and license number are collected before the final exam. After you pass, completion reporting to DBPR is automated and handled within 1 business day, guaranteed. You complete and pay for your separate license renewal through MyFloridaLicense.com.</p>
+          </details>
+        </div>
+        <p class="post-faq-support">Questions about the school? <a href="/about/">View our licensing and credentials</a> or <a href="sms:+12394718500">text {site.phoneDisplay}</a>.</p>
+      </div>
+    </section>
+
     <section class="post-finish">
       <div class="shell post-finish-inner">
         <div data-post-reveal>
           <p class="post-eyebrow">After you pass</p>
           <h2>Finish the course. We'll report your completion.</h2>
           <p>
-            Send your licensed name, license number, and completion date after passing
-            FastPass. We report your completed course to DBPR; you complete your separate
-            license renewal through MyFloridaLicense.com.
+            Your licensed name and license number are collected before the final exam.
+            After you pass, completion reporting to DBPR is automated and handled within
+            1 business day, guaranteed. You complete and pay for your separate license
+            renewal through MyFloridaLicense.com.
           </p>
         </div>
         <aside class="post-finish-aside" data-post-reveal>
-          <strong>Ready to see your options?</strong>
-          <p>Each button opens the existing bundle details so you can review what's included before checkout.</p>
-          <a class="button button-primary" href={salesPostUrl} target="_top">View Sales Post details →</a>
-          <a class="button button-secondary post-final-secondary" href={brokerPostUrl} target="_top">View Broker Post details →</a>
+          <strong>Ready for your first renewal?</strong>
+          <p>Sales Post ${salePrice(sales)} with {sales.couponCode}. Broker Post ${salePrice(broker)} with {broker.couponCode}. Each purchase link applies your coupon automatically.</p>
+          <a class="button button-primary" href={salesPostUrl} target="_top">Purchase Sales Post — ${salePrice(sales)} →</a>
+          <a class="button button-secondary post-final-secondary" href={brokerPostUrl} target="_top">Purchase Broker Post — ${salePrice(broker)} →</a>
           <small>Not sure which one applies? <a href="sms:+12394718500">Text Daniel · {site.phoneDisplay}</a></small>
         </aside>
       </div>
     </section>
   </div>
 </SiteLayout>
+
