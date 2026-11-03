@@ -8,7 +8,7 @@ import { courseOffer } from "../lib/courseOffer";
 import "../styles/licensing-parity.css";
 
 const pageTitle = `Florida Broker License Course $${salePrice(products.brokerCourse2)} with Code | Daniel Larson Training`;
-const pageDescription = `Florida 72-hour broker course $${salePrice(products.brokerCourse2)} with ${products.brokerCourse2.couponCode}; FastPass $${salePrice(products.brokerFastPass)} with ${products.brokerFastPass.couponCode}; Full Package with 60-hour post $${salePrice(products.brokerCareerLaunch)} with ${products.brokerCareerLaunch.couponCode}. One-time tuition.`;
+const pageDescription = `Florida 72-hour broker course $${salePrice(products.brokerCourse2)}, FastPass $${salePrice(products.brokerFastPass)}, or Full Package with 60-hour Post $${salePrice(products.brokerCareerLaunch)} with code ${products.brokerCourse2.couponCode}. Save $${products.brokerCourse2.discountAmount} on each package.`;
 
 const schema = [
   {
@@ -211,7 +211,7 @@ const schema = [
 <th scope="col">Included</th>
 <th scope="col">Course 2<small>${salePrice(products.brokerCourse2)} with {products.brokerCourse2.couponCode}<br />Regularly ${products.brokerCourse2.price} · Save ${products.brokerCourse2.discountAmount}</small></th>
 <th class="best-head" scope="col">FastPass<small>${salePrice(products.brokerFastPass)} with {products.brokerFastPass.couponCode}<br />Regularly ${products.brokerFastPass.price} · Save ${products.brokerFastPass.discountAmount}</small></th>
-<th scope="col">Full Package<small>${salePrice(products.brokerCareerLaunch)} with {products.brokerCareerLaunch.couponCode}<br />FastPass + Post · Save ${products.brokerCareerLaunch.discountAmount}</small></th>
+<th scope="col">Full Package<small>${salePrice(products.brokerCareerLaunch)} with {products.brokerCareerLaunch.couponCode}<br />Regularly ${products.brokerCareerLaunch.price} · Save ${products.brokerCareerLaunch.discountAmount} · FastPass + Post</small></th>
 </tr>
 </thead>
 <tbody>

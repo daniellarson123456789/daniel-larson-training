@@ -26,7 +26,7 @@ const faqItems = [
   },
   {
     question: "Can I use this if I took Course 2 with another school?",
-    answer: `Yes. The $${prepOnly.price} Broker Exam Prep Only option is for candidates taking or already finished with Course 2 elsewhere. It includes broker exam preparation and the Broker FastPass Workbook. It does not include Course 2 or issue a Course 2 completion certificate; your licensing school handles your course completion. The full Broker FastPass package also includes exam preparation and is currently $${salePrice(fastPass)} with ${fastPass.couponCode}, so compare both offers before enrolling.`,
+    answer: `Yes. The $${prepOnly.price} Broker Exam Prep Only option is for candidates taking or already finished with Course 2 elsewhere. It includes broker exam preparation and the Broker FastPass Workbook. It does not include Course 2 or issue a Course 2 completion certificate; your licensing school handles your course completion. If you also need the required course and DLT certification, Broker FastPass includes Course 2, the FastPass certification path, and state-exam preparation for $${salePrice(fastPass)} with code ${fastPass.couponCode}.`,
   },
   {
     question: "Which package includes printed books?",
@@ -174,7 +174,7 @@ const schema = [
               <li>Direct instructor support</li>
             </ul>
             <p class="scope-note">Exam Prep Only does not include Course 2 or issue a Course 2 completion certificate. Your licensing school remains responsible for course completion.</p>
-            <p class="scope-note">Current offer: <a href="#broker-fastpass">Broker FastPass with Course 2 is ${salePrice(fastPass)} with code {fastPass.couponCode}</a> and also includes exam preparation.</p>
+            <p class="scope-note">For Course 2 and DLT certification as well, choose <a href="#broker-fastpass">Broker FastPass at ${salePrice(fastPass)} with code {fastPass.couponCode}</a>. State-exam preparation is included.</p>
             <a class="button button-secondary" href={prepOnly.checkoutUrl} data-plan={prepOnly.id} data-placement="broker_prep_package" target="_top">Enroll in Broker Exam Prep Only</a>
           </article>
         </div>

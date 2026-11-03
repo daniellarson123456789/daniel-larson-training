@@ -75,7 +75,7 @@ const schema = [
 <div class="eyebrow">CHOOSE THE RIGHT EXAM PREP</div>
 <h2>Choose the prep that matches your Florida licensing exam.</h2>
 <p>Add preparation while taking your licensing course or after earning your completion certificate. Choose Sales Associate or Broker to match the state exam you are preparing for.</p>
-<p>Compare the current full-course offers before enrolling: <a href="/florida-sales-associate-exam-prep/">Sales FastPass is ${salePrice(products.salesFastPass)} with {products.salesFastPass.couponCode}</a> and <a href="/florida-broker-exam-prep/">Broker FastPass is ${salePrice(products.brokerFastPass)} with {products.brokerFastPass.couponCode}</a>. Both include the required licensing course and exam preparation. Standalone prep remains ${products.salesExamPrep.price} for Sales and ${products.brokerExamPrep.price} for Broker.</p>
+<p>Standalone prep is ${products.salesExamPrep.price} for Sales and ${products.brokerExamPrep.price} for Broker. If you also need the required licensing course and DLT certification, choose <a href="/florida-sales-associate-exam-prep/">Sales FastPass at ${salePrice(products.salesFastPass)} with code {products.salesFastPass.couponCode}</a> or <a href="/florida-broker-exam-prep/">Broker FastPass at ${salePrice(products.brokerFastPass)} with code {products.brokerFastPass.couponCode}</a>. Both licensing packages include state-exam preparation.</p>
 </div>
 <div class="pkg-grid">
 <article class="pkg" data-hover-lift="" data-reveal="">
@@ -90,7 +90,7 @@ const schema = [
 <li>Florida-focused explanations</li>
 <li>Direct instructor support</li>
 </ul>
-<p>Current offer: <a href="/florida-sales-associate-exam-prep/">Course 1 with Sales FastPass is ${salePrice(products.salesFastPass)} with code {products.salesFastPass.couponCode}</a> and also includes exam preparation.</p>
+<p>For Course 1 and DLT certification as well, choose <a href="/florida-sales-associate-exam-prep/">Sales FastPass at ${salePrice(products.salesFastPass)} with code {products.salesFastPass.couponCode}</a>. State-exam preparation is included.</p>
 <a class="btn primary" data-plan={products.salesExamPrep.id} data-placement="package_card" href={products.salesExamPrep.checkoutUrl} target="_top">Enroll in Sales Exam Prep</a>
 </article>
 <article class="pkg broker" data-hover-lift="" data-reveal="">
@@ -105,7 +105,7 @@ const schema = [
 <li>Florida broker exam focus</li>
 <li>Direct instructor support</li>
 </ul>
-<p>Current offer: <a href="/florida-broker-exam-prep/">Course 2 with Broker FastPass is ${salePrice(products.brokerFastPass)} with code {products.brokerFastPass.couponCode}</a> and also includes exam preparation.</p>
+<p>For Course 2 and DLT certification as well, choose <a href="/florida-broker-exam-prep/">Broker FastPass at ${salePrice(products.brokerFastPass)} with code {products.brokerFastPass.couponCode}</a>. State-exam preparation is included.</p>
 <a class="btn primary" data-plan={products.brokerExamPrep.id} data-placement="package_card" href={products.brokerExamPrep.checkoutUrl} target="_top">Enroll in Broker Exam Prep</a>
 </article>
 </div>

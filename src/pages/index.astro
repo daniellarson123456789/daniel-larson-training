@@ -8,8 +8,8 @@ import { courseOffer } from "../lib/courseOffer";
 import "../styles/licensing-parity.css";
 
 const pageTitle = `Florida Real Estate License Course $${salePrice(products.salesCourse1)} with Code | Daniel Larson Training`;
-const pageDescription = `Florida 63-hour pre-license course $${salePrice(products.salesCourse1)} with ${products.salesCourse1.couponCode}. FastPass $${salePrice(products.salesFastPass)} with ${products.salesFastPass.couponCode}; Full Package with Post $${salePrice(products.salesFastPassPost)} with ${products.salesFastPassPost.couponCode}. One-year access.`;
-const pricingAnswer = `Course 1 is $${salePrice(products.salesCourse1)} with ${products.salesCourse1.couponCode}, saving $${products.salesCourse1.discountAmount} from the regular $${products.salesCourse1.price}. FastPass is $${salePrice(products.salesFastPass)} with ${products.salesFastPass.couponCode}, saving $${products.salesFastPass.discountAmount} from $${products.salesFastPass.price}. The Full Package, FastPass + Post, is $${salePrice(products.salesFastPassPost)} with ${products.salesFastPassPost.couponCode}, saving $${products.salesFastPassPost.discountAmount} from $${products.salesFastPassPost.price}. Enrollment links include the matching coupon. Each price is a one-time enrollment payment; state application, fingerprinting, and state-exam fees are separate.`;
+const pageDescription = `Florida 63-hour pre-license course $${salePrice(products.salesCourse1)}, FastPass $${salePrice(products.salesFastPass)}, or Full Package with Post $${salePrice(products.salesFastPassPost)} with code ${products.salesCourse1.couponCode}. Save $${products.salesCourse1.discountAmount} on each package. One-year access.`;
+const pricingAnswer = `Course 1 is $${salePrice(products.salesCourse1)} with ${products.salesCourse1.couponCode}, saving $${products.salesCourse1.discountAmount} from the regular $${products.salesCourse1.price}. FastPass is $${salePrice(products.salesFastPass)} with ${products.salesFastPass.couponCode}, saving $${products.salesFastPass.discountAmount} from $${products.salesFastPass.price}. The Full Package, FastPass + Post, is $${salePrice(products.salesFastPassPost)} with ${products.salesFastPassPost.couponCode}, saving $${products.salesFastPassPost.discountAmount} from $${products.salesFastPassPost.price}. Enrollment links include the coupon. Each price is a one-time enrollment payment; state application, fingerprinting, and state-exam fees are separate.`;
 const booksAnswer = "No. All course content is included online. FastPass and the Full Package, FastPass + Post, also include the FastPass Workbook to read online or download as a PDF. Printed books included on request with the Full Package. Full Package students can text or email Daniel their shipping address; books and shipping are included.";
 
 const schema = [
@@ -67,7 +67,7 @@ const schema = [
 <SiteLayout
   title={pageTitle}
   description={pageDescription}
-  shareTitle="Sales Licensing"
+  shareTitle={`Florida Sales Licensing from $${salePrice(products.salesCourse1)} with Code`}
   ogImage="/share-license-expanded-v2.png"
   canonicalPath="/"
   schema={schema}
