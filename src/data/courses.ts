@@ -5,8 +5,8 @@ export type CourseDirectoryItem = {
 };
 
 export const salesLicensingCourses: CourseDirectoryItem[] = [
-  { label: "Sales START HERE", href: "https://portal.daniellarsontraining.com/courses/starthere", note: "Begin here · Sales licensing roadmap" },
-  { label: "Course 1", href: "https://portal.daniellarsontraining.com/courses/course1", note: "Required pre-license course" },
+  { label: "Sales Start Here", href: "https://portal.daniellarsontraining.com/courses/starthere", note: "Begin here · Sales licensing roadmap" },
+  { label: "Course 1", href: "https://portal.daniellarsontraining.com/courses/course1", note: "Pre-license course" },
   { label: "Course 1 Exam Pass", href: "https://portal.daniellarsontraining.com/courses/course1exampass", note: "Standard course-final path" },
   { label: "FastPass", href: "https://portal.daniellarsontraining.com/courses/FASTPASS", note: "FastPass certification path" },
   { label: "500 Sample Q+A", href: "https://portal.daniellarsontraining.com/courses/statelicensingexamcoursesamplequestions", note: "Practice" },
@@ -15,10 +15,10 @@ export const salesLicensingCourses: CourseDirectoryItem[] = [
 ];
 
 export const brokerLicensingCourses: CourseDirectoryItem[] = [
-  { label: "1. Start Here", href: "https://portal.daniellarsontraining.com/courses/brokerstarthere", note: "Get set up" },
+  { label: "Broker Start Here", href: "https://portal.daniellarsontraining.com/courses/brokerstarthere", note: "Get set up" },
   { label: "2. Broker Exam Prep", href: "https://portal.daniellarsontraining.com/courses/brokerexamblast", note: "Study here" },
   { label: "3. FastPass Test Certification", href: "https://portal.daniellarsontraining.com/courses/brokerfastpass", note: "Get certified to test" },
-  { label: "Broker Course 2", href: "https://portal.daniellarsontraining.com/courses/brokercourse", note: "Required broker pre-license course" },
+  { label: "Broker Course 2", href: "https://portal.daniellarsontraining.com/courses/brokercourse", note: "Broker pre-license course" },
   { label: "Broker Course 2 Exam Pass", href: "https://portal.daniellarsontraining.com/courses/brokerexampass", note: "Standard course-final path" },
   { label: "Broker FastPass Start", href: "https://portal.daniellarsontraining.com/courses/copy-of-broker-fastpass", note: "FastPass roadmap" },
   { label: "Broker 500 Sample Q+A", href: "https://portal.daniellarsontraining.com/courses/examblast", note: "Practice" },
