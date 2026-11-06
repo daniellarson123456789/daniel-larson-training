@@ -42,7 +42,7 @@ export const products: Record<string, Product> = {
     couponCode: "fastpass100",
     discountAmount: 100,
     category: "sales",
-    checkoutUrl: `https://portal.daniellarsontraining.com/enroll/2270667?coupon=fastpass100`,
+    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/ADDPOST1?coupon=fastpass100`,
   },
   brokerCourse2: {
     id: "broker-course-2",
