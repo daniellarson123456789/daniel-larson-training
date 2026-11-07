@@ -1,0 +1,378 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import { site } from "../data/site";
+import { products, salePrice } from "../data/products";
+
+// Adapted from outputs/florida-licensing-checklist-content.json, reviewed November 7, 2026.
+// Keep pricing in products.ts. Add an approved Kit form only after its real form ID,
+// consent copy and delivery flow are configured and tested; do not render a placeholder form.
+const title = "Florida Real Estate Licensing Checklist | Daniel Larson Training";
+const description = "Find your next Florida real estate licensing step. Use a printable checklist for applications, exams, course costs and first-renewal Post-Licensing.";
+const sources = [
+  { id: "sales", label: "DBPR sales associate application", url: "https://www.myfloridalicense.com/CheckListDetail.asp?SID=&XACT_DEFN_ID=744&clientCode=2501&sub_id=brochure&xactCode=1010" },
+  { id: "broker", label: "DBPR broker application", url: "https://www.myfloridalicense.com/CheckListDetail.asp?SID=&XACT_DEFN_ID=806&clientCode=2501&xactCode=1014" },
+  { id: "fingerprints", label: "DBPR fingerprint instructions", url: "https://www2.myfloridalicense.com/fingerprinting/" },
+  { id: "exam", label: "Pearson VUE exam scheduling", url: "https://www.pearsonvue.com/us/en/fl/realestate.html" },
+  { id: "booklet", label: "DBPR exam candidate booklet", url: "https://www2.myfloridalicense.com/servop/testing/documents/RE_sales_cibs.pdf" },
+  { id: "post", label: "DBPR education and Post requirements", url: "https://www2.myfloridalicense.com/real-estate-commission/education/" },
+  { id: "lookup", label: "Look up your DBPR license", url: "https://www.myfloridalicense.com/wl11.asp?SID=&mode=0" },
+  { id: "law", label: "Florida Statutes, section 475.17", url: "https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0400-0499/0475/Sections/0475.17.html" },
+  { id: "form", label: "DBPR RE 1 application and fee", url: "https://www2.myfloridalicense.com/re/documents/DBPR_RE_1_Sales_Associate_Application.pdf" },
+  { id: "activation", label: "DBPR sales license activation requirements", url: "https://www2.myfloridalicense.com/re/documents/RESLRequirements.pdf" },
+];
+const source = (id: string) => sources.find((item) => item.id === id)!;
+const stages = [
+  { number: "01", label: "Starting my sales license", note: "Eligibility, course and application", target: "sales-checklist" },
+  { number: "02", label: "Applied or approved to test", note: "Know what is still left to do", target: "exam-checklist" },
+  { number: "03", label: "New sales associate", note: "Your 45-hour Post and first renewal", target: "renewal-checklist" },
+  { number: "04", label: "Upgrading to broker", note: "Experience, Course 2 and the exam", target: "broker-checklist" },
+  { number: "05", label: "New broker or broker associate", note: "Your 60-hour Post and first renewal", target: "renewal-checklist" },
+  { number: "06", label: "Just joined a REALTOR® association", note: "Separate membership from licensing", target: "association-checklist" },
+];
+const salesSteps = [
+  { lead: "Confirm eligibility.", detail: "You must be at least 18, hold a high school diploma or equivalent and have a U.S. Social Security number. Review the remaining DBPR application requirements." },
+  { lead: "Complete your pre-license education.", detail: "Finish the approved 63-hour sales associate course and its course exam unless an applicable exemption is accepted. Keep your completion certificate." },
+  { lead: "Apply to DBPR.", detail: "Submit the application and required fee. You may apply before completing the course; required education documentation must be ready for the state exam." },
+  { lead: "Submit electronic fingerprints.", detail: "After applying, follow DBPR's instructions and use a registered Livescan provider. Keep your receipt." },
+  { lead: "Schedule and pass the state exam.", detail: "After DBPR approves you to test, book with Pearson VUE. Confirm the current fee and admission requirements." },
+  { lead: "Activate your issued license.", detail: "Arrange activation with your employing broker. Check that DBPR shows an active license before practicing." },
+];
+const examSteps = [
+  { lead: "Take stock of what is complete.", detail: "Check your course, course exam, application, fingerprints and state-exam appointment. Purchase only what you still need." },
+  { lead: "Verify your next appointment.", detail: "Exam approval is permission to test. It does not mean an appointment is booked, the exam is passed or a license has been issued." },
+  { lead: "Prepare your exam documents.", detail: "Check your certificate and the current identification and admission instructions before test day. Course completion or exam prep does not guarantee a passing score." },
+  { lead: "Plan what comes after licensing.", detail: "Check whether your enrollment already includes Post-Licensing. If the pre-license course is complete, an exam-prep-only option may fit your current need." },
+];
+const brokerSteps = [
+  { lead: "Verify your experience first.", detail: "The usual Florida sales associate route requires at least 24 active months during the preceding five years. DBPR lists other qualifying routes." },
+  { lead: "Complete the broker licensing steps.", detail: "Finish approved 72-hour broker pre-license education and its course exam unless an applicable exemption is accepted. Follow the broker application, fingerprint and state-exam requirements." },
+  { lead: "Track your new broker renewal.", detail: "Once your broker license is issued, use its own first-renewal deadline and the 60-hour broker Post requirement." },
+];
+const renewalSteps = [
+  { lead: "Find your actual deadline.", detail: "Look up your license type, original issue date, status and expiration date in DBPR. Do not estimate your deadline from your exam date or association joining date." },
+  { lead: "Choose the right Post course.", detail: "Sales associates generally need 45 hours; newly licensed brokers and broker associates generally need 60 hours before first renewal. Check applicable exemptions with DBPR, including a qualifying four-year real estate degree." },
+  { lead: "Check before buying again.", detail: "Find out whether Post is already included in your school package, purchased or completed." },
+  { lead: "Finish the course and renew separately.", detail: "Complete required Post and its course exam before your deadline. Keep the certificate, then complete the separate DBPR renewal and fee payment. Standard 14-hour CE does not replace required first-renewal Post." },
+];
+const packages = [
+  { name: "The course", description: "Pre-license course enrollment for your license path.", sales: products.salesCourse1, broker: products.brokerCourse2 },
+  { name: "FastPass", description: "Pre-license education with FastPass certification and exam preparation.", sales: products.salesFastPass, broker: products.brokerFastPass },
+  { name: "FastPass + Post", description: "Your FastPass package plus the matching first-renewal Post course.", sales: products.salesFastPassPost, broker: products.brokerCareerLaunch },
+];
+const schema = {
+  "@type": "WebPage",
+  "@id": `${site.url}/licensing-checklist/#webpage`,
+  url: `${site.url}/licensing-checklist/`,
+  name: title,
+  description,
+  datePublished: "2026-11-07",
+  dateModified: "2026-11-07",
+  isPartOf: { "@id": `${site.url}/#website` },
+  publisher: { "@id": `${site.url}/#organization` },
+};
+---
+
+<SiteLayout title={title} description={description} canonicalPath="/licensing-checklist/" schema={schema}>
+  <div class="licensing-checklist">
+    <section class="checklist-hero">
+      <div class="shell hero-grid">
+        <div>
+          <p class="eyebrow">Your Florida real estate roadmap</p>
+          <h1>Your next step.<br /><span>Written down.</span></h1>
+          <p class="hero-description">A practical licensing checklist—from your first course to your first renewal. Find your stage, check off what is done, and see which costs to plan for.</p>
+          <div class="hero-actions">
+            <a class="checklist-button primary" href="#your-stage">Find my next step <span aria-hidden="true">↓</span></a>
+            <button class="checklist-button light print-action" type="button" hidden>Print / save as PDF</button>
+          </div>
+          <p class="hero-footnote">Use the checklist below. Print a copy to keep your plan handy.</p>
+        </div>
+        <aside class="roadmap" aria-label="The licensing milestones">
+          <p class="roadmap-label">Different milestones. One clear plan.</p>
+          <ol>
+            <li><span>1</span><div><strong>Learn &amp; apply</strong><small>Course, DBPR application, fingerprints</small></div></li>
+            <li><span>2</span><div><strong>Test &amp; get licensed</strong><small>Approval, exam, issuance, activation</small></div></li>
+            <li><span>3</span><div><strong>Complete your first renewal</strong><small>The right Post course and your DBPR deadline</small></div></li>
+          </ol>
+          <p>School enrollment, exam approval and an active license are separate steps.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="stage-section shell" id="your-stage" aria-labelledby="stage-heading">
+      <header class="section-heading">
+        <p class="eyebrow">Start where you are</p>
+        <h2 id="stage-heading">Which stage fits you today?</h2>
+        <p>Jump to your checklist. The cost guide and course options are below.</p>
+      </header>
+      <nav class="stage-grid" aria-label="Choose your licensing stage">
+        {stages.map((stage) => (
+          <a class="stage-card" href={`#${stage.target}`}>
+            <span class="stage-number">{stage.number}</span>
+            <span><strong>{stage.label}</strong><small>{stage.note}</small></span>
+            <span class="stage-arrow" aria-hidden="true">↗</span>
+          </a>
+        ))}
+      </nav>
+    </section>
+
+    <div class="shell resource-grid">
+      <div class="checklist-sections">
+        <section class="step-section" id="sales-checklist" aria-labelledby="sales-heading">
+          <header class="step-heading"><span class="step-number">01</span><div><p class="eyebrow">Your first license</p><h2 id="sales-heading">Sales associate checklist</h2></div></header>
+          <ul class="task-list">
+            {salesSteps.map((step, index) => <li><label><input type="checkbox" id={`sales-step-${index}`} /><span><strong>{step.lead}</strong> {step.detail}</span></label></li>)}
+          </ul>
+          <p class="source-note">Check the details: <a href={source("sales").url}>DBPR application</a>, <a href={source("fingerprints").url}>fingerprints</a> and <a href={source("activation").url}>license activation</a>.</p>
+        </section>
+
+        <section class="step-section" id="exam-checklist" aria-labelledby="exam-heading">
+          <header class="step-heading"><span class="step-number">02</span><div><p class="eyebrow">Already enrolled or applied</p><h2 id="exam-heading">Ready for the state exam?</h2></div></header>
+          <ul class="task-list">
+            {examSteps.map((step, index) => <li><label><input type="checkbox" id={`exam-step-${index}`} /><span><strong>{step.lead}</strong> {step.detail}</span></label></li>)}
+          </ul>
+          <p class="source-note"><a href={source("exam").url}>Schedule with Pearson VUE</a> · <a href={source("booklet").url}>Read the candidate booklet</a> · <a href="/exam-prep/">View exam-prep-only options</a></p>
+        </section>
+
+        <section class="step-section renewal-section" id="renewal-checklist" aria-labelledby="renewal-heading">
+          <header class="step-heading"><span class="step-number">03</span><div><p class="eyebrow">Newly licensed</p><h2 id="renewal-heading">Make your first renewal a plan</h2></div></header>
+          <div class="hours-strip"><div><strong>45 hours</strong><span>Sales associate Post</span></div><div><strong>60 hours</strong><span>Broker / broker associate Post</span></div></div>
+          <ul class="task-list">
+            {renewalSteps.map((step, index) => <li><label><input type="checkbox" id={`renewal-step-${index}`} /><span><strong>{step.lead}</strong> {step.detail}</span></label></li>)}
+          </ul>
+          <div class="renewal-note"><strong>Your deadline belongs to your license.</strong><p>Use the expiration date in your DBPR record. Joining a brokerage or REALTOR® association does not set your license-renewal date.</p><a href={source("lookup").url}>Look up my license <span aria-hidden="true">↗</span></a></div>
+          <div class="print-fields" aria-label="Space for notes on your printed checklist"><p>My license type: <span></span></p><p>My DBPR expiration date: <span></span></p><p>My Post completion target: <span></span></p></div>
+          <p class="source-note"><a href={source("post").url}>DBPR education requirements and exemptions</a> · <a href="https://flrealestatelicenseguide.com/post-licensing/">Understand Post vs. CE</a></p>
+        </section>
+
+        <section class="step-section" id="broker-checklist" aria-labelledby="broker-heading">
+          <header class="step-heading"><span class="step-number">04</span><div><p class="eyebrow">Your next license</p><h2 id="broker-heading">Upgrading to broker</h2></div></header>
+          <ul class="task-list">
+            {brokerSteps.map((step, index) => <li><label><input type="checkbox" id={`broker-step-${index}`} /><span><strong>{step.lead}</strong> {step.detail}</span></label></li>)}
+          </ul>
+          <p class="source-note"><a href={source("broker").url}>Review DBPR's broker application requirements</a> · <a href="/broker-licensing/">Compare broker course packages</a></p>
+        </section>
+
+        <section class="association-note" id="association-checklist" aria-labelledby="association-heading">
+          <p class="eyebrow">New association member?</p>
+          <h2 id="association-heading">Match your course to your license.</h2>
+          <p>A new membership can mean a first-time agent, an experienced agent or a transfer. Check your DBPR license stage before choosing Post.</p>
+          <p>Ask your association about its orientation, ethics, fair-housing and MLS requirements and fees. Those are separate from DBPR's licensing and Post requirements.</p>
+          <p class="source-note">For example: <a href="https://www.myrasm.com/new-member-requirements/">RASM's new-member requirements</a>.</p>
+        </section>
+      </div>
+
+      <aside class="resource-sidebar" aria-label="Checklist tools and help">
+        <div class="sidebar-card">
+          <p class="eyebrow">Keep it simple</p><h2>One step at a time.</h2>
+          <p>Check the items that apply to you. Save a printed copy with your course certificate and DBPR information.</p>
+          <button class="checklist-button primary print-action" type="button" hidden>Print / save as PDF</button>
+          <noscript><p>Use your browser's Print option to print this checklist or save it as a PDF.</p></noscript>
+          <div class="sidebar-links"><a href="#costs">Plan the separate costs <span aria-hidden="true">↓</span></a><a href="#course-options">Compare school packages <span aria-hidden="true">↓</span></a><a href="#official-sources">Open the official sources <span aria-hidden="true">↓</span></a></div>
+        </div>
+        <div class="help-card"><p class="eyebrow">Help choosing a course</p><h2>Talk to Daniel.</h2><p>Tell me what you have completed and what comes next.</p><a href={`sms:${site.phoneHref.slice(4)}`}>Text {site.phoneDisplay} <span aria-hidden="true">↗</span></a><a href="/about/">Meet your instructor</a></div>
+      </aside>
+    </div>
+
+    <section class="cost-section" id="costs" aria-labelledby="cost-heading">
+      <div class="shell">
+        <header class="section-heading"><p class="eyebrow">Before you budget</p><h2 id="cost-heading">Tuition is one part of the cost.</h2><p>Get the current amount for each step that applies to you. School tuition does not cover state application, fingerprinting, state-exam or renewal fees.</p></header>
+        <div class="cost-table-wrap"><table class="cost-table"><thead><tr><th scope="col">Cost</th><th scope="col">What to plan for</th></tr></thead><tbody>
+          <tr><th scope="row">School tuition</th><td><strong>Course ${salePrice(products.salesCourse1)} · FastPass ${salePrice(products.salesFastPass)} · FastPass + Post ${salePrice(products.salesFastPassPost)}</strong><span>Current sales package prices with {products.salesCourse1.couponCode}. <a href="#course-options">See sales and broker choices below.</a></span></td></tr>
+          <tr><th scope="row">DBPR application</th><td><strong>$62.75 on the linked sales associate RE 1 form</strong><span>Confirm the current fee in your application. Broker applicants should check RE 2; application routes and approved fee benefits can differ. <a href={source("form").url}>View RE 1.</a></span></td></tr>
+          <tr><th scope="row">Electronic fingerprints</th><td><strong>Get a current provider quote</strong><span>Use the provider and submission instructions specified by <a href={source("fingerprints").url}>DBPR</a>.</span></td></tr>
+          <tr><th scope="row">State exam</th><td><strong>Confirm the fee when booking with Pearson VUE</strong><span>Plan for another fee if a retake is needed. Review the current cancellation and rescheduling rules.</span></td></tr>
+          <tr><th scope="row">First-renewal Post</th><td><strong>Sales ${salePrice(products.salesPost)} · Broker ${salePrice(products.brokerPost)} with {products.salesPost.couponCode}</strong><span>Buy separately only if needed. Post is included in the matching FastPass + Post package.</span></td></tr>
+          <tr><th scope="row">License renewal</th><td><strong>Check your DBPR account or renewal notice</strong><span>Completing your course does not pay your state renewal fee.</span></td></tr>
+          <tr><th scope="row">Starting your business</th><td><strong>Ask for itemized brokerage, association and MLS costs</strong><span>Find out what is required, optional, recurring and payable before you begin.</span></td></tr>
+        </tbody></table></div>
+      </div>
+    </section>
+
+    <section class="course-section shell" id="course-options" aria-labelledby="course-heading">
+      <header class="section-heading"><p class="eyebrow">Daniel Larson Training</p><h2 id="course-heading">Choose what you still need.</h2><p>Compare the included courses and terms before enrolling. Every link below includes its stated coupon; confirm the discounted total at checkout.</p></header>
+      <div class="package-grid">
+        {packages.map((plan) => <article class="package-card"><h3>{plan.name}</h3><p>{plan.description}</p><div class="package-choice"><span>Sales</span><strong>${salePrice(plan.sales)}</strong><a href={plan.sales.checkoutUrl}>Choose sales <span aria-hidden="true">→</span></a></div><div class="package-choice"><span>Broker</span><strong>${salePrice(plan.broker)}</strong><a href={plan.broker.checkoutUrl}>Choose broker <span aria-hidden="true">→</span></a></div><small>With {plan.sales.couponCode}</small></article>)}
+      </div>
+      <p class="compare-links"><a href="/">What's in the sales packages?</a><a href="/broker-licensing/">What's in the broker packages?</a></p>
+      <div class="post-options"><div><p class="eyebrow">Already licensed?</p><h3>Post on its own.</h3><p>Check your first-renewal requirement and whether you already have Post before buying.</p></div><a href={products.salesPost.checkoutUrl}><span>45-hour Sales Post</span><strong>${salePrice(products.salesPost)}</strong><small>with {products.salesPost.couponCode} <span aria-hidden="true">→</span></small></a><a href={products.brokerPost.checkoutUrl}><span>60-hour Broker Post</span><strong>${salePrice(products.brokerPost)}</strong><small>with {products.brokerPost.couponCode} <span aria-hidden="true">→</span></small></a></div>
+      <p class="tuition-note">One-time enrollment. State fees are separate. Course completion and exam preparation do not guarantee a passing state-exam score.</p>
+    </section>
+
+    <section class="sources-section shell" id="official-sources" aria-labelledby="sources-heading">
+      <div><p class="eyebrow">Keep the official instructions close</p><h2 id="sources-heading">Sources &amp; useful links</h2><p>Requirements and published fees reviewed November 7, 2026. Use DBPR and Pearson VUE for your current application, exam and license record.</p></div>
+      <ul>{sources.map((item) => <li><a href={item.url}>{item.label} <span aria-hidden="true">↗</span></a></li>)}</ul>
+      <p class="print-url">Daniel Larson Training · daniellarsontraining.com/licensing-checklist/ · {site.phoneDisplay}</p>
+    </section>
+  </div>
+</SiteLayout>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>(".print-action").forEach((button) => {
+    button.hidden = false;
+    button.addEventListener("click", () => window.print());
+  });
+</script>
+
+<style>
+  .licensing-checklist { --check-blue: #155fc4; --check-ink: #132840; --check-muted: #52667b; color: var(--check-ink); }
+  .licensing-checklist h1, .licensing-checklist h2, .licensing-checklist h3, .licensing-checklist p { margin: 0; }
+  .licensing-checklist a { text-underline-offset: .22em; }
+  .licensing-checklist section[id] { scroll-margin-top: 155px; }
+  .eyebrow { font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--check-blue); }
+  .checklist-hero { background: radial-gradient(ellipse at 85% 10%, #173e6b 0, transparent 60%), #080e2b; color: white; padding: 76px 0 80px; }
+  .hero-grid { display: grid; grid-template-columns: 1.12fr .88fr; gap: 76px; align-items: center; }
+  .checklist-hero .eyebrow { color: #a4caff; }
+  h1 { font-size: clamp(2.8rem, 5.2vw, 4.7rem); line-height: 1.04; letter-spacing: -.055em; margin-top: 18px !important; }
+  h1 span { color: #9cc4ff; }
+  .hero-description { color: #d2dfef; max-width: 560px; font-size: 1.1rem; line-height: 1.75; margin-top: 24px !important; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+  .checklist-button { display: inline-flex; gap: 14px; justify-content: center; align-items: center; border: 1px solid transparent; border-radius: 9px; padding: 13px 18px; font-size: .88rem; font-weight: 800; cursor: pointer; text-decoration: none; line-height: 1.4; }
+  .checklist-button[hidden] { display: none; }
+  .primary { background: #2374de; color: #fff; }
+  .primary:hover { background: #155fc4; }
+  .light { background: transparent; color: white; border-color: #6382a9; }
+  .light:hover { background: #18375b; }
+  .hero-footnote { margin-top: 15px !important; color: #b6c8df; font-size: .78rem; }
+  .roadmap { border: 1px solid #416386; border-radius: 20px; padding: 32px; background: #132b46; }
+  .roadmap-label { color: #bad4f4; font-size: .8rem; font-weight: 700; }
+  .roadmap ol { list-style: none; padding: 0; margin: 26px 0; display: grid; gap: 24px; }
+  .roadmap li { display: flex; gap: 16px; align-items: flex-start; }
+  .roadmap li > span { display: grid; place-items: center; border: 1px solid #749bc8; border-radius: 50%; width: 33px; height: 33px; flex: 0 0 33px; color: #c9e0ff; font-weight: 700; }
+  .roadmap strong { display: block; font-size: 1rem; }
+  .roadmap small { display: block; color: #bfd0e4; font-size: .8rem; margin-top: 4px; }
+  .roadmap > p:last-child { border-top: 1px solid #385373; padding-top: 20px; color: #c3d2e5; font-size: .84rem; }
+  .stage-section { padding-top: 60px; padding-bottom: 60px; }
+  .section-heading { max-width: 740px; margin-bottom: 28px; }
+  .section-heading h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); letter-spacing: -.035em; line-height: 1.15; margin-top: 9px; }
+  .section-heading > p:last-child { color: var(--check-muted); margin-top: 15px; }
+  .stage-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .stage-card { display: flex; gap: 12px; align-items: flex-start; padding: 20px 17px; border: 1px solid #d9e3ee; border-radius: 12px; background: #f7faff; text-decoration: none; }
+  .stage-card:hover { border-color: #83ace0; background: #edf4ff; }
+  .stage-number { font-size: .7rem; color: #4773a9; padding-top: 3px; font-weight: 800; }
+  .stage-card strong { display: block; font-size: .88rem; line-height: 1.4; }
+  .stage-card small { display: block; font-size: .75rem; line-height: 1.5; color: var(--check-muted); margin-top: 5px; }
+  .stage-arrow { color: #2168c7; margin-left: auto; }
+  .resource-grid { display: grid; grid-template-columns: minmax(0, 1fr) 290px; gap: 60px; padding-bottom: 65px; }
+  .step-section { padding: 34px 0; border-top: 1px solid #dce5ee; }
+  .step-heading { display: flex; gap: 17px; align-items: flex-start; margin-bottom: 25px; }
+  .step-number { display: grid; place-items: center; width: 43px; height: 43px; flex: 0 0 43px; border-radius: 11px; background: #eaf2ff; color: var(--check-blue); font-weight: 800; }
+  .step-heading h2 { font-size: 1.65rem; letter-spacing: -.035em; line-height: 1.2; margin-top: 6px; }
+  .task-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 19px; }
+  .task-list label { display: flex; align-items: flex-start; gap: 14px; cursor: pointer; font-size: .94rem; line-height: 1.65; color: var(--check-muted); }
+  .task-list strong { color: var(--check-ink); }
+  .task-list input { margin: 4px 0 0; flex: 0 0 20px; width: 20px; height: 20px; accent-color: var(--check-blue); cursor: pointer; }
+  .task-list input:checked + span { color: #526b58; }
+  .source-note { margin-top: 23px !important; font-size: .77rem; line-height: 1.8; color: #4d6380; }
+  .source-note a { color: #1a5da9; }
+  .hours-strip { display: flex; gap: 28px; margin: 0 0 26px 60px; }
+  .hours-strip div { border-left: 3px solid #94b9ef; padding-left: 13px; }
+  .hours-strip strong { display: block; color: var(--check-blue); font-size: 1.2rem; }
+  .hours-strip span { display: block; font-size: .76rem; color: var(--check-muted); }
+  .renewal-note { background: #edf5ff; border-left: 3px solid #2374de; padding: 20px; margin-top: 26px; border-radius: 0 10px 10px 0; }
+  .renewal-note strong { font-size: .92rem; }
+  .renewal-note p { font-size: .86rem; color: var(--check-muted); margin: 7px 0 10px; }
+  .renewal-note a { color: var(--check-blue); font-weight: 750; font-size: .85rem; }
+  .print-fields { display: none; }
+  .association-note { border-radius: 14px; background: #f1f5f8; padding: 28px; margin-top: 16px; }
+  .association-note h2 { margin-top: 8px; font-size: 1.5rem; line-height: 1.2; letter-spacing: -.025em; }
+  .association-note > p:not(.eyebrow) { margin-top: 15px; font-size: .9rem; color: var(--check-muted); }
+  .resource-sidebar { padding-top: 34px; }
+  .sidebar-card { border: 1px solid #d9e3ee; border-radius: 14px; padding: 24px; }
+  .sidebar-card h2, .help-card h2 { margin: 9px 0 12px; font-size: 1.4rem; line-height: 1.2; letter-spacing: -.025em; }
+  .sidebar-card p:not(.eyebrow), .help-card p:not(.eyebrow) { font-size: .87rem; color: var(--check-muted); }
+  .sidebar-card button { margin-top: 20px; width: 100%; }
+  .sidebar-links { margin-top: 22px; border-top: 1px solid #dce5ee; padding-top: 16px; display: grid; gap: 12px; }
+  .sidebar-links a { display: flex; gap: 8px; justify-content: space-between; font-size: .79rem; color: var(--check-blue); text-decoration: none; font-weight: 650; }
+  .help-card { padding: 27px 24px; margin-top: 18px; border-radius: 14px; background: #f0f5fb; }
+  .help-card a { display: block; margin-top: 14px; font-size: .87rem; font-weight: 700; color: var(--check-blue); }
+  .help-card a:last-child { font-size: .77rem; font-weight: 500; }
+  .cost-section { background: #f3f6fa; padding: 60px 0; border-block: 1px solid #e0e6ee; }
+  .cost-table-wrap { border: 1px solid #dce4ee; border-radius: 14px; overflow: hidden; background: white; }
+  .cost-table { border-collapse: collapse; width: 100%; font-size: .91rem; text-align: left; }
+  .cost-table thead { background: #132840; color: #fff; }
+  .cost-table th, .cost-table td { padding: 19px 24px; vertical-align: top; }
+  .cost-table th { font-weight: 750; }
+  .cost-table tbody th { width: 25%; }
+  .cost-table tbody tr + tr { border-top: 1px solid #e0e7ef; }
+  .cost-table td strong { display: block; font-weight: 650; }
+  .cost-table td span { display: block; font-size: .81rem; color: var(--check-muted); margin-top: 4px; }
+  .cost-table a { color: var(--check-blue); }
+  .course-section { padding-block: 64px; }
+  .package-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .package-card { border: 1px solid #d6e2ef; border-radius: 16px; padding: 26px; }
+  .package-card h3 { font-size: 1.35rem; letter-spacing: -.03em; }
+  .package-card > p { color: var(--check-muted); font-size: .85rem; margin-top: 10px; min-height: 66px; }
+  .package-choice { border-top: 1px solid #e1e8f0; padding: 14px 0; display: grid; grid-template-columns: 1fr auto; gap: 3px 12px; align-items: center; }
+  .package-choice > span { font-size: .8rem; font-weight: 650; }
+  .package-choice > strong { font-size: 1.65rem; letter-spacing: -.05em; }
+  .package-choice a { grid-column: 1 / -1; color: var(--check-blue); font-size: .8rem; font-weight: 750; }
+  .package-card > small { display: block; color: var(--check-muted); font-size: .74rem; }
+  .compare-links { display: flex; gap: 25px; flex-wrap: wrap; margin-top: 20px !important; font-size: .83rem; color: var(--check-blue); }
+  .post-options { display: grid; grid-template-columns: 1.3fr .8fr .8fr; gap: 22px; align-items: center; background: #edf4fe; border-radius: 16px; padding: 28px; margin-top: 36px; }
+  .post-options h3 { font-size: 1.55rem; margin-top: 7px; letter-spacing: -.035em; }
+  .post-options p:not(.eyebrow) { color: var(--check-muted); font-size: .85rem; margin-top: 9px; }
+  .post-options > a { text-decoration: none; background: #fff; border: 1px solid #c8d9ef; border-radius: 12px; padding: 20px; }
+  .post-options > a:hover { border-color: #6c9bd8; }
+  .post-options a > span { font-size: .82rem; font-weight: 700; }
+  .post-options a > strong { display: block; font-size: 2rem; letter-spacing: -.05em; line-height: 1.4; }
+  .post-options a > small { display: block; font-size: .75rem; color: var(--check-blue); }
+  .post-options small span { float: right; }
+  .tuition-note { color: var(--check-muted); font-size: .76rem; margin-top: 18px !important; }
+  .sources-section { padding-block: 34px 60px; border-top: 1px solid #dce5ee; display: grid; grid-template-columns: .9fr 1.1fr; gap: 42px; }
+  .sources-section h2 { font-size: 1.5rem; margin-top: 9px; letter-spacing: -.03em; }
+  .sources-section p:not(.eyebrow) { color: var(--check-muted); font-size: .8rem; margin-top: 12px; }
+  .sources-section ul { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 25px; }
+  .sources-section li { font-size: .77rem; break-inside: avoid; margin-bottom: 12px; }
+  .sources-section li a { color: #245c9c; }
+  .print-url { display: none; }
+  @media (max-width: 1000px) { .hero-grid { gap: 32px; } .roadmap { padding: 25px; } .resource-grid { gap: 32px; grid-template-columns: minmax(0, 1fr) 250px; } .stage-grid { grid-template-columns: repeat(2, 1fr); } .package-card { padding: 20px; } .post-options { gap: 15px; padding: 22px; } }
+  @media (max-width: 760px) { .checklist-hero { padding: 48px 0; } .hero-grid { grid-template-columns: 1fr; gap: 34px; } .hero-description { max-width: none; } .roadmap { padding: 25px; } .roadmap ol { gap: 19px; } .stage-section { padding-block: 40px; } .resource-grid { grid-template-columns: 1fr; gap: 12px; padding-bottom: 40px; } .resource-sidebar { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding-top: 10px; } .help-card { margin-top: 0; } .step-section { padding-block: 28px; } .cost-section, .course-section { padding-block: 42px; } .package-grid { grid-template-columns: 1fr; gap: 14px; } .package-card > p { min-height: 0; margin-bottom: 17px; } .package-choice { grid-template-columns: 1fr auto 1.3fr; gap: 16px; } .package-choice a { grid-column: auto; justify-self: end; } .post-options { grid-template-columns: 1fr 1fr; } .post-options > div { grid-column: 1 / -1; } .sources-section { grid-template-columns: 1fr; gap: 25px; padding-bottom: 40px; } }
+  @media (max-width: 480px) { .stage-grid { grid-template-columns: 1fr; gap: 9px; } .stage-card { padding: 16px; } .stage-card small { margin-top: 3px; } .hero-actions { flex-direction: column; align-items: stretch; } .hero-actions .checklist-button { width: 100%; } .resource-sidebar { grid-template-columns: 1fr; } .step-heading { gap: 12px; } .step-heading h2 { font-size: 1.48rem; } .hours-strip { margin-left: 0; gap: 20px; } .cost-table th, .cost-table td { padding: 15px 12px; } .cost-table tbody th { width: 32%; font-size: .8rem; } .cost-table td { font-size: .84rem; } .cost-table td span { font-size: .76rem; } .post-options { padding: 20px; gap: 12px; } .post-options > a { padding: 15px; } .post-options a > span { font-size: .74rem; } .sources-section ul { columns: 1; } }
+  @media print {
+    :global(.site-header), :global(.site-footer), :global(.skip-link), .stage-section, .resource-sidebar, .hero-actions, .hero-footnote, .roadmap { display: none !important; }
+    :global(html), :global(body), :global(main) { background: white !important; color: #111 !important; overflow: visible !important; }
+    .licensing-checklist { --check-ink: #111; --check-muted: #333; --check-blue: #111; font-size: 10pt; }
+    .shell { width: 100%; }
+    .checklist-hero { padding: 0 0 16px; background: white !important; color: #111; border-bottom: 2px solid #111; }
+    .hero-grid, .resource-grid, .sources-section { display: block; }
+    .checklist-hero .eyebrow, h1 span { color: #111; }
+    h1 { font-size: 27pt; margin-top: 8px !important; }
+    h1 br { display: none; }
+    .hero-description { color: #333; font-size: 10pt; margin-top: 12px !important; max-width: none; }
+    .resource-grid { padding-bottom: 20px; }
+    .step-section { padding: 20px 0; }
+    .step-heading { margin-bottom: 15px; break-after: avoid; }
+    .step-heading h2, .section-heading h2 { font-size: 17pt; }
+    .step-number { background: none; border: 1px solid #777; color: #111; }
+    .task-list { gap: 11px; }
+    .task-list li, .cost-table tr, .package-card, .renewal-note, .association-note, .print-fields { break-inside: avoid; }
+    .task-list label { font-size: 9.5pt; line-height: 1.5; }
+    .task-list input { appearance: none; border: 1px solid #333; border-radius: 2px; flex-basis: 14px; width: 14px; height: 14px; margin-top: 3px; position: relative; }
+    .task-list input:checked::after { content: "✓"; position: absolute; top: -5px; left: 1px; color: #111; font-size: 14px; }
+    .task-list input:checked + span { color: #333; }
+    .source-note { font-size: 8pt; margin-top: 12px !important; }
+    .hours-strip { margin-bottom: 18px; }
+    .hours-strip div { border-color: #777; }
+    .renewal-note, .association-note { background: white; border: 1px solid #777; padding: 16px; border-radius: 0; }
+    .print-fields { display: grid; gap: 12px; margin-top: 22px; font-size: 9pt; }
+    .print-fields p { display: flex; gap: 10px; }
+    .print-fields span { flex: 1; border-bottom: 1px solid #777; }
+    .cost-section, .course-section { background: white; padding: 22px 0; }
+    .section-heading { margin-bottom: 16px; }
+    .cost-table-wrap { overflow: visible; border-radius: 0; }
+    .cost-table thead { background: white; color: #111; border-bottom: 1px solid #777; }
+    .cost-table th, .cost-table td { padding: 10px; font-size: 9pt; }
+    .cost-table td span { font-size: 8pt; }
+    .package-grid { gap: 12px; }
+    .package-card { padding: 14px; }
+    .package-card h3 { font-size: 13pt; }
+    .package-card > p { min-height: 0; font-size: 8pt; margin-bottom: 10px; }
+    .package-choice { gap: 4px; }
+    .package-choice > strong { font-size: 16pt; }
+    .post-options { background: white; border: 1px solid #777; padding: 16px; margin-top: 18px; }
+    .sources-section { padding: 20px 0 0; }
+    .sources-section ul { columns: 2; margin-top: 16px; }
+    .sources-section li { font-size: 8pt; }
+    .print-url { display: block; border-top: 1px solid #aaa; padding-top: 10px; }
+  }
+</style>
