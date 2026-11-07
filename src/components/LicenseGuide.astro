@@ -1,11 +1,27 @@
 ---
 import "../styles/license-guides.css";
 
-type Props = { markup: string };
-const { markup } = Astro.props;
+type Props = {
+  markup: string;
+  relatedGuide: { path: string; label: string; description: string };
+};
+const { markup, relatedGuide } = Astro.props;
 ---
 
-<div class="license-guides" set:html={markup}></div>
+<div class="license-guides">
+  <div set:html={markup}></div>
+  <section class="course-line" aria-labelledby="related-guide-heading">
+    <div class="wrap">
+      <div>
+        <h2 id="related-guide-heading">More from Florida Real Estate License Guide</h2>
+        <p>{relatedGuide.description} The guide is also published by Daniel Larson Training.</p>
+      </div>
+      <nav class="course-links" aria-label="Related licensing guide">
+        <a href={`https://flrealestatelicenseguide.com${relatedGuide.path}`}>{relatedGuide.label}</a>
+      </nav>
+    </div>
+  </section>
+</div>
 
 <script is:inline>
   document.addEventListener('click', function(event) {
