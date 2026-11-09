@@ -1,0 +1,36 @@
+---
+// Build-time launch switch: missing, false or any value other than "true" keeps
+// the entire signup section, hosted-form link and third-party script out of HTML.
+// Enable only after the setup and consent-flow checks in automation/KIT_SIGNUP.md.
+const enabled = import.meta.env.PUBLIC_KIT_SIGNUP_ENABLED === "true";
+---
+
+{enabled && (
+  <section class="checklist-signup shell" id="email-checklist" aria-labelledby="signup-heading">
+    <div class="signup-copy">
+      <p class="eyebrow">Your checklist, in your inbox</p>
+      <h2 id="signup-heading">Keep your next step handy.</h2>
+      <p>Request a confirmation email with a link back to this checklist. You can also choose to receive Florida licensing, course and first-renewal tips from Daniel.</p>
+      <p>Select the optional email permission box if you want those follow-ups. You can unsubscribe anytime.</p>
+      <p class="signup-details">Read our <a href="/email-signup-privacy/">email signup privacy notice</a>. You can use and print the full checklist without signing up.</p>
+    </div>
+    <div class="signup-form">
+      <script is:inline async data-uid="4f0e3b889f" src="https://daniel-larson-training.kit.com/4f0e3b889f/index.js"></script>
+      <p class="form-help">Form not showing? <a href="https://daniel-larson-training.kit.com/4f0e3b889f">Open the email signup form</a>, or keep using the checklist below.</p>
+    </div>
+  </section>
+)}
+
+<style>
+  .checklist-signup { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 42px; align-items: start; margin-bottom: 52px; padding: 32px; border: 1px solid #d5e3f2; border-radius: 16px; background: #f1f6fd; color: #132840; }
+  .eyebrow { margin: 0; color: #155fc4; font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+  h2 { margin: 10px 0 16px; font-size: clamp(1.7rem, 3vw, 2.2rem); line-height: 1.15; letter-spacing: -.035em; }
+  p { margin: 0 0 14px; line-height: 1.65; color: #52667b; }
+  a { color: #155fc4; text-underline-offset: .2em; }
+  .signup-details, .form-help { font-size: .82rem; }
+  .signup-form { min-width: 0; }
+  .signup-form :global(.formkit-form) { max-width: 100%; }
+  .form-help { margin: 14px 0 0; }
+  @media (max-width: 760px) { .checklist-signup { grid-template-columns: 1fr; gap: 18px; padding: 24px; } }
+  @media print { .checklist-signup { display: none !important; } }
+</style>

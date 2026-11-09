@@ -1,11 +1,12 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import ChecklistSignup from "../components/ChecklistSignup.astro";
 import { site } from "../data/site";
 import { products, salePrice } from "../data/products";
 
 // Adapted from outputs/florida-licensing-checklist-content.json, reviewed November 7, 2026.
-// Keep pricing in products.ts. Add an approved Kit form only after its real form ID,
-// consent copy and delivery flow are configured and tested; do not render a placeholder form.
+// Keep pricing in products.ts. The native Kit form is controlled by the
+// build-time capture switch documented in automation/KIT_SIGNUP.md.
 const title = "Florida Real Estate Licensing Checklist | Daniel Larson Training";
 const description = "Find your next Florida real estate licensing step. Use a printable checklist for applications, exams, course costs and first-renewal Post-Licensing.";
 const sources = [
@@ -114,6 +115,8 @@ const schema = {
         ))}
       </nav>
     </section>
+
+    <ChecklistSignup />
 
     <div class="shell resource-grid">
       <div class="checklist-sections">
