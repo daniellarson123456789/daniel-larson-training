@@ -24,6 +24,8 @@ function emptyReport(apply) {
     account_verified: false, complete_inventory: false,
     sendAllowed: false, consentInferred: false, negativeOwnershipProven: false,
     replySyncConnected: false, partialHoldsAreLiveStops: false,
+    thinkific_pagination: { observedRows: 0, expectedItems: null, terminalPage: null,
+      expectedPages: null, lastPageCount: 0, pageSizes: [] },
     counts: { requests: 0, thinkific_pages: 0, kit_pages: 0, tag_pages: 0, enrollments: 0,
       subscribers: 0, relevant_enrollments: 0, unmatched_identities: 0,
       identity_holds: 0, partial_broker_holds: 0, invalid_email_rows: 0,
@@ -90,6 +92,10 @@ async function readEnrollments(request, report) {
       !integer(p.total_pages) || !integer(p.total_items)) fail('thinkific_pagination_invalid');
     if (n === 0) { expectedPages = p.total_pages; expectedItems = p.total_items; }
     if (p.total_pages !== expectedPages || p.total_items !== expectedItems) fail('thinkific_snapshot_changed');
+    report.thinkific_pagination.expectedItems = expectedItems;
+    report.thinkific_pagination.expectedPages = expectedPages;
+    report.thinkific_pagination.lastPageCount = data.items.length;
+    report.thinkific_pagination.pageSizes.push(data.items.length);
     for (const row of data.items) {
       if (!row || !validId(row.id) || !validId(row.user_id) || !validId(row.course_id)) fail('enrollment_shape_invalid');
       if (seenIds.has(String(row.id))) fail('thinkific_duplicate_enrollment');
@@ -98,8 +104,10 @@ async function readEnrollments(request, report) {
       rows.push({ userId: String(row.user_id), email: normalizeEmail(row.user_email), course: Number(row.course_id), trial: row.is_trial === true });
     }
     report.counts.thinkific_pages++;
+    report.thinkific_pagination.observedRows = rows.length;
     if (rows.length > MAX_ROWS) fail('inventory_limit_exceeded');
     if (p.next_page === null) {
+      report.thinkific_pagination.terminalPage = page;
       if (page !== Math.max(1, expectedPages) || rows.length !== expectedItems) fail('thinkific_pagination_incomplete');
       report.counts.enrollments = rows.length;
       return rows;
@@ -241,3 +249,4 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   console.log(JSON.stringify(report));
   process.exitCode = ['dry_run_complete', 'apply_complete', 'apply_complete_with_identity_holds'].includes(report.status) ? 0 : 1;
 }
+
