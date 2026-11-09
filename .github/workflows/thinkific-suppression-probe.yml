@@ -2,6 +2,9 @@ name: Thinkific suppression capability probe
 
 on:
   workflow_dispatch:
+  push:
+    branches: [codex/thinkific-enrollment-capability]
+    paths: [.github/workflows/thinkific-suppression-probe.yml]
 
 permissions:
   contents: read
@@ -12,7 +15,7 @@ concurrency:
 
 jobs:
   read-enrollment-capability:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/codex/thinkific-enrollment-capability'
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
