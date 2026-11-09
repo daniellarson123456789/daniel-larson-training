@@ -4,7 +4,7 @@ import { runSync, APPLY_PHRASE, COURSE_TAGS as C } from './sync.mjs';
 
 const env = { THINKIFIC_API_TOKEN: 'synthetic-thinkific-secret', KIT_API_KEY: 'synthetic-kit-secret' };
 const email = 'person@example.invalid';
-const enrollment = (overrides = {}) => ({ id: 101, user_id: 201, user_email: email, course_id: C.sales, ...overrides });
+const enrollment = (overrides = {}) => ({ id: 101, user_id: 201, user_email: email, course_id: C.sales, is_free_trial: false, ...overrides });
 const subscriber = (overrides = {}) => ({ id: 301, email_address: email, state: 'active', tags: [], ...overrides });
 const json = (data, status = 200) => new Response(JSON.stringify(data), { status, headers: { 'content-type': 'application/json' } });
 const page = (rows, more = false, cursor = 'last') => ({ subscribers: rows, pagination: { has_next_page: more, end_cursor: cursor } });
@@ -19,8 +19,10 @@ function service({ enrollments = [enrollment()], subscribers = [subscriber()], t
     if (url.hostname === 'api.thinkific.com') {
       assert.equal(options.method, 'GET');
       assert.equal(options.headers.authorization, `Bearer ${env.THINKIFIC_API_TOKEN}`);
-      const n = Number(url.searchParams.get('page')), total = Math.ceil(enrollments.length / thinkPageSize);
-      return json({ items: enrollments.slice((n - 1) * thinkPageSize, n * thinkPageSize), meta: { pagination: { current_page: n, next_page: n < total ? n + 1 : null, total_pages: total, total_items: enrollments.length } } });
+      assert.ok(url.searchParams.has('query[email]'));
+      const scoped = enrollments.filter(row => row.user_email.trim().toLowerCase() === url.searchParams.get('query[email]'));
+      const n = Number(url.searchParams.get('page')), total = Math.ceil(scoped.length / thinkPageSize);
+      return json({ items: scoped.slice((n - 1) * thinkPageSize, n * thinkPageSize), meta: { pagination: { current_page: n, next_page: n < total ? n + 1 : null, total_pages: total, total_items: scoped.length } } });
     }
     assert.equal(url.hostname, 'api.kit.com');
     assert.equal(options.headers['X-Kit-Api-Key'], env.KIT_API_KEY);
@@ -52,16 +54,19 @@ const writes = s => s.calls.filter(c => c.options.method !== 'GET');
 test('default dry run completes both pagination chains and never writes', async () => {
   const s = service({ thinkPageSize: 1, kitPageSize: 1,
     enrollments: [enrollment(), enrollment({ id: 102, user_id: 202, user_email: 'broker@example.invalid', course_id: C.brokerOne }), enrollment({ id: 103, user_id: 202, user_email: 'broker@example.invalid', course_id: C.brokerTwo })],
-    subscribers: [subscriber(), subscriber({ id: 302, email_address: 'broker@example.invalid', state: 'cancelled' })] });
+    subscribers: [subscriber(), subscriber({ id: 302, email_address: 'broker@example.invalid' })] });
   const r = await run(s);
-  assert.equal(r.status, 'dry_run_complete'); assert.equal(r.complete_inventory, true);
+  assert.equal(r.status, 'dry_run_complete'); assert.equal(r.scoped_inventory_complete, true);
+  assert.equal(r.schema_version, 'post-exclusion-sync-v2'); assert.equal(r.school_inventory_complete, false);
+  assert.equal(r.inventory_scope, 'unambiguous_existing_kit_subscriber_email_scopes');
+  assert.ok(Number.isFinite(Date.parse(r.checked_at)));
   assert.equal(r.counts.thinkific_pages, 3); assert.equal(r.counts.kit_pages, 2);
   assert.equal(r.counts.proposed_sales, 1); assert.equal(r.counts.proposed_broker, 1);
-  assert.equal(r.states.cancelled, 1); assert.equal(writes(s).length, 0);
+  assert.equal(r.counts.scoped_email_queries_completed, 2); assert.equal(writes(s).length, 0);
   for (const flag of ['sendAllowed', 'consentInferred', 'negativeOwnershipProven', 'replySyncConnected', 'partialHoldsAreLiveStops']) assert.equal(r[flag], false);
 });
-test('explicit apply adds only an existing-ID exclusion, preserving cancelled state', async () => {
-  const s = service({ subscribers: [subscriber({ state: 'cancelled' })] });
+test('explicit apply adds only an active existing-ID exclusion', async () => {
+  const s = service();
   const r = await run(s, true);
   assert.equal(r.status, 'apply_complete'); assert.equal(r.counts.tag_adds_confirmed, 1);
   assert.deepEqual(writes(s).map(c => c.url.pathname), [`/v4/tags/${C.salesTag}/subscribers/301`]);
@@ -78,7 +83,10 @@ test('rerun with a stale list still reads current tags and skips duplicate write
 });
 test('missing customers are never created; plus aliases are not folded', async () => {
   const s = service({ subscribers: [subscriber({ email_address: 'person+alias@example.invalid' })] });
-  assert.equal((await run(s, true)).counts.unmatched_identities, 1); assert.equal(writes(s).length, 0);
+  const r = await run(s, true);
+  assert.equal(r.counts.enrollments, 0); assert.equal(r.counts.proposed_sales, 0); assert.equal(writes(s).length, 0);
+  const query = s.calls.find(c => c.url.hostname === 'api.thinkific.com').url.searchParams.get('query[email]');
+  assert.equal(query, 'person+alias@example.invalid'); assert.equal(r.negativeOwnershipProven, false);
 });
 test('trim/case normalization matches without broadening identity', async () => {
   const s = service({ enrollments: [enrollment({ user_email: ' PERSON@EXAMPLE.INVALID ' })] });
@@ -95,7 +103,7 @@ test('different Thinkific identities sharing an email cannot combine Broker sect
 });
 test('one Thinkific ID with inconsistent emails and duplicate Kit IDs/emails are held', async () => {
   for (const args of [
-    { enrollments: [enrollment(), enrollment({ id: 102, user_email: 'other@example.invalid' })] },
+    { enrollments: [enrollment(), enrollment({ id: 102, user_email: 'other@example.invalid' })], subscribers: [subscriber(), subscriber({ id: 302, email_address: 'other@example.invalid' })] },
     { subscribers: [subscriber(), subscriber({ id: 302 })] },
     { subscribers: [subscriber(), subscriber({ email_address: 'other@example.invalid' })] },
   ]) {
@@ -130,7 +138,7 @@ test('changing Thinkific totals and duplicate enrollment IDs abort a mixed snaps
     { thinkPageSize: 1, enrollments: [enrollment(), enrollment({ id: 102 })], intercept(c) {
       if (c.url.hostname === 'api.thinkific.com' && c.url.searchParams.get('page') === '2') return json({ items: [enrollment({ id: 102 })], meta: { pagination: { current_page: 2, next_page: null, total_pages: 2, total_items: 3 } } });
     } },
-  ]) { const s = service(args); const r = await run(s, true); assert.equal(r.complete_inventory, false); assert.equal(writes(s).length, 0); }
+  ]) { const s = service(args); const r = await run(s, true); assert.equal(r.scoped_inventory_complete, false); assert.equal(writes(s).length, 0); }
 });
 test('terminal mismatch preserves only aggregate diagnostics without relaxing completeness', async () => {
   for (const totalPages of [2, 3]) {
@@ -143,16 +151,17 @@ test('terminal mismatch preserves only aggregate diagnostics without relaxing co
     } });
     const r = await run(s, true);
     assert.equal(r.status, 'thinkific_pagination_incomplete');
-    assert.deepEqual(r.thinkific_pagination, { observedRows: 2, expectedItems: 3, terminalPage: 2, expectedPages: totalPages, lastPageCount: 1, pageSizes: [1, 1] });
-    assert.equal(r.complete_inventory, false); assert.equal(r.counts.kit_pages, 0);
+    assert.deepEqual(r.thinkific_pagination, { diagnostic_scope: 'last_existing_subscriber_email_query', observedRows: 2, expectedItems: 3, terminalPage: 2, expectedPages: totalPages, lastPageCount: 1, pageSizes: [1, 1] });
+    assert.equal(r.scoped_inventory_complete, false); assert.equal(r.counts.kit_pages, 1);
     assert.equal(r.counts.tag_write_attempts, 0); assert.equal(writes(s).length, 0);
+    assert.deepEqual(r.trial_field_counts, { true: 0, false: 2, missing: 0, invalid: 0 });
     for (const privateValue of [email, env.THINKIFIC_API_TOKEN, '987654321']) assert.equal(JSON.stringify(r).includes(privateValue), false);
   }
 });
 test('429 and provider error text are never retried or logged', async () => {
   const s = service({ intercept(c) { if (c.url.hostname === 'api.thinkific.com') return json({ error: 'person@example.invalid synthetic-thinkific-secret 987654321' }, 429); } });
   const r = await run(s, true), output = JSON.stringify(r);
-  assert.equal(r.status, 'rate_limited'); assert.equal(s.calls.length, 2); assert.equal(writes(s).length, 0);
+  assert.equal(r.status, 'rate_limited'); assert.equal(s.calls.length, 3); assert.equal(writes(s).length, 0);
   for (const privateValue of [email, env.THINKIFIC_API_TOKEN, '987654321']) assert.equal(output.includes(privateValue), false);
 });
 test('write rate limits stop after one attempt', async () => {
@@ -194,7 +203,9 @@ test('secrets and an exact apply guard are required; wrong account stops before 
 });
 test('empty collections are complete and yield no negative eligibility or imports', async () => {
   const s = service({ enrollments: [], subscribers: [] });
-  const r = await run(s, true); assert.equal(r.status, 'apply_complete'); assert.equal(r.complete_inventory, true);
+  const r = await run(s, true); assert.equal(r.status, 'apply_complete'); assert.equal(r.scoped_inventory_complete, true);
+  assert.equal(r.school_inventory_complete, false); assert.equal(r.counts.scoped_email_queries, 0);
+  assert.equal(s.calls.some(c => c.url.hostname === 'api.thinkific.com'), false);
   assert.equal(r.counts.proposed_sales, 0); assert.equal(writes(s).length, 0);
   assert.equal('eligible_to_market' in r, false);
 });
@@ -205,7 +216,79 @@ test('untrusted status strings and error bodies never become output keys or valu
   assert.equal((await run(malformed)).status, 'invalid_json_response');
 });
 test('explicit trial evidence is held and cannot create a full-course exclusion', async () => {
-  const s = service({ enrollments: [enrollment({ is_trial: true })] });
+  const s = service({ enrollments: [enrollment({ is_free_trial: true })] });
   const r = await run(s, true); assert.equal(r.counts.trial_rows_held, 1); assert.equal(writes(s).length, 0);
+  assert.deepEqual(r.trial_field_counts, { true: 1, false: 0, missing: 0, invalid: 0 });
+});
+test('only exact is_free_trial false permits ownership; missing and invalid values remain unknown holds', async () => {
+  for (const invalid of [undefined, null, 'false', 0, {}]) {
+    const row = enrollment({ is_free_trial: invalid, is_trial: false });
+    if (invalid === undefined) delete row.is_free_trial;
+    const s = service({ enrollments: [row] }), r = await run(s, true);
+    assert.equal(r.counts.unknown_trial_rows_held, 1); assert.equal(r.counts.proposed_sales, 0);
+    assert.equal(r.counts.trial_rows_held, 0); assert.equal(writes(s).length, 0);
+    assert.equal(r.trial_field_counts[invalid === undefined ? 'missing' : 'invalid'], 1);
+  }
+  const s = service({ enrollments: [enrollment({ is_free_trial: false, is_trial: true })] });
+  const r = await run(s, true); assert.equal(r.counts.tag_adds_confirmed, 1);
+  assert.deepEqual(r.trial_field_counts, { true: 0, false: 1, missing: 0, invalid: 0 });
+});
+test('trial field diagnostics survive terminal pagination failure for all four categories', async () => {
+  const missing = enrollment({ id: 103 }); delete missing.is_free_trial;
+  const rows = [enrollment({ is_free_trial: true }), enrollment({ id: 102 }), missing, enrollment({ id: 104, is_free_trial: null })];
+  const s = service({ intercept(c) {
+    if (c.url.hostname === 'api.thinkific.com') return json({ items: rows, meta: { pagination: { current_page: 1, next_page: null, total_pages: 1, total_items: 5 } } });
+  } });
+  const r = await run(s, true); assert.equal(r.status, 'thinkific_pagination_incomplete');
+  assert.deepEqual(r.trial_field_counts, { true: 1, false: 1, missing: 1, invalid: 1 });
+  assert.equal(r.scoped_inventory_complete, false); assert.equal(writes(s).length, 0);
+});
+test('cancelled subscribers are scanned read-only but never proposed or tagged', async () => {
+  const s = service({ subscribers: [subscriber({ state: 'cancelled' })] });
+  const r = await run(s, true);
+  assert.equal(r.scoped_inventory_complete, true); assert.equal(r.counts.scoped_email_queries_completed, 1);
+  assert.equal(r.counts.enrollments, 1); assert.equal(r.states.cancelled, 1);
+  assert.equal(r.counts.non_active_subscribers_skipped, 1); assert.equal(r.counts.proposed_sales, 0);
+  assert.equal(writes(s).length, 0);
+});
+test('cancellation immediately before the write blocks a previously active subscriber', async () => {
+  let reads = 0;
+  const s = service({ intercept(c) {
+    if (c.url.pathname === '/v4/subscribers/301' && ++reads === 2) return json({ subscriber: subscriber({ state: 'cancelled' }) });
+  } });
+  const r = await run(s, true); assert.equal(r.counts.state_changed_before_write, 1);
+  assert.equal(writes(s).length, 0); assert.equal(r.counts.tag_adds_confirmed, 0);
+});
+test('duplicate Kit identities are held before email-filtered queries', async () => {
+  const s = service({ subscribers: [subscriber(), subscriber({ id: 302 })] });
+  const r = await run(s, true); assert.equal(r.counts.kit_identity_rows_held, 2);
+  assert.equal(r.counts.scoped_email_queries, 0); assert.equal(writes(s).length, 0);
+  assert.equal(r.school_inventory_complete, false);
+});
+test('a returned email outside its exact query stops all writes, even after a valid scope', async () => {
+  const s = service({ subscribers: [subscriber(), subscriber({ id: 302, email_address: 'second@example.invalid' })], intercept(c) {
+    if (c.url.hostname === 'api.thinkific.com' && c.url.searchParams.get('query[email]') === 'second@example.invalid') return json({ items: [enrollment({ id: 102, user_email: 'unrelated@example.invalid' })], meta: { pagination: { current_page: 1, next_page: null, total_pages: 1, total_items: 1 } } });
+  } });
+  const r = await run(s, true); assert.equal(r.status, 'thinkific_filter_identity_mismatch');
+  assert.equal(r.counts.scoped_email_queries_completed, 1); assert.equal(r.counts.filter_identity_holds, 1);
+  assert.equal(r.scoped_inventory_complete, false); assert.equal(writes(s).length, 0);
+});
+test('zero pages cannot describe a nonempty enrollment inventory', async () => {
+  const s = service({ intercept(c) {
+    if (c.url.hostname === 'api.thinkific.com') return json({ items: [enrollment()], meta: { pagination: { current_page: 1, next_page: null, total_pages: 0, total_items: 1 } } });
+  } });
+  const r = await run(s, true);
+  assert.equal(r.status, 'thinkific_pagination_invalid');
+  assert.equal(r.scoped_inventory_complete, false); assert.equal(writes(s).length, 0);
+});
+test('all Kit and per-email source pages finish before the first write', async () => {
+  const s = service({ kitPageSize: 1, thinkPageSize: 1,
+    subscribers: [subscriber(), subscriber({ id: 302, email_address: 'second@example.invalid' })],
+    enrollments: [enrollment(), enrollment({ id: 102, user_id: 202, user_email: 'second@example.invalid', course_id: C.brokerOne }), enrollment({ id: 103, user_id: 202, user_email: 'second@example.invalid', course_id: C.brokerTwo })] });
+  const r = await run(s, true); assert.equal(r.counts.tag_adds_confirmed, 2);
+  const firstWrite = s.calls.findIndex(c => c.options.method === 'POST');
+  const sourceReads = s.calls.map((c, i) => ({ c, i })).filter(({ c }) => c.url.hostname === 'api.thinkific.com');
+  assert.equal(sourceReads.length, 3); assert.ok(sourceReads.every(({ i }) => i < firstWrite));
+  assert.equal(r.counts.scoped_email_queries_completed, 2); assert.equal(r.school_inventory_complete, false);
 });
 

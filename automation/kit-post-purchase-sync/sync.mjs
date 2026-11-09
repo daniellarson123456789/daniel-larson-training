@@ -20,17 +20,22 @@ const fail = code => { throw new SafeFailure(code); };
 
 function emptyReport(apply) {
   return {
-    schema_version: 'post-exclusion-sync-v1', mode: apply ? 'apply' : 'dry_run', status: 'not_started',
-    account_verified: false, complete_inventory: false,
+    schema_version: 'post-exclusion-sync-v2', checked_at: new Date().toISOString(),
+    mode: apply ? 'apply' : 'dry_run', status: 'not_started',
+    inventory_scope: 'unambiguous_existing_kit_subscriber_email_scopes',
+    account_verified: false, scoped_inventory_complete: false, school_inventory_complete: false,
     sendAllowed: false, consentInferred: false, negativeOwnershipProven: false,
     replySyncConnected: false, partialHoldsAreLiveStops: false,
-    thinkific_pagination: { observedRows: 0, expectedItems: null, terminalPage: null,
+    thinkific_pagination: { diagnostic_scope: 'last_existing_subscriber_email_query', observedRows: 0, expectedItems: null, terminalPage: null,
       expectedPages: null, lastPageCount: 0, pageSizes: [] },
+    trial_field_counts: { true: 0, false: 0, missing: 0, invalid: 0 },
     counts: { requests: 0, thinkific_pages: 0, kit_pages: 0, tag_pages: 0, enrollments: 0,
-      subscribers: 0, relevant_enrollments: 0, unmatched_identities: 0,
+      subscribers: 0, scoped_email_queries: 0, scoped_email_queries_completed: 0,
+      kit_identity_rows_held: 0, filter_identity_holds: 0, non_active_subscribers_skipped: 0,
+      relevant_enrollments: 0, unmatched_identities: 0,
       identity_holds: 0, partial_broker_holds: 0, invalid_email_rows: 0,
-      trial_rows_held: 0, already_tagged: 0, proposed_sales: 0, proposed_broker: 0,
-      identity_changed_before_write: 0, tag_write_attempts: 0, tag_adds_confirmed: 0,
+      trial_rows_held: 0, unknown_trial_rows_held: 0, already_tagged: 0, proposed_sales: 0, proposed_broker: 0,
+      identity_changed_before_write: 0, state_changed_before_write: 0, tag_write_attempts: 0, tag_adds_confirmed: 0,
       uncertain_write_readbacks: 0, uncertain_writes_recovered: 0 },
     states: { active: 0, inactive: 0, bounced: 0, complained: 0, cancelled: 0, other: 0 },
   };
@@ -82,14 +87,17 @@ function apiClient({ token, key, apply, fetchImpl, pauseImpl, report }) {
   };
 }
 
-async function readEnrollments(request, report) {
+async function readEnrollments(request, report, scopedEmail) {
   const rows = [], seenIds = new Set();
+  report.thinkific_pagination = { diagnostic_scope: 'last_existing_subscriber_email_query',
+    observedRows: 0, expectedItems: null, terminalPage: null, expectedPages: null, lastPageCount: 0, pageSizes: [] };
   let page = 1, expectedPages, expectedItems;
   for (let n = 0; n < MAX_PAGES; n++) {
-    const data = await request('thinkific', `/enrollments?limit=250&page=${page}`);
+    const data = await request('thinkific', `/enrollments?limit=250&page=${page}&query%5Bemail%5D=${encodeURIComponent(scopedEmail)}`);
     const p = data?.meta?.pagination;
     if (!Array.isArray(data?.items) || data.items.length > 250 || !p || p.current_page !== page ||
-      !integer(p.total_pages) || !integer(p.total_items)) fail('thinkific_pagination_invalid');
+      !integer(p.total_pages) || !integer(p.total_items) ||
+      (p.total_pages === 0 && (p.total_items !== 0 || data.items.length !== 0))) fail('thinkific_pagination_invalid');
     if (n === 0) { expectedPages = p.total_pages; expectedItems = p.total_items; }
     if (p.total_pages !== expectedPages || p.total_items !== expectedItems) fail('thinkific_snapshot_changed');
     report.thinkific_pagination.expectedItems = expectedItems;
@@ -100,8 +108,15 @@ async function readEnrollments(request, report) {
       if (!row || !validId(row.id) || !validId(row.user_id) || !validId(row.course_id)) fail('enrollment_shape_invalid');
       if (seenIds.has(String(row.id))) fail('thinkific_duplicate_enrollment');
       seenIds.add(String(row.id));
+      if (normalizeEmail(row.user_email) !== scopedEmail) {
+        report.counts.filter_identity_holds++;
+        fail('thinkific_filter_identity_mismatch');
+      }
+      const trial = !Object.hasOwn(row, 'is_free_trial') ? 'missing'
+        : row.is_free_trial === false ? 'false' : row.is_free_trial === true ? 'true' : 'invalid';
+      report.trial_field_counts[trial]++;
       // Extra provider fields never leave this reader or reach the report.
-      rows.push({ userId: String(row.user_id), email: normalizeEmail(row.user_email), course: Number(row.course_id), trial: row.is_trial === true });
+      rows.push({ enrollmentId: String(row.id), userId: String(row.user_id), email: normalizeEmail(row.user_email), course: Number(row.course_id), trial });
     }
     report.counts.thinkific_pages++;
     report.thinkific_pagination.observedRows = rows.length;
@@ -109,7 +124,7 @@ async function readEnrollments(request, report) {
     if (p.next_page === null) {
       report.thinkific_pagination.terminalPage = page;
       if (page !== Math.max(1, expectedPages) || rows.length !== expectedItems) fail('thinkific_pagination_incomplete');
-      report.counts.enrollments = rows.length;
+      report.counts.enrollments += rows.length;
       return rows;
     }
     if (p.next_page !== page + 1 || p.next_page > expectedPages || !data.items.length) fail('thinkific_pagination_invalid');
@@ -145,7 +160,8 @@ async function readSubscribers(request, report) {
   const subscribers = rows.map(row => {
     if (!validId(row?.id) || typeof row.state !== 'string' || !row.state || !validEmail(normalizeEmail(row.email_address))) fail('kit_subscriber_invalid');
     report.states[STATES.includes(row.state) ? row.state : 'other']++;
-    return { id: String(row.id), email: normalizeEmail(row.email_address), tags: tagIds(row.tags) };
+    if (row.state !== 'active') report.counts.non_active_subscribers_skipped++;
+    return { id: String(row.id), email: normalizeEmail(row.email_address), state: row.state, tags: tagIds(row.tags) };
   });
   report.counts.subscribers = subscribers.length;
   return subscribers;
@@ -155,6 +171,29 @@ function groupBy(rows, key) {
   const groups = new Map();
   for (const row of rows) { const value = key(row); groups.set(value, [...(groups.get(value) ?? []), row]); }
   return groups;
+}
+
+async function readEnrollmentScopes(request, subscribers, report) {
+  const byEmail = groupBy(subscribers, row => row.email), byId = groupBy(subscribers, row => row.id);
+  const eligible = subscribers.filter(row => {
+    const ambiguous = byEmail.get(row.email).length !== 1 || byId.get(row.id).length !== 1;
+    if (ambiguous) { report.counts.kit_identity_rows_held++; report.counts.identity_holds++; }
+    return !ambiguous;
+  });
+  const rows = [], seenIds = new Set();
+  // Includes non-active subscribers for read-only integration coverage. Planning
+  // below cannot propose a tag for them. Every scoped read finishes before writes.
+  for (const subscriber of eligible) {
+    report.counts.scoped_email_queries++;
+    const scope = await readEnrollments(request, report, subscriber.email);
+    for (const row of scope) {
+      if (seenIds.has(row.enrollmentId)) fail('thinkific_duplicate_enrollment');
+      seenIds.add(row.enrollmentId); rows.push(row);
+    }
+    if (rows.length > MAX_ROWS) fail('inventory_limit_exceeded');
+    report.counts.scoped_email_queries_completed++;
+  }
+  return rows;
 }
 
 function planTags(enrollments, subscribers, report) {
@@ -175,8 +214,10 @@ function planTags(enrollments, subscribers, report) {
     const matches = kitByEmail.get(email) ?? [];
     if (!matches.length) { report.counts.unmatched_identities++; continue; }
     if (matches.length !== 1 || kitById.get(matches[0].id).length !== 1) { report.counts.identity_holds++; continue; }
-    const subscriber = matches[0], courses = new Set(relevant.filter(row => !row.trial).map(row => row.course));
-    report.counts.trial_rows_held += relevant.filter(row => row.trial).length;
+    if (matches[0].state !== 'active') continue;
+    const subscriber = matches[0], courses = new Set(relevant.filter(row => row.trial === 'false').map(row => row.course));
+    report.counts.trial_rows_held += relevant.filter(row => row.trial === 'true').length;
+    report.counts.unknown_trial_rows_held += relevant.filter(row => ['missing', 'invalid'].includes(row.trial)).length;
     const one = courses.has(COURSE_TAGS.brokerOne), two = courses.has(COURSE_TAGS.brokerTwo);
     if (one !== two) report.counts.partial_broker_holds++;
     const tags = [...(courses.has(COURSE_TAGS.sales) ? [COURSE_TAGS.salesTag] : []), ...(one && two ? [COURSE_TAGS.brokerTag] : [])];
@@ -192,7 +233,16 @@ function planTags(enrollments, subscribers, report) {
 
 async function currentIdentity(request, action) {
   const data = await request('kit', `/subscribers/${action.id}`);
-  return validId(data?.subscriber?.id) && String(data.subscriber.id) === action.id && normalizeEmail(data.subscriber.email_address) === action.email;
+  return {
+    matches: validId(data?.subscriber?.id) && String(data.subscriber.id) === action.id && normalizeEmail(data.subscriber.email_address) === action.email,
+    active: data?.subscriber?.state === 'active',
+  };
+}
+async function currentWritable(request, action, report) {
+  const current = await currentIdentity(request, action);
+  if (!current.matches) { report.counts.identity_changed_before_write++; return false; }
+  if (!current.active) { report.counts.state_changed_before_write++; return false; }
+  return true;
 }
 async function currentTags(request, action, report) {
   return tagIds(await readKitPages(request, `/subscribers/${action.id}/tags?per_page=500`, 'tags', report));
@@ -207,16 +257,16 @@ export async function runSync({ env = {}, fetchImpl = globalThis.fetch, pauseImp
     const account = await request('kit', '/account');
     if (String(account?.account?.id) !== EXPECTED_KIT_ACCOUNT) fail('wrong_kit_account');
     report.account_verified = true;
-    const enrollments = await readEnrollments(request, report);
     const subscribers = await readSubscribers(request, report);
-    report.complete_inventory = true;
+    const enrollments = await readEnrollmentScopes(request, subscribers, report);
+    report.scoped_inventory_complete = true;
     const actions = planTags(enrollments, subscribers, report);
     if (!apply) { report.status = 'dry_run_complete'; return report; }
     for (const action of actions) {
-      if (!(await currentIdentity(request, action))) { report.counts.identity_changed_before_write++; continue; }
+      if (!(await currentWritable(request, action, report))) continue;
       if ((await currentTags(request, action, report)).has(action.tag)) { report.counts.already_tagged++; continue; }
       // Re-read ID/email immediately before POST, after the potentially paged tag read.
-      if (!(await currentIdentity(request, action))) { report.counts.identity_changed_before_write++; continue; }
+      if (!(await currentWritable(request, action, report))) continue;
       report.counts.tag_write_attempts++;
       let written;
       try {
@@ -225,7 +275,8 @@ export async function runSync({ env = {}, fetchImpl = globalThis.fetch, pauseImp
         if (error instanceof SafeFailure && ['rate_limited', 'authentication_denied', 'permission_denied', 'resource_missing'].includes(error.code)) throw error;
         // A lost response may hide a committed write. Read back, never POST again.
         report.counts.uncertain_write_readbacks++;
-        if (!(await currentIdentity(request, action)) || !(await currentTags(request, action, report)).has(action.tag)) fail('write_unconfirmed_manual_review');
+        const current = await currentIdentity(request, action);
+        if (!current.matches || !current.active || !(await currentTags(request, action, report)).has(action.tag)) fail('write_unconfirmed_manual_review');
         report.counts.uncertain_writes_recovered++;
         report.counts.tag_adds_confirmed++;
         continue;
@@ -236,7 +287,7 @@ export async function runSync({ env = {}, fetchImpl = globalThis.fetch, pauseImp
       if (!(await currentTags(request, action, report)).has(action.tag)) fail('write_unconfirmed_manual_review');
       report.counts.tag_adds_confirmed++;
     }
-    report.status = report.counts.identity_changed_before_write ? 'apply_complete_with_identity_holds' : 'apply_complete';
+    report.status = report.counts.identity_changed_before_write || report.counts.state_changed_before_write ? 'apply_complete_with_identity_holds' : 'apply_complete';
   } catch (error) {
     // Never surface provider bodies, URLs, IDs, email addresses, credentials or stacks.
     report.status = error instanceof SafeFailure ? error.code : 'internal_failure';
