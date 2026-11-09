@@ -1,0 +1,34 @@
+name: Read-only suppression mailbox probe
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [codex/thinkific-enrollment-capability]
+    paths: [.github/workflows/mailbox-suppression-probe.yml]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mailbox-suppression-capability-probe
+  cancel-in-progress: false
+
+jobs:
+  readonly-mailbox-capability:
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/codex/thinkific-enrollment-capability'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run synthetic safety checks
+        run: node --test automation/thinkific-suppression-probe/mailbox-probe.test.mjs
+      - name: Verify approved mailbox and read-only IMAP access
+        env:
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_APP_PASSWORD: ${{ secrets.SMTP_APP_PASSWORD }}
+        run: node automation/thinkific-suppression-probe/mailbox-probe.mjs
