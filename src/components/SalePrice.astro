@@ -1,18 +1,14 @@
 ---
 import { salePrice, type Product } from "../data/products";
-import OriginalPrice from "./OriginalPrice.astro";
 type Props = { product: Product; compact?: boolean };
 const { product, compact = false } = Astro.props;
-const discounted = Boolean(product.couponCode && product.discountAmount);
 ---
 
 <div class:list={["sale-price", { compact }]}>
   <div class="sale-price-amounts">
-    {discounted && <span class="sale-price-original" aria-label={`Regular price $${product.price}`}><OriginalPrice amount={product.price} /></span>}
     <div class="sale-price-current">${salePrice(product)}</div>
   </div>
   <div class="sale-price-note">one-time enrollment</div>
-  {discounted && <div class="sale-price-code">With code <strong>{product.couponCode}</strong> · Save ${product.discountAmount}<br />Coupon applied through your purchase link.</div>}
 </div>
 
 <style>

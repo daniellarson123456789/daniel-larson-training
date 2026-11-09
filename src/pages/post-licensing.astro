@@ -2,8 +2,6 @@
 import SiteLayout from "../layouts/SiteLayout.astro";
 import TrustpilotReviews from "../components/TrustpilotReviews.astro";
 import TrustpilotReviewLink from "../components/TrustpilotReviewLink.astro";
-import PostSale from "../components/PostSale.astro";
-import OriginalPrice from "../components/OriginalPrice.astro";
 import { site } from "../data/site";
 import { products, salePrice } from "../data/products";
 import { courseOffer } from "../lib/courseOffer";
@@ -13,8 +11,8 @@ const sales = products.salesPost;
 const broker = products.brokerPost;
 const salesPostUrl = sales.checkoutUrl;
 const brokerPostUrl = broker.checkoutUrl;
-const pageTitle = `Florida Post-Licensing: Sales $${salePrice(sales)}, Broker $${salePrice(broker)} with Codes | Daniel Larson Training`;
-const pageDescription = `Florida 45-hour Sales Post $${salePrice(sales)} with ${sales.couponCode}; 60-hour Broker Post $${salePrice(broker)} with ${broker.couponCode}. Complete self-paced courses with FastPass final exam and DBPR reporting.`;
+const pageTitle = `Florida Post-Licensing: Sales $${salePrice(sales)}, Broker $${salePrice(broker)} | Daniel Larson Training`;
+const pageDescription = `Florida 45-hour Sales Post $${salePrice(sales)}; 60-hour Broker Post $${salePrice(broker)}. Complete self-paced courses with FastPass final exam and DBPR reporting.`;
 
 const schema = [
   {
@@ -58,13 +56,12 @@ const schema = [
 <SiteLayout
   title={pageTitle}
   description={pageDescription}
-  shareTitle={`Florida Post-Licensing · Sales $${salePrice(sales)} / Broker $${salePrice(broker)} with Codes`}
+  shareTitle={`Florida Post-Licensing · Sales $${salePrice(sales)} / Broker $${salePrice(broker)}`}
   ogImage="/share-renewal-expanded-v2.png"
   canonicalPath="/post-licensing/"
   schema={schema}
 >
   <div class="post-page">
-    <PostSale />
     <section class="post-hero">
       <div class="shell post-hero-grid">
         <div class="post-hero-copy">
@@ -119,10 +116,8 @@ const schema = [
               </div>
             </div>
             <div class="post-price">
-              <span class="post-price-was" aria-label={`Regular price $${sales.price}`}><OriginalPrice amount={sales.price} /></span>
-              <span aria-label={`$${salePrice(sales)} with code ${sales.couponCode}`}>${salePrice(sales)}</span>
+              <span aria-label={`$${salePrice(sales)}`}>${salePrice(sales)}</span>
             </div>
-            <p class="post-coupon-note">With code <strong>{sales.couponCode}</strong> · Save ${sales.discountAmount}</p>
             <p class="post-option-copy">For Florida sales associates completing first-renewal Post-Licensing.</p>
             <p class="post-fastpass">
               <span>With FastPass final exam</span>
@@ -137,7 +132,7 @@ const schema = [
             <a class="button button-primary post-option-button" href={salesPostUrl} target="_top">
               Purchase Sales Post Bundle →
             </a>
-            <p class="post-checkout-note">Coupon applied automatically. One-time enrollment.</p>
+            <p class="post-checkout-note">One-time enrollment.</p>
           </article>
 
           <article class="post-option" id="broker-post" data-post-reveal>
@@ -148,10 +143,8 @@ const schema = [
               </div>
             </div>
             <div class="post-price">
-              <span class="post-price-was" aria-label={`Regular price $${broker.price}`}><OriginalPrice amount={broker.price} /></span>
-              <span aria-label={`$${salePrice(broker)} with code ${broker.couponCode}`}>${salePrice(broker)}</span>
+              <span aria-label={`$${salePrice(broker)}`}>${salePrice(broker)}</span>
             </div>
-            <p class="post-coupon-note">With code <strong>{broker.couponCode}</strong> · Save ${broker.discountAmount}</p>
             <p class="post-option-copy">For Florida brokers and broker associates completing first-renewal Post-Licensing.</p>
             <p class="post-fastpass">
               <span>With FastPass final exam</span>
@@ -166,7 +159,7 @@ const schema = [
             <a class="button button-primary post-option-button" href={brokerPostUrl} target="_top">
               Purchase Broker Post Bundle →
             </a>
-            <p class="post-checkout-note">Coupon applied automatically. One-time enrollment.</p>
+            <p class="post-checkout-note">One-time enrollment.</p>
           </article>
         </div>
         <p class="post-partner-note">Course materials, FastPass final exam, and completion reporting included. State license renewal fees are separate.</p>
@@ -215,7 +208,7 @@ const schema = [
         <div class="post-faq">
           <details open>
             <summary>How much are the complete Sales and Broker Post courses?</summary>
-            <p>The complete 45-hour Sales Associate Post-Licensing course is <strong>${salePrice(sales)} with code {sales.couponCode}</strong> (regularly ${sales.price}). The complete 60-hour Broker Post-Licensing course is <strong>${salePrice(broker)} with code {broker.couponCode}</strong> (regularly ${broker.price}). Each is a one-time enrollment including course materials, FastPass final exam, and DBPR completion reporting. Purchase links apply the corresponding coupon automatically. State license renewal fees are separate.</p>
+            <p>The complete 45-hour Sales Associate Post-Licensing course is <strong>${salePrice(sales)}</strong>. The complete 60-hour Broker Post-Licensing course is <strong>${salePrice(broker)}</strong>. Each is a one-time enrollment including course materials, FastPass final exam, and DBPR completion reporting. State license renewal fees are separate.</p>
           </details>
           <details>
             <summary>Do I need 45-hour Sales Post or 60-hour Broker Post?</summary>
@@ -248,7 +241,7 @@ const schema = [
         </div>
         <aside class="post-finish-aside" data-post-reveal>
           <strong>Ready for your first renewal?</strong>
-          <p>Sales Post ${salePrice(sales)} with {sales.couponCode}. Broker Post ${salePrice(broker)} with {broker.couponCode}. Each purchase link applies your coupon automatically.</p>
+          <p>Sales Post ${salePrice(sales)}. Broker Post ${salePrice(broker)}.</p>
           <a class="button button-primary" href={salesPostUrl} target="_top">Purchase Sales Post — ${salePrice(sales)} →</a>
           <a class="button button-secondary post-final-secondary" href={brokerPostUrl} target="_top">Purchase Broker Post — ${salePrice(broker)} →</a>
           <small>Not sure which one applies? <a href="sms:+12394718500">Text Daniel · {site.phoneDisplay}</a></small>

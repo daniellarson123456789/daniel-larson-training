@@ -3,106 +3,85 @@ export type Product = {
   name: string;
   shortName: string;
   price: number;
-  couponCode?: string;
-  discountAmount?: number;
   category: "sales" | "broker" | "post" | "ce" | "exam-prep";
   checkoutUrl: string;
 };
 
-export const ceSale = { code: "ce1314", discountAmount: 52 } as const;
 
-export const salePrice = (product: Product) => product.price - (product.discountAmount ?? 0);
+export const salePrice = (product: Product) => product.price;
 
 export const products: Record<string, Product> = {
   salesCourse1: {
     id: "sales-course-1",
     name: "Florida 63-Hour Sales Associate Course 1",
     shortName: "Course 1",
-    price: 260,
-    couponCode: "fastpass80",
-    discountAmount: 80,
+    price: 180,
     category: "sales",
-    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/course1?coupon=fastpass80`,
+    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/course1`,
   },
   salesFastPass: {
     id: "sales-fastpass",
     name: "Sales FastPass",
     shortName: "FastPass",
-    price: 360,
-    couponCode: "fastpass100",
-    discountAmount: 100,
+    price: 260,
     category: "sales",
-    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/fastpass1?coupon=fastpass100`,
+    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/fastpass1`,
   },
   salesFastPassPost: {
     id: "sales-fastpass-post",
     name: "FastPass + Post-Licensing",
     shortName: "FastPass + Post",
-    price: 440,
-    couponCode: "fastpass120",
-    discountAmount: 120,
+    price: 340,
     category: "sales",
-    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/ADDPOST1?coupon=fastpass120`,
+    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/ADDPOST1`,
   },
   brokerCourse2: {
     id: "broker-course-2",
     name: "Florida 72-Hour Broker Course 2",
     shortName: "Course 2",
-    price: 260,
-    couponCode: "fastpass80",
-    discountAmount: 80,
+    price: 180,
     category: "broker",
-    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/brokerexamblast?coupon=fastpass80`,
+    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/brokerexamblast`,
   },
   brokerFastPass: {
     id: "broker-fastpass",
     name: "Broker FastPass",
     shortName: "Broker FastPass",
-    price: 360,
-    couponCode: "fastpass100",
-    discountAmount: 100,
+    price: 260,
     category: "broker",
-    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/brokerfastpass?coupon=fastpass100`,
+    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/brokerfastpass`,
   },
   brokerCareerLaunch: {
     id: "broker-career-launch",
     name: "Broker Career Launch",
     shortName: "Broker Career Launch",
-    price: 440,
-    couponCode: "fastpass120",
-    discountAmount: 120,
+    price: 340,
     category: "broker",
-    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/broker-career-launch?coupon=fastpass120`,
+    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/broker-career-launch`,
   },
   salesPost: {
     id: "sales-post",
     name: "45-Hour Sales Post-Licensing",
     shortName: "Sales Post",
-    price: 130,
-    couponCode: "post30",
-    discountAmount: 30,
+    price: 100,
     category: "post",
-    checkoutUrl: "https://portal.daniellarsontraining.com/enroll/2621565?coupon=post30",
+    checkoutUrl: "https://portal.daniellarsontraining.com/enroll/2621565",
   },
   brokerPost: {
     id: "broker-post",
     name: "60-Hour Broker Post-Licensing",
     shortName: "Broker Post",
-    price: 160,
-    couponCode: "post30",
-    discountAmount: 30,
+    price: 130,
     category: "post",
-    checkoutUrl: "https://portal.daniellarsontraining.com/enroll/3642987?coupon=post30",
+    checkoutUrl: "https://portal.daniellarsontraining.com/enroll/3642987",
   },
   ce14: {
     id: "14-hour-ce",
     name: "Florida 14-Hour Continuing Education",
     shortName: "14-Hour CE",
-    price: 65,
-    couponCode: ceSale.code,
-    discountAmount: ceSale.discountAmount,
+    price: 25,
     category: "ce",
-    checkoutUrl: `https://portal.daniellarsontraining.com/enroll/2621207?coupon=${ceSale.code}`,
+    checkoutUrl: `https://portal.daniellarsontraining.com/enroll/2621207`,
   },
   salesExamPrep: {
     id: "sales-exam-prep",

@@ -2,8 +2,6 @@
 import SiteLayout from "../layouts/SiteLayout.astro";
 import TrustpilotReviews from "../components/TrustpilotReviews.astro";
 import TrustpilotReviewLink from "../components/TrustpilotReviewLink.astro";
-import LicensingSale from "../components/LicensingSale.astro";
-import OriginalPrice from "../components/OriginalPrice.astro";
 import { site } from "../data/site";
 import { products, salePrice } from "../data/products";
 import { courseOffer } from "../lib/courseOffer";
@@ -12,8 +10,8 @@ import "../styles/14ce.css";
 const ce = products.ce14;
 const offerPrice = salePrice(ce);
 const bundleUrl = ce.checkoutUrl;
-const pageTitle = `Florida 14-Hour Real Estate CE $${offerPrice} with Coupon | Daniel Larson Training`;
-const pageDescription = `Florida 14-hour real estate continuing education with FastPass final exam for $${offerPrice} with code ${ce.couponCode} (regularly $${ce.price}). Self-paced course and DBPR reporting included.`;
+const pageTitle = `Florida 14-Hour Real Estate CE $${offerPrice} | Daniel Larson Training`;
+const pageDescription = `Florida 14-hour real estate continuing education with FastPass final exam for $${offerPrice}. Self-paced course and DBPR reporting included.`;
 
 const schema = [
   {
@@ -45,13 +43,12 @@ const schema = [
 <SiteLayout
   title={pageTitle}
   description={pageDescription}
-  shareTitle={`14-Hour CE — $${offerPrice} with ${ce.couponCode}`}
+  shareTitle={`14-Hour CE — $${offerPrice}`}
   ogImage="/share-renewal-expanded-v2.png"
   canonicalPath="/14ce/"
   schema={schema}
 >
   <div class="ce-page">
-    <LicensingSale variant="ce" />
     <section class="ce-hero">
       <div class="shell ce-hero-grid">
         <div class="ce-hero-copy">
@@ -63,7 +60,7 @@ const schema = [
             No page timers or forced lesson stops.
           </p>
           <div class="ce-hero-actions">
-            <a class="button button-primary" href={`https://portal.daniellarsontraining.com/bundles/14ce?coupon=${ce.couponCode}`} target="_top">Explore 14-Hour CE with FastPass Final Exam →</a>
+            <a class="button button-primary" href={`https://portal.daniellarsontraining.com/bundles/14ce`} target="_top">Explore 14-Hour CE with FastPass Final Exam →</a>
             <a class="button button-secondary ce-ghost" href="#ce-inside">See the course material ↓</a>
           </div>
           <TrustpilotReviewLink />
@@ -75,17 +72,15 @@ const schema = [
             <p class="ce-buy-kicker">Complete 14-Hour CE with FastPass final exam</p>
           </div>
           <div class="ce-price">
-            <span class="ce-price-was" aria-label={`Regular price $${ce.price}`}><OriginalPrice amount={ce.price} /></span>
-            <span class="ce-price-now" aria-label={`$${offerPrice} with code ${ce.couponCode}`}>${offerPrice}</span>
+            <span class="ce-price-now" aria-label={`$${offerPrice}`}>${offerPrice}</span>
           </div>
-          <p class="ce-coupon-note">With code <strong>{ce.couponCode}</strong> · Save ${ce.discountAmount}</p>
           <h2>Take the final when you're ready.</h2>
           <p class="ce-buy-copy">
             Your enrollment includes a full CE course to use whenever you need it,
             and the FastPass final exam to test out.
           </p>
           <a class="button button-primary ce-buy-button" href={bundleUrl} target="_top">Purchase Bundle →</a>
-          <p class="ce-buy-foot">Coupon applied automatically. One-time enrollment.</p>
+          <p class="ce-buy-foot">One-time enrollment.</p>
         </aside>
       </div>
       <div class="ce-trust" aria-label="CE course highlights">
@@ -164,7 +159,7 @@ const schema = [
         <div class="ce-faq">
           <details open>
             <summary>What does the ${offerPrice} CE bundle include?</summary>
-            <p>Use code <strong>{ce.couponCode}</strong> to pay <strong>${offerPrice}</strong> for the complete 14-hour CE course with FastPass final exam, downloadable section PDFs, audio-guided lessons, review questions, and DBPR completion reporting. Regular enrollment is ${ce.price}; the coupon saves ${ce.discountAmount}. This is a one-time enrollment, and our purchase links apply the coupon automatically. State license renewal fees are separate and paid through DBPR.</p>
+            <p>Pay <strong>${offerPrice}</strong> for the complete 14-hour CE course with FastPass final exam, downloadable section PDFs, audio-guided lessons, review questions, and DBPR completion reporting. This is a one-time enrollment. State license renewal fees are separate and paid through DBPR.</p>
           </details>
           <details>
             <summary>Who needs Florida 14-hour real estate CE?</summary>
@@ -201,10 +196,9 @@ const schema = [
         <aside class="ce-finish-aside" data-ce-reveal>
           <strong>14-Hour CE with FastPass final exam</strong>
           <div class="ce-price ce-price-compact">
-            <span class="ce-price-was" aria-label={`Regular price $${ce.price}`}><OriginalPrice amount={ce.price} /></span>
-            <span class="ce-price-now" aria-label={`$${offerPrice} with code ${ce.couponCode}`}>${offerPrice}</span>
+            <span class="ce-price-now" aria-label={`$${offerPrice}`}>${offerPrice}</span>
           </div>
-          <p>Use code <strong>{ce.couponCode}</strong>. Coupon applied automatically when you purchase.</p>
+          <p>One-time enrollment.</p>
           <a class="button button-primary" href={bundleUrl} target="_top">Purchase Bundle →</a>
           <small>Not sure whether you need CE or Post-Licensing? <a href="sms:+12394718500">Text Daniel · {site.phoneDisplay}</a></small>
         </aside>

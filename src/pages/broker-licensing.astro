@@ -7,8 +7,8 @@ import { products, salePrice } from "../data/products";
 import { courseOffer } from "../lib/courseOffer";
 import "../styles/licensing-parity.css";
 
-const pageTitle = `Florida Broker License Course $${salePrice(products.brokerCourse2)} with Code | Daniel Larson Training`;
-const pageDescription = `Florida 72-hour Course 2 ${salePrice(products.brokerCourse2)} with ${products.brokerCourse2.couponCode}; FastPass ${salePrice(products.brokerFastPass)} with ${products.brokerFastPass.couponCode}; FastPass + Post ${salePrice(products.brokerCareerLaunch)} with ${products.brokerCareerLaunch.couponCode}. One-year access.`;
+const pageTitle = `Florida Broker License Course $${salePrice(products.brokerCourse2)} | Daniel Larson Training`;
+const pageDescription = `Florida 72-hour Course 2 $${salePrice(products.brokerCourse2)}; FastPass $${salePrice(products.brokerFastPass)}; FastPass + Post $${salePrice(products.brokerCareerLaunch)}. One-year access.`;
 
 const schema = [
   {
@@ -49,7 +49,7 @@ const schema = [
 <SiteLayout
   title={pageTitle}
   description={pageDescription}
-  shareTitle={`Florida Broker Licensing from $${salePrice(products.brokerCourse2)} with Code`}
+  shareTitle={`Florida Broker Licensing from $${salePrice(products.brokerCourse2)}`}
   ogImage="/share-license-expanded-v2.png"
   canonicalPath="/broker-licensing/"
   schema={schema}
@@ -209,9 +209,9 @@ const schema = [
 <thead>
 <tr>
 <th scope="col">Included</th>
-<th scope="col">Course 2<small>${salePrice(products.brokerCourse2)} with {products.brokerCourse2.couponCode}<br />Regularly ${products.brokerCourse2.price} · Save ${products.brokerCourse2.discountAmount}</small></th>
-<th class="best-head" scope="col">FastPass<small>${salePrice(products.brokerFastPass)} with {products.brokerFastPass.couponCode}<br />Regularly ${products.brokerFastPass.price} · Save ${products.brokerFastPass.discountAmount}</small></th>
-<th scope="col">Full Package<small>${salePrice(products.brokerCareerLaunch)} with {products.brokerCareerLaunch.couponCode}<br />Regularly ${products.brokerCareerLaunch.price} · Save ${products.brokerCareerLaunch.discountAmount} · FastPass + Post</small></th>
+<th scope="col">Course 2<small>${salePrice(products.brokerCourse2)}</small></th>
+<th class="best-head" scope="col">FastPass<small>${salePrice(products.brokerFastPass)}</small></th>
+<th scope="col">Full Package<small>${salePrice(products.brokerCareerLaunch)}<br />FastPass + Post</small></th>
 </tr>
 </thead>
 <tbody>
@@ -262,11 +262,11 @@ const schema = [
 <h2>Florida Broker Licensing FAQ</h2>
 </div>
 <div class="faq-list">
-<details><summary>How much is the Florida 72-hour broker course?</summary><p>Course 2 is <strong>${salePrice(products.brokerCourse2)} with code {products.brokerCourse2.couponCode}</strong>, regularly ${products.brokerCourse2.price}. Save ${products.brokerCourse2.discountAmount} on the complete DBPR-approved 72-hour course, traditional final, and Exam Math Basics. One-time enrollment includes one year of access and direct instructor support. State application, fingerprinting, and state-exam fees are separate.</p></details>
-<details><summary>What is included in the Broker FastPass package?</summary><p>Broker FastPass is <strong>${salePrice(products.brokerFastPass)} with code {products.brokerFastPass.couponCode}</strong>, regularly ${products.brokerFastPass.price}. Save ${products.brokerFastPass.discountAmount} at checkout. The package includes the DBPR-approved 72-hour Broker Course 2, three FastPass certification exams, Exam Math Basics, 500+ practice questions and explanations, audio ebook review, the FastPass Workbook online and as a PDF, one year of access, and direct support from Daniel.</p></details>
+<details><summary>How much is the Florida 72-hour broker course?</summary><p>Course 2 is <strong>${salePrice(products.brokerCourse2)}</strong>. Includes the complete DBPR-approved 72-hour course, traditional final, and Exam Math Basics. One-time enrollment includes one year of access and direct instructor support. State application, fingerprinting, and state-exam fees are separate.</p></details>
+<details><summary>What is included in the Broker FastPass package?</summary><p>Broker FastPass is <strong>${salePrice(products.brokerFastPass)}</strong>. The package includes the DBPR-approved 72-hour Broker Course 2, three FastPass certification exams, Exam Math Basics, 500+ practice questions and explanations, audio ebook review, the FastPass Workbook online and as a PDF, one year of access, and direct support from Daniel.</p></details>
 <details><summary>How is Broker FastPass different?</summary><p>Broker FastPass uses three certification exams in place of the traditional course final exam. Test out when you’re ready, with the full Broker Course 2, Exam Math Basics, audio ebook review, and 500+ Q&amp;A with explanations available to help you prepare. The Florida broker licensing exam is separate.</p></details>
 <details><summary>Does FastPass replace the Florida broker licensing exam?</summary><p>No. The Florida broker licensing exam is a separate exam administered through <a href="https://www.pearsonvue.com/us/en/fl/dbpr.html" rel="noopener" target="_blank">Pearson Professional Assessments</a> (formerly Pearson VUE). FastPass is preparation and part of the Course 2 certification path; you still take the state exam separately.</p></details>
-<details><summary>What is the Full Package with FastPass + Post?</summary><p>The Full Package is <strong>${salePrice(products.brokerCareerLaunch)} with code {products.brokerCareerLaunch.couponCode}</strong>, regularly ${products.brokerCareerLaunch.price}. Save ${products.brokerCareerLaunch.discountAmount} on Course 2, Broker FastPass, and your required 60-hour Broker Post-Licensing course. Printed books included on request with the Full Package.</p></details>
+<details><summary>What is the Full Package with FastPass + Post?</summary><p>The Full Package is <strong>${salePrice(products.brokerCareerLaunch)}</strong>. Includes Course 2, Broker FastPass, and your required 60-hour Broker Post-Licensing course. Printed books included on request with the Full Package.</p></details>
 <details><summary>Which broker packages include the FastPass Workbook?</summary><p>Broker FastPass and the Full Package include the Broker FastPass Workbook to read online or download as a PDF. Printed books included on request with the Full Package.</p></details>
 <details><summary>How long do I have access?</summary><p>Broker course bundles include one year of online access.</p></details>
 <details><summary>Can I contact the owner directly?</summary><p>Yes. You can text the owner directly at <a href="sms:+12394718500">239.471.8500</a> or email <a href="mailto:daniel@daniellarsontraining.com">daniel@daniellarsontraining.com</a> about broker licensing, exam preparation, post-licensing, or your next licensing step.</p></details>

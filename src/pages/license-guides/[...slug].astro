@@ -10,16 +10,6 @@ export function getStaticPaths() {
 
 const { guide } = Astro.props;
 const canonicalPath = `/license-guides/${guide.slug ? `${guide.slug}/` : ""}`;
-const relatedGuides: Record<string, { path: string; label: string; description: string }> = {
-  "": { path: "/", label: "Explore the Florida licensing guide", description: "Explore eligibility, application steps, costs, and renewal requirements alongside these course and student resources." },
-  "how-to-get-florida-real-estate-license": { path: "/getting-licensed/", label: "Review sales licensing requirements", description: "Review the statewide sales associate licensing process and official application sources before planning your next step." },
-  "florida-broker-license-requirements": { path: "/broker-license/", label: "Review broker licensing requirements", description: "Explore qualifying experience, application steps, and the broker licensing process beyond your school course." },
-  "school-certificate-and-state-exam": { path: "/course-and-state-exam/", label: "Plan your Florida state exam", description: "Find additional guidance on exam format, scheduling, fees, retakes, and preparation." },
-  "sales-associate-vs-realtor": { path: "/realtor-membership-mls/", label: "Compare license, membership, and MLS", description: "Explore membership and MLS costs and the questions to ask a prospective brokerage." },
-  "post-licensing-vs-ce": { path: "/post-licensing/", label: "Review first-renewal requirements", description: "Read more about first-renewal deadlines, Post-Licensing, and the steps to check in your DBPR record." },
-  "florida-real-estate-math": { path: "/course-and-state-exam/#study-plan", label: "Build your state-exam study plan", description: "Put your math practice into a wider preparation plan for the Florida state exam." },
-  "florida-real-estate-license-problems": { path: "/license-problems/", label: "Explore license problems and next steps", description: "Review common license-status and deadline problems, with links to official instructions for your next step." },
-};
 const schema = {
   "@type": guide.slug ? "Article" : "CollectionPage",
   "@id": `${site.url}${canonicalPath}#webpage`,
@@ -30,7 +20,7 @@ const schema = {
   author: { "@id": `${site.url}/#daniel-larson` },
   publisher: { "@id": `${site.url}/#organization` },
   inLanguage: "en-US",
-  dateModified: "2026-11-07",
+  dateModified: "2026-11-09",
 };
 ---
 
@@ -42,5 +32,5 @@ const schema = {
   ogImage={guide.slug === "post-licensing-vs-ce" ? "/share-post-ce-guide-2026-09.png" : undefined}
   schema={schema}
 >
-  <LicenseGuide markup={guide.markup} relatedGuide={relatedGuides[guide.slug ?? ""]} />
+  <LicenseGuide markup={guide.markup} />
 </SiteLayout>

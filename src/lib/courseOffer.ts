@@ -1,9 +1,9 @@
 import type { Product } from "../data/products";
 import { site } from "../data/site";
 
-// Match the public enrollment offer, including its required coupon.
+// Match the public one-time enrollment price.
 export function courseOffer(product: Product, name = product.name) {
-  const price = product.price - (product.discountAmount ?? 0);
+  const price = product.price;
   const inclusions = product.category === "ce"
     ? "Includes the full 14-hour CE course, FastPass final exam, and DBPR completion reporting. State license renewal fees are separate."
     : product.category === "post"
@@ -14,9 +14,7 @@ export function courseOffer(product: Product, name = product.name) {
     "@id": `${site.url}/#offer-${product.id}`,
     name,
     price,
-    ...(product.couponCode ? {
-      description: `Pay $${price} with ${product.couponCode}; regular price $${product.price}. One-time enrollment. The product link includes the code; confirm the discounted total at checkout. ${inclusions}`,
-    } : {}),
+    description: `Enrollment $${price}. One-time enrollment. ${inclusions}`,
     priceCurrency: "USD",
     url: product.checkoutUrl,
     seller: { "@id": `${site.url}/#organization` },

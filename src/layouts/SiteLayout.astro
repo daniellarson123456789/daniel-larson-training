@@ -1,5 +1,4 @@
 ---
-import LicensingSale from "../components/LicensingSale.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import SiteMotion from "../components/SiteMotion.astro";
@@ -27,7 +26,6 @@ const {
   shareTitle = title,
 } = Astro.props;
 
-const showLicensingSale = ["/", "/broker-licensing/", "/florida-sales-associate-exam-prep/", "/florida-broker-exam-prep/"].includes(Astro.url.pathname);
 
 const canonical = new URL(canonicalPath, site.url).toString();
 const socialImage = new URL(ogImage, site.url).toString();
@@ -120,7 +118,7 @@ const structuredData = {
             window.dataLayer = window.dataLayer || [];
             window.gtag = window.gtag || function(){window.dataLayer.push(arguments);};
             window.gtag('set', 'linker', {
-              domains: ['daniellarsontraining.com', 'flrealestatelicenseguide.com'],
+              domains: ['daniellarsontraining.com'],
               accept_incoming: true
             });
             window.gtag('js', new Date());
@@ -137,7 +135,6 @@ const structuredData = {
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
     <Header />
-    {showLicensingSale && <LicensingSale />}
     <main id="main">
       <slot />
     </main>
