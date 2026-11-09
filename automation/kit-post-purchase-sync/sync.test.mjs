@@ -132,6 +132,23 @@ test('changing Thinkific totals and duplicate enrollment IDs abort a mixed snaps
     } },
   ]) { const s = service(args); const r = await run(s, true); assert.equal(r.complete_inventory, false); assert.equal(writes(s).length, 0); }
 });
+test('terminal mismatch preserves only aggregate diagnostics without relaxing completeness', async () => {
+  for (const totalPages of [2, 3]) {
+    const s = service({ intercept(c) {
+      if (c.url.hostname !== 'api.thinkific.com') return null;
+      const n = Number(c.url.searchParams.get('page'));
+      return json({ items: [enrollment({ id: 100 + n })],
+        meta: { pagination: { current_page: n, next_page: n === 1 ? 2 : null, total_pages: totalPages, total_items: 3 },
+          private_provider_note: 'person@example.invalid synthetic-thinkific-secret 987654321' } });
+    } });
+    const r = await run(s, true);
+    assert.equal(r.status, 'thinkific_pagination_incomplete');
+    assert.deepEqual(r.thinkific_pagination, { observedRows: 2, expectedItems: 3, terminalPage: 2, expectedPages: totalPages, lastPageCount: 1, pageSizes: [1, 1] });
+    assert.equal(r.complete_inventory, false); assert.equal(r.counts.kit_pages, 0);
+    assert.equal(r.counts.tag_write_attempts, 0); assert.equal(writes(s).length, 0);
+    for (const privateValue of [email, env.THINKIFIC_API_TOKEN, '987654321']) assert.equal(JSON.stringify(r).includes(privateValue), false);
+  }
+});
 test('429 and provider error text are never retried or logged', async () => {
   const s = service({ intercept(c) { if (c.url.hostname === 'api.thinkific.com') return json({ error: 'person@example.invalid synthetic-thinkific-secret 987654321' }, 429); } });
   const r = await run(s, true), output = JSON.stringify(r);
@@ -191,3 +208,4 @@ test('explicit trial evidence is held and cannot create a full-course exclusion'
   const s = service({ enrollments: [enrollment({ is_trial: true })] });
   const r = await run(s, true); assert.equal(r.counts.trial_rows_held, 1); assert.equal(writes(s).length, 0);
 });
+
