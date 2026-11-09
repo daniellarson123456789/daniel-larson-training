@@ -1,6 +1,8 @@
 name: Post enrollment exclusions
 
 on:
+  schedule:
+    - cron: '17 * * * *'
   workflow_dispatch:
     inputs:
       apply:
@@ -34,5 +36,6 @@ jobs:
         env:
           THINKIFIC_API_TOKEN: ${{ secrets.THINKIFIC_API_TOKEN }}
           KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
-          APPLY: ${{ inputs.apply && 'ADD_EXISTING_POST_EXCLUSIONS' || '' }}
+          APPLY: ${{ (github.event_name == 'schedule' || inputs.apply) && 'ADD_EXISTING_POST_EXCLUSIONS' || '' }}
         run: node automation/kit-post-purchase-sync/sync.mjs
+
