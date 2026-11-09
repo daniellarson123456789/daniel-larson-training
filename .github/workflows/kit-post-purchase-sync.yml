@@ -1,0 +1,38 @@
+name: Post enrollment exclusions
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: Add only existing-subscriber Post exclusion tags after a verified dry run
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kit-post-purchase-exclusions
+  cancel-in-progress: false
+
+jobs:
+  sync-exclusions:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run synthetic checks without credentials
+        run: node --test automation/kit-post-purchase-sync/sync.test.mjs
+      - name: Read inventories and optionally add Post exclusions
+        env:
+          THINKIFIC_API_TOKEN: ${{ secrets.THINKIFIC_API_TOKEN }}
+          KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
+          APPLY: ${{ inputs.apply && 'ADD_EXISTING_POST_EXCLUSIONS' || '' }}
+        run: node automation/kit-post-purchase-sync/sync.mjs
