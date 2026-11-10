@@ -64,7 +64,7 @@
   .licensing-parity .btn:hover{transform:translateY(-2px)}
   .licensing-parity .btn-primary{background:var(--blue);color:#fff;box-shadow:0 14px 34px rgba(37,120,234,.30)}
   .licensing-parity .btn-ghost{border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.06)}
-  .licensing-parity .hero-card{align-self:start;margin-top:100px;background:rgba(3,10,31,.62);border:1px solid rgba(255,255,255,.16);border-radius:20px;padding:24px;box-shadow:var(--shadow);backdrop-filter:blur(10px)}
+  .licensing-parity .hero-card{align-self:start;margin-top:32px;background:rgba(3,10,31,.62);border:1px solid rgba(255,255,255,.16);border-radius:20px;padding:24px;box-shadow:var(--shadow);backdrop-filter:blur(10px)}
   .licensing-parity .hero-card h2{font-size:22px;margin:0 0 8px}
   .licensing-parity .hero-card p{margin:0;color:var(--muted)}
   .licensing-parity .support-number{font-size:27px;font-weight:950;display:block;margin-top:16px;text-decoration:none;color:#fff}
