@@ -9,8 +9,11 @@ const isActive = (href: string) =>
 <header class="site-header">
   <div class="header-brand-row shell">
     <a class="brand-lockup" href="/" aria-label={`${site.name} home`}>
-      <span class="brand-name">{site.name}</span>
-      <span class="brand-sub">{site.tagline}</span>
+      <img class="brand-logo" src="/fastpass-icon-192.png" alt="Florida FastPass logo" width="192" height="192" />
+      <span class="brand-copy">
+        <span class="brand-name">{site.name}</span>
+        <span class="brand-sub">{site.tagline}</span>
+      </span>
     </a>
 
     <a
