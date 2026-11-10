@@ -7,7 +7,7 @@ import { products, salePrice } from "../data/products";
 // Adapted from outputs/florida-licensing-checklist-content.json, reviewed November 7, 2026.
 // Keep pricing in products.ts. The native Kit form is controlled by the
 // build-time capture switch documented in automation/KIT_SIGNUP.md.
-const title = "Florida Real Estate Licensing Checklist | Daniel Larson Training";
+const title = "Florida Real Estate Licensing Checklist | Real Estate FastPass";
 const description = "Find your next Florida real estate licensing step. Use a printable checklist for applications, exams, course costs and first-renewal Post-Licensing.";
 const sources = [
   { id: "sales", label: "DBPR sales associate application", url: "https://www.myfloridalicense.com/CheckListDetail.asp?SID=&XACT_DEFN_ID=744&clientCode=2501&sub_id=brochure&xactCode=1010" },
@@ -204,7 +204,7 @@ const schema = {
     <section class="sources-section shell" id="official-sources" aria-labelledby="sources-heading">
       <div><p class="eyebrow">Keep the official instructions close</p><h2 id="sources-heading">Sources &amp; useful links</h2><p>Requirements and published fees reviewed November 7, 2026. Use DBPR and Pearson VUE for your current application, exam and license record.</p></div>
       <ul>{sources.map((item) => <li><a href={item.url}>{item.label} <span aria-hidden="true">↗</span></a></li>)}</ul>
-      <p class="print-url">Daniel Larson Training · daniellarsontraining.com/licensing-checklist/ · {site.phoneDisplay}</p>
+      <p class="print-url">Real Estate FastPass · realestatefastpass.com/licensing-checklist/ · {site.phoneDisplay}</p>
     </section>
   </div>
 </SiteLayout>

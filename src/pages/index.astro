@@ -7,19 +7,19 @@ import { products, salePrice } from "../data/products";
 import { courseOffer } from "../lib/courseOffer";
 import "../styles/licensing-parity.css";
 
-const pageTitle = "Florida Real Estate License Course | Daniel Larson Training";
-const pageDescription = `Florida 63-hour Course 1 $${salePrice(products.salesCourse1)}; FastPass $${salePrice(products.salesFastPass)}; FastPass + Post $${salePrice(products.salesFastPassPost)}. One-year access.`;
+const pageTitle = "Florida Real Estate License Course | Real Estate FastPass";
+const pageDescription = `Self-paced Florida real estate licensing with Daniel Larson. Course 1 $${salePrice(products.salesCourse1)}, FastPass $${salePrice(products.salesFastPass)}, or FastPass + Post $${salePrice(products.salesFastPassPost)}. One-year access and direct instructor help.`;
 const pricingAnswer = `Course 1 is $${salePrice(products.salesCourse1)}. FastPass is $${salePrice(products.salesFastPass)}. The Full Package, FastPass + Post, is $${salePrice(products.salesFastPassPost)}. Each price is a one-time enrollment payment; state application, fingerprinting, and state-exam fees are separate.`;
 const booksAnswer = "No. All course content is included online. FastPass and the Full Package, FastPass + Post, also include the FastPass Workbook to read online or download as a PDF. Printed books included on request with the Full Package. Full Package students can text or email Daniel their shipping address; books and shipping are included.";
 
 const schema = [
   {
     "@type": "Course",
-    "@id": "https://daniellarsontraining.com/#course1",
+    "@id": "https://realestatefastpass.com/#course1",
     "name": "Florida 63-Hour Sales Associate Pre-License Course (Course 1)",
     "description": `Florida 63-hour Sales Associate pre-license education from $${salePrice(products.salesCourse1)}. FastPass adds course certification and exam preparation, audio/video instruction, and 500+ questions and explanations. All packages include one-year access and direct instructor support. Printed books included on request with the Full Package, FastPass + Post.`,
     "provider": {
-      "@id": "https://daniellarsontraining.com/#organization"
+      "@id": "https://realestatefastpass.com/#organization"
     },
     "inLanguage": "en-US",
     "offers": [
@@ -30,24 +30,24 @@ const schema = [
   },
   {
     "@type": "WebPage",
-    "@id": "https://daniellarsontraining.com/#webpage",
-    "url": "https://daniellarsontraining.com/",
+    "@id": "https://realestatefastpass.com/#webpage",
+    "url": "https://realestatefastpass.com/",
     "name": pageTitle,
     "description": pageDescription,
     "isPartOf": {
-      "@id": "https://daniellarsontraining.com/#website"
+      "@id": "https://realestatefastpass.com/#website"
     },
     "about": {
-      "@id": "https://daniellarsontraining.com/#course1"
+      "@id": "https://realestatefastpass.com/#course1"
     },
     "publisher": {
-      "@id": "https://daniellarsontraining.com/#organization"
+      "@id": "https://realestatefastpass.com/#organization"
     },
     "inLanguage": "en-US"
   },
   {
     "@type": "FAQPage",
-    "@id": "https://daniellarsontraining.com/#faq",
+    "@id": "https://realestatefastpass.com/#faq",
     "mainEntity": [
       {
         "@type": "Question",

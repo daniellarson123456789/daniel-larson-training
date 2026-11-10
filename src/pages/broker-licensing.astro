@@ -7,17 +7,17 @@ import { products, salePrice } from "../data/products";
 import { courseOffer } from "../lib/courseOffer";
 import "../styles/licensing-parity.css";
 
-const pageTitle = `Florida Broker License Course $${salePrice(products.brokerCourse2)} | Daniel Larson Training`;
+const pageTitle = "Florida Broker License Course | Real Estate FastPass";
 const pageDescription = `Florida 72-hour Course 2 $${salePrice(products.brokerCourse2)}; FastPass $${salePrice(products.brokerFastPass)}; FastPass + Post $${salePrice(products.brokerCareerLaunch)}. One-year access.`;
 
 const schema = [
   {
     "@type": "Course",
-    "@id": "https://daniellarsontraining.com/broker-licensing/#course2",
+    "@id": "https://realestatefastpass.com/broker-licensing/#course2",
     "name": "Florida 72-Hour Broker Pre-License Course (Course 2)",
     "description": `${pageDescription} FastPass includes certification exams, 500+ questions and explanations, audio/video instruction, and a digital workbook. Every licensing package includes one-year access and direct instructor support. Printed books included on request with the Full Package.`,
     "provider": {
-      "@id": "https://daniellarsontraining.com/#organization"
+      "@id": "https://realestatefastpass.com/#organization"
     },
     "inLanguage": "en-US",
     "offers": [
@@ -28,18 +28,18 @@ const schema = [
   },
   {
     "@type": "WebPage",
-    "@id": "https://daniellarsontraining.com/broker-licensing/#webpage",
-    "url": "https://daniellarsontraining.com/broker-licensing/",
+    "@id": "https://realestatefastpass.com/broker-licensing/#webpage",
+    "url": "https://realestatefastpass.com/broker-licensing/",
     "name": pageTitle,
     "description": pageDescription,
     "isPartOf": {
-      "@id": "https://daniellarsontraining.com/#website"
+      "@id": "https://realestatefastpass.com/#website"
     },
     "about": {
-      "@id": "https://daniellarsontraining.com/broker-licensing/#course2"
+      "@id": "https://realestatefastpass.com/broker-licensing/#course2"
     },
     "publisher": {
-      "@id": "https://daniellarsontraining.com/#organization"
+      "@id": "https://realestatefastpass.com/#organization"
     },
     "inLanguage": "en-US"
   }

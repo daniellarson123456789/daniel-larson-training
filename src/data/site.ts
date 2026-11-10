@@ -1,7 +1,8 @@
 export const site = {
-  name: "Daniel Larson Training",
-  tagline: "Florida Real Estate Education",
-  url: "https://daniellarsontraining.com",
+  name: "Real Estate FastPass",
+  schoolName: "Daniel Larson Training",
+  tagline: "A Daniel Larson School",
+  url: "https://realestatefastpass.com",
   portalUrl: "https://portal.daniellarsontraining.com",
   studentDashboardUrl: "https://portal.daniellarsontraining.com/enrollments",
   phoneDisplay: "239.471.8500",
