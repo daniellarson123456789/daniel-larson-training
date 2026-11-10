@@ -1,7 +1,7 @@
 {
   "redirects": [
-    { "source": "/:path*", "has": [{ "type": "host", "value": "daniellarsontraining.com" }], "destination": "https://realestatefastpass.com/:path*", "permanent": true },
-    { "source": "/:path*", "has": [{ "type": "host", "value": "www.daniellarsontraining.com" }], "destination": "https://realestatefastpass.com/:path*", "permanent": true },
+    { "source": "/:path*", "has": [{ "type": "host", "value": "daniellarsontraining.com" }], "destination": "https://realestatefastpass.com/:path*", "statusCode": 301 },
+    { "source": "/:path*", "has": [{ "type": "host", "value": "www.daniellarsontraining.com" }], "destination": "https://realestatefastpass.com/:path*", "statusCode": 301 },
     {"source":"/post/how-to-get-your-florida-real-estate-license-in-2025-a-step-by-step-guide","destination":"/license-guides/how-to-get-florida-real-estate-license/","permanent":true},
     {"source":"/post/how-to-get-your-florida-real-estate-license-in-2025-a-step-by-step-guide/","destination":"/license-guides/how-to-get-florida-real-estate-license/","permanent":true},
     { "source": "/broker", "destination": "/broker-licensing/", "permanent": true },
