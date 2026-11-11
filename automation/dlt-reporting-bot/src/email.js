@@ -44,7 +44,7 @@ export async function sendStudentConfirmation(candidate, env = process.env) {
       "",
       "Leave a review: https://www.trustpilot.com/review/daniellarsontraining.com",
       "",
-      "Please also share an honest review of your experience in a Facebook post and tag Daniel R. Larson so I can see it.",
+      "Please also share an honest review of your experience in a Facebook post and tag Daniel.",
       "",
       "Find me on Facebook: https://www.facebook.com/dan.larson.7169/",
       "",
