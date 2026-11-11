@@ -8,6 +8,30 @@ const STUDENT_COURSE_NAMES = Object.freeze({
   "3313434": "Broker Post-Licensing"
 });
 
+const FACEBOOK_PROFILE_URL = "https://www.facebook.com/dan.larson.7169/";
+const FACEBOOK_REVIEW_REQUEST = "Please also share an honest review of your experience in a Facebook post and tag us.";
+
+function studentConfirmationHtml(text) {
+  return text.split("\n\n")
+    .filter(paragraph => paragraph !== `Facebook: ${FACEBOOK_PROFILE_URL}`)
+    .map(paragraph => {
+      let content = paragraph.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#39;")
+        .replaceAll("\n", "<br>");
+      if (paragraph === FACEBOOK_REVIEW_REQUEST) {
+        content = content.replace("tag us.", `<a href="${FACEBOOK_PROFILE_URL}">tag us</a>.`);
+      }
+      for (const url of [
+        "https://www.myfloridalicense.com",
+        "https://www.trustpilot.com/review/daniellarsontraining.com",
+        "https://daniellarsontraining.com"
+      ]) {
+        content = content.replaceAll(url, `<a href="${url}">${url}</a>`);
+      }
+      return `<p>${content}</p>`;
+    }).join("\n");
+}
+
 function transporter(env) {
   if (!env.SMTP_USER || !env.SMTP_APP_PASSWORD) throw new Error("SMTP credentials are required.");
   return nodemailer.createTransport({
@@ -22,7 +46,7 @@ export async function sendStudentConfirmation(candidate, env = process.env) {
   const courseName = STUDENT_COURSE_NAMES[String(candidate.thinkificCourseId)];
   if (!courseName) throw new Error("Student confirmation course is not mapped.");
   const mail = transporter(env);
-  await sendMailWithRetry(mail, {
+  const message = {
     from: `Daniel Larson Training <${env.SMTP_USER}>`,
     to: candidate.studentEmail,
     replyTo: env.SMTP_USER,
@@ -44,9 +68,9 @@ export async function sendStudentConfirmation(candidate, env = process.env) {
       "",
       "Leave a review: https://www.trustpilot.com/review/daniellarsontraining.com",
       "",
-      "Please also share an honest review of your experience in a Facebook post and tag Daniel.",
+      FACEBOOK_REVIEW_REQUEST,
       "",
-      "Find me on Facebook: https://www.facebook.com/dan.larson.7169/",
+      `Facebook: ${FACEBOOK_PROFILE_URL}`,
       "",
       "Thank you for coming our way,",
       "",
@@ -55,7 +79,8 @@ export async function sendStudentConfirmation(candidate, env = process.env) {
       "239-471-8500",
       "https://daniellarsontraining.com"
     ].join("\n")
-  });
+  };
+  await sendMailWithRetry(mail, { ...message, html: studentConfirmationHtml(message.text) });
 }
 
 export async function sendAdminNotice(subject, lines, env = process.env, attachments = []) {
