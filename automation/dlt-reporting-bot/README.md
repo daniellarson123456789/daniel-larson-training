@@ -2,6 +2,12 @@
 
 This bot polls Thinkific for the three required license-information survey answers and a passing final-exam submission. It maps the completion to the approved DBPR course, enters the attendee in the DBPR Education Provider Reporting Portal, waits for the portal's success message, and then emails the student.
 
+## Website deployment protection
+
+The live FastPass website is maintained separately from this repository's older website source. Root `vercel.json` disables automatic Vercel deployments from `main`, so reporting-bot updates cannot replace that live site. GitHub Actions reporting and direct Vercel CLI/API deployments are unaffected. Only re-enable Git deployment after reconciling the website source with the intended live version.
+
+## Reporting safeguards
+
 The initial state is guarded. `REPORTING_ENABLED` must equal the exact production phrase in `src/config.js` before the DBPR Submit button can be clicked. `SL123` and the student name `test test` are permanently blocked in code.
 
 ## Confirmed mappings

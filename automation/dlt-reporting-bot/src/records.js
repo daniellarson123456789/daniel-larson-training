@@ -14,8 +14,14 @@ function cleanText(value) {
     .trim();
 }
 
+function compactLicense(value) {
+  // A single leading number sign is common notation, not part of the license.
+  // Keep other punctuation so malformed or ambiguous values still fail.
+  return cleanText(value).toUpperCase().replace(/[\s-]/g, "").replace(/^#/, "");
+}
+
 export function normalizeLicense(value) {
-  const compact = cleanText(value).toUpperCase().replace(/[\s-]/g, "");
+  const compact = compactLicense(value);
   const match = compact.match(/^(SL|BK|BL)(\d{1,10})$/);
   if (!match) throw new Error("License must begin with SL, BK, or BL and end in digits.");
   return {
@@ -49,7 +55,7 @@ function answersByMeaning(submission) {
 export function surveyDiagnostics(submission) {
   const answers = answersByMeaning(submission);
   const license = cleanText(answers.license);
-  const compact = license.toUpperCase().replace(/[\s-]/g, "");
+  const compact = compactLicense(license);
   return {
     course: COURSE_MAP[String(submission.course?.id)]?.thinkificName ?? "unmapped",
     fieldsFound: {
@@ -74,7 +80,7 @@ export function surveyDiagnostics(submission) {
         promptHasHtmlEntity: /&(?:#\d+|#x[\da-f]+|[a-z]+);/i.test(prompt),
         responseType: answer.textResponse === null ? "null" : typeof answer.textResponse,
         responseLength: response.length,
-        responseHasLicenseFormat: /^(SL|BK|BL)\d{1,10}$/.test(response.toUpperCase().replace(/[\s-]/g, ""))
+        responseHasLicenseFormat: /^(SL|BK|BL)\d{1,10}$/.test(compactLicense(response))
       };
     })
   };

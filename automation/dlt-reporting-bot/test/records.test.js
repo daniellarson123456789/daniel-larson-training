@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { buildCandidate, candidateKey, dbprDate, matchCandidates, normalizeLicense } from "../src/records.js";
+import { buildCandidate, candidateKey, dbprDate, matchCandidates, normalizeLicense, surveyDiagnostics } from "../src/records.js";
 
 function survey(overrides = {}) {
   return {
@@ -30,6 +30,48 @@ function quiz(overrides = {}) {
 
 test("normalizes a Florida real-estate license", () => {
   assert.deepEqual(normalizeLicense(" sl-0012345 "), { full: "SL0012345", occupation: "SL", number: "0012345" });
+});
+
+test("accepts a single leading number sign without changing the license or its leading zeros", () => {
+  for (const prefix of ["SL", "BK", "BL"]) {
+    for (const input of [`#${prefix}0012345`, ` # ${prefix.toLowerCase()}-0012345 `]) {
+      assert.deepEqual(normalizeLicense(input), {
+        full: `${prefix}0012345`, occupation: prefix, number: "0012345"
+      });
+    }
+  }
+});
+
+test("still rejects missing prefixes, embedded punctuation, multiple licenses, and excess markers", () => {
+  for (const input of ["#0012345", "#BK", "##BK0012345", "BK#0012345", "#BK0012345#",
+    "#BK0012345/SL0012346", "license #BK0012345", "#BK00123O5", "#BK12345678901"]) {
+    assert.throws(() => normalizeLicense(input), /License must begin/);
+  }
+});
+
+test("a broker completion with a leading number sign becomes a candidate with the same duplicate key", () => {
+  const exam = quiz({ courseId: "3313434" });
+  const submission = survey({ course: { id: "3313434", name: "BROKER POST EXAM PASS" } });
+  submission.userAnswers.nodes[2].textResponse = "#BK0012345";
+  const result = matchCandidates([exam], [submission]);
+  assert.equal(result.exceptions.length, 0);
+  assert.equal(result.matches.length, 1);
+  assert.equal(result.matches[0].dbprCourseNumber, "0031262");
+  assert.equal(result.matches[0].license.full, "BK0012345");
+  const diagnostics = surveyDiagnostics(submission);
+  assert.equal(diagnostics.licenseResponse.validFormat, true);
+  assert.equal(diagnostics.answers[2].responseHasLicenseFormat, true);
+  for (const privateValue of ["Jane", "De La Cruz", "0012345", "student@example.com"]) {
+    assert.equal(JSON.stringify(diagnostics).includes(privateValue), false);
+  }
+  submission.userAnswers.nodes[2].textResponse = "BK0012345";
+  assert.equal(candidateKey(result.matches[0], "secret"), candidateKey(buildCandidate(exam, submission), "secret"));
+});
+
+test("a leading number sign cannot bypass blocked test licenses", () => {
+  const submission = survey();
+  submission.userAnswers.nodes[2].textResponse = "#SL123";
+  assert.throws(() => buildCandidate(quiz(), submission), /Blocked test license/);
 });
 
 test("builds a DBPR candidate from the three survey answers", () => {
