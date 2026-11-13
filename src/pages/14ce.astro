@@ -1,17 +1,17 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
 import TrustpilotReviews from "../components/TrustpilotReviews.astro";
-import TrustpilotReviewLink from "../components/TrustpilotReviewLink.astro";
+import CheckoutNote from "../components/CheckoutNote.astro";
 import { site } from "../data/site";
 import { products, salePrice } from "../data/products";
 import { courseOffer } from "../lib/courseOffer";
-import "../styles/14ce.css";
+import { faqPage } from "../lib/seo";
+import "../styles/draft-sales.css";
 
 const ce = products.ce14;
 const offerPrice = salePrice(ce);
-const bundleUrl = ce.checkoutUrl;
-const pageTitle = "Florida 14-Hour CE | Real Estate FastPass";
-const pageDescription = `Florida 14-hour real estate continuing education with FastPass final exam for $${offerPrice}. Self-paced course and DBPR reporting included.`;
+const pageTitle = "Florida 14-Hour CE: Self-Paced + FastPass | Real Estate FastPass";
+const pageDescription = `Florida 14-hour real estate continuing education with FastPass final exam for $${offerPrice}. Self-paced, no page timers: take the final when you’re ready to test out. DBPR reporting included.`;
 
 const schema = [
   {
@@ -30,180 +30,96 @@ const schema = [
     url: `${site.url}/14ce/`,
     name: pageTitle,
     description: pageDescription,
-    dateModified: "2026-10-31",
+    dateModified: "2026-11-10",
     isPartOf: { "@id": `${site.url}/#website` },
     about: { "@id": `${site.url}/14ce/#course` },
     mainEntity: { "@id": `${site.url}/14ce/#course` },
     publisher: { "@id": `${site.url}/#organization` },
     inLanguage: "en-US",
   },
+  faqPage(`${site.url}/14ce/#faq`, [
+    { name: "How much is 14-Hour CE?", text: `Pay $${offerPrice} for the complete 14-hour CE course with FastPass final exam, downloadable section PDFs, audio-guided lessons, review questions, and DBPR completion reporting. This is a one-time enrollment. State license renewal fees are separate and paid through DBPR.` },
+    { name: "Do I have to sit through 14 hours of timed videos?", text: "No. The Florida 14-hour CE course with FastPass is self-paced, with no timed videos, lesson clock, or page timers. Take the included FastPass final exam when you’re ready to test out, and use the section PDFs, audio-guided lessons, and review questions for anything you want to review. After you pass, we report your completion to DBPR." },
+    { name: "Is the FastPass final exam included?", text: "Yes. The FastPass final exam is included in your CE enrollment. If you already know the material, go straight to the final when you're ready to test out. The full course remains available to read, listen to, and review at your own pace, with no page timers or forced lesson stops." },
+    { name: "How is completion reported to DBPR?", text: "Your licensed name and license number are collected before the final exam. After you pass, Daniel Larson Training reports your completion to DBPR automatically within 1 business day, guaranteed. You still complete your separate license renewal and pay the state renewal fee through MyFloridaLicense.com." },
+  ]),
 ];
 ---
 
 <SiteLayout
   title={pageTitle}
   description={pageDescription}
-  shareTitle={`14-Hour CE — $${offerPrice}`}
-  ogImage="/share-renewal-expanded-v2.png"
   canonicalPath="/14ce/"
   schema={schema}
 >
-  <div class="ce-page">
-    <section class="ce-hero">
-      <div class="shell ce-hero-grid">
-        <div class="ce-hero-copy">
-          <p class="ce-eyebrow">Florida 14-Hour Real Estate Continuing Education</p>
-          <h1>Self-paced CE.<br /><span>With FastPass final exam.</span></h1>
-          <p class="ce-lead">
-            <strong>Already know the material? Go straight to the included FastPass final exam when you're ready to test out.</strong>
-            If you want to study, read, listen, and review the complete 14-hour course at your own pace.
-            No page timers or forced lesson stops.
+  <div class="draft-sales">
+    <section class="draft-hero">
+      <div class="wrap draft-hero-grid">
+        <div class="draft-hero-intro">
+          <p class="draft-kicker">
+            <span class="draft-brand">{site.name}</span>
+            <span class="draft-school">{site.tagline}</span>
           </p>
-          <div class="ce-hero-actions">
-            <a class="button button-primary" href={`https://portal.daniellarsontraining.com/bundles/14ce`} target="_top">Explore 14-Hour CE with FastPass Final Exam →</a>
-            <a class="button button-secondary ce-ghost" href="#ce-inside">See the course material ↓</a>
-          </div>
-          <TrustpilotReviewLink />
+          <h1>Florida 14-Hour CE, with a FastPass final exam.</h1>
+          <p class="lead">Already know the material? Go straight to the included FastPass final when you’re ready to test out. Or use the full course at your own pace, with no page timers or forced lesson stops.</p>
+          <a class="draft-link-more" href="#ce-inside">See the course material <span aria-hidden="true">→</span></a>
         </div>
-
-        <aside class="ce-buy-card" data-tilt>
-          <div class="ce-buy-brand">
-            <img src="/fastpass-logo.webp" alt="FastPass" width="640" height="640" loading="eager" decoding="async" />
-            <p class="ce-buy-kicker">Complete 14-Hour CE with FastPass final exam</p>
+        <aside class="draft-hero-panel">
+          <div class="draft-hero-price">${offerPrice}<span>One-time enrollment · Sales and Brokers after Post-Licensing</span></div>
+          <h2>Take the exam when ready.</h2>
+          <div class="draft-hero-includes">
+            <p class="draft-hero-includes-label">Includes</p>
+            <ul>
+              <li>3-hour Core Law (required)</li>
+              <li>3-hour Ethics (required)</li>
+              <li>FastPass final exam to test out</li>
+            </ul>
           </div>
-          <div class="ce-price">
-            <span class="ce-price-now" aria-label={`$${offerPrice}`}>${offerPrice}</span>
-          </div>
-          <h2>Take the final when you're ready.</h2>
-          <p class="ce-buy-copy">
-            Your enrollment includes a full CE course to use whenever you need it,
-            and the FastPass final exam to test out.
-          </p>
-          <a class="button button-primary ce-buy-button" href={bundleUrl} target="_top">Purchase Bundle →</a>
-          <p class="ce-buy-foot">One-time enrollment.</p>
+          <a class="draft-btn primary" data-plan={ce.id} data-placement="hero_panel" href={ce.checkoutUrl} target="_top">Start 14-Hour CE — ${offerPrice}</a>
+          <CheckoutNote />
         </aside>
-      </div>
-      <div class="ce-trust" aria-label="CE course highlights">
-        <div><strong>Self-paced</strong><span>no page timers</span></div>
-        <div><strong>FastPass final exam</strong><span>test out when ready</span></div>
-        <div><strong>Complete course</strong><span>PDFs, audio + review</span></div>
-        <div><strong>Sales + Brokers</strong><span>after Post-Licensing</span></div>
       </div>
     </section>
 
     <TrustpilotReviews context="ce" />
 
-    <section class="ce-learn" id="ce-inside">
-      <div class="shell ce-learn-grid">
-        <header class="ce-section-head" data-ce-reveal>
-          <p class="ce-eyebrow">Use the course when it helps you</p>
-          <h2>Good material. No forced march.</h2>
-          <p>
-            Read a section, listen while you're out, or review a topic before the final.
-            The material is there to make the education useful, even when your aim is to finish efficiently.
-          </p>
-        </header>
-        <div class="ce-tool-grid">
-          <article data-ce-reveal>
-            <span>Read</span>
-            <h3>Downloadable section PDFs</h3>
-            <p>Clear material to read inside the course and keep for later reference.</p>
-          </article>
-          <article data-ce-reveal>
-            <span>Listen</span>
-            <h3>Audio-guided lessons</h3>
-            <p>Listen podcast-style or follow along with the section PDF.</p>
-          </article>
-          <article data-ce-reveal>
-            <span>Review</span>
-            <h3>Section review questions</h3>
-            <p>Check the concepts you want to reinforce before FastPass.</p>
-          </article>
+    <section class="draft-section" id="ce-inside">
+      <div class="wrap">
+        <p class="draft-eyebrow">Use the course when it helps you</p>
+        <h2>Good material. No forced march.</h2>
+        <p class="intro">Read a section, listen while you’re out, or review a topic before the final. The material is there to make the education useful, even when your aim is to finish efficiently.</p>
+        <div class="draft-feature-grid">
+          <article class="draft-feature" id="include-ce-course"><h3>The complete 14-hour course</h3><p>Read, listen, and review the full CE course at your own pace. No page timers or forced lesson stops.</p></article>
+          <article class="draft-feature" id="include-ce-pdfs"><h3>Downloadable section PDFs</h3><p>Clear material to read inside the course and keep for later reference.</p></article>
+          <article class="draft-feature" id="include-ce-audio"><h3>Audio-guided lessons</h3><p>Listen podcast-style or follow along with the section PDF.</p></article>
+          <article class="draft-feature" id="include-ce-review"><h3>Section review questions</h3><p>Check the concepts you want to reinforce before FastPass.</p></article>
+          <article class="draft-feature" id="include-ce-final"><h3>FastPass final exam</h3><p>Test out when you’re ready.</p></article>
+          <article class="draft-feature" id="include-ce-reporting"><h3>DBPR reporting</h3><p>After you pass, we report your completion to DBPR.</p></article>
         </div>
       </div>
     </section>
 
-    <section class="ce-curriculum">
-      <div class="shell">
-        <header class="ce-section-head" data-ce-reveal>
-          <p class="ce-eyebrow">Inside your CE</p>
-          <h2>Useful topics, there when you need them.</h2>
-          <p>Florida law, ethics, and practical real estate subjects in a course you can return to.</p>
-        </header>
-        <div class="ce-curriculum-grid">
-          <article data-ce-reveal>
-            <span>Florida rules</span>
-            <h3>Law + required procedures</h3>
-            <p>Licensee duties, brokerage relationships, advertising, and consumer protection.</p>
-          </article>
-          <article data-ce-reveal>
-            <span>Professional standards</span>
-            <h3>Ethics + business practices</h3>
-            <p>Real decisions, responsible communication, and professional conduct.</p>
-          </article>
-          <article data-ce-reveal>
-            <span>Specialty topics</span>
-            <h3>Business + valuation</h3>
-            <p>Planning, client service, market analysis, and pricing logic.</p>
-          </article>
+    <section class="draft-section soft" id="faq">
+      <div class="wrap">
+        <p class="draft-eyebrow">Questions</p>
+        <h2>14-Hour CE FAQ</h2>
+        <div class="faq-list">
+          <details><summary>How much is 14-Hour CE?</summary><p>Pay <strong>${offerPrice}</strong> for the complete 14-hour CE course with FastPass final exam, downloadable section PDFs, audio-guided lessons, review questions, and DBPR completion reporting. This is a one-time enrollment. State license renewal fees are separate and paid through DBPR.</p></details>
+          <details><summary>Do I have to sit through 14 hours of timed videos?</summary><p>No. The Florida 14-hour CE course with FastPass is self-paced, with no timed videos, lesson clock, or page timers. Take the included FastPass final exam when you’re ready to test out, and use the section PDFs, audio-guided lessons, and review questions for anything you want to review. After you pass, we report your completion to DBPR.</p></details>
+          <details><summary>Is the FastPass final exam included?</summary><p>Yes. The FastPass final exam is included in your CE enrollment. If you already know the material, go straight to the final when you’re ready to test out. The full course remains available to read, listen to, and review at your own pace, with no page timers or forced lesson stops.</p></details>
+          <details><summary>How is completion reported to DBPR?</summary><p>Your licensed name and license number are collected before the final exam. After you pass, Daniel Larson Training reports your completion to DBPR automatically within 1 business day, guaranteed. You still complete your separate license renewal and pay the state renewal fee through <a href="https://www.myfloridalicense.com/">MyFloridaLicense.com</a>.</p></details>
         </div>
       </div>
     </section>
 
-    <section class="ce-questions" aria-labelledby="ce-questions-heading">
-      <div class="shell">
-        <div class="ce-section-head">
-          <p class="ce-eyebrow">Before you enroll</p>
-          <h2 id="ce-questions-heading">Florida CE questions, answered.</h2>
-        </div>
-        <div class="ce-faq">
-          <details open>
-            <summary>What does the ${offerPrice} CE bundle include?</summary>
-            <p>Pay <strong>${offerPrice}</strong> for the complete 14-hour CE course with FastPass final exam, downloadable section PDFs, audio-guided lessons, review questions, and DBPR completion reporting. This is a one-time enrollment. State license renewal fees are separate and paid through DBPR.</p>
-          </details>
-          <details>
-            <summary>Who needs Florida 14-hour real estate CE?</summary>
-            <p>Florida sales associates and brokers generally take 14-hour continuing education for renewals after their Post-Licensing stage. The first renewal generally requires 45-hour Sales Post-Licensing or 60-hour Broker Post-Licensing instead. Check your license record for your requirements and deadline, or use our <a href="/license-guides/post-licensing-vs-ce/">Post-Licensing vs. CE guide and renewal calculator</a>.</p>
-          </details>
-          <details>
-            <summary>What are the required 14 hours?</summary>
-            <p>Florida's continuing education requirement consists of <strong>3 hours of Core Law, 3 hours of Ethics and Business Practices, and 8 hours of specialty education</strong>. See the <a href="https://www2.myfloridalicense.com/real-estate-commission/education/">official DBPR education requirements</a> for the state requirements and exemptions.</p>
-          </details>
-          <details>
-            <summary>Is the FastPass final exam included?</summary>
-            <p>Yes. The FastPass final exam is included in your CE enrollment. If you already know the material, go straight to the final when you're ready to test out. The full course remains available to read, listen to, and review at your own pace, with no page timers or forced lesson stops.</p>
-          </details>
-          <details>
-            <summary>How is my completion reported to DBPR?</summary>
-            <p>Your licensed name and license number are collected before the final exam. After you pass, Daniel Larson Training reports your completion to DBPR automatically within 1 business day, guaranteed. You still complete your separate license renewal and pay the state renewal fee through <a href="https://www.myfloridalicense.com/">MyFloridaLicense.com</a>.</p>
-          </details>
-        </div>
-        <p class="ce-faq-support">Questions before purchasing? <a href="/about/">Review our school credentials</a>, <a href="/refund-policy/">read the refund policy</a>, or <a href="tel:+12394718500">call 239.471.8500</a>.</p>
-      </div>
-    </section>
-
-    <section class="ce-finish">
-      <div class="shell ce-finish-inner">
-        <div data-ce-reveal>
-          <p class="ce-eyebrow">When you're ready</p>
-          <h2>Pass your final exam. We report your completion.</h2>
-          <p>
-            Your licensed name and license number are collected before the final exam.
-            After you pass, your completion is reported to DBPR automatically within
-            1 business day, guaranteed. You complete the separate license renewal through MyFloridaLicense.com.
-          </p>
-        </div>
-        <aside class="ce-finish-aside" data-ce-reveal>
-          <strong>14-Hour CE with FastPass final exam</strong>
-          <div class="ce-price ce-price-compact">
-            <span class="ce-price-now" aria-label={`$${offerPrice}`}>${offerPrice}</span>
-          </div>
-          <p>One-time enrollment.</p>
-          <a class="button button-primary" href={bundleUrl} target="_top">Purchase Bundle →</a>
-          <small>Not sure whether you need CE or Post-Licensing? <a href="sms:+12394718500">Text Daniel · {site.phoneDisplay}</a></small>
-        </aside>
+    <section class="draft-section navy final-cta">
+      <div class="wrap">
+        <h2>Pass your final exam. We report your completion.</h2>
+        <span class="checkout-cta">
+          <a class="draft-btn primary" data-plan={ce.id} data-placement="final_cta" href={ce.checkoutUrl} target="_top">Start 14-Hour CE — ${offerPrice}</a>
+          <CheckoutNote />
+        </span>
       </div>
     </section>
   </div>
 </SiteLayout>
-

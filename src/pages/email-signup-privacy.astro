@@ -1,5 +1,6 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import "../styles/draft-sales.css";
 import { site } from "../data/site";
 // This notice covers the checklist signup, not site-wide checkout or cookies.
 ---
@@ -10,7 +11,7 @@ import { site } from "../data/site";
   canonicalPath="/email-signup-privacy/"
   robots="noindex,follow"
 >
-  <article class="signup-notice shell">
+  <div class="draft-sales"><article class="signup-notice shell">
     <nav aria-label="Breadcrumb"><a href="/licensing-checklist/">Licensing checklist</a> / Email signup privacy</nav>
     <h1>Email signup privacy notice</h1>
     <p>This notice covers information you provide through the Daniel Larson Training licensing checklist email form.</p>
@@ -31,6 +32,7 @@ import { site } from "../data/site";
     <p class="scope-note">This notice is specific to the checklist email signup. Course enrollment and payment use separate services.</p>
     <p><a href="/licensing-checklist/">Return to the free checklist</a></p>
   </article>
+  </div>
 </SiteLayout>
 
 <style>

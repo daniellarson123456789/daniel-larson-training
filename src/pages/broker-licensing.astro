@@ -1,25 +1,23 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
 import TrustpilotReviews from "../components/TrustpilotReviews.astro";
-import TrustpilotReviewLink from "../components/TrustpilotReviewLink.astro";
-import SalePrice from "../components/SalePrice.astro";
-import InstructorExperience from "../components/InstructorExperience.astro";
+import CheckoutNote from "../components/CheckoutNote.astro";
 import { products, salePrice } from "../data/products";
 import { courseOffer } from "../lib/courseOffer";
-import "../styles/licensing-parity.css";
+import { site } from "../data/site";
+import { faqPage } from "../lib/seo";
+import "../styles/draft-sales.css";
 
 const pageTitle = "Florida Broker License Course | Real Estate FastPass";
-const pageDescription = `Florida 72-hour Course 2 $${salePrice(products.brokerCourse2)}; FastPass $${salePrice(products.brokerFastPass)}; FastPass + Post $${salePrice(products.brokerCareerLaunch)}. One-year access.`;
+const pageDescription = `Florida 72-hour Course 2 $${salePrice(products.brokerCourse2)}; Broker FastPass $${salePrice(products.brokerFastPass)}; Full Package $${salePrice(products.brokerCareerLaunch)}. Broker FastPass is self-paced, with no lesson clock, and three exams built to closely match the Pearson broker exam; pass all three and you’re certified to take it. One-year access and direct support.`;
 
 const schema = [
   {
     "@type": "Course",
     "@id": "https://realestatefastpass.com/broker-licensing/#course2",
     "name": "Florida 72-Hour Broker Pre-License Course (Course 2)",
-    "description": `${pageDescription} FastPass includes certification exams, 500+ questions and explanations, audio/video instruction, and a digital workbook. Every licensing package includes one-year access and direct instructor support. Printed books included on request with the Full Package.`,
-    "provider": {
-      "@id": "https://realestatefastpass.com/#organization"
-    },
+    "description": `${pageDescription} FastPass includes certification exams, 500+ questions and explanations, audio/video instruction, and a digital workbook. Every licensing package includes one-year access and direct instructor support. Broker students always get the Course 2 textbook and the FastPass workbook. Want a printed copy? Just ask and we'll send one free through Amazon.`,
+    "provider": { "@id": "https://realestatefastpass.com/#organization" },
     "inLanguage": "en-US",
     "offers": [
       courseOffer(products.brokerCourse2, "Broker Course 2 + Traditional Final"),
@@ -33,296 +31,191 @@ const schema = [
     "url": "https://realestatefastpass.com/broker-licensing/",
     "name": pageTitle,
     "description": pageDescription,
-    "isPartOf": {
-      "@id": "https://realestatefastpass.com/#website"
-    },
-    "about": {
-      "@id": "https://realestatefastpass.com/broker-licensing/#course2"
-    },
-    "publisher": {
-      "@id": "https://realestatefastpass.com/#organization"
-    },
+    "isPartOf": { "@id": "https://realestatefastpass.com/#website" },
+    "about": { "@id": "https://realestatefastpass.com/broker-licensing/#course2" },
+    "publisher": { "@id": "https://realestatefastpass.com/#organization" },
     "inLanguage": "en-US"
-  }
+  },
+  faqPage("https://realestatefastpass.com/broker-licensing/#faq", [
+    { name: "How much is the Florida 72-hour broker course?", text: `Course 2 is $${salePrice(products.brokerCourse2)}. Includes the complete DBPR-approved 72-hour course, traditional final, and Exam Math Basics. One-time enrollment includes one year of access and direct instructor support. State application, fingerprinting, and state-exam fees are separate.` },
+    { name: "What is included in the Broker FastPass package?", text: `Broker FastPass is $${salePrice(products.brokerFastPass)}. The package includes the DBPR-approved 72-hour Broker Course 2, three FastPass certification exams, Exam Math Basics, 500+ practice questions and explanations, audio ebook review, the FastPass Workbook online and as a PDF, one year of access, and direct support.` },
+    { name: "How is Broker FastPass different?", text: "Broker FastPass for the Florida broker license is three certification exams built to closely match the content on the Pearson broker exam, used in place of the traditional Course 2 final. Pass all three and you’re certified to take the Florida broker exam, so course certification and state-exam prep happen at the same time. Course 2 with the traditional final uses a standard course final instead. Broker FastPass is self-paced, so you take the exams when you’re ready, and you still take the Florida broker licensing exam separately." },
+    { name: "What’s the fastest way to get my Florida broker license?", text: "The fastest way to get your Florida broker license with Real Estate FastPass is to work through Broker FastPass at your own pace instead of on a lesson clock. Broker FastPass pairs the self-paced 72-hour Course 2 with three certification exams built to closely match the content on the Pearson broker exam, and once you pass all three, you’re certified to take the Florida broker exam. There are no page timers or forced lesson stops, so students who already know the material can go straight to the Broker FastPass exams, and Course 2, the textbook, and the workbook are there for anything they want to brush up on." },
+    { name: "Do I have to sit through 72 hours of timed videos?", text: "No. Broker FastPass for the Florida broker license is self-paced, with no timed videos, lesson clock, or page timers. Take the three Broker FastPass exams, built to closely match the content on the Pearson broker exam, when you’re ready, and once you pass all three, you’re certified to take the Florida broker exam. Course 2, the audio review, the textbook, and the workbook are there for anything you want to review." },
+    { name: "Can I go straight to the Broker FastPass exams?", text: "Yes. Broker FastPass for the Florida broker license is self-paced, with no lesson clock or page timers, so you can take the three Broker FastPass exams whenever you’re ready. Course 2, the textbook, and the workbook are there for whatever you want to review. Passing all three certifies you to take the Florida broker exam, which you still take separately." },
+    { name: "Does FastPass replace the Florida broker licensing exam?", text: "No. The Florida broker licensing exam is a separate exam administered through Pearson Professional Assessments (formerly Pearson VUE). FastPass is preparation and part of the Course 2 certification path; you still take the state exam separately." },
+    { name: "What is the Full Package with FastPass + Post?", text: `The Full Package is $${salePrice(products.brokerCareerLaunch)}. Includes Course 2, Broker FastPass, and your required 60-hour Broker Post-Licensing course. Broker students always get the Course 2 textbook and the FastPass workbook. Want a printed copy? Just ask and we'll send one free through Amazon.` },
+    { name: "Do broker students get the textbooks?", text: "Broker students always get the Course 2 textbook and the FastPass workbook, to read online or download as a PDF. Want a printed copy? Just ask and we'll send one free through Amazon." },
+    { name: "How long do I have access?", text: "Broker course bundles include one year of online access." },
+    { name: "Can I contact the school directly?", text: "Yes. Text or email us at 239.471.8500 or daniel@daniellarsontraining.com about broker licensing, exam preparation, post-licensing, or your next licensing step." },
+  ]),
 ];
 ---
 
 <SiteLayout
   title={pageTitle}
   description={pageDescription}
-  shareTitle={`Florida Broker Licensing from $${salePrice(products.brokerCourse2)}`}
-  ogImage="/share-license-expanded-v2.png"
   canonicalPath="/broker-licensing/"
   schema={schema}
 >
-  <div class="licensing-parity">
+  <div class="draft-sales">
 
-<section class="hero" data-motion-section="hero">
-<div class="wrap">
-<div>
-<div class="eyebrow">Florida Broker Licensing</div>
-<h1>Get your Florida real estate broker license <em>fast.</em></h1>
-<p class="hero-deck">Move toward your Florida broker license with required broker pre-license education, Broker FastPass certification and exam preparation, 500+ Q&amp;A, and direct help from the instructor who built the system. Printed books included on request with the Full Package.</p>
-<p class="hero-kicker">No 72-hour video marathon. No endless PDF grind.</p>
-<div class="hero-actions">
-<a class="btn btn-primary" href="#packages">See licensing packages ↓</a>
-<a class="btn btn-ghost" data-placement="hero" data-plan={products.brokerFastPass.id} href={products.brokerFastPass.checkoutUrl} target="_top">Broker FastPass</a>
-</div>
-<TrustpilotReviewLink />
-</div>
-<aside aria-label="Direct broker licensing support" class="hero-card">
-<div class="eyebrow">Personalized answers</div>
-<h2>When you need help, you can ask Daniel.</h2>
-<p>Questions about broker licensing, exam prep, Pearson Professional Assessments, post-licensing, or what to do next? You are not routed to a generic call center.</p>
-<a class="support-number" href="sms:+12394718500">TEXT 239.471.8500</a>
-<div class="support-note">Professional broker-license support from Daniel Larson Training.</div>
-<InstructorExperience />
-</aside>
-</div>
-<div aria-label="Broker course highlights" class="truststrip">
-<div><b>1 year</b>online access</div>
-<div><b>DBPR approved</b>Course 2</div>
-<div><b>500+ Q&amp;A</b>plus explainers</div>
-<div><b>Printed books</b>on request with Full Package</div>
-<div class="support-trust"><b>Direct Support</b><a href="mailto:daniel@daniellarsontraining.com">daniel@daniellarsontraining.com</a></div>
-</div>
-</section>
-<section class="packages" data-motion-section="packages" id="packages-section">
-<div class="wrap">
-<div class="section-head">
-<div class="eyebrow">Broker Licensing Options</div>
-<h2 id="packages">Choose your path. Fast to thorough — it’s up to you.</h2>
-<p>Florida-required pre-license education + exam-prep tools. With FastPass, you can go straight into the three FastPass exams and use the full course, Q&A, audio, video, and study materials as much or as little as you need. Pass FastPass to complete your course-certification path, then head to the state exam prepared. Add Post-Licensing to cover your first-renewal period.</p>
-</div>
-<div class="package-grid">
-<article class="package">
-<span class="badge">Course + Traditional Final</span>
-<h3>Course 2</h3>
-<div class="subplan">Required broker pre-license education + traditional final exam + state exam math</div>
-<SalePrice product={products.brokerCourse2} />
-<ul>
-<li>DBPR-approved 72-hour Broker Course 2</li>
-<li>Traditional course final exam</li>
-<li>State exam math — Exam Math Basics</li>
-<li>One year of access</li>
-<li>Direct support from Daniel</li>
-</ul>
-<a class="btn btn-primary" data-placement="package_card" data-plan={products.brokerCourse2.id} href={products.brokerCourse2.checkoutUrl} target="_top">Enroll in Course 2</a>
-</article>
-<article class="package featured">
-<span class="badge blue">Most Popular</span>
-<h3>FastPass</h3>
-<div class="subplan">Required broker pre-license education + FastPass certification + exam prep</div>
-<SalePrice product={products.brokerFastPass} />
-<ul>
-<li>Three Broker FastPass certification exams</li>
-<li>Full 72-hour Broker Course 2 included</li>
-<li>State exam math — Exam Math Basics</li>
-<li>Audio ebook review</li>
-<li>500+ Q&amp;A and explanations</li>
-<li>Broker FastPass Workbook — online + PDF</li>
-<li>One year of access</li>
-<li>Direct support from Daniel</li>
-</ul>
-<a class="btn btn-primary" data-placement="package_card" data-plan={products.brokerFastPass.id} href={products.brokerFastPass.checkoutUrl} target="_top">Enroll in Broker FastPass</a>
-</article>
-<article class="package">
-<span class="badge">Best Value</span>
-<h3>Full Package</h3>
-<div class="subplan">Broker FastPass + your required 60-hour Broker Post-Licensing course</div>
-<SalePrice product={products.brokerCareerLaunch} />
-<ul>
-<li>Everything in Broker FastPass</li>
-<li>60-hour Broker Post-Licensing — required before first renewal</li>
-<li>Bundle your next required education step now</li>
-<li>Printed books included on request with the Full Package.</li>
-<li>One year of access</li>
-<li>Broker FastPass Workbook — online + PDF</li>
-<li>Direct support from Daniel</li>
-</ul>
-<a class="btn btn-primary" data-placement="package_card" data-plan={products.brokerCareerLaunch.id} href={products.brokerCareerLaunch.checkoutUrl} target="_top">Get the Full Package</a>
-</article>
-</div>
-</div>
-</section>
+    <section class="draft-hero">
+      <div class="wrap draft-hero-grid">
+        <div class="draft-hero-intro">
+          <p class="draft-kicker">
+            <span class="draft-brand">{site.name}</span>
+            <span class="draft-school">{site.tagline}</span>
+          </p>
+          <h1>Get your Florida broker license with FastPass.</h1>
+          <p class="lead">Self-paced Course 2, with no lesson clock, and three Broker FastPass exams built to closely match the content on the Pearson broker exam. Pass all three and you’re certified to take the state exam, so you get certified while you prep for it.</p>
+          <a class="draft-link-more" href="#whats-included">See what’s included <span aria-hidden="true">→</span></a>
+        </div>
+        <aside class="draft-hero-panel">
+          <div class="draft-hero-price">${salePrice(products.brokerFastPass)}<span>Most popular · one-time enrollment</span></div>
+          <h2>The complete broker licensing path.</h2>
+          <p>Course 2, FastPass certification exams that mirror the state exam, the Course 2 textbook and FastPass workbook, plus direct support.</p>
+          <a class="draft-btn primary" data-plan={products.brokerFastPass.id} data-placement="hero_panel" href={products.brokerFastPass.checkoutUrl} target="_top">Start Broker FastPass — ${salePrice(products.brokerFastPass)}</a>
+          <CheckoutNote />
+        </aside>
+      </div>
+    </section>
+
+    <section class="draft-section" id="whats-included">
+      <div class="wrap">
+        <p class="draft-eyebrow">What you get</p>
+        <h2>What you get with Broker FastPass</h2>
+        <p class="intro">Here’s what’s included — the complete Broker FastPass bundle.</p>
+        <ol class="draft-bundle">
+          <li id="include-course-2">
+            <span class="num">1</span>
+            <div>
+              <h3>Course 2 (DBPR-approved 72-hour)</h3>
+              <p>The required Florida broker pre-license course.</p>
+            </div>
+          </li>
+          <li id="include-textbook">
+            <span class="num">2</span>
+            <div>
+              <h3>Course 2 textbook</h3>
+              <p>Broker students always get the Course 2 textbook, to read online or download as a PDF. Want a printed copy? Just ask and we&apos;ll send one free through Amazon.</p>
+            </div>
+          </li>
+          <li id="include-workbook">
+            <span class="num">3</span>
+            <div>
+              <h3>FastPass Workbook (online + PDF)</h3>
+              <p>The FastPass workbook is included to read online or download as a PDF. Want a printed copy? Just ask and we&apos;ll send one free through Amazon.</p>
+            </div>
+          </li>
+          <li id="include-certification">
+            <span class="num">4</span>
+            <div>
+              <h3>FastPass Certification (three certification exams)</h3>
+              <p>Three FastPass certification exams that mirror the state exam, in place of the traditional course final. Certification and exam prep happen together.</p>
+            </div>
+          </li>
+          <li id="include-audio">
+            <span class="num">5</span>
+            <div>
+              <h3>Audio Ebook Review</h3>
+              <p>Listen through the review when you can’t sit down with the workbook.</p>
+            </div>
+          </li>
+          <li id="include-math">
+            <span class="num">6</span>
+            <div>
+              <h3>Exam Math Basics</h3>
+              <p>The math you’ll need for the course and the state exam, explained clearly.</p>
+            </div>
+          </li>
+          <li id="include-sample-questions">
+            <span class="num">7</span>
+            <div>
+              <h3>500 Sample Q&amp;A with explanations</h3>
+              <p>Practice questions with answers and explanations, so you can see why an answer is right.</p>
+            </div>
+          </li>
+          <li id="include-access">
+            <span class="num">8</span>
+            <div>
+              <h3>One year of access</h3>
+              <p>Broker FastPass includes one year of online access.</p>
+            </div>
+          </li>
+          <li id="include-support">
+            <span class="num">9</span>
+            <div>
+              <h3>Direct support</h3>
+              <p>Text or email us when you get stuck. There is no call center.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="draft-section soft" id="pricing">
+      <div class="wrap">
+        <p class="draft-eyebrow">Pricing</p>
+        <h2>Choose your broker licensing package</h2>
+        <p class="intro">Three options. Broker FastPass is the complete path most students choose.</p>
+        <div class="price-grid">
+          <article class="price-card">
+            <h3>Course 2 + Traditional Final</h3>
+            <div class="price">${salePrice(products.brokerCourse2)}</div>
+            <p class="note">FastPass gets you certified and ready for the state exam at the same time, for just $80 more.</p>
+            <a class="draft-btn navy" data-plan={products.brokerCourse2.id} data-placement="pricing_card" href={products.brokerCourse2.checkoutUrl} target="_top">Enroll — ${salePrice(products.brokerCourse2)}</a>
+            <CheckoutNote />
+          </article>
+          <article class="price-card popular">
+            <span class="price-badge">MOST POPULAR</span>
+            <h3>Broker FastPass</h3>
+            <div class="price">${salePrice(products.brokerFastPass)}</div>
+            <p class="note">The full Broker FastPass bundle: Course 2, certification exams that mirror the state exam, the Course 2 textbook and FastPass workbook, audio review, math basics, and 500 sample questions. Certification and exam prep happen together. Want a printed copy? Just ask and we&apos;ll send one free through Amazon.</p>
+            <a class="draft-btn primary" data-plan={products.brokerFastPass.id} data-placement="pricing_card" href={products.brokerFastPass.checkoutUrl} target="_top">Start Broker FastPass — ${salePrice(products.brokerFastPass)}</a>
+            <CheckoutNote />
+          </article>
+          <article class="price-card">
+            <h3>Full Package</h3>
+            <div class="price">${salePrice(products.brokerCareerLaunch)}</div>
+            <p class="note">Best value: your required Post-Licensing course is included at a bundle price, ready for when you&apos;re licensed, before your first renewal.</p>
+            <a class="draft-btn navy" data-plan={products.brokerCareerLaunch.id} data-placement="pricing_card" href={products.brokerCareerLaunch.checkoutUrl} target="_top">Enroll — ${salePrice(products.brokerCareerLaunch)}</a>
+            <CheckoutNote />
+          </article>
+        </div>
+      </div>
+    </section>
+
     <TrustpilotReviews context="broker" />
 
-<section class="fastpass" data-motion-section="fastpass" id="fastpass">
-<div class="wrap fast-grid">
-<div class="mark-scene">
-<a aria-label="Enroll in Broker FastPass" class="mark" data-placement="logo" data-plan={products.brokerFastPass.id} href={products.brokerFastPass.checkoutUrl} target="_top">
-<img alt="FastPass Florida broker exam preparation" src="/fastpass-logo.webp" width="700" height="700" />
-</a>
-</div>
-<div>
-<div class="section-head">
-<div class="eyebrow" style="color:#1766c7">The FastPass approach</div>
-<h2>Go straight into Broker FastPass. Use everything else to get you through it.</h2>
-<p>FastPass gives you a clear testing target instead of forcing you through every resource in the same order. Use Course 2, 500+ practice questions, the FastPass book, audio reviews, videos, and study materials as your toolbox while you prepare for the three Broker FastPass exams and the separate Florida broker licensing exam administered by Pearson Professional Assessments (formerly Pearson VUE).</p>
-<p><a href="/florida-broker-exam-prep/">Explore Florida broker exam prep: study tools, instructor experience, and official exam references →</a></p>
-</div>
-<div class="steps">
-<div class="step"><div class="stepnum">01</div><div><h3>Start with Broker FastPass.</h3><p>Use the three Broker FastPass exams as a clear target and quickly see what you already know — and what you still need to review.</p></div></div>
-<div class="step"><div class="stepnum">02</div><div><h3>Use the rest as your prep toolbox.</h3><p>Course 2, 500+ Q&amp;A, the FastPass book, audio/video explainers, PDFs, and drills are there when you need them.</p></div></div>
-<div class="step"><div class="stepnum">03</div><div><h3>Pass Broker FastPass. Head to the state exam prepared.</h3><p>Pass the three Broker FastPass exams to complete your Course 2 certification path, then take the separate Florida broker licensing exam administered through Pearson Professional Assessments.</p></div></div>
-</div>
-</div>
-</div>
-</section>
-<section class="included" data-motion-section="included">
-<div class="wrap included-grid">
-<div>
-<div class="eyebrow">Built for experienced licensees</div>
-<h2>Everything you need to pass — <em>fast.</em></h2>
-<p class="included-copy">Broker candidates already know real estate. The goal is not to make you consume every minute of content — it is to give you a complete, organized system you can use as heavily or lightly as you need.</p>
-</div>
-<div class="feature-grid">
-<div class="feature"><b>Optional video explainers</b><span>Focused explanations when a broker topic needs more than text.</span></div>
-<div class="feature"><b>Glossary review</b><span>Broker terminology and concepts in a fast-reference format.</span></div>
-<div class="feature"><b>PDF study supplements</b><span>Printable reference material, checklists, and review tools.</span></div>
-<div class="feature"><b>Audio review</b><span>Review key material away from the screen.</span></div>
-<div class="feature"><b>500+ broker Q&amp;A</b><span>Practice questions with explanations and exam-focused repetition.</span></div>
-<div class="feature"><b>Broker FastPass Workbook included</b><span>Read online or download the PDF with FastPass. Printed books included on request with the Full Package.</span></div>
-<div class="feature"><b>State-exam focus</b><span>Preparation built around the content and testing experience you are working toward.</span></div>
-<div class="feature"><b>Ongoing support</b><span>Real help from the person who wrote the course.</span></div>
-</div>
-</div>
-</section>
-<section class="books" data-motion-section="books">
-<div class="wrap">
-<div class="bookcard">
-<div><h2>Your Broker FastPass Workbook is included.</h2><p>Broker FastPass and the Full Package include the workbook to read online or download as a PDF. Printed books included on request with the Full Package.</p></div>
-<div class="bookaside"><b>Printed books with the Full Package</b><span>Choose Broker FastPass + Post, then text or email your name, shipping address, and course to request your printed books.</span></div>
-<div class="credential">Written &amp; published by Daniel Larson — DBPR-approved Course 1, Course 2, Post-Licensing &amp; 14-Hour CE — plus Exam Prep and FastPass.</div>
-</div>
-</div>
-</section>
-<section class="compare" data-motion-section="compare" id="compare">
-<div class="wrap">
-<div class="section-head">
-<div class="eyebrow" style="color:#1766c7">Compare the broker bundles</div>
-<h2>Compare your broker licensing paths.</h2>
-<p>Every option includes the required Florida broker pre-license education. Earn your course certification through the traditional final exam or test out with the three Broker FastPass exams when you’re ready. Add Broker Post-Licensing to cover your first-renewal period.</p>
-</div>
-<div class="comparison">
-<table class="comparison-table">
-<caption>Daniel Larson Training Florida broker licensing bundle comparison</caption>
-<colgroup><col class="feature-col"/><col/><col/><col/></colgroup>
-<thead>
-<tr>
-<th scope="col">Included</th>
-<th scope="col">Course 2<small>${salePrice(products.brokerCourse2)}</small></th>
-<th class="best-head" scope="col">FastPass<small>${salePrice(products.brokerFastPass)}</small></th>
-<th scope="col">Full Package<small>${salePrice(products.brokerCareerLaunch)}<br />FastPass + Post</small></th>
-</tr>
-</thead>
-<tbody>
-<tr><th scope="row">DBPR-approved 72-hour Course 2</th><td class="yes">✓ Included</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
-<tr><th scope="row">State exam certification</th><td class="yes">✓ Included</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
-<tr><th scope="row">State exam math — Exam Math Basics</th><td class="yes">✓ Included</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
-<tr><th scope="row">One-year access + direct instructor support</th><td class="yes">✓ Included</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
-<tr><th scope="row">Broker FastPass Workbook — online + PDF</th><td class="dash">—</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
-<tr><th scope="row">Printed books on request</th><td class="dash">—</td><td class="dash best">—</td><td class="yes">✓ Included</td></tr>
-<tr><th scope="row">Audio ebook review</th><td class="dash">—</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
-<tr><th scope="row">500+ Q&amp;A and explanations</th><td class="dash">—</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
-<tr><th scope="row">Three Broker FastPass exams</th><td class="dash">—</td><td class="yes best">✓ Included</td><td class="yes">✓ Included</td></tr>
-<tr><th scope="row">Required 60-hour Broker Post-Licensing course</th><td class="dash">—</td><td class="dash best">—</td><td class="yes">✓ Included</td></tr>
-</tbody>
-<tfoot>
-<tr>
-<th scope="row">Enroll</th>
-<td><a class="btn btn-primary" data-plan={products.brokerCourse2.id} data-placement="comparison" href={products.brokerCourse2.checkoutUrl} target="_top">Enroll in Course 2</a></td>
-<td class="best"><a class="btn btn-primary" data-plan={products.brokerFastPass.id} data-placement="comparison" href={products.brokerFastPass.checkoutUrl} target="_top">Enroll in Broker FastPass</a></td>
-<td><a class="btn btn-primary" data-plan={products.brokerCareerLaunch.id} data-placement="comparison" href={products.brokerCareerLaunch.checkoutUrl} target="_top">Get the Full Package</a></td>
-</tr>
-</tfoot>
-</table>
-</div>
-<p style="margin:22px 0 0;text-align:center">State application, fingerprints, and the state exam are paid separately. <a href="/license-guides/florida-broker-license-requirements/#costs" style="color:#145fad;font-weight:700;text-underline-offset:3px">Plan your licensing budget →</a></p>
-</div>
-</section>
-<section class="about" data-motion-section="about">
-<div class="wrap about-grid">
-<div>
-<div class="eyebrow" style="color:#1766c7">Licensing &amp; Credentials</div>
-<h2>Daniel Larson Training</h2>
-<p>Daniel Larson authors and produces the broker course materials, records the explainers, builds the FastPass system, and answers student questions directly. Daniel Larson Training is a Florida-focused real estate school built around helping experienced licensees get through the next licensing step efficiently.</p>
-<p>Whether you are qualifying for your broker license, opening a brokerage, or simply adding the credential, you get the same course system and the same direct line to the instructor.</p>
-</div>
-<aside class="proofbox">
-<div><b>Florida Licensed Real Estate School</b>#ZH1002860</div>
-<div><b>Florida Real Estate Instructor</b>Daniel Larson · #ZH1003217</div>
-<div><b>Broker Course authorship</b>Course 2 and applicable broker education materials are authored and produced by Daniel Larson and approved by the Florida DBPR where approval applies.</div>
-<div><b>Direct contact</b><a href="sms:+12394718500">239.471.8500</a> · <a href="mailto:daniel@daniellarsontraining.com">daniel@daniellarsontraining.com</a></div>
-</aside>
-</div>
-</section>
-<section class="faq" data-motion-section="faq" id="faq">
-<div class="wrap">
-<div class="section-head">
-<div class="eyebrow" style="color:#1766c7">BROKER COURSE + FASTPASS Q&amp;A</div>
-<h2>Florida Broker Licensing FAQ</h2>
-</div>
-<div class="faq-list">
-<details><summary>How much is the Florida 72-hour broker course?</summary><p>Course 2 is <strong>${salePrice(products.brokerCourse2)}</strong>. Includes the complete DBPR-approved 72-hour course, traditional final, and Exam Math Basics. One-time enrollment includes one year of access and direct instructor support. State application, fingerprinting, and state-exam fees are separate.</p></details>
-<details><summary>What is included in the Broker FastPass package?</summary><p>Broker FastPass is <strong>${salePrice(products.brokerFastPass)}</strong>. The package includes the DBPR-approved 72-hour Broker Course 2, three FastPass certification exams, Exam Math Basics, 500+ practice questions and explanations, audio ebook review, the FastPass Workbook online and as a PDF, one year of access, and direct support from Daniel.</p></details>
-<details><summary>How is Broker FastPass different?</summary><p>Broker FastPass uses three certification exams in place of the traditional course final exam. Test out when you’re ready, with the full Broker Course 2, Exam Math Basics, audio ebook review, and 500+ Q&amp;A with explanations available to help you prepare. The Florida broker licensing exam is separate.</p></details>
-<details><summary>Does FastPass replace the Florida broker licensing exam?</summary><p>No. The Florida broker licensing exam is a separate exam administered through <a href="https://www.pearsonvue.com/us/en/fl/dbpr.html" rel="noopener" target="_blank">Pearson Professional Assessments</a> (formerly Pearson VUE). FastPass is preparation and part of the Course 2 certification path; you still take the state exam separately.</p></details>
-<details><summary>What is the Full Package with FastPass + Post?</summary><p>The Full Package is <strong>${salePrice(products.brokerCareerLaunch)}</strong>. Includes Course 2, Broker FastPass, and your required 60-hour Broker Post-Licensing course. Printed books included on request with the Full Package.</p></details>
-<details><summary>Which broker packages include the FastPass Workbook?</summary><p>Broker FastPass and the Full Package include the Broker FastPass Workbook to read online or download as a PDF. Printed books included on request with the Full Package.</p></details>
-<details><summary>How long do I have access?</summary><p>Broker course bundles include one year of online access.</p></details>
-<details><summary>Can I contact the owner directly?</summary><p>Yes. You can text the owner directly at <a href="sms:+12394718500">239.471.8500</a> or email <a href="mailto:daniel@daniellarsontraining.com">daniel@daniellarsontraining.com</a> about broker licensing, exam preparation, post-licensing, or your next licensing step.</p></details>
-</div>
-</div>
-</section>
-<section class="finalcta" data-motion-section="finalcta" data-final-cta="">
-<div class="wrap reveal" data-reveal="">
-<h2>Ready to get your Florida real estate broker license?</h2>
-<p>Choose the broker licensing path that fits how you want to prepare.</p>
-<div class="hero-actions" style="justify-content:center">
-<a class="btn btn-primary" href="#packages">See Broker Licensing Options ↑</a>
-</div>
-</div>
-</section>
+    <section class="draft-section soft" id="faq">
+      <div class="wrap">
+        <p class="draft-eyebrow">Questions</p>
+        <h2>Florida Broker Licensing FAQ</h2>
+        <div class="faq-list">
+          <details><summary>How much is the Florida 72-hour broker course?</summary><p>Course 2 is <strong>${salePrice(products.brokerCourse2)}</strong>. Includes the complete DBPR-approved 72-hour course, traditional final, and Exam Math Basics. One-time enrollment includes one year of access and direct instructor support. State application, fingerprinting, and state-exam fees are separate.</p></details>
+          <details><summary>What is included in the Broker FastPass package?</summary><p>Broker FastPass is <strong>${salePrice(products.brokerFastPass)}</strong>. The package includes the DBPR-approved 72-hour Broker Course 2, three FastPass certification exams, Exam Math Basics, 500+ practice questions and explanations, audio ebook review, the FastPass Workbook online and as a PDF, one year of access, and direct support.</p></details>
+          <details><summary>How is Broker FastPass different?</summary><p>Broker FastPass for the Florida broker license is three certification exams built to closely match the content on the Pearson broker exam, used in place of the traditional Course 2 final. Pass all three and you’re certified to take the Florida broker exam, so course certification and state-exam prep happen at the same time. Course 2 with the traditional final uses a standard course final instead. Broker FastPass is self-paced, so you take the exams when you’re ready, and you still take the Florida broker licensing exam separately.</p></details>
+          <details><summary>What’s the fastest way to get my Florida broker license?</summary><p>The fastest way to get your Florida broker license with Real Estate FastPass is to work through Broker FastPass at your own pace instead of on a lesson clock. Broker FastPass pairs the self-paced 72-hour Course 2 with three certification exams built to closely match the content on the Pearson broker exam, and once you pass all three, you’re certified to take the Florida broker exam. There are no page timers or forced lesson stops, so students who already know the material can go straight to the Broker FastPass exams, and Course 2, the textbook, and the workbook are there for anything they want to brush up on.</p></details>
+          <details><summary>Do I have to sit through 72 hours of timed videos?</summary><p>No. Broker FastPass for the Florida broker license is self-paced, with no timed videos, lesson clock, or page timers. Take the three Broker FastPass exams, built to closely match the content on the Pearson broker exam, when you’re ready, and once you pass all three, you’re certified to take the Florida broker exam. Course 2, the audio review, the textbook, and the workbook are there for anything you want to review.</p></details>
+          <details><summary>Can I go straight to the Broker FastPass exams?</summary><p>Yes. Broker FastPass for the Florida broker license is self-paced, with no lesson clock or page timers, so you can take the three Broker FastPass exams whenever you’re ready. Course 2, the textbook, and the workbook are there for whatever you want to review. Passing all three certifies you to take the Florida broker exam, which you still take separately.</p></details>
+          <details><summary>Does FastPass replace the Florida broker licensing exam?</summary><p>No. The Florida broker licensing exam is a separate exam administered through <a href="https://www.pearsonvue.com/us/en/fl/dbpr.html" rel="noopener" target="_blank">Pearson Professional Assessments</a> (formerly Pearson VUE). FastPass is preparation and part of the Course 2 certification path; you still take the state exam separately.</p></details>
+          <details><summary>What is the Full Package with FastPass + Post?</summary><p>The Full Package is <strong>${salePrice(products.brokerCareerLaunch)}</strong>. Includes Course 2, Broker FastPass, and your required 60-hour Broker Post-Licensing course. Broker students always get the Course 2 textbook and the FastPass workbook. Want a printed copy? Just ask and we&apos;ll send one free through Amazon.</p></details>
+          <details><summary>Do broker students get the textbooks?</summary><p>Broker students always get the Course 2 textbook and the FastPass workbook, to read online or download as a PDF. Want a printed copy? Just ask and we&apos;ll send one free through Amazon.</p></details>
+          <details><summary>How long do I have access?</summary><p>Broker course bundles include one year of online access.</p></details>
+          <details><summary>Can I contact the school directly?</summary><p>Yes. Text or email us at <a href="sms:+12394718500">239.471.8500</a> or <a href="mailto:daniel@daniellarsontraining.com">daniel@daniellarsontraining.com</a> about broker licensing, exam preparation, post-licensing, or your next licensing step.</p></details>
+        </div>
+      </div>
+    </section>
 
+    <section class="draft-section navy final-cta">
+      <div class="wrap">
+        <h2>Ready to get your Florida broker license?</h2>
+        <span class="checkout-cta">
+          <a class="draft-btn primary" data-plan={products.brokerFastPass.id} data-placement="final_cta" href={products.brokerFastPass.checkoutUrl} target="_top">Start Broker FastPass — ${salePrice(products.brokerFastPass)}</a>
+          <CheckoutNote />
+        </span>
+      </div>
+    </section>
   </div>
-
-  <script is:inline>
-document.addEventListener('click', function(e){
-    const a = e.target.closest('a[data-plan]');
-    if(!a) return;
-    if(typeof window.gtag === 'function'){
-      window.gtag('event','select_course_package',{
-        course_package:a.dataset.plan,
-        link_placement:a.dataset.placement,
-        link_url:a.href
-      });
-    }
-  });
-</script>
-
-<script is:inline>
-document.addEventListener('click', function(e){
-    const link = e.target.closest('a[href="#packages"]');
-    if(!link) return;
-
-    const target = document.getElementById('packages');
-    if(!target) return;
-
-    e.preventDefault();
-    const reduceMotion = window.matchMedia &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    target.scrollIntoView({
-      behavior: reduceMotion ? 'auto' : 'smooth',
-      block: 'start'
-    });
-  });
-</script>
-<style>
-  @media (min-width: 901px) {
-    .package h3 { min-height: 2em; }
-  }
-</style>
 </SiteLayout>
-

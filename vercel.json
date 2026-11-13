@@ -5,24 +5,390 @@
     }
   },
   "redirects": [
-    { "source": "/:path*", "has": [{ "type": "host", "value": "daniellarsontraining.com" }], "destination": "https://realestatefastpass.com/:path*", "statusCode": 301 },
-    { "source": "/:path*", "has": [{ "type": "host", "value": "www.daniellarsontraining.com" }], "destination": "https://realestatefastpass.com/:path*", "statusCode": 301 },
-    {"source":"/post/how-to-get-your-florida-real-estate-license-in-2025-a-step-by-step-guide","destination":"/license-guides/how-to-get-florida-real-estate-license/","permanent":true},
-    {"source":"/post/how-to-get-your-florida-real-estate-license-in-2025-a-step-by-step-guide/","destination":"/license-guides/how-to-get-florida-real-estate-license/","permanent":true},
-    { "source": "/broker", "destination": "/broker-licensing/", "permanent": true },
-    { "source": "/broker/", "destination": "/broker-licensing/", "permanent": true },
-    { "source": "/whyus", "destination": "/about/", "permanent": true },
-    { "source": "/whyus/", "destination": "/about/", "permanent": true },
-    { "source": "/brokerlicensing", "destination": "/broker-licensing/", "permanent": true },
-    { "source": "/brokerlicensing/", "destination": "/broker-licensing/", "permanent": true },
-    { "source": "/postlicensing", "destination": "/post-licensing/", "permanent": true },
-    { "source": "/postlicensing/", "destination": "/post-licensing/", "permanent": true },
-    { "source": "/14ce", "destination": "/14ce/", "permanent": true },
-    { "source": "/courseportal", "destination": "/course-portal/", "permanent": true },
-    { "source": "/courseportal/", "destination": "/course-portal/", "permanent": true },
-    { "source": "/us", "destination": "/about/", "permanent": true },
-    { "source": "/us/", "destination": "/about/", "permanent": true },
-    { "source": "/exampreponly", "destination": "/exam-prep/", "permanent": true },
-    { "source": "/exampreponly/", "destination": "/exam-prep/", "permanent": true }
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "daniellarsontraining.com"
+        }
+      ],
+      "destination": "https://realestatefastpass.com/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.daniellarsontraining.com"
+        }
+      ],
+      "destination": "https://realestatefastpass.com/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/post/how-to-get-your-florida-real-estate-license-in-2025-a-step-by-step-guide",
+      "destination": "/license-guides/how-to-get-florida-real-estate-license/",
+      "permanent": true
+    },
+    {
+      "source": "/post/how-to-get-your-florida-real-estate-license-in-2025-a-step-by-step-guide/",
+      "destination": "/license-guides/how-to-get-florida-real-estate-license/",
+      "permanent": true
+    },
+    {
+      "source": "/broker",
+      "destination": "/broker-licensing/",
+      "permanent": true
+    },
+    {
+      "source": "/broker/",
+      "destination": "/broker-licensing/",
+      "permanent": true
+    },
+    {
+      "source": "/whyus",
+      "destination": "/about/",
+      "permanent": true
+    },
+    {
+      "source": "/whyus/",
+      "destination": "/about/",
+      "permanent": true
+    },
+    {
+      "source": "/brokerlicensing",
+      "destination": "/broker-licensing/",
+      "permanent": true
+    },
+    {
+      "source": "/brokerlicensing/",
+      "destination": "/broker-licensing/",
+      "permanent": true
+    },
+    {
+      "source": "/postlicensing",
+      "destination": "/post-licensing/",
+      "permanent": true
+    },
+    {
+      "source": "/postlicensing/",
+      "destination": "/post-licensing/",
+      "permanent": true
+    },
+    {
+      "source": "/14ce",
+      "destination": "/14ce/",
+      "permanent": true
+    },
+    {
+      "source": "/courseportal",
+      "destination": "/course-portal/",
+      "permanent": true
+    },
+    {
+      "source": "/courseportal/",
+      "destination": "/course-portal/",
+      "permanent": true
+    },
+    {
+      "source": "/us",
+      "destination": "/about/",
+      "permanent": true
+    },
+    {
+      "source": "/us/",
+      "destination": "/about/",
+      "permanent": true
+    },
+    {
+      "source": "/aboutus",
+      "destination": "/about/",
+      "statusCode": 308
+    },
+    {
+      "source": "/aboutus/",
+      "destination": "/about/",
+      "statusCode": 308
+    },
+    {
+      "source": "/about-us",
+      "destination": "/about/",
+      "statusCode": 308
+    },
+    {
+      "source": "/about-us/",
+      "destination": "/about/",
+      "statusCode": 308
+    },
+    {
+      "source": "/why-us",
+      "destination": "/about/",
+      "statusCode": 308
+    },
+    {
+      "source": "/why-us/",
+      "destination": "/about/",
+      "statusCode": 308
+    },
+    {
+      "source": "/contact",
+      "destination": "/about/",
+      "statusCode": 308
+    },
+    {
+      "source": "/contact/",
+      "destination": "/about/",
+      "statusCode": 308
+    },
+    {
+      "source": "/contact-us",
+      "destination": "/about/",
+      "statusCode": 308
+    },
+    {
+      "source": "/contact-us/",
+      "destination": "/about/",
+      "statusCode": 308
+    },
+    {
+      "source": "/contactus",
+      "destination": "/about/",
+      "statusCode": 308
+    },
+    {
+      "source": "/contactus/",
+      "destination": "/about/",
+      "statusCode": 308
+    },
+    {
+      "source": "/book-online",
+      "destination": "/",
+      "statusCode": 308
+    },
+    {
+      "source": "/book-online/",
+      "destination": "/",
+      "statusCode": 308
+    },
+    {
+      "source": "/financing",
+      "destination": "/",
+      "statusCode": 308
+    },
+    {
+      "source": "/financing/",
+      "destination": "/",
+      "statusCode": 308
+    },
+    {
+      "source": "/coaching",
+      "destination": "/about/",
+      "statusCode": 308
+    },
+    {
+      "source": "/coaching/",
+      "destination": "/about/",
+      "statusCode": 308
+    },
+    {
+      "source": "/copy-of-post-licensing",
+      "destination": "/post-licensing/",
+      "statusCode": 308
+    },
+    {
+      "source": "/copy-of-post-licensing/",
+      "destination": "/post-licensing/",
+      "statusCode": 308
+    },
+    {
+      "source": "/exampreponly",
+      "destination": "/exam-prep/",
+      "permanent": true
+    },
+    {
+      "source": "/exampreponly/",
+      "destination": "/exam-prep/",
+      "permanent": true
+    },
+    {
+      "source": "/find-a-broker",
+      "destination": "/broker-connection/",
+      "permanent": true
+    },
+    {
+      "source": "/find-a-broker/",
+      "destination": "/broker-connection/",
+      "permanent": true
+    },
+    {
+      "source": "/getting-licensed",
+      "destination": "/license-guides/getting-licensed/",
+      "permanent": true
+    },
+    {
+      "source": "/getting-licensed/",
+      "destination": "/license-guides/getting-licensed/",
+      "permanent": true
+    },
+    {
+      "source": "/broker-license",
+      "destination": "/license-guides/broker-license/",
+      "permanent": true
+    },
+    {
+      "source": "/broker-license/",
+      "destination": "/license-guides/broker-license/",
+      "permanent": true
+    },
+    {
+      "source": "/course-and-state-exam",
+      "destination": "/license-guides/course-and-state-exam/",
+      "permanent": true
+    },
+    {
+      "source": "/course-and-state-exam/",
+      "destination": "/license-guides/course-and-state-exam/",
+      "permanent": true
+    },
+    {
+      "source": "/continuing-education",
+      "destination": "/license-guides/continuing-education/",
+      "permanent": true
+    },
+    {
+      "source": "/continuing-education/",
+      "destination": "/license-guides/continuing-education/",
+      "permanent": true
+    },
+    {
+      "source": "/licensing-costs",
+      "destination": "/license-guides/licensing-costs/",
+      "permanent": true
+    },
+    {
+      "source": "/licensing-costs/",
+      "destination": "/license-guides/licensing-costs/",
+      "permanent": true
+    },
+    {
+      "source": "/realtor-membership-mls",
+      "destination": "/license-guides/realtor-membership-mls/",
+      "permanent": true
+    },
+    {
+      "source": "/realtor-membership-mls/",
+      "destination": "/license-guides/realtor-membership-mls/",
+      "permanent": true
+    },
+    {
+      "source": "/license-problems",
+      "destination": "/license-guides/florida-real-estate-license-problems/",
+      "permanent": true
+    },
+    {
+      "source": "/license-problems/",
+      "destination": "/license-guides/florida-real-estate-license-problems/",
+      "permanent": true
+    },
+    {
+      "source": "/course-savings",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/course-savings/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "destination": "/license-guides/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/post-licensing",
+      "destination": "/license-guides/post-licensing-vs-ce/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/post-licensing/",
+      "destination": "/license-guides/post-licensing-vs-ce/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/:path*",
+      "destination": "https://realestatefastpass.com/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/",
+      "destination": "/license-guides/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/post-licensing",
+      "destination": "/license-guides/post-licensing-vs-ce/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/post-licensing/",
+      "destination": "/license-guides/post-licensing-vs-ce/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/:path*",
+      "destination": "https://realestatefastpass.com/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    }
   ]
 }

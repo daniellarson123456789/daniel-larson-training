@@ -15,10 +15,14 @@ import { site } from "../data/site";
 
     <nav class="footer-links" aria-label="Footer courses and resources">
       <h2 class="footer-label">Courses &amp; Resources</h2>
-      <a href="/course-portal/">Course Portal</a>
-      <a href="/florida-sales-associate-exam-prep/">Sales FastPass &amp; Exam Prep</a>
-      <a href="/florida-broker-exam-prep/">Broker FastPass &amp; Exam Prep</a>
-      <a href="/licensing-checklist/">Florida Licensing Checklist</a>
+      <div class="footer-link-grid">
+        <a href={site.studentHubUrl}>Student Sign In</a>
+        <a href="/sample-questions/">Sample Questions</a>
+        <a href="/florida-sales-associate-exam-prep/">Sales FastPass &amp; Exam Prep</a>
+        <a href="/florida-broker-exam-prep/">Broker FastPass &amp; Exam Prep</a>
+        <a href="/licensing-checklist/">Florida Licensing Checklist</a>
+        <a href="/broker-connection/">Find a Broker</a>
+      </div>
     </nav>
 
     <div class="footer-links footer-contact">
@@ -28,6 +32,15 @@ import { site } from "../data/site";
       <a href="https://www.trustpilot.com/review/daniellarsontraining.com">Read our Trustpilot reviews <span aria-hidden="true">↗</span></a>
     </div>
   </div>
+
+  <nav class="shell footer-courses" aria-label="Licensing and course pages">
+    <a href="/">Sales</a>
+    <a href="/broker-licensing/">Broker</a>
+    <a href="/post-licensing/">Post-Licensing</a>
+    <a href="/14ce/">14-Hour CE</a>
+    <a href="/exam-prep/">Exam Prep</a>
+    <a href="/about/">About</a>
+  </nav>
 
   <div class="shell footer-bottom">
     <span>Florida real estate education, exam preparation, post-licensing, and continuing education.</span>

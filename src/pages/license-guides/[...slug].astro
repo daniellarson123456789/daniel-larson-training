@@ -20,7 +20,7 @@ const schema = {
   author: { "@id": `${site.url}/#daniel-larson` },
   publisher: { "@id": `${site.url}/#organization` },
   inLanguage: "en-US",
-  dateModified: "2026-11-09",
+  dateModified: "2026-11-10",
 };
 ---
 
@@ -28,8 +28,6 @@ const schema = {
   title={`${guide.title} | Real Estate FastPass`}
   description={guide.description}
   canonicalPath={canonicalPath}
-  shareTitle={guide.slug === "post-licensing-vs-ce" ? "Post or CE?" : guide.title}
-  ogImage={guide.slug === "post-licensing-vs-ce" ? "/share-post-ce-guide-2026-09.png" : undefined}
   schema={schema}
 >
   <LicenseGuide markup={guide.markup} />

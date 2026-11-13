@@ -3,6 +3,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 import ChecklistSignup from "../components/ChecklistSignup.astro";
 import { site } from "../data/site";
 import { products, salePrice } from "../data/products";
+import "../styles/draft-sales.css";
 
 // Adapted from outputs/florida-licensing-checklist-content.json, reviewed November 7, 2026.
 // Keep pricing in products.ts. The native Kit form is controlled by the
@@ -74,7 +75,7 @@ const schema = {
 ---
 
 <SiteLayout title={title} description={description} canonicalPath="/licensing-checklist/" schema={schema}>
-  <div class="licensing-checklist">
+  <div class="draft-sales licensing-checklist">
     <section class="checklist-hero">
       <div class="shell hero-grid">
         <div>
@@ -172,7 +173,7 @@ const schema = {
           <noscript><p>Use your browser's Print option to print this checklist or save it as a PDF.</p></noscript>
           <div class="sidebar-links"><a href="#costs">Plan the separate costs <span aria-hidden="true">↓</span></a><a href="#course-options">Compare school packages <span aria-hidden="true">↓</span></a><a href="#official-sources">Open the official sources <span aria-hidden="true">↓</span></a></div>
         </div>
-        <div class="help-card"><p class="eyebrow">Help choosing a course</p><h2>Talk to Daniel.</h2><p>Tell me what you have completed and what comes next.</p><a href={`sms:${site.phoneHref.slice(4)}`}>Text {site.phoneDisplay} <span aria-hidden="true">↗</span></a><a href="/about/">Meet your instructor</a></div>
+        <div class="help-card"><p class="eyebrow">Help choosing a course</p><h2>Ask us.</h2><p>Tell us what you have completed and what comes next.</p><a href={`sms:${site.phoneHref.slice(4)}`}>Text {site.phoneDisplay} <span aria-hidden="true">↗</span></a><a href="/about/">Meet your instructor</a></div>
       </aside>
     </div>
 

@@ -1,0 +1,56 @@
+---
+import type { SampleQuestion } from "../data/sampleQuestions";
+
+type Props = {
+  item: SampleQuestion;
+};
+
+const { item } = Astro.props;
+const answerText = item.choices.find((choice) => choice.key === item.answer)?.text ?? "";
+const contentParagraphs = item.content.split(/\n\n+/).map((part) => part.trim()).filter(Boolean);
+---
+
+<article class="practice-q" data-answer={item.answer} data-answer-text={answerText} id={`q-${item.id.replace(".", "-")}`}>
+  <p class="practice-q-id">Question {item.id}</p>
+  {contentParagraphs.length > 0 && (
+    <div class="practice-teaching">
+      <p class="practice-teaching-label">The Content</p>
+      {contentParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+  )}
+  <h3 class="practice-q-stem">{item.question}</h3>
+  <div class="practice-q-choices" role="group" aria-label={`Answer choices for question ${item.id}`}>
+    {item.choices.map((choice) => (
+      <button type="button" class="practice-choice" data-key={choice.key}>
+        <span class="practice-key">{choice.key}</span>
+        <span>{choice.text}</span>
+      </button>
+    ))}
+  </div>
+  <button type="button" class="practice-reveal">Reveal answer</button>
+  <div class="practice-answer-block" hidden>
+    <p class="practice-result"></p>
+    {item.explanation && (
+      <div class="practice-explainer">
+        <p class="practice-explainer-label">Explanation</p>
+        <p>{item.explanation}</p>
+      </div>
+    )}
+    {item.videoId && (
+      <div class="practice-watch-wrap">
+        <button type="button" class="practice-watch" aria-expanded="false">Watch the video</button>
+        <div class="practice-video" hidden>
+          <div class="practice-video-frame">
+            <iframe
+              data-src={`https://www.youtube-nocookie.com/embed/${item.videoId}`}
+              title={`Video for question ${item.id}`}
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    )}
+  </div>
+</article>

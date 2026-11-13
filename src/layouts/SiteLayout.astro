@@ -3,6 +3,8 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import SiteMotion from "../components/SiteMotion.astro";
 import { site } from "../data/site";
+import { breadcrumbList, enrichSchemaNode, globalGraph } from "../lib/seo";
+import { resolveOg, stripPrices } from "../data/og";
 import "../styles/global.css";
 import "../styles/interactions.css";
 
@@ -22,64 +24,38 @@ const {
   canonicalPath = Astro.url.pathname,
   schema = [],
   robots,
-  ogImage = "/social-share.png",
-  shareTitle = title,
+  ogImage,
+  shareTitle,
 } = Astro.props;
 
+const og = resolveOg(canonicalPath, title, description);
+const resolvedShareTitle = stripPrices(shareTitle ?? og.title);
+const resolvedShareDescription = stripPrices(og.description);
+const resolvedOgImage = ogImage ?? og.image;
+const resolvedOgAlt = og.alt;
 
 const canonical = new URL(canonicalPath, site.url).toString();
-const socialImage = new URL(ogImage, site.url).toString();
+const socialImage = new URL(resolvedOgImage, site.url).toString();
 const preview = process.env.VERCEL_ENV === "preview" || import.meta.env.PUBLIC_SITE_PREVIEW === "true";
 const allowIndex = !preview && import.meta.env.PUBLIC_SITE_ENV === "production";
 const allowAnalytics = allowIndex && (!process.env.VERCEL_ENV || process.env.VERCEL_ENV === "production");
 const robotsContent = robots ?? (allowIndex
   ? "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
   : "noindex,nofollow");
+const noindex = /\bnoindex\b/i.test(robotsContent);
+const isErrorPage = canonicalPath === "/404" || canonicalPath === "/404/";
 
-const globalGraph = [
-  {
-    "@type": "EducationalOrganization",
-    "@id": `${site.url}/#organization`,
-    name: site.schoolName,
-    alternateName: site.name,
-    brand: { "@type": "Brand", name: site.name, url: site.url },
-    url: site.url,
-    telephone: site.phoneDisplay,
-    email: site.email,
-    identifier: {
-      "@type": "PropertyValue",
-      name: "Florida Licensed Real Estate School",
-      value: site.schoolLicense,
-    },
-  },
-  {
-    "@type": "Person",
-    "@id": `${site.url}/#daniel-larson`,
-    name: site.instructorName,
-    url: `${site.url}/about/`,
-    image: `${site.url}/daniel-larson-suit.webp`,
-    sameAs: ["https://www.royalshellrealestate.com/real-estate-agent/846/daniel-larson"],
-    worksFor: { "@id": `${site.url}/#organization` },
-    identifier: {
-      "@type": "PropertyValue",
-      name: "Florida Real Estate Instructor",
-      value: site.instructorLicense,
-    },
-  },
-  {
-    "@type": "WebSite",
-    "@id": `${site.url}/#website`,
-    url: site.url,
-    name: site.name,
-    alternateName: "RealEstateFastPass",
-    publisher: { "@id": `${site.url}/#organization` },
-  },
+const pageSchema = (Array.isArray(schema) ? schema : [schema])
+  .filter(Boolean)
+  .map((node) => enrichSchemaNode(node as Record<string, unknown>));
+const graph = [
+  ...globalGraph(),
+  ...pageSchema,
+  ...(!noindex && !isErrorPage ? [breadcrumbList(canonicalPath, title)] : []),
 ];
-
-const pageSchema = Array.isArray(schema) ? schema : [schema];
 const structuredData = {
   "@context": "https://schema.org",
-  "@graph": [...globalGraph, ...pageSchema.filter(Boolean)],
+  "@graph": graph,
 };
 ---
 
@@ -100,18 +76,20 @@ const structuredData = {
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content={site.name} />
-    <meta property="og:title" content={shareTitle} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={resolvedShareTitle} />
+    <meta property="og:description" content={resolvedShareDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={socialImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Daniel Larson Training — Florida Real Estate Education" />
+    <meta property="og:image:alt" content={resolvedOgAlt} />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={shareTitle} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:title" content={resolvedShareTitle} />
+    <meta name="twitter:description" content={resolvedShareDescription} />
     <meta name="twitter:image" content={socialImage} />
+    <meta name="twitter:image:alt" content={resolvedOgAlt} />
+    <link rel="alternate" type="text/plain" href={`${site.url}/llms.txt`} title="LLM content source" />
 
     <title>{title}</title>
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
