@@ -1,13 +1,26 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import { webPage } from "../lib/seo";
+import "../styles/draft-sales.css";
+
+const pageTitle = "Refund policy | Real Estate FastPass";
+const pageDescription = "Refund terms for Daniel Larson Training licensing packages and standalone exam prep.";
+const schema = [
+  webPage({
+    path: "/refund-policy/",
+    name: pageTitle,
+    description: pageDescription,
+  }),
+];
 ---
 
 <SiteLayout
-  title="Refund policy | Real Estate FastPass"
-  description="Refund terms for Daniel Larson Training licensing packages and standalone exam prep."
+  title={pageTitle}
+  description={pageDescription}
   canonicalPath="/refund-policy/"
+  schema={schema}
 >
-  <article class="policy shell">
+  <div class="draft-sales"><article class="policy shell">
     <nav aria-label="Breadcrumb"><a href="/">Home</a> / Refund policy</nav>
     <h1>Refund policy</h1>
     <p class="meta">Effective October 21, 2026 (Eastern Time)</p>
@@ -17,6 +30,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
     <p>Contact <a href="mailto:daniel@daniellarsontraining.com">daniel@daniellarsontraining.com</a> or <a href="sms:+12394718500">text 239.471.8500</a> with your name and order number.</p>
     <p class="meta">Applies to licensing packages and standalone exam prep purchased from October 21, 2026; excludes standalone post-licensing and CE. Earlier purchases retain their original terms. The fee does not apply to refunds correcting duplicate charges or school errors, or where prohibited by law. Statutory rights are unaffected.</p>
   </article>
+  </div>
 </SiteLayout>
 
 <style>

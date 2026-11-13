@@ -1,0 +1,84 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import PracticeQuestion from "../components/PracticeQuestion.astro";
+import PracticeQuestionScript from "../components/PracticeQuestionScript.astro";
+import CheckoutNote from "../components/CheckoutNote.astro";
+import { sampleQuestions } from "../data/sampleQuestions";
+import { products, salePrice } from "../data/products";
+import { site } from "../data/site";
+import { webPage } from "../lib/seo";
+import "../styles/draft-sales.css";
+
+const pageTitle = "Try Sample Florida Real Estate Questions | Real Estate FastPass";
+const pageDescription = "Practice real Florida sales licensing questions with written explanations and, where we have them, video clips. No account required. FastPass includes all 500 questions plus the full course.";
+const total = sampleQuestions.length;
+const schema = [
+  webPage({
+    path: "/sample-questions/",
+    name: pageTitle,
+    description: pageDescription,
+  }),
+];
+---
+
+<SiteLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalPath="/sample-questions/"
+  schema={schema}
+>
+  <div class="draft-sales">
+    <section class="sample-hero">
+      <div class="wrap">
+        <p class="draft-kicker">
+          <span class="draft-brand">Real Estate FastPass</span>
+          <span class="draft-school">{site.tagline}</span>
+        </p>
+        <h1>Try sample questions</h1>
+        <p>No account required. These are real practice items from the Course 1 library.</p>
+      </div>
+    </section>
+
+    <section class="draft-section">
+      <div class="wrap sample-quiz-wrap">
+        <div class="sample-quiz">
+          <div class="sample-prog">
+            <span class="sample-prog-count">Question 1 of {total}</span>
+            <div class="sample-dots" role="navigation" aria-label="Question progress">
+              {sampleQuestions.map((_, index) => (
+                <button type="button" class="sample-dot" data-index={index} aria-label={`Question ${index + 1} of ${total}`}></button>
+              ))}
+            </div>
+          </div>
+          <div class="sample-bar" aria-hidden="true"><i class="sample-bar-fill"></i></div>
+
+          {sampleQuestions.map((item, index) => (
+            <div class="sample-slide" data-index={index} hidden={index !== 0}>
+              <PracticeQuestion item={item} />
+            </div>
+          ))}
+
+          <p class="soft-cta sample-mid-cta" hidden>
+            <a href={products.salesFastPass.checkoutUrl} target="_top">FastPass includes all 500 questions plus the full course</a>
+          </p>
+
+          <div class="sample-stepper-nav">
+            <button type="button" class="draft-btn navy" data-sample-prev hidden>Back</button>
+            <button type="button" class="draft-btn primary" data-sample-next>Next</button>
+          </div>
+
+          <div class="sample-finish final-cta" hidden>
+            <h2>Want the full set?</h2>
+            <p class="intro" style="margin-inline: auto;">FastPass includes all 500 questions plus the full Course 1 path, for ${salePrice(products.salesFastPass)}.</p>
+            <span class="checkout-cta">
+              <a class="draft-btn primary" data-plan={products.salesFastPass.id} data-placement="sample_questions_final" href={products.salesFastPass.checkoutUrl} target="_top">Start FastPass — ${salePrice(products.salesFastPass)}</a>
+              <CheckoutNote />
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <PracticeQuestionScript />
+  </div>
+</SiteLayout>

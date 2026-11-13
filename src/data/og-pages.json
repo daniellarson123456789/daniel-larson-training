@@ -1,0 +1,140 @@
+[
+  {
+    "id": "home",
+    "paths": [
+      "/"
+    ],
+    "image": "/og/home-v3.png",
+    "headline": "Get your Florida\nSales Associate license",
+    "title": "Real Estate FastPass | Get your Florida Sales Associate license",
+    "description": "Get your Florida Sales Associate license with FastPass. Course 1, certification, and exam prep, with one year of access and direct support."
+  },
+  {
+    "id": "broker",
+    "paths": [
+      "/broker-licensing/"
+    ],
+    "image": "/og/broker-v3.png",
+    "headline": "Get your Florida\nBroker license",
+    "title": "Real Estate FastPass | Get your Florida Broker license",
+    "description": "Florida 72-hour Course 2, Broker FastPass, and the full package with Post-Licensing. One year of access and direct support."
+  },
+  {
+    "id": "post",
+    "paths": [
+      "/post-licensing/"
+    ],
+    "image": "/og/post-v2.png",
+    "headline": "Florida Post-Licensing",
+    "title": "Real Estate FastPass | Florida Post-Licensing",
+    "description": "Florida 45-hour Sales Associate Post-Licensing and 60-hour Broker Post-Licensing. Self-paced courses with a FastPass final exam and DBPR reporting."
+  },
+  {
+    "id": "ce",
+    "paths": [
+      "/14ce/"
+    ],
+    "image": "/og/ce-v2.png",
+    "headline": "Florida 14-Hour CE",
+    "title": "Real Estate FastPass | Florida 14-Hour CE",
+    "description": "Florida 14-hour real estate continuing education with a FastPass final exam. Self-paced course and DBPR reporting included."
+  },
+  {
+    "id": "exam-prep",
+    "paths": [
+      "/exam-prep/"
+    ],
+    "image": "/og/exam-prep-v2.png",
+    "headline": "Florida real estate\nexam prep",
+    "title": "Real Estate FastPass | Florida real estate exam prep",
+    "description": "Sales Associate and Broker exam preparation for students who took their pre-license course elsewhere. FastPass, practice questions, audio review, math help, and direct instructor support."
+  },
+  {
+    "id": "sales-exam-prep",
+    "paths": [
+      "/florida-sales-associate-exam-prep/"
+    ],
+    "image": "/og/sales-exam-prep-v2.png",
+    "headline": "Sales FastPass\n& exam prep",
+    "title": "Real Estate FastPass | Sales FastPass and exam prep",
+    "description": "Florida 63-hour Course 1 with Sales FastPass certification and exam prep. Digital workbook, audio, and instructor support."
+  },
+  {
+    "id": "broker-exam-prep",
+    "paths": [
+      "/florida-broker-exam-prep/"
+    ],
+    "image": "/og/broker-exam-prep-v2.png",
+    "headline": "Broker FastPass\n& exam prep",
+    "title": "Real Estate FastPass | Broker FastPass and exam prep",
+    "description": "Florida 72-hour Course 2 with Broker FastPass certification and exam prep. Digital workbook, audio, and instructor support."
+  },
+  {
+    "id": "sample-questions",
+    "paths": [
+      "/sample-questions/"
+    ],
+    "image": "/og/sample-questions-v2.png",
+    "headline": "Try sample Florida\nquestions",
+    "title": "Real Estate FastPass | Try sample Florida real estate questions",
+    "description": "Practice real Florida Sales Associate licensing questions with written explanations and, where we have them, video clips. No account required."
+  },
+  {
+    "id": "about",
+    "paths": [
+      "/about/"
+    ],
+    "image": "/og/about-v4.png",
+    "headline": "About us",
+    "title": "About FastPass | Daniel Larson Training",
+    "description": "Get your Florida license with FastPass. Course 1, Course 2, Post-Licensing, 14-Hour CE, and exam prep from Daniel Larson Training."
+  },
+  {
+    "id": "find-a-broker",
+    "paths": [
+      "/broker-connection/"
+    ],
+    "image": "/og/find-a-broker-v2.png",
+    "headline": "Find a Broker",
+    "title": "Real Estate FastPass | Find a Broker",
+    "description": "Find a Florida brokerage we work with, for students and new licensees. Brokerages and agent teams can get listed here."
+  },
+  {
+    "id": "guides",
+    "paths": [
+      "/license-guides/"
+    ],
+    "image": "/og/guides-v2.png",
+    "headline": "Florida licensing\nguides",
+    "title": "Real Estate FastPass | Florida licensing guides",
+    "description": "Choose a course, prepare for school certification, and plan your Florida licensing or renewal steps."
+  },
+  {
+    "id": "checklist",
+    "paths": [
+      "/licensing-checklist/"
+    ],
+    "image": "/og/checklist-v2.png",
+    "headline": "Florida licensing\nchecklist",
+    "title": "Real Estate FastPass | Florida licensing checklist",
+    "description": "Find your next Florida real estate licensing step, from applications and exams to first-renewal Post-Licensing."
+  },
+  {
+    "id": "refund",
+    "paths": [
+      "/refund-policy/"
+    ],
+    "image": "/og/refund-v2.png",
+    "headline": "Refund policy",
+    "title": "Real Estate FastPass | Refund policy",
+    "description": "Refund terms for Daniel Larson Training licensing packages and standalone exam prep."
+  },
+  {
+    "id": "default",
+    "paths": [],
+    "image": "/og/default-v2.png",
+    "headline": "Florida real estate\neducation",
+    "title": "Real Estate FastPass | Florida real estate education",
+    "description": "Self-paced Florida real estate licensing, exam preparation, Post-Licensing, and 14-hour continuing education."
+  }
+]

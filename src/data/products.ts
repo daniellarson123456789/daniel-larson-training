@@ -17,7 +17,7 @@ export const products: Record<string, Product> = {
     shortName: "Course 1",
     price: 180,
     category: "sales",
-    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/course1`,
+    checkoutUrl: "https://portal.daniellarsontraining.com/enroll/2513050",
   },
   salesFastPass: {
     id: "sales-fastpass",
@@ -25,7 +25,7 @@ export const products: Record<string, Product> = {
     shortName: "FastPass",
     price: 260,
     category: "sales",
-    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/fastpass1`,
+    checkoutUrl: "https://portal.daniellarsontraining.com/enroll/2270663",
   },
   salesFastPassPost: {
     id: "sales-fastpass-post",
@@ -33,7 +33,7 @@ export const products: Record<string, Product> = {
     shortName: "FastPass + Post",
     price: 340,
     category: "sales",
-    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/ADDPOST1`,
+    checkoutUrl: "https://portal.daniellarsontraining.com/enroll/2270667",
   },
   brokerCourse2: {
     id: "broker-course-2",
@@ -41,7 +41,7 @@ export const products: Record<string, Product> = {
     shortName: "Course 2",
     price: 180,
     category: "broker",
-    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/brokerexamblast`,
+    checkoutUrl: "https://portal.daniellarsontraining.com/enroll/2925908",
   },
   brokerFastPass: {
     id: "broker-fastpass",
@@ -49,7 +49,7 @@ export const products: Record<string, Product> = {
     shortName: "Broker FastPass",
     price: 260,
     category: "broker",
-    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/brokerfastpass`,
+    checkoutUrl: "https://portal.daniellarsontraining.com/enroll/2860201",
   },
   brokerCareerLaunch: {
     id: "broker-career-launch",
@@ -57,7 +57,7 @@ export const products: Record<string, Product> = {
     shortName: "Broker Career Launch",
     price: 340,
     category: "broker",
-    checkoutUrl: `https://portal.daniellarsontraining.com/bundles/broker-career-launch`,
+    checkoutUrl: "https://portal.daniellarsontraining.com/enroll/3643107",
   },
   salesPost: {
     id: "sales-post",
@@ -89,7 +89,7 @@ export const products: Record<string, Product> = {
     shortName: "Sales Exam Prep",
     price: 130,
     category: "exam-prep",
-    checkoutUrl: "https://portal.daniellarsontraining.com/bundles/examprepfastpassonly",
+    checkoutUrl: "https://portal.daniellarsontraining.com/enroll/2817702",
   },
   brokerExamPrep: {
     id: "broker-exam-prep",
@@ -97,7 +97,7 @@ export const products: Record<string, Product> = {
     shortName: "Broker Exam Prep",
     price: 130,
     category: "exam-prep",
-    checkoutUrl: "https://portal.daniellarsontraining.com/bundles/brokeruncertifiedfastpass",
+    checkoutUrl: "https://portal.daniellarsontraining.com/enroll/3800925",
   },
 };
 

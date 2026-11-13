@@ -1,0 +1,135 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import { site } from "../data/site";
+import { partners } from "../data/partners";
+import { webPage } from "../lib/seo";
+import "../styles/draft-sales.css";
+
+const pageTitle = "Find a Broker | Real Estate FastPass";
+const pageDescription = "Find a Florida brokerage we work with, for students and new licensees. Brokerages and agent teams can get listed here, in front of people getting licensed with us.";
+const mailto = `mailto:${site.email}?subject=${encodeURIComponent("Find a Broker listing")}`;
+const schema = [
+  webPage({
+    path: "/broker-connection/",
+    name: pageTitle,
+    description: pageDescription,
+  }),
+  {
+    "@type": "ItemList",
+    "@id": `${site.url}/broker-connection/#partners`,
+    name: "Florida brokerages that work with Real Estate FastPass",
+    itemListElement: partners.map((partner, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: partner.office ? `${partner.name}, ${partner.office}` : partner.name,
+      url: partner.websiteUrl,
+    })),
+  },
+];
+---
+
+<SiteLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalPath="/broker-connection/"
+  schema={schema}
+>
+  <div class="draft-sales">
+    <section class="draft-hero broker-hero-short" id="find-a-brokerage">
+      <div class="wrap">
+        <p class="draft-kicker">
+          <span class="draft-brand">{site.name}</span>
+          <span class="draft-school">{site.tagline}</span>
+        </p>
+        <h1>Find your brokerage</h1>
+        <p class="lead">These Florida brokerages work with our school. Text or call if you’d like to talk.</p>
+      </div>
+    </section>
+
+    <section class="draft-section partner-section" id="partners">
+      <div class="wrap">
+        <ul class="partner-grid">
+          {partners.map((partner) => (
+            <li class="partner-card">
+              <div class="partner-logo-plate">
+                <img
+                  src={partner.logoSrc}
+                  alt={partner.logoAlt}
+                  width={partner.logoWidth}
+                  height={partner.logoHeight}
+                />
+              </div>
+              <div class="partner-card-body">
+                <h3>{partner.name}</h3>
+                {partner.office && <p class="partner-office">{partner.office}</p>}
+                {partner.note && <p class="partner-note">{partner.note}</p>}
+                {partner.contact && (
+                  <div class="partner-text-action">
+                    <div class="partner-actions">
+                      <a class="draft-btn primary partner-contact-btn" href={partner.contact.smsHref}>
+                        Text {partner.contact.firstName}
+                      </a>
+                      <a class="draft-btn navy partner-contact-btn" href={partner.contact.telHref}>
+                        Call {partner.contact.firstName}
+                      </a>
+                    </div>
+                    <p class="partner-phone">{partner.contact.phoneDisplay}</p>
+                  </div>
+                )}
+                <p class="partner-links">
+                  <a href={partner.websiteUrl} target="_blank" rel="noopener noreferrer">Visit website</a>
+                  <a href={partner.careersUrl} target="_blank" rel="noopener noreferrer">Careers</a>
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="draft-section soft" id="for-brokers">
+      <div class="wrap">
+        <p class="draft-eyebrow">For brokerages and agent teams</p>
+        <h2>Run a brokerage or agent team? Get listed here.</h2>
+        <p class="intro">If you run a Florida brokerage or agent team, we can put you on this page — in front of students who are getting licensed with us.</p>
+        <div class="draft-feature-grid broker-perk-grid">
+          <article class="draft-feature">
+            <h3>In front of new licensees</h3>
+            <p>Your brokerage or team appears here, where our students and new licensees can find you and reach out.</p>
+          </article>
+          <article class="draft-feature">
+            <h3>Recruit discounts</h3>
+            <p>Partners get a 15% off discount code to share with agents you send to licensing, Post-Licensing, CE, or exam prep.</p>
+          </article>
+          <article class="draft-feature">
+            <h3>Merch and other perks</h3>
+            <p>More perks, like school merch, are coming. We’ll share them as they’re ready.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="draft-section" id="how-it-works">
+      <div class="wrap">
+        <p class="draft-eyebrow">How it works</p>
+        <h2>Here’s the offer.</h2>
+        <ol class="draft-bundle">
+          <li><span class="num">1</span><div><h3>Email us</h3><p>Tell us about your brokerage or team.</p></div></li>
+          <li><span class="num">2</span><div><h3>List the school</h3><p>Add a link to Real Estate FastPass on your website or careers/join-our-team page.</p></div></li>
+          <li><span class="num">3</span><div><h3>We’ll list you here</h3><p>We’ll add your brokerage or team to this page and send you a 15% off discount code you can share.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="draft-section navy final-cta">
+      <div class="wrap">
+        <h2>Want your brokerage or team on this page?</h2>
+        <p class="intro" style="margin-inline:auto;color:#d5e0ef;">Email us at {site.email}, or call {site.phoneDisplay}.</p>
+        <div class="draft-hero-actions" style="justify-content:center;">
+          <a class="draft-btn primary" href={mailto}>Email us</a>
+          <a class="draft-link-secondary" href={site.phoneHref}>Or call {site.phoneDisplay}</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</SiteLayout>

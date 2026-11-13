@@ -1,0 +1,135 @@
+<script is:inline>
+  (function () {
+    if (window.__fastpassPracticeBound) return;
+    window.__fastpassPracticeBound = true;
+
+    function reveal(card, selectedKey) {
+      var answer = card.getAttribute("data-answer");
+      var answerText = card.getAttribute("data-answer-text") || "";
+      var result = card.querySelector(".practice-result");
+      var block = card.querySelector(".practice-answer-block");
+      var choices = card.querySelectorAll(".practice-choice");
+      choices.forEach(function (btn) {
+        var key = btn.getAttribute("data-key");
+        btn.classList.remove("is-correct", "is-wrong", "is-selected");
+        btn.setAttribute("aria-pressed", key === selectedKey ? "true" : "false");
+        if (key === answer) btn.classList.add("is-correct");
+        else if (selectedKey && key === selectedKey) btn.classList.add("is-wrong");
+        btn.disabled = true;
+      });
+      if (result) {
+        if (selectedKey && selectedKey === answer) {
+          result.textContent = "Correct. The answer is " + answer + ". " + answerText;
+        } else if (selectedKey) {
+          result.textContent = "The correct answer is " + answer + ". " + answerText;
+        } else {
+          result.textContent = "The answer is " + answer + ". " + answerText;
+        }
+      }
+      if (block) block.hidden = false;
+      var revealBtn = card.querySelector(".practice-reveal");
+      if (revealBtn) revealBtn.hidden = true;
+    }
+
+    document.addEventListener("click", function (event) {
+      var target = event.target;
+      if (!(target instanceof Element)) return;
+      var choice = target.closest(".practice-choice");
+      if (choice) {
+        var card = choice.closest(".practice-q");
+        if (card && !choice.disabled) reveal(card, choice.getAttribute("data-key"));
+        return;
+      }
+      var revealBtn = target.closest(".practice-reveal");
+      if (revealBtn) {
+        var card = revealBtn.closest(".practice-q");
+        if (card) reveal(card, null);
+        return;
+      }
+      var watchBtn = target.closest(".practice-watch");
+      if (watchBtn) {
+        var wrap = watchBtn.closest(".practice-watch-wrap");
+        var video = wrap && wrap.querySelector(".practice-video");
+        if (!video) return;
+        var opening = video.hidden;
+        video.hidden = !opening;
+        watchBtn.setAttribute("aria-expanded", opening ? "true" : "false");
+        watchBtn.textContent = opening ? "Hide the video" : "Watch the video";
+        if (opening) {
+          var iframe = video.querySelector("iframe");
+          if (iframe && iframe.dataset.src && !iframe.getAttribute("src")) {
+            iframe.setAttribute("src", iframe.dataset.src);
+          }
+        }
+      }
+    });
+
+    var quiz = document.querySelector(".sample-quiz");
+    if (!quiz) return;
+
+    var slides = Array.prototype.slice.call(quiz.querySelectorAll(".sample-slide"));
+    var total = slides.length;
+    var index = 0;
+    var countEl = quiz.querySelector(".sample-prog-count");
+    var barEl = quiz.querySelector(".sample-bar-fill");
+    var dots = Array.prototype.slice.call(quiz.querySelectorAll(".sample-dot"));
+    var prevBtn = quiz.querySelector("[data-sample-prev]");
+    var nextBtn = quiz.querySelector("[data-sample-next]");
+    var finish = quiz.querySelector(".sample-finish");
+    var midCta = quiz.querySelector(".sample-mid-cta");
+
+    function show(i) {
+      index = Math.max(0, Math.min(i, total));
+      var done = index >= total;
+      slides.forEach(function (slide, n) {
+        slide.hidden = done || n !== index;
+      });
+      if (finish) finish.hidden = !done;
+      if (countEl) {
+        countEl.textContent = done ? "Finished" : "Question " + (index + 1) + " of " + total;
+      }
+      if (barEl) {
+        barEl.style.width = ((done ? total : index + 1) / total) * 100 + "%";
+      }
+      dots.forEach(function (dot, n) {
+        dot.classList.toggle("is-current", !done && n === index);
+        dot.classList.toggle("is-done", n < index || done);
+        dot.setAttribute("aria-current", !done && n === index ? "step" : "false");
+      });
+      if (prevBtn) {
+        prevBtn.hidden = index === 0 && !done;
+        prevBtn.disabled = index === 0 && !done;
+      }
+      if (nextBtn) {
+        nextBtn.hidden = done;
+        nextBtn.textContent = index === total - 1 ? "Finish" : "Next";
+      }
+      if (midCta) {
+        midCta.hidden = done || (index + 1) % 3 !== 0;
+      }
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", function () {
+        show(doneIndex() ? total - 1 : index - 1);
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener("click", function () {
+        show(index + 1);
+      });
+    }
+    dots.forEach(function (dot) {
+      dot.addEventListener("click", function () {
+        var n = Number(dot.getAttribute("data-index"));
+        if (!Number.isNaN(n)) show(n);
+      });
+    });
+
+    function doneIndex() {
+      return index >= total;
+    }
+
+    show(0);
+  })();
+</script>

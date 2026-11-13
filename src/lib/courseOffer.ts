@@ -14,10 +14,10 @@ export function courseOffer(product: Product, name = product.name) {
     "@id": `${site.url}/#offer-${product.id}`,
     name,
     price,
-    description: `Enrollment $${price}. One-time enrollment. ${inclusions}`,
     priceCurrency: "USD",
+    availability: "https://schema.org/InStock",
     url: product.checkoutUrl,
+    description: `Enrollment $${price}. One-time enrollment. ${inclusions}`,
     seller: { "@id": `${site.url}/#organization` },
   };
 }
-

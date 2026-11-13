@@ -16,12 +16,8 @@ const isActive = (href: string) =>
       </span>
     </a>
 
-    <a
-      class="portal-button desktop-portal"
-      href="/course-portal/"
-      aria-current={isActive("/course-portal/") ? "page" : undefined}
-    >
-      Course Portal
+    <a class="portal-button desktop-portal" href={site.studentHubUrl}>
+      Student Sign In
     </a>
   </div>
 
@@ -54,7 +50,7 @@ const isActive = (href: string) =>
               {item.label}
             </a>
           ))}
-          <a class="mobile-nav-link portal" href="/course-portal/">Course Portal</a>
+          <a class="mobile-nav-link portal" href={site.studentHubUrl}>Student Sign In</a>
         </nav>
       </details>
     </div>

@@ -1,3 +1,5 @@
+import { products } from "./products";
+
 export type CourseDirectoryItem = {
   label: string;
   href: string;
@@ -39,6 +41,6 @@ export const continuingEducationCourses: CourseDirectoryItem[] = [
 ];
 
 export const examPrepOnlyCourses: CourseDirectoryItem[] = [
-  { label: "Sales Exam Prep Only", href: "https://portal.daniellarsontraining.com/bundles/examprepfastpassonly", note: "Already completed Course 1 elsewhere" },
-  { label: "Broker Exam Prep Only", href: "https://portal.daniellarsontraining.com/bundles/brokeruncertifiedfastpass", note: "Already completed Course 2 elsewhere" },
+  { label: "Sales Exam Prep Only", href: products.salesExamPrep.checkoutUrl, note: "Already completed Course 1 elsewhere" },
+  { label: "Broker Exam Prep Only", href: products.brokerExamPrep.checkoutUrl, note: "Already completed Course 2 elsewhere" },
 ];
