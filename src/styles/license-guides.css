@@ -292,3 +292,16 @@
 .license-guides .study-tips-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; max-width: 720px; }
 .license-guides .study-tips-list a { color: #155eb4; font-weight: 750; text-decoration-thickness: 1.5px; text-underline-offset: 3px; font-size: 1.05rem; }
 .license-guides .study-tips-list a:hover { color: #0d4f9a; }
+
+/* Inline email signup in guide articles (same Kit form and look as the licensing checklist signup). */
+.license-guides .guide-signup { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: start; margin: 43px 0; padding: 28px; border: 1px solid #d5e3f2; border-radius: 16px; background: #f1f6fd; color: #132840; }
+.license-guides .guide-signup .eyebrow { margin: 0; color: #155fc4; font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.license-guides .guide-signup .signup-title { margin: 10px 0 12px; font-size: clamp(1.35rem, 2.4vw, 1.7rem); font-weight: 800; line-height: 1.2; letter-spacing: -.03em; color: #132840; }
+.license-guides .guide-signup p { margin: 0 0 12px; line-height: 1.6; color: #52667b; }
+.license-guides .guide-signup a { color: #155fc4; text-underline-offset: .2em; }
+.license-guides .guide-signup .signup-details, .license-guides .guide-signup .form-help { font-size: .82rem; }
+.license-guides .guide-signup .signup-form { min-width: 0; }
+.license-guides .guide-signup .signup-form .formkit-form { max-width: 100%; }
+.license-guides .guide-signup .form-help { margin: 14px 0 0; }
+@media (max-width: 760px) { .license-guides .guide-signup { grid-template-columns: 1fr; gap: 18px; padding: 22px; } }
+@media print { .license-guides .guide-signup { display: none !important; } }
