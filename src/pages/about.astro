@@ -9,7 +9,7 @@ const schema = [
     "@type": "AboutPage",
     "@id": `${site.url}/about/#webpage`,
     url: `${site.url}/about/`,
-    name: "About FastPass | Daniel Larson Training",
+    name: "About Real Estate FastPass (formerly Daniel Larson Training)",
     isPartOf: { "@id": `${site.url}/#website` },
     publisher: { "@id": `${site.url}/#organization` },
     inLanguage: "en-US",
@@ -18,8 +18,8 @@ const schema = [
 ---
 
 <SiteLayout
-  title="About FastPass | Daniel Larson Training"
-  description="FastPass means self-empowerment: a framework to choose your path. Florida Course 1, Course 2, Post-Licensing, 14-Hour CE, and exam prep from Daniel Larson Training."
+  title="About Real Estate FastPass (formerly Daniel Larson Training)"
+  description="FastPass means self-empowerment: a framework to choose your path. Florida Course 1, Course 2, Post-Licensing, 14-Hour CE, and exam prep from Real Estate FastPass."
   canonicalPath="/about/"
   schema={schema}
 >
@@ -56,17 +56,11 @@ const schema = [
         <img class="why-photo" src="/daniel-larson-teaching.webp" alt="Teaching a Florida real estate class" width="1200" height="800" loading="lazy" decoding="async" />
         <div>
           <h2>I've spent more than two decades in real estate education.</h2>
-          <p class="intro">That work has included teaching licensing material, training instructors and agents, writing course content, and working directly with students preparing for Florida licensing and renewal.</p>
-          <p class="intro">Before Daniel Larson Training, it also included national training leadership with Kaplan, work with Larson Educational Services, classroom instruction, and publishing.</p>
+          <p class="intro">I've taught licensing courses, trained instructors and agents, written course content, and worked directly with students preparing for Florida licensing and renewal.</p>
+          <h3 class="about-story-heading">How FastPass started</h3>
+          <p class="intro">I was a national trainer with Kaplan Professional Schools from 2002 to 2013, teaching licensing courses in numerous states. After that I was the lead real estate trainer at Minnesota Realty School, and then a founding member of Larson Educational Services, where I spent seven years as training director, training trainers and editing and developing curriculum.</p>
+          <p class="intro">In 2020 I went out on my own. That March, in the middle of a <em>Course 1</em> class, the state shut down live classes for the pandemic. A few weeks later I recorded myself talking through a PowerPoint and put <em>Course 1</em> online. Students liked it, so I kept building: Sales Associate and Broker licensing, FastPass exam prep, Post-Licensing, and 14-Hour CE. I still write the material and answer students myself.</p>
         </div>
-      </div>
-    </section>
-
-    <section class="draft-section">
-      <div class="wrap">
-        <h2>How FastPass started</h2>
-        <p class="intro">I was a national trainer with Kaplan Professional Schools until 2013, and a founding member of Larson Educational Services, where I spent seven years as Training Director. I've also had stints as Lead Real Estate Trainer with the Minnesota Realty School.</p>
-        <p class="intro">In 2020, after nearly two decades in the training business, I finally went out on my own. That March, while I was teaching my first independent Course 1, the state shut down live classes due to the pandemic. After a few bewildered weeks of feeling sorry for myself and wondering what to do, I decided to record myself talking into a microphone, working through my Course 1 PowerPoints. Then I put it online. A core group of local students somehow found me, and they liked it. Surprisingly, what they really liked was taking class independently, then having the ability to chat with me about their experience. So I kept building that way, and I still build from those core concepts. Today the school covers the whole career path: Sales Associate and Broker licensing, exam prep, Post-Licensing, and 14-Hour CE. And I still write and teach the material, and yes, I still answer the phone.</p>
       </div>
     </section>
 
@@ -110,3 +104,34 @@ const schema = [
     </section>
   </div>
 </SiteLayout>
+
+<style>
+  .about-story-heading {
+    margin: 28px 0 10px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    color: #fff;
+    font-size: 1.25rem;
+  }
+  #background .intro:last-child {
+    margin-bottom: 0;
+  }
+  @media (max-width: 900px) {
+    #background {
+      padding: 36px 0 40px;
+    }
+    #background .why-grid {
+      gap: 22px;
+    }
+    #background .intro {
+      margin-bottom: 18px;
+    }
+    #background .about-story-heading {
+      margin: 22px 0 8px;
+      padding-top: 18px;
+    }
+    #background + .draft-section {
+      padding-top: 40px;
+    }
+  }
+</style>

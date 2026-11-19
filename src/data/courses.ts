@@ -11,7 +11,7 @@ export const salesLicensingCourses: CourseDirectoryItem[] = [
   { label: "Course 1", href: "https://portal.daniellarsontraining.com/courses/course1", note: "Pre-license course" },
   { label: "Course 1 Exam Pass", href: "https://portal.daniellarsontraining.com/courses/course1exampass", note: "Standard course-final path" },
   { label: "FastPass", href: "https://portal.daniellarsontraining.com/courses/FASTPASS", note: "FastPass certification path" },
-  { label: "500 Sample Q+A", href: "https://portal.daniellarsontraining.com/courses/statelicensingexamcoursesamplequestions", note: "Practice" },
+  { label: "Sample Questions and Answers", href: "https://portal.daniellarsontraining.com/courses/statelicensingexamcoursesamplequestions", note: "Practice" },
   { label: "Audio Ebook Exam Prep", href: "https://portal.daniellarsontraining.com/courses/examprep", note: "Audio review" },
   { label: "Exam Math Basics", href: "https://portal.daniellarsontraining.com/courses/math", note: "Math review" },
 ];
@@ -23,7 +23,7 @@ export const brokerLicensingCourses: CourseDirectoryItem[] = [
   { label: "Broker Course 2", href: "https://portal.daniellarsontraining.com/courses/brokercourse", note: "Broker pre-license course" },
   { label: "Broker Course 2 Exam Pass", href: "https://portal.daniellarsontraining.com/courses/brokerexampass", note: "Standard course-final path" },
   { label: "Broker FastPass Start", href: "https://portal.daniellarsontraining.com/courses/copy-of-broker-fastpass", note: "FastPass roadmap" },
-  { label: "Broker 500 Sample Q+A", href: "https://portal.daniellarsontraining.com/courses/examblast", note: "Practice" },
+  { label: "Broker Sample Questions and Answers", href: "https://portal.daniellarsontraining.com/courses/examblast", note: "Practice" },
   { label: "Broker Audio Reviews", href: "https://portal.daniellarsontraining.com/courses/brokeraudioreviews", note: "Audio review" },
   { label: "Exam Math Basics", href: "https://portal.daniellarsontraining.com/courses/math", note: "Math review" },
 ];
@@ -41,6 +41,6 @@ export const continuingEducationCourses: CourseDirectoryItem[] = [
 ];
 
 export const examPrepOnlyCourses: CourseDirectoryItem[] = [
-  { label: "Sales Exam Prep Only", href: products.salesExamPrep.checkoutUrl, note: "Already completed Course 1 elsewhere" },
-  { label: "Broker Exam Prep Only", href: products.brokerExamPrep.checkoutUrl, note: "Already completed Course 2 elsewhere" },
+  { label: "Sales Exam Prep Only", href: products.salesExamPrep.checkoutUrl, note: "All the explainer videos, and optional Course 1" },
+  { label: "Broker Exam Prep Only", href: products.brokerExamPrep.checkoutUrl, note: "All the explainer videos, and optional Course 2" },
 ];

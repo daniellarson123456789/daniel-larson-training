@@ -33,6 +33,7 @@ export const navigation = [
   { label: "14-Hour CE", href: "/14ce/" },
   { label: "Exam Prep", href: "/exam-prep/" },
   { label: "Sample Questions", href: "/sample-questions/" },
+  { label: "Reciprocity", href: "/mutual-recognition/" },
   { label: "About", href: "/about/" },
   { label: "Guides", href: "/license-guides/" },
   { label: "Find a Broker", href: "/broker-connection/" },

@@ -43,6 +43,7 @@ const shortName = (pageTitle: string) =>
   pageTitle
     .replace(/\s*\|\s*Real Estate FastPass\s*$/i, "")
     .replace(/\s*\|\s*Daniel Larson Training\s*$/i, "")
+    .replace(/\s*\|\s*FastPass\s*$/i, "")
     .trim() || pageTitle;
 
 const withBrand = (title: string) =>

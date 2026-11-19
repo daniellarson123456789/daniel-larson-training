@@ -4,6 +4,7 @@
       "main": false
     }
   },
+  "trailingSlash": true,
   "redirects": [
     {
       "source": "/:path*",
@@ -213,6 +214,16 @@
       "permanent": true
     },
     {
+      "source": "/partner-launchpad",
+      "destination": "/broker-connection/",
+      "permanent": true
+    },
+    {
+      "source": "/partner-launchpad/",
+      "destination": "/broker-connection/",
+      "permanent": true
+    },
+    {
       "source": "/find-a-broker",
       "destination": "/broker-connection/",
       "permanent": true
@@ -336,8 +347,316 @@
       "statusCode": 301
     },
     {
+      "source": "/exam-prep",
+      "destination": "https://realestatefastpass.com/exam-prep/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/exam-prep/",
+      "destination": "https://realestatefastpass.com/exam-prep/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/florida-sales-associate-exam-prep",
+      "destination": "https://realestatefastpass.com/florida-sales-associate-exam-prep/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/florida-sales-associate-exam-prep/",
+      "destination": "https://realestatefastpass.com/florida-sales-associate-exam-prep/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/florida-broker-exam-prep",
+      "destination": "https://realestatefastpass.com/florida-broker-exam-prep/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/florida-broker-exam-prep/",
+      "destination": "https://realestatefastpass.com/florida-broker-exam-prep/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/broker-licensing",
+      "destination": "https://realestatefastpass.com/broker-licensing/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/broker-licensing/",
+      "destination": "https://realestatefastpass.com/broker-licensing/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/about",
+      "destination": "https://realestatefastpass.com/about/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/about/",
+      "destination": "https://realestatefastpass.com/about/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/14ce",
+      "destination": "https://realestatefastpass.com/14ce/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/14ce/",
+      "destination": "https://realestatefastpass.com/14ce/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/sample-questions",
+      "destination": "https://realestatefastpass.com/sample-questions/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/sample-questions/",
+      "destination": "https://realestatefastpass.com/sample-questions/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/broker-connection",
+      "destination": "https://realestatefastpass.com/broker-connection/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/broker-connection/",
+      "destination": "https://realestatefastpass.com/broker-connection/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/refund-policy",
+      "destination": "https://realestatefastpass.com/refund-policy/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/refund-policy/",
+      "destination": "https://realestatefastpass.com/refund-policy/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/licensing-checklist",
+      "destination": "https://realestatefastpass.com/licensing-checklist/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/licensing-checklist/",
+      "destination": "https://realestatefastpass.com/licensing-checklist/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/course-portal",
+      "destination": "https://realestatefastpass.com/course-portal/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/course-portal/",
+      "destination": "https://realestatefastpass.com/course-portal/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/email-signup-privacy",
+      "destination": "https://realestatefastpass.com/email-signup-privacy/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/email-signup-privacy/",
+      "destination": "https://realestatefastpass.com/email-signup-privacy/",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "https://realestatefastpass.com/sitemap.xml",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/llms.txt",
+      "destination": "https://realestatefastpass.com/llms.txt",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/llms-full.txt",
+      "destination": "https://realestatefastpass.com/llms-full.txt",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/robots.txt",
+      "destination": "https://realestatefastpass.com/robots.txt",
+      "has": [
+        {
+          "type": "host",
+          "value": "flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
       "source": "/:path*",
-      "destination": "https://realestatefastpass.com/:path*",
+      "destination": "https://realestatefastpass.com/license-guides/",
       "has": [
         {
           "type": "host",
@@ -380,8 +699,316 @@
       "statusCode": 301
     },
     {
+      "source": "/exam-prep",
+      "destination": "https://realestatefastpass.com/exam-prep/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/exam-prep/",
+      "destination": "https://realestatefastpass.com/exam-prep/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/florida-sales-associate-exam-prep",
+      "destination": "https://realestatefastpass.com/florida-sales-associate-exam-prep/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/florida-sales-associate-exam-prep/",
+      "destination": "https://realestatefastpass.com/florida-sales-associate-exam-prep/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/florida-broker-exam-prep",
+      "destination": "https://realestatefastpass.com/florida-broker-exam-prep/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/florida-broker-exam-prep/",
+      "destination": "https://realestatefastpass.com/florida-broker-exam-prep/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/broker-licensing",
+      "destination": "https://realestatefastpass.com/broker-licensing/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/broker-licensing/",
+      "destination": "https://realestatefastpass.com/broker-licensing/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/about",
+      "destination": "https://realestatefastpass.com/about/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/about/",
+      "destination": "https://realestatefastpass.com/about/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/14ce",
+      "destination": "https://realestatefastpass.com/14ce/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/14ce/",
+      "destination": "https://realestatefastpass.com/14ce/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/sample-questions",
+      "destination": "https://realestatefastpass.com/sample-questions/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/sample-questions/",
+      "destination": "https://realestatefastpass.com/sample-questions/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/broker-connection",
+      "destination": "https://realestatefastpass.com/broker-connection/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/broker-connection/",
+      "destination": "https://realestatefastpass.com/broker-connection/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/refund-policy",
+      "destination": "https://realestatefastpass.com/refund-policy/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/refund-policy/",
+      "destination": "https://realestatefastpass.com/refund-policy/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/licensing-checklist",
+      "destination": "https://realestatefastpass.com/licensing-checklist/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/licensing-checklist/",
+      "destination": "https://realestatefastpass.com/licensing-checklist/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/course-portal",
+      "destination": "https://realestatefastpass.com/course-portal/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/course-portal/",
+      "destination": "https://realestatefastpass.com/course-portal/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/email-signup-privacy",
+      "destination": "https://realestatefastpass.com/email-signup-privacy/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/email-signup-privacy/",
+      "destination": "https://realestatefastpass.com/email-signup-privacy/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "https://realestatefastpass.com/sitemap.xml",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/llms.txt",
+      "destination": "https://realestatefastpass.com/llms.txt",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/llms-full.txt",
+      "destination": "https://realestatefastpass.com/llms-full.txt",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
+      "source": "/robots.txt",
+      "destination": "https://realestatefastpass.com/robots.txt",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flrealestatelicenseguide.com"
+        }
+      ],
+      "statusCode": 301
+    },
+    {
       "source": "/:path*",
-      "destination": "https://realestatefastpass.com/:path*",
+      "destination": "https://realestatefastpass.com/license-guides/",
       "has": [
         {
           "type": "host",

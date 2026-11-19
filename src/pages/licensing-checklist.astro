@@ -14,7 +14,7 @@ const sources = [
   { id: "sales", label: "DBPR sales associate application", url: "https://www.myfloridalicense.com/CheckListDetail.asp?SID=&XACT_DEFN_ID=744&clientCode=2501&sub_id=brochure&xactCode=1010" },
   { id: "broker", label: "DBPR broker application", url: "https://www.myfloridalicense.com/CheckListDetail.asp?SID=&XACT_DEFN_ID=806&clientCode=2501&xactCode=1014" },
   { id: "fingerprints", label: "DBPR fingerprint instructions", url: "https://www2.myfloridalicense.com/fingerprinting/" },
-  { id: "exam", label: "Pearson VUE exam scheduling", url: "https://www.pearsonvue.com/us/en/fl/realestate.html" },
+  { id: "exam", label: "Pearson exam scheduling", url: "https://www.pearsonvue.com/us/en/fl/realestate.html" },
   { id: "booklet", label: "DBPR exam candidate booklet", url: "https://www2.myfloridalicense.com/servop/testing/documents/RE_sales_cibs.pdf" },
   { id: "post", label: "DBPR education and Post requirements", url: "https://www2.myfloridalicense.com/real-estate-commission/education/" },
   { id: "lookup", label: "Look up your DBPR license", url: "https://www.myfloridalicense.com/wl11.asp?SID=&mode=0" },
@@ -36,7 +36,7 @@ const salesSteps = [
   { lead: "Complete your pre-license education.", detail: "Finish the approved 63-hour sales associate course and its course exam unless an applicable exemption is accepted. Keep your completion certificate." },
   { lead: "Apply to DBPR.", detail: "Submit the application and required fee. You may apply before completing the course; required education documentation must be ready for the state exam." },
   { lead: "Submit electronic fingerprints.", detail: "After applying, follow DBPR's instructions and use a registered Livescan provider. Keep your receipt." },
-  { lead: "Schedule and pass the state exam.", detail: "After DBPR approves you to test, book with Pearson VUE. Confirm the current fee and admission requirements." },
+  { lead: "Schedule and pass the state exam.", detail: "After DBPR approves you to test, book with Pearson (formerly Pearson VUE). Confirm the current fee and admission requirements." },
   { lead: "Activate your issued license.", detail: "Arrange activation with your employing broker. Check that DBPR shows an active license before practicing." },
 ];
 const examSteps = [
@@ -68,7 +68,7 @@ const schema = {
   name: title,
   description,
   datePublished: "2026-11-07",
-  dateModified: "2026-11-07",
+  dateModified: "2026-11-16",
   isPartOf: { "@id": `${site.url}/#website` },
   publisher: { "@id": `${site.url}/#organization` },
 };
@@ -134,7 +134,7 @@ const schema = {
           <ul class="task-list">
             {examSteps.map((step, index) => <li><label><input type="checkbox" id={`exam-step-${index}`} /><span><strong>{step.lead}</strong> {step.detail}</span></label></li>)}
           </ul>
-          <p class="source-note"><a href={source("exam").url}>Schedule with Pearson VUE</a> · <a href={source("booklet").url}>Read the candidate booklet</a> · <a href="/exam-prep/">View exam-prep-only options</a></p>
+          <p class="source-note"><a href={source("exam").url}>Schedule with Pearson</a> · <a href={source("booklet").url}>Read the candidate booklet</a> · <a href="/exam-prep/">View exam-prep-only options</a></p>
         </section>
 
         <section class="step-section renewal-section" id="renewal-checklist" aria-labelledby="renewal-heading">
@@ -184,7 +184,7 @@ const schema = {
           <tr><th scope="row">School tuition</th><td><strong>Course ${salePrice(products.salesCourse1)} · FastPass ${salePrice(products.salesFastPass)} · FastPass + Post ${salePrice(products.salesFastPassPost)}</strong><span>One-time enrollment. <a href="#course-options">See sales and broker choices below.</a></span></td></tr>
           <tr><th scope="row">DBPR application</th><td><strong>$62.75 on the linked sales associate RE 1 form</strong><span>Confirm the current fee in your application. Broker applicants should check RE 2; application routes and approved fee benefits can differ. <a href={source("form").url}>View RE 1.</a></span></td></tr>
           <tr><th scope="row">Electronic fingerprints</th><td><strong>Get a current provider quote</strong><span>Use the provider and submission instructions specified by <a href={source("fingerprints").url}>DBPR</a>.</span></td></tr>
-          <tr><th scope="row">State exam</th><td><strong>Confirm the fee when booking with Pearson VUE</strong><span>Plan for another fee if a retake is needed. Review the current cancellation and rescheduling rules.</span></td></tr>
+          <tr><th scope="row">State exam</th><td><strong>Confirm the fee when booking with Pearson</strong><span>Plan for another fee if a retake is needed. Review the current cancellation and rescheduling rules.</span></td></tr>
           <tr><th scope="row">First-renewal Post</th><td><strong>Sales ${salePrice(products.salesPost)} · Broker ${salePrice(products.brokerPost)}</strong><span>Buy separately only if needed. Post is included in the matching FastPass + Post package.</span></td></tr>
           <tr><th scope="row">License renewal</th><td><strong>Check your DBPR account or renewal notice</strong><span>Completing your course does not pay your state renewal fee.</span></td></tr>
           <tr><th scope="row">Starting your business</th><td><strong>Ask for itemized brokerage, association and MLS costs</strong><span>Find out what is required, optional, recurring and payable before you begin.</span></td></tr>
@@ -203,7 +203,7 @@ const schema = {
     </section>
 
     <section class="sources-section shell" id="official-sources" aria-labelledby="sources-heading">
-      <div><p class="eyebrow">Keep the official instructions close</p><h2 id="sources-heading">Sources &amp; useful links</h2><p>Requirements and published fees reviewed November 7, 2026. Use DBPR and Pearson VUE for your current application, exam and license record.</p></div>
+      <div><p class="eyebrow">Keep the official instructions close</p><h2 id="sources-heading">Sources &amp; useful links</h2><p>Requirements and published fees reviewed November 7, 2026. Use DBPR and Pearson for your current application, exam and license record.</p></div>
       <ul>{sources.map((item) => <li><a href={item.url}>{item.label} <span aria-hidden="true">↗</span></a></li>)}</ul>
       <p class="print-url">Real Estate FastPass · realestatefastpass.com/licensing-checklist/ · {site.phoneDisplay}</p>
     </section>

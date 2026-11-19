@@ -1,0 +1,295 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { site } from "../../data/site";
+import { faqPage, webPage } from "../../lib/seo";
+import {
+  MR_CHECKED, MR_LASTMOD, MR_LINKS, MR_PRICE, MR_SPECIALTY, MR_PREP_SUMMARY, mrPrep, mrInsideHub, mrStates, mrPagePath, mrStateList, mrDissolved, MR_BROKER_24_RULE,
+} from "../../data/mutualRecognition";
+import "../../styles/draft-sales.css";
+import "../../styles/mutual-recognition.css";
+
+const path = "/mutual-recognition/";
+const url = `${site.url}${path}`;
+const pageTitle = "Florida Real Estate Reciprocity (Mutual Recognition) | FastPass";
+const pageDescription =
+  "FastPass walks you through Florida real estate reciprocity (mutual recognition) from AL, AR, CT, GA, KY, MS, NE, RI or WV. See if you qualify.";
+
+const faqs = [
+  {
+    q: "Does Florida have real estate license reciprocity?",
+    a: "Not in the sense of a straight license swap. Florida's program is officially called mutual recognition. If you hold an active license from one of 9 states and you're not a Florida resident, you apply to DBPR, get fingerprinted and pass a 40-question Florida Real Estate Law exam.",
+  },
+  {
+    q: "Which states have mutual recognition with Florida for real estate?",
+    a: `Nine: ${mrStateList}. That's DBPR's list as of ${MR_CHECKED}.`,
+  },
+  {
+    q: "Is Illinois still a mutual recognition state?",
+    a: "No. DBPR lists the Illinois agreement as dissolved on December 31, 2025. Some older websites still show Illinois. Indiana, Tennessee, Oklahoma and Colorado are also listed by DBPR as dissolved.",
+  },
+  {
+    q: "Is it the same exam for sales associates and brokers?",
+    a: "Yes. Sales associate and broker mutual recognition applicants take the same 40-question Florida Real Estate Law exam. You need 30 correct to pass. What differs is the application: form RE 1 for sales associates, form RE 2 for brokers.",
+  },
+  {
+    q: "Can I use mutual recognition if I already live in Florida?",
+    a: `No. DBPR says you can't be a Florida resident at the time you apply. If you've already moved, text Daniel at 239.471.8500 and we'll talk through the regular Florida path.`,
+  },
+  {
+    q: "I got my license in my state by reciprocity. Do I qualify?",
+    a: "Not with that license. DBPR says you must have earned it by meeting that state's own education and exam requirements.",
+  },
+  {
+    q: "Can brokers use mutual recognition?",
+    a: `Yes. The Florida broker path is for licensees who hold an active broker license in their mutual recognition state. Alabama and Arkansas broker applicants must also have held ${MR_BROKER_24_RULE}, per DBPR. Brokers file form RE 2, and RE 2 asks you to verify your experience with a certification of license history dated no more than 30 days before you apply.`,
+  },
+  {
+    q: "How much is a state package?",
+    a: `$${MR_PRICE} per state. Each state package covers both the sales associate and broker paths and is self-paced. The DBPR application fee, fingerprints, your home-state license history and the exam fee are paid separately to those providers. Check the current amount when you pay.`,
+  },
+  {
+    q: "What do I need to do after I'm licensed in Florida?",
+    a: "Keep your license current. Sales associates complete 45 hours of post-licensing before their first renewal, and brokers complete 60 hours. After that, every renewal needs 14 hours of continuing education. We teach Florida Post-Licensing and 14-Hour Continuing Education too, both self-paced.",
+  },
+  {
+    q: "Why does Real Estate FastPass focus on mutual recognition?",
+    a: `${MR_SPECIALTY}, what most people call Florida real estate license reciprocity. Each of the 9 states has its own package built around that state's paperwork: the home-state certification (for example, Georgia's Certified License History or Kentucky's License History Certification), DBPR's rule that you can't be a Florida resident when you apply, and the Florida RE 1 or RE 2 application, field by field. Every package also includes ${MR_PREP_SUMMARY}. Real Estate FastPass is a Florida real estate school (Daniel Larson Training), established in 2020, and every course is self-paced.`,
+  },
+];
+
+const howTo = [
+  { name: "Get your state certification", text: "Order your certified license history from your home state's commission. Kentucky and West Virginia applicants also need one from every state where they've been licensed." },
+  { name: "Apply with DBPR", text: "File form RE 1 for a sales associate license or RE 2 for a broker license." },
+  { name: "Get fingerprinted", text: "Right after you apply, through an FDLE-registered Livescan provider. Out-of-state applicants use a hard card scanning capable provider." },
+  { name: "Study Florida law", text: "Use the time while DBPR reviews your application." },
+  { name: "Pass the exam", text: "Once DBPR approves you, book the 40-question Florida Real Estate Law exam with Pearson." },
+  { name: "Activate your license", text: "Your Florida license isn't active until a Florida broker registers you (or you register as a broker)." },
+];
+
+const schema = [
+  webPage({
+    path, type: "CollectionPage", name: pageTitle, description: pageDescription, dateModified: MR_LASTMOD,
+    about: { "@type": "Thing", name: "Florida real estate mutual recognition (license reciprocity)" },
+  }),
+  {
+    "@type": "Course",
+    "@id": `${url}#course`,
+    name: "Florida Real Estate Mutual Recognition: Application Walkthrough and Florida Law Exam Prep",
+    description: `${MR_SPECIALTY} (often called Florida real estate license reciprocity). A self-paced, state-by-state, step-by-step walkthrough for sales associates and brokers licensed in ${mrStateList}: the home-state certification, the Florida mutual recognition application (RE 1 or RE 2) field by field, fingerprints, what to do if DBPR asks for more, and a printable checklist. Plus ${MR_PREP_SUMMARY}.`,
+    provider: { "@id": `${site.url}/#organization` },
+    instructor: { "@id": `${site.url}/#daniel-larson` },
+    inLanguage: "en-US",
+    educationalLevel: "Professional licensing",
+    teaches: ["Florida real estate mutual recognition application (RE 1 and RE 2)", "Florida real estate license law"],
+    url,
+    offers: { "@type": "Offer", price: `${MR_PRICE}.00`, priceCurrency: "USD", category: "Paid", availability: "https://schema.org/InStock", url },
+    hasCourseInstance: { "@type": "CourseInstance", courseMode: "Online", courseWorkload: "Self-paced" },
+  },
+  {
+    "@type": "HowTo",
+    "@id": `${url}#howto`,
+    name: "How to get a Florida real estate license by mutual recognition",
+    step: howTo.map((s, i) => ({ "@type": "HowToStep", position: i + 1, name: s.name, text: s.text })),
+  },
+  {
+    "@type": "ItemList",
+    "@id": `${url}#states`,
+    name: "Florida mutual recognition pages by state and license",
+    itemListElement: mrStates.flatMap((s, i) => [
+      { "@type": "ListItem", position: i * 2 + 1, name: `${s.name} to Florida: Sales Associate`, url: `${site.url}${mrPagePath(s, "sales-associate")}` },
+      { "@type": "ListItem", position: i * 2 + 2, name: `${s.name} to Florida: Broker`, url: `${site.url}${mrPagePath(s, "broker")}` },
+    ]),
+  },
+  faqPage(`${url}#faq`, faqs.map((f) => ({ name: f.q, text: f.a }))),
+];
+---
+
+<SiteLayout title={pageTitle} description={pageDescription} canonicalPath={path} schema={schema}>
+  <div class="draft-sales mr-page">
+    <section class="draft-hero">
+      <div class="wrap draft-hero-grid">
+        <div class="draft-hero-intro">
+          <p class="draft-kicker">
+            <span class="draft-brand">Mutual Recognition</span>
+            <span class="draft-school">{site.tagline}</span>
+          </p>
+          <h1><span class="mr-l">Florida reciprocity</span> <span class="mr-l">is our <em class="fast">specialty</em>.</span> <span class="mr-sub">Florida Mutual Recognition</span></h1>
+          <p class="lead mr-answer">Licensed in Alabama, Arkansas, Connecticut, Georgia, Kentucky, Mississippi, Nebraska, Rhode Island or West Virginia? You may be able to add a Florida sales associate or broker license through mutual recognition. Pick your state and we walk you through it, step by step.</p>
+          <div class="mr-hero-links">
+            <a class="draft-link-more" href="#inside">See what’s included <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+        <aside class="draft-hero-panel">
+          <div class="draft-hero-price">${MR_PRICE}<span>per state package · sales associate and broker paths</span></div>
+          <p class="mr-label">The Florida Real Estate Law exam</p>
+          <div class="mr-stats">
+            <div><strong>40</strong><span>questions</span></div>
+            <div><strong>30</strong><span>to pass</span></div>
+            <div><strong>90</strong><span>minutes</span></div>
+          </div>
+          <p class="mr-label">You may qualify if</p>
+          <ul class="mr-hero-list">
+            <li>Your license is from one of these 9 states</li>
+            <li>You're not a Florida resident when you apply</li>
+            <li>Your license is active and in good standing</li>
+            <li>You earned it by your state's education and exam</li>
+          </ul>
+          <a class="draft-btn primary" href="#states">Choose your state and license</a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="mr-specialty" aria-label="Step by step">
+      <div class="wrap mr-specialty-inner">
+        <p class="mr-specialty-eyebrow">Licensed in another state?</p>
+        <h2><strong>We walk you through your state’s paperwork, <em>step by step</em>.</strong></h2>
+        <ol class="mr-band-steps">
+          <li><strong>Check that you qualify</strong><span>An active license earned by education and exam, and you're not a Florida resident.</span></li>
+          <li><strong>Get your state's certification</strong><span>We show you which document to order from your commission and how.</span></li>
+          <li><strong>Apply with us, screen by screen</strong><span>The Florida application and fingerprints, walked through field by field.</span></li>
+        </ol>
+        <a class="draft-btn navy mr-band-btn" href="sms:+12394718500">Text Daniel · {site.phoneDisplay}</a>
+      </div>
+    </section>
+
+    <section class="draft-section" id="states">
+      <div class="wrap">
+        <p class="draft-eyebrow">Pick your state</p>
+        <h2><em>Where</em> are you licensed?</h2>
+        <p class="intro">Florida has mutual recognition with 9 states. Choose your state, then your license. Each page shows the path for that license, including what you need from your state's commission.</p>
+        <div class="mr-grid">
+          {mrStates.map((s) => (
+            <article class="mr-card" id={`state-${s.slug}`}>
+              <h3>{s.name} <span class="mr-chip live">{s.code} → FL</span></h3>
+              <p>{s.name} to Florida by mutual recognition. Your {s.agencyShort} {s.doc}, then DBPR, fingerprints and the Florida law exam.</p>
+              <p class="mr-card-res">{(s.code === "AL" || s.code === "AR") ? "Brokers: 24 months of active licensing in the last five years. You can't be a Florida resident when you apply." : "You can't be a Florida resident when you apply."}</p>
+              <div class="mr-card-links">
+                <a class="primary" href={mrPagePath(s, "sales-associate")}>{s.name} Sales Associate</a>
+                <a href={mrPagePath(s, "broker")}>{s.name} Broker</a>
+              </div>
+            </article>
+          ))}
+        </div>
+        <p class="mr-fine">State list checked against <a href={MR_LINKS.dbprStates} target="_blank" rel="noopener">DBPR's Mutual Recognition States page ↗</a> on {MR_CHECKED}.</p>
+      </div>
+    </section>
+
+    <section class="draft-section soft" id="inside">
+      <div class="wrap">
+        <p class="draft-eyebrow">What's inside each state package</p>
+        <h2 class="mr-h2-break">Exactly how, <em>step by step</em>,<br />for your state</h2>
+        <p class="intro">Each state package covers both the sales associate and broker paths, and you're told up front which path is yours. It's self-paced, and you can text Daniel at {site.phoneDisplay} with the step you're on.</p>
+        <ul class="mr-benefits">
+          {mrInsideHub.map((b) => (<li><strong>{b.title}</strong><span>{b.text}</span></li>))}
+        </ul>
+        <p class="mr-sublabel">And the Florida law exam prep</p>
+        <ul class="mr-benefits mr-benefits-prep">
+          {mrPrep.map((b) => (<li><strong><em>{b.title}</em></strong><span>{b.short}</span></li>))}
+        </ul>
+        <a class="draft-link-more mr-dark-link" href="#exam-prep">More about the exam prep <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="draft-section" id="exam-prep">
+      <div class="wrap">
+        <p class="draft-eyebrow">Florida law exam prep, included</p>
+        <h2 class="mr-h2-break">Study <em>what's on your exam</em>,<br />nothing else.</h2>
+        <p class="intro">The mutual recognition exam is 40 questions on Florida real estate license law and Commission rules. You need 30 correct, and you get 90 minutes. Your package includes exam prep built just for that exam, so your study time goes to what's tested. It's self-paced, on your phone or your computer.</p>
+        <div class="mr-prep-grid">
+          {mrPrep.map((b) => (<article><h3><em>{b.title}</em></h3><p>{b.text}</p></article>))}
+          <article><h3>A real person if you get stuck</h3><p>Text Daniel at {site.phoneDisplay} with a question you missed, a topic that isn't clicking or the step you're on.</p></article>
+        </div>
+        <p class="mr-fine">Good timing: you can study while DBPR reviews your application, then book the exam as soon as you're approved. Exam prep helps you prepare; it doesn't replace the state exam.</p>
+      </div>
+    </section>
+
+    <section class="draft-section soft" id="qualify">
+      <div class="wrap">
+        <p class="draft-eyebrow">Who qualifies</p>
+        <h2>Do you qualify for Florida <em>mutual recognition</em>?</h2>
+        <div class="mr-two">
+          <div class="mr-box">
+            <h3>DBPR's requirements</h3>
+            <ul>
+              <li>You're at least 18 and have a high school diploma or its equivalent.</li>
+              <li>You're <strong>not</strong> a Florida resident at the time you apply.</li>
+              <li>Your license is valid, current, active and in good standing.</li>
+              <li>You earned it by meeting that state's education and exam requirements, not by reciprocity.</li>
+              <li>You have a U.S. Social Security number.</li>
+            </ul>
+          </div>
+          <div class="mr-box gold">
+            <h3>State heads-ups</h3>
+            <ul>
+              <li><strong>Brokers:</strong> you need an active broker license in your state. RE 2 also asks for a certification of license history dated within 30 days of your application.</li>
+              <li><strong>Alabama and Arkansas brokers:</strong> DBPR says you must have held {MR_BROKER_24_RULE}.</li>
+              <li><strong>Kentucky and West Virginia:</strong> a certified license history from every state where you've been licensed.</li>
+              <li><strong>Already living in Florida?</strong> Mutual recognition isn't open to you. See the regular path below.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="draft-section" id="how">
+      <div class="wrap">
+        <p class="draft-eyebrow">How it works</p>
+        <h2>From your state license to an <em>active Florida license</em>.</h2>
+        <ol class="mr-steps">
+          <li><strong>Get your state certification.</strong><span>Order your certified license history from your state's commission. It has to show your initial exam type, license status, any discipline and your active months in the last five years.</span></li>
+          <li><strong>Apply with DBPR.</strong><span>Form <a href={MR_LINKS.re1} target="_blank" rel="noopener">RE 1 for sales associates ↗</a> or <a href={MR_LINKS.re2} target="_blank" rel="noopener">RE 2 for brokers ↗</a>.</span></li>
+          <li><strong>Get fingerprinted.</strong><span>Right after you apply, not before. <a href={MR_LINKS.prints} target="_blank" rel="noopener">DBPR's fingerprinting page ↗</a> explains the out-of-state process.</span></li>
+          <li><strong>Study Florida law.</strong><span>Use the time while DBPR reviews your application.</span></li>
+          <li><strong>Pass the 40-question Florida Real Estate Law exam.</strong><span>Once DBPR approves you, book it with <a href={MR_LINKS.pearson} target="_blank" rel="noopener">Pearson (formerly Pearson VUE) ↗</a>. You need 30 correct.</span></li>
+          <li><strong>Activate your license.</strong><span>Your Florida license becomes active when a Florida broker registers you, or when you register as a broker.</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="draft-section soft" id="other-states">
+      <div class="wrap"><div class="mr-prose">
+        <p class="draft-eyebrow">Licensed somewhere else?</p>
+        <h2>Florida has mutual recognition with <em>only these 9&nbsp;states</em>.</h2>
+        <p>If your license is from any other state, including Illinois (DBPR lists that agreement as dissolved on December 31, 2025), mutual recognition isn't available to you. You take the regular Florida path: the 63-hour Course 1 for a sales associate license, then the Florida state exam.</p>
+        <p>DBPR also lists these former agreements as dissolved: {mrDissolved.map((d) => `${d.name} (${d.date})`).join(", ")}.</p>
+        <div class="draft-hero-actions">
+          <a class="draft-btn navy" href="/">See the Florida Sales Associate course and FastPass</a>
+          <a class="draft-link-more" href="/license-guides/getting-licensed/">How to get a Florida real estate license <span aria-hidden="true">→</span></a>
+        </div></div>
+      </div>
+    </section>
+
+    <section class="draft-section" id="faq">
+      <div class="wrap">
+        <p class="draft-eyebrow">Questions</p>
+        <h2>Florida real estate reciprocity FAQ</h2>
+        <div class="faq-list">
+          {faqs.map((f) => (<details><summary>{f.q}</summary><p>{f.a}</p></details>))}
+        </div>
+      </div>
+    </section>
+
+    <section class="draft-section navy" id="ask">
+      <div class="wrap">
+        <p class="draft-eyebrow">Ask Daniel</p>
+        <h2>Not sure you qualify? <em>Text me.</em></h2>
+        <p class="intro">Send your state, your license type and where you live. I'll tell you which path fits. Daniel Larson Training has been a Florida real estate school since 2020.</p>
+        <a class="draft-btn primary" href={MR_LINKS.sms}>Text Daniel · {site.phoneDisplay}</a>
+      </div>
+    </section>
+
+    <section class="draft-section" id="sources">
+      <div class="wrap">
+        <p class="draft-eyebrow">Sources</p>
+        <ul class="mr-sources">
+          <li><a href={MR_LINKS.dbprStates} target="_blank" rel="noopener">DBPR: Mutual Recognition States ↗</a></li>
+          <li><a href={MR_LINKS.dbprDivision} target="_blank" rel="noopener">DBPR: Division of Real Estate (dissolved agreements) ↗</a></li>
+          <li><a href={MR_LINKS.re1} target="_blank" rel="noopener">DBPR: Sales associate mutual recognition checklist (RE 1) ↗</a></li>
+          <li><a href={MR_LINKS.re2} target="_blank" rel="noopener">DBPR: Broker mutual recognition checklist (RE 2) ↗</a></li>
+          <li><a href={MR_LINKS.booklet} target="_blank" rel="noopener">DBPR: Laws and Rules exam candidate booklet (PDF) ↗</a></li>
+        </ul>
+        <p class="mr-fine">Checked {MR_CHECKED}. Real Estate FastPass (Daniel Larson Training) isn't affiliated with or endorsed by DBPR, the Florida Real Estate Commission, any state commission or Pearson. DBPR makes every licensing decision. Fees and steps can change, so check each one when you pay.</p>
+      </div>
+    </section>
+  </div>
+</SiteLayout>

@@ -19,6 +19,8 @@ export type Partner = {
   websiteUrl: string;
   careersUrl: string;
   contact?: PartnerContact;
+  /** Logo has dark detail that needs a light chip on the navy plate. */
+  logoOnLight?: boolean;
   /** Short line under the name, e.g. why to reach Daniel on this card. */
   note?: string;
 };
@@ -73,6 +75,23 @@ export const partners: Partner[] = [
       phoneDisplay: "239.471.8500",
       smsHref: "sms:+12394718500",
       telHref: "tel:+12394718500",
+    },
+  },
+  {
+    id: "adams-cameron",
+    name: "Adams, Cameron & Co., Realtors",
+    logoSrc: "/partners/adams-cameron-logo.webp",
+    logoAlt: "Adams, Cameron & Co., Realtors logo",
+    logoWidth: 440,
+    logoHeight: 378,
+    logoOnLight: true,
+    websiteUrl: "https://floridarealtorcareers.com/",
+    careersUrl: "https://floridarealtorcareers.com/",
+    contact: {
+      firstName: "John",
+      phoneDisplay: "386-243-9504",
+      smsHref: "sms:+13862439504",
+      telHref: "tel:+13862439504",
     },
   },
 ];

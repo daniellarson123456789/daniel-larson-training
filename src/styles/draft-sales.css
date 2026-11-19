@@ -225,6 +225,15 @@
   background: center / contain no-repeat url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'><path d='M3.2 8.3l3.1 3.2 6.5-6.8' stroke='%23f0c14b' stroke-width='2.1' stroke-linecap='round' stroke-linejoin='round'/></svg>");
 }
 
+.draft-hero-panel .draft-hero-includes-extra {
+  margin: 10px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid rgba(201, 215, 234, 0.25);
+  color: #c9d7ea;
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
 .draft-hero-price {
   font-size: 2.4rem;
   font-weight: 800;
@@ -425,6 +434,21 @@
   margin: 0 0 18px;
   color: #53667d;
   font-size: 0.95rem;
+}
+
+.price-card ul {
+  margin: 0 0 18px;
+  padding: 0 0 0 1.15em;
+  color: #53667d;
+  font-size: 0.95rem;
+}
+
+.price-card ul li {
+  margin: 0 0 4px;
+}
+
+.price-card ul li:last-child {
+  margin-bottom: 0;
 }
 
 .price-card .draft-btn {
@@ -1143,6 +1167,17 @@
   object-fit: contain;
 }
 
+.partner-logo-plate--light img {
+  width: auto;
+  max-width: 100%;
+  height: 96px;
+  max-height: none;
+  padding: 6px 14px;
+  border-radius: 12px;
+  background: #fff;
+  box-sizing: content-box;
+}
+
 .partner-card-body {
   display: flex;
   flex-direction: column;
@@ -1287,3 +1322,225 @@
 
 /* Exam prep hero: balanced headline lines (Nov 12 preview) */
 .draft-hero h1.h1-balance { text-wrap: balance; }
+
+/* Home: Florida reciprocity card (v9) */
+.home-mr-section { padding-top: 24px; }
+.home-mr { background: #e3f2ff; border: 1px solid #c7e3fb; border-radius: 22px; padding: 32px 36px; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 18px 40px; align-items: center; }
+.home-mr-copy h2 { margin: 4px 0 10px; color: #0a1236; }
+.home-mr-copy h2 em { font-style: italic; color: #0f5fa8; }
+.home-mr-copy p { margin: 0; color: #22324a; }
+.home-mr-states { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.home-mr-states a { display: inline-block; background: #fff; border: 1px solid #c7e3fb; border-radius: 999px; padding: 7px 14px; font-weight: 700; font-size: .92rem; color: #0a1236; text-decoration: none; }
+.home-mr-states a:hover { border-color: #0f5fa8; color: #0f5fa8; }
+.home-mr-btn { grid-column: 1 / -1; justify-self: start; }
+@media (max-width: 860px) {
+  .home-mr { grid-template-columns: 1fr; padding: 24px 20px; }
+  .home-mr-btn { width: 100%; }
+}
+.home-mr-copy h2 { line-height: 1.15; }
+.home-mr-btn span { margin-left: 6px; }
+
+/* Home: compare the bundles table */
+.compare-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.compare-wrap {
+  margin-top: 28px;
+  background: #fff;
+  border: 1px solid #dfe7f0;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(11, 31, 58, 0.06);
+}
+
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 0.98rem;
+}
+
+.compare-table col.compare-feature {
+  width: 34%;
+}
+
+.compare-table th,
+.compare-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #e8eef5;
+  text-align: center;
+  vertical-align: middle;
+  overflow-wrap: break-word;
+  hyphens: manual;
+}
+
+.compare-table thead th:first-child {
+  text-align: left;
+}
+
+.compare-table tbody th {
+  text-align: left;
+  font-weight: 600;
+  color: #0b1f3a;
+}
+
+.compare-table thead th:first-child {
+  color: #c9d7ea;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.compare-table thead th {
+  background: #0a1236;
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.05rem;
+}
+
+.compare-table thead th small {
+  display: block;
+  margin-top: 4px;
+  color: #c9d7ea;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.compare-table thead th.best {
+  background: #13204f;
+  box-shadow: inset 0 4px 0 var(--gold);
+}
+
+.compare-table thead th.best small {
+  color: var(--gold-2);
+}
+
+.compare-table td.best {
+  background: #fff8e6;
+}
+
+.compare-table td.yes span[aria-hidden] {
+  color: #1f8a4c;
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+.compare-table td.dash span[aria-hidden] {
+  color: #9aabbf;
+}
+
+.compare-table td.txt {
+  color: #33465d;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.compare-table tfoot td,
+.compare-table tfoot th {
+  border-bottom: 0;
+  padding: 18px 12px;
+}
+
+.compare-table tfoot .draft-btn {
+  width: 100%;
+  min-height: 0;
+  padding-inline: 10px;
+}
+
+.compare-foot {
+  margin: 18px 0 0;
+  text-align: center;
+  color: #53667d;
+  font-size: 0.92rem;
+}
+
+.compare-foot a {
+  color: #0a1236;
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .compare-wrap {
+    border-radius: 16px;
+  }
+
+  .compare-table {
+    font-size: 0.82rem;
+  }
+
+  .compare-table col.compare-feature {
+    width: 37%;
+  }
+
+  .compare-table th,
+  .compare-table td {
+    padding: 10px 4px;
+  }
+
+  .compare-table tbody th {
+    padding-left: 10px;
+  }
+
+  .compare-table thead th {
+    font-size: 0.76rem;
+  }
+
+  .compare-table thead th:first-child {
+    font-size: 0.66rem;
+    padding-left: 10px;
+  }
+
+  .compare-table thead th small {
+    font-size: 0.7rem;
+  }
+
+  .compare-table td.txt {
+    font-size: 0.72rem;
+  }
+
+  .compare-table tfoot td {
+    padding: 12px 4px;
+  }
+
+  .compare-table tfoot .draft-btn {
+    font-size: 0.76rem;
+    padding: 10px 4px;
+  }
+}
+
+/* Licensing pages: accents modeled on the mutual recognition pages (blue italics, gold subline, blue marker highlights). */
+.lic-style .draft-hero h1 em.fast { font-style: italic; color: #6ec1ff; padding-right: .06em; }
+.lic-style .lic-sub { display: block; margin-top: 10px; font-size: .5em; font-weight: 700; font-style: italic; color: var(--gold-2); letter-spacing: 0; line-height: 1.25; }
+.lic-style .draft-section h2 em, .lic-style .draft-hero-panel h2 em { font-style: italic; color: #1784d6; padding-right: .06em; }
+.lic-style .draft-section.navy h2 em, .lic-style .draft-hero-panel h2 em { color: #6ec1ff; }
+.lic-style .lic-steps { list-style: none; counter-reset: s; margin: 20px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.lic-style .lic-steps li { counter-increment: s; background: #fff; border: 1px solid var(--border-light, #dbe4ef); border-radius: 16px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
+.lic-style .lic-steps li::before { content: counter(s); width: 36px; height: 36px; border-radius: 50%; background: var(--navy, #0b1f3a); color: var(--gold-2); font-weight: 800; display: grid; place-items: center; margin-bottom: 4px; }
+.lic-style .lic-steps strong { color: var(--navy, #0b1f3a); }
+.lic-style .lic-steps span { color: var(--dark-muted, #43546b); font-size: .95rem; }
+.lic-style .lic-fine { margin: 16px 0 0; font-size: .92rem; color: var(--dark-muted, #43546b); }
+.lic-style .lic-fine a { color: var(--navy, #0b1f3a); font-weight: 700; }
+.lic-style .draft-hero-panel h2 em, .lic-style .draft-hero h1 em.fast { padding-right: 0; }
+/* v4: headings on one line where they fit, balanced wraps, blue italic key phrases (no marker backgrounds). */
+.lic-style .draft-section h2 { max-width: none; text-wrap: balance; }
+.lic-style .draft-hero h1, .lic-style .draft-hero-panel h2 { text-wrap: balance; }
+.lic-style em.lic-em { font-style: italic; font-weight: 700; color: #1784d6; white-space: nowrap; }
+.lic-style .draft-hero em.lic-em, .lic-style .draft-section.navy em.lic-em { color: #6ec1ff; }
+/* Even blocks: balanced headings, no lone last-line words in short copy. */
+.lic-style h1, .lic-style h2, .lic-style h3, .lic-style .draft-eyebrow, .lic-style .lic-sub { text-wrap: balance; }
+.lic-style p, .lic-style li, .lic-style li span, .lic-style td, .lic-style th, .lic-style summary { text-wrap: pretty; }
+.lic-style .draft-hero .lic-q { margin: 18px 0 8px; font-size: 1.12rem; font-weight: 800; color: #fff; line-height: 1.35; text-wrap: balance; }
+.lic-style .draft-hero .lic-q + .lead { margin-top: 0; }
+.lic-style summary, .lic-style li p, .lic-style blockquote p, .lic-style figure p, .lic-style .draft-review p { text-wrap: balance; }
+.lic-style .lic-nw { white-space: nowrap; }
+@media (max-width: 900px) { .lic-style .hero-dual { align-items: stretch; } .lic-style .hero-dual .draft-link-more { align-self: flex-start; } }

@@ -1,0 +1,319 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import CheckoutNote from "../../components/CheckoutNote.astro";
+import { site } from "../../data/site";
+import { faqPage, webPage } from "../../lib/seo";
+import {
+  MR_CHECKED, MR_LASTMOD, MR_LINKS, MR_PRICE, MR_SPECIALTY, MR_PREP_SUMMARY, MR_BROKER_24_RULE, mrBroker24, mrPrep, mrStates, licenseInfo, mrPagePath, mrPageTitle, mrInside,
+  type License, type MrState,
+} from "../../data/mutualRecognition";
+import "../../styles/draft-sales.css";
+import "../../styles/mutual-recognition.css";
+
+export function getStaticPaths() {
+  return mrStates.flatMap((state) =>
+    (["sales-associate", "broker"] as License[]).map((license) => ({
+      params: { page: `${state.slug}-${license}` },
+      props: { state, license },
+    })),
+  );
+}
+
+const { state, license } = Astro.props as { state: MrState; license: License };
+const L = licenseInfo[license];
+const other: License = license === "broker" ? "sales-associate" : "broker";
+const O = licenseInfo[other];
+const isBroker = license === "broker";
+const S = state.name;
+const path = mrPagePath(state, license);
+const url = `${site.url}${path}`;
+const homeLicense = isBroker ? "broker" : state.salesHome;
+const plan = `mr-${state.slug}`;
+const inside = mrInside(state);
+
+const pageTitle = mrPageTitle(state, license);
+const residencyShort = "you're not a Florida resident";
+const broker24 = isBroker && mrBroker24(state);
+const docShort = state.doc.split(" (")[0];
+const pageDescription = isBroker
+  ? `${S} to Florida real estate reciprocity (mutual recognition) for brokers: who qualifies, your ${state.agencyShort} ${docShort} and DBPR form RE 2.`
+  : `${S} to Florida real estate reciprocity (mutual recognition) for sales associates: who qualifies, your ${state.agencyShort} ${docShort} and DBPR form RE 1.`;
+
+const ctaLabel = `Start my ${S} ${L.label} path — $${MR_PRICE}`;
+const historyExtra = state.allStates
+  ? ` ${S} applicants also need a certified license history from every state where they've been licensed.`
+  : "";
+const broker24Rule = `DBPR says ${S} broker applicants must have held ${MR_BROKER_24_RULE}.`;
+const brokerRule = mrBroker24(state)
+  ? `${broker24Rule} You apply for the equivalent Florida broker license on form RE 2, and RE 2 asks you to verify that experience with a certification of license history dated no more than 30 days before you apply.`
+  : `The Florida broker path is for licensees who hold an active ${S} broker license. DBPR's broker application (RE 2) also asks you to verify your experience with a certification of license history dated no more than 30 days before you apply.`;
+const earnedBy = state.experienceWording
+  ? `by completing ${S}'s education requirements, meeting its experience requirements (if any) and passing its licensing exam`
+  : `by meeting ${S}'s education and exam requirements`;
+const residencyAnswer = `No. DBPR says you can't be a Florida resident at the time you apply. If you've already moved to Florida, mutual recognition isn't an option, so text Daniel at 239.471.8500 and we'll talk through the regular Florida path.`;
+
+const intro = isBroker
+  ? `You're on the broker path. If you hold an active ${S} broker license${broker24 ? `, have held ${MR_BROKER_24_RULE} and aren't a Florida resident` : ` and ${residencyShort}`}, Florida's mutual recognition agreement with ${S} lets you apply for a Florida broker license: your ${S} ${state.doc}, DBPR form RE 2, fingerprints and the same 40-question Florida Real Estate Law exam sales associates take.`
+  : `You're on the sales associate path. If you hold an active ${S} ${state.salesHome} license and ${residencyShort}, Florida's mutual recognition agreement with ${S} lets you apply for a Florida sales associate license: your ${S} ${state.doc}, DBPR form RE 1, fingerprints and a 40-question Florida Real Estate Law exam.`;
+
+const specialtyAnswer = `${MR_SPECIALTY}. Your ${S} package is built around ${S}'s own paperwork: the ${state.agencyShort} ${state.doc}, DBPR's rule that you can't be a Florida resident when you apply, and the Florida ${L.form} application. We walk you through each step, field by field. Then the package includes ${MR_PREP_SUMMARY}. Real Estate FastPass is a Florida real estate school (Daniel Larson Training), established in 2020, and every course is self-paced.`;
+
+const faqs = [
+  {
+    q: `Does Florida have real estate reciprocity with ${S}?`,
+    a: `Yes, though Florida calls it mutual recognition. ${S} is one of 9 states with a current agreement. If you qualify, you apply to DBPR, get fingerprinted and pass a 40-question Florida Real Estate Law exam.`,
+  },
+  isBroker
+    ? {
+        q: `Can I get a Florida broker license with my ${S} broker license?`,
+        a: `Yes, if you qualify. DBPR says brokers and sales associates from ${S} can qualify for an equivalent type of Florida license. You apply on form RE 2. ${brokerRule}`,
+      }
+    : {
+        q: `Can I get a Florida real estate license with my ${S} license?`,
+        a: `Yes, if you qualify. You need an active ${S} ${state.salesHome} license in good standing, earned ${earnedBy}, and you can't be a Florida resident when you apply. Sales associates apply on form RE 1.`,
+      },
+  { q: `Why ${S} licensees use Real Estate FastPass`, a: specialtyAnswer },
+  {
+    q: "Do I have to take the Florida exam?",
+    a: `Yes. Every mutual recognition applicant has to pass the 40-question Florida Real Estate Law exam. You need 30 correct. It's the same exam for sales associates and brokers, and you book it with Pearson after DBPR approves your application.`,
+  },
+  { q: "Can I apply if I already live in Florida?", a: residencyAnswer },
+  {
+    q: `What do I need from ${state.agencyShort}?`,
+    a: `Your ${state.doc}. ${state.docWhere} ${state.docCost} DBPR needs it to show how you were first licensed, your current status, any discipline and your active months in the last five years.${historyExtra}`,
+  },
+  isBroker
+    ? { q: `What's different for brokers?`, a: broker24 ? `Two things: the application and an experience rule. You file RE 2 instead of RE 1. ${brokerRule}` : `Only the application. You file RE 2 instead of RE 1. ${brokerRule}` }
+    : {
+        q: `I'm ${state.article} ${S} broker. Should I apply as a sales associate?`,
+        a: `Mutual recognition is for an equivalent type of Florida license, so ${S} brokers normally use the broker page and form RE 2. If you're weighing a Florida sales associate license instead, text Daniel first so you file the right form.`,
+      },
+  {
+    q: `How much is the ${S} package?`,
+    a: `$${MR_PRICE}. One ${S} package covers both the sales associate and broker paths, and it's self-paced. The DBPR application fee, your ${S} certification, fingerprints and the exam fee are paid separately to those providers.`,
+  },
+];
+
+const steps = [
+  { name: `Get your ${S} ${state.doc}`, text: `${state.docWhere}${historyExtra}` },
+  { name: `Apply with DBPR on form ${L.form}`, text: `The Florida ${L.lower} mutual recognition application.` },
+  { name: "Get fingerprinted", text: "Right after you apply, not before." },
+  { name: "Study Florida law", text: "Use the time while DBPR reviews your application." },
+  { name: "Pass the 40-question Florida Real Estate Law exam", text: "Book it with Pearson once DBPR approves you. You need 30 correct." },
+  { name: "Activate your license", text: isBroker ? "Register as a broker or as a broker associate with a Florida brokerage." : "Your license becomes active when your employing Florida broker registers you." },
+];
+
+const courseName = `${S} to Florida Mutual Recognition: ${L.label}`;
+const schema = [
+  webPage({
+    path, name: pageTitle, description: pageDescription, dateModified: MR_LASTMOD,
+    about: { "@type": "Thing", name: `${S} to Florida real estate license reciprocity (mutual recognition) for ${L.lower}s` },
+    mainEntity: { "@id": `${url}#course` },
+  }),
+  {
+    "@type": "Course",
+    "@id": `${url}#course`,
+    name: courseName,
+    description: `${MR_SPECIALTY} (often called Florida real estate license reciprocity). A self-paced, step-by-step walkthrough for ${S} ${homeLicense}s: getting the ${state.agencyShort} ${state.doc}, the Florida ${L.lower} mutual recognition application (form ${L.form}) field by field, fingerprints, what to do if DBPR asks for more, and a printable ${S}-to-Florida checklist. Plus ${MR_PREP_SUMMARY}.`,
+    url,
+    provider: { "@id": `${site.url}/#organization` },
+    instructor: { "@id": `${site.url}/#daniel-larson` },
+    inLanguage: "en-US",
+    audience: { "@type": "EducationalAudience", audienceType: `Real estate ${homeLicense}s licensed in ${S}` },
+    teaches: [`${S} ${state.doc} for Florida mutual recognition`, `Florida mutual recognition application (${L.form})`, "Florida real estate license law and rules for the mutual recognition exam"],
+    offers: { "@type": "Offer", price: `${MR_PRICE}.00`, priceCurrency: "USD", category: "Paid", availability: "https://schema.org/InStock", url },
+    hasCourseInstance: { "@type": "CourseInstance", courseMode: "Online", courseWorkload: "Self-paced" },
+  },
+  {
+    "@type": "HowTo",
+    "@id": `${url}#howto`,
+    name: `How ${S} ${L.lower}s get a Florida license by mutual recognition`,
+    step: steps.map((s, i) => ({ "@type": "HowToStep", position: i + 1, name: s.name, text: s.text })),
+  },
+  faqPage(`${url}#faq`, faqs.map((f) => ({ name: f.q, text: f.a }))),
+];
+---
+
+<SiteLayout title={pageTitle} description={pageDescription} canonicalPath={path} schema={schema}>
+  <div class="draft-sales mr-page">
+    <section class="draft-hero">
+      <div class="wrap draft-hero-grid">
+        <div class="draft-hero-intro">
+          <p class="mr-crumbs"><a href="/mutual-recognition/">All states</a> › {S} › {L.label}</p>
+          <p class="draft-kicker">
+            <span class="draft-brand">{S} → Florida · {L.label}</span>
+            <span class="draft-school">{site.tagline}</span>
+          </p>
+          <h1><span class="mr-l">{S} to Florida</span> <span class="mr-l">reciprocity is our</span> <span class="mr-l"><em class="fast">specialty</em>.</span> <span class="mr-sub">Florida Mutual Recognition</span></h1>
+          <p class="lead mr-answer">{intro}</p>
+          <div class="mr-hero-links">
+            <a class="draft-link-more" href="#inside">See what’s included <span aria-hidden="true">→</span></a>
+            <a class="mr-switch" href="/mutual-recognition/#states">Licensed somewhere else? Pick your state <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+        <aside class="draft-hero-panel">
+          <div class="draft-hero-price">${MR_PRICE}<span>{S} package · sales associate and broker paths</span></div>
+          <p class="mr-label">Your path</p>
+          <ul class="mr-hero-list">
+            <li>{S} {state.doc}</li>
+            <li>DBPR form {L.form} ({L.lower})</li>
+            <li>Fingerprints, right after you apply</li>
+            <li>40-question Florida Real Estate Law exam (30 to pass)</li>
+          </ul>
+          <a class="draft-btn primary" data-plan={plan} data-placement="hero_panel" href={state.checkoutUrl} target="_top">{ctaLabel}</a>
+          <CheckoutNote />
+          <a class="mr-text-link" href={mrPagePath(state, other)}>On the {O.lower} path instead?</a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="mr-specialty mr-specialty-sm" aria-label="Step by step">
+      <div class="wrap mr-specialty-inner">
+        <p class="mr-specialty-eyebrow">Licensed in {S}?</p>
+        <h2><strong>We walk you through {S}’s paperwork, <em>step by step</em>.</strong></h2>
+        <ol class="mr-band-steps">
+          <li><strong>Check that you qualify</strong><span>{broker24 ? `An active ${S} broker license, 24 months of active licensing in the last five years, and you're not a Florida resident.` : `An active ${S} license earned by education and exam, and you're not a Florida resident.`}</span></li>
+          <li><strong>Get your {state.agencyShort} {state.doc.split(" (")[0]}</strong><span>We show you exactly how to order it from {state.agencyShort}.</span></li>
+          <li><strong>Apply with us, screen by screen</strong><span>The Florida {L.form} application and fingerprints, field by field.</span></li>
+        </ol>
+        <a class="draft-btn navy mr-band-btn" href="sms:+12394718500">Text Daniel · {site.phoneDisplay}</a>
+      </div>
+    </section>
+
+    <section class="draft-section" id="qualify">
+      <div class="wrap">
+        <p class="draft-eyebrow">Can I do this?</p>
+        <h2>Do you qualify from <em>{S}</em>?</h2>
+        <p class="intro">Check every item. If you can't check one, text Daniel at {site.phoneDisplay} before you pay any fees.</p>
+        <div class="mr-two">
+          <div class="mr-box">
+            <h3>{S} {L.lower} checklist</h3>
+            <ul class="mr-check">
+              <li>You hold a valid, current and active <strong>{S} {homeLicense} license</strong> in good standing.</li>
+              <li>You earned it {earnedBy}, not by reciprocity.</li>
+              <li><strong>You're not a Florida resident.</strong> DBPR says you can't be a Florida resident at the time you apply.</li>
+              <li>You're at least 18, have a high school diploma or its equivalent, and have a U.S. Social Security number.</li>
+              <li>You can get your <strong>{state.doc}</strong> from {state.agencyShort}.</li>
+              {state.allStates && <li>You can get a certified license history from <strong>every state</strong> where you've held a real estate license, not just {S}. DBPR requires this for {S} applicants.</li>}
+              {broker24 && <li><strong>You've held {MR_BROKER_24_RULE}.</strong> DBPR requires this for {S} broker applicants.</li>}
+              {isBroker && <li>{broker24 ? "RE 2 asks you to verify that experience with a certification of license history dated no more than 30 days before you apply." : brokerRule}</li>}
+            </ul>
+          </div>
+          <div class="mr-box gold">
+            <h3>Your {S} document: {state.doc}</h3>
+            <p class="mr-doc-p"><strong>Where to get it:</strong> {state.docWhere}</p>
+            <p class="mr-doc-p"><strong>Cost and timing:</strong> {state.docCost}</p>
+            <p class="mr-doc-p"><strong>Questions:</strong> {state.docContact} · <a href={state.docLink} target="_blank" rel="noopener">{state.docLinkLabel} ↗</a></p>
+            {isBroker && <p class="mr-doc-p"><strong>Broker:</strong> RE 2 says the certification used to show your experience must be dated no more than 30 days before your application.</p>}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="draft-section soft" id="how">
+      <div class="wrap">
+        <p class="draft-eyebrow">At a glance</p>
+        <h2>{S} to Florida in <em>six&nbsp;steps</em></h2>
+        <div class="mr-glance">
+          <ol class="mr-steps">
+            <li><strong>Get your {S} {state.doc}.</strong><span>From {state.agencyShort}.{state.allStates ? ` Plus a license history from every other state where you've been licensed.` : ""}</span></li>
+            <li><strong>Apply with DBPR on form {L.form}.</strong><span>The Florida {L.lower} mutual recognition application. <a href={L.formLink} target="_blank" rel="noopener">DBPR's {L.form} checklist ↗</a></span></li>
+            <li><strong>Get fingerprinted.</strong><span>Right after you apply, not before.</span></li>
+            <li><strong>Study Florida law.</strong><span>While DBPR reviews your application.</span></li>
+            <li><strong>Pass the 40-question Florida Real Estate Law exam.</strong><span>Book it with Pearson (formerly Pearson VUE) once DBPR approves you. You need 30 correct.</span></li>
+            <li><strong>Activate your license.</strong><span>{isBroker ? "Register as a broker or as a broker associate with a Florida brokerage." : "Your employing Florida broker registers you."}</span></li>
+          </ol>
+          <div class="mr-box gold mr-checks">
+            <h3>What Florida checks</h3>
+            <ul>
+              <li>Your {state.doc} shows you were first licensed by exam</li>
+              <li>Your {S} license is active, with any discipline listed</li>
+              <li>Your active months in the last five years</li>
+              <li>You're not a Florida resident when you apply</li>
+              {broker24 && <li>At least 24 months of active licensing in the preceding five years</li>}
+              <li>Your fingerprint background check</li>
+              <li>Your answers to the application's background questions</li>
+              {isBroker && <li>Your certification is dated within 30 days of RE 2</li>}
+              <li>A passing score (30 of 40) on the Florida law exam</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="draft-section" id="inside">
+      <div class="wrap">
+        <p class="draft-eyebrow">What's inside your {S} package</p>
+        <h2 class="mr-h2-break">Exactly how, <em>step by step</em>,<br />for {S} licensees</h2>
+        <p class="intro">This page tells you whether you can do it. Your package walks you through doing it. One {S} package covers both the sales associate and broker paths, and it's self-paced. Course: <em>{S} Mutual Recognition Application</em>.</p>
+        <ul class="mr-benefits">
+          {inside.map((b) => (<li><strong>{b.title}</strong><span>{b.text}</span></li>))}
+        </ul>
+        <p class="mr-sublabel">And the Florida law exam prep</p>
+        <ul class="mr-benefits mr-benefits-prep">
+          {mrPrep.map((b) => (<li><strong><em>{b.title}</em></strong><span>{b.short}</span></li>))}
+        </ul>
+        <a class="draft-link-more mr-dark-link" href="#exam-prep">More about the exam prep <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="draft-section soft" id="exam-prep">
+      <div class="wrap">
+        <p class="draft-eyebrow">Florida law exam prep, included</p>
+        <h2 class="mr-h2-break">Study <em>what's on your exam</em>,<br />nothing else.</h2>
+        <p class="intro">The mutual recognition exam is 40 questions on Florida real estate license law and Commission rules. You need 30 correct, and you get 90 minutes. Your package includes exam prep built just for that exam, so your study time goes to what's tested. It's self-paced, on your phone or your computer.</p>
+        <div class="mr-prep-grid">
+          {mrPrep.map((b) => (<article><h3><em>{b.title}</em></h3><p>{b.text}</p></article>))}
+          <article><h3>A real person if you get stuck</h3><p>Text Daniel at {site.phoneDisplay} with a question you missed, a topic that isn't clicking or the step you're on.</p></article>
+        </div>
+        <p class="mr-fine">Good timing: you can study while DBPR reviews your application, then book the exam as soon as you're approved. Exam prep helps you prepare; it doesn't replace the state exam.</p>
+        <div class="mr-cta">
+          <h3><em>Ready?</em> Start your {S} {L.lower} path.</h3>
+          <p>${MR_PRICE} for the {S} package. Self-paced, with Daniel a text away.</p>
+          <a class="draft-btn primary" data-plan={plan} data-placement="bottom_cta" href={state.checkoutUrl} target="_top">{ctaLabel}</a>
+          <CheckoutNote />
+          <a class="mr-text-link" href={MR_LINKS.sms}>Questions? Text Daniel at {site.phoneDisplay}</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="draft-section" id="faq">
+      <div class="wrap">
+        <p class="draft-eyebrow">Questions</p>
+        <h2>{S} to Florida {L.lower} FAQ</h2>
+        <div class="faq-list">
+          {faqs.map((f) => (<details><summary>{f.q}</summary><p>{f.a}</p></details>))}
+        </div>
+      </div>
+    </section>
+
+    <section class="draft-section soft" id="more">
+      <div class="wrap">
+        <p class="draft-eyebrow">More mutual recognition pages</p>
+        <h2>Other paths</h2>
+        <p class="mr-prose"><a href="/mutual-recognition/">All Florida mutual recognition states</a> · <a href={mrPagePath(state, other)}>{S} to Florida {O.lower} license</a></p>
+        <ul class="mr-other" aria-label={`Other states, ${L.lower} path`}>
+          {mrStates.map((s) => (
+            <li><a href={mrPagePath(s, license)} aria-current={s.slug === state.slug ? "page" : undefined}>{s.name} {L.lower}</a></li>
+          ))}
+        </ul>
+        <p class="mr-fine">Licensed in a state that's not listed? Mutual recognition isn't available, so you'd take the regular path: <a href="/">Florida Sales Associate course and FastPass</a>.</p>
+      </div>
+    </section>
+
+    <section class="draft-section" id="sources">
+      <div class="wrap">
+        <p class="draft-eyebrow">Sources</p>
+        <ul class="mr-sources">
+          <li><a href={MR_LINKS.dbprStates} target="_blank" rel="noopener">DBPR: Mutual Recognition States ↗</a></li>
+          <li><a href={L.formLink} target="_blank" rel="noopener">DBPR: {L.label} mutual recognition checklist ({L.form}) ↗</a></li>
+          <li><a href={state.agreementPdf} target="_blank" rel="noopener">{S}–Florida mutual recognition agreement (PDF) ↗</a></li>
+          <li><a href={state.docLink} target="_blank" rel="noopener">{state.docLinkLabel} ↗</a></li>
+          <li><a href={MR_LINKS.prints} target="_blank" rel="noopener">DBPR: Fingerprinting ↗</a></li>
+          <li><a href={MR_LINKS.booklet} target="_blank" rel="noopener">DBPR: Laws and Rules exam candidate booklet (PDF) ↗</a></li>
+        </ul>
+        <p class="mr-fine">Checked {MR_CHECKED}. Daniel Larson Training (Real Estate FastPass) is a Florida real estate school, established in 2020. We aren't affiliated with or endorsed by DBPR, the Florida Real Estate Commission, the {state.agency} or Pearson. DBPR makes every licensing decision. Fees and steps can change, so check each one when you pay.</p>
+      </div>
+    </section>
+  </div>
+</SiteLayout>

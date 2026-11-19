@@ -13,7 +13,7 @@ const schema = [
     "@type": "Course",
     "@id": `${site.url}/exam-prep/#sales`,
     name: "Sales Exam Prep + FastPass Only",
-    description: "Florida Sales Associate exam preparation for students taking or already finished with their required pre-license course. Exam preparation only; does not include the required pre-license course or completion certificate.",
+    description: "Florida Sales Associate exam preparation for students taking or already finished with their required pre-license course. Includes all the explainer videos, plus optional Course 1. Exam preparation only; does not issue a Course 1 completion certificate.",
     provider: { "@id": `${site.url}/#organization` },
     inLanguage: "en-US",
     offers: courseOffer(products.salesExamPrep, "Sales Exam Prep + FastPass Only"),
@@ -22,7 +22,7 @@ const schema = [
     "@type": "Course",
     "@id": `${site.url}/exam-prep/#broker`,
     name: "Broker Exam Prep + FastPass Only",
-    description: "Florida Broker exam preparation for students taking or already finished with their required broker pre-license course. Exam preparation only; does not include the required pre-license course or completion certificate.",
+    description: "Florida Broker exam preparation for students taking or already finished with their required broker pre-license course. Includes all the explainer videos, plus optional Course 2. Exam preparation only; does not issue a Course 2 completion certificate.",
     provider: { "@id": `${site.url}/#organization` },
     inLanguage: "en-US",
     offers: courseOffer(products.brokerExamPrep, "Broker Exam Prep + FastPass Only"),
@@ -41,12 +41,12 @@ const schema = [
 
 <SiteLayout
   title="Florida Real Estate Exam Prep | Real Estate FastPass"
-  description="Florida Sales Associate and Broker exam preparation for students taking or already finished with their pre-license course. FastPass, practice questions, audio review, math help, and direct instructor support."
+  description={`Florida exam prep only: Sales $${salePrice(products.salesExamPrep)}, Broker $${salePrice(products.brokerExamPrep)}. Includes all the explainer videos, plus optional Course 1 or Course 2.`}
   canonicalPath="/exam-prep/"
   schema={schema}
 >
   <div class="draft-sales">
-    <div class="exam-only-banner"><p>Already finished Course 1 or Course 2 elsewhere? This page is exam prep only — $130. It is not a FastPass licensing package.</p></div>
+    <div class="exam-only-banner"><p>Already finished Course 1 or Course 2 elsewhere? This page is exam prep only — ${products.salesExamPrep.price} for Sales, ${products.brokerExamPrep.price} for Broker. It is not a FastPass licensing package.</p></div>
 
     <section class="draft-hero">
       <div class="wrap draft-hero-grid hero-dual">
@@ -81,7 +81,16 @@ const schema = [
             <span class="price-badge">Sales Associate</span>
             <h3>Sales Exam Prep</h3>
             <div class="price">${products.salesExamPrep.price}</div>
-            <p class="note">FastPass exam-prep system, 500 sample Q&amp;A, audio eBook review, FastPass Workbook (online + PDF), exam math basics, and direct instructor support.</p>
+            <ul>
+              <li>FastPass exam-prep system</li>
+              <li>Practice questions</li>
+              <li>Audio eBook review</li>
+              <li>FastPass Workbook (online + PDF)</li>
+              <li>Exam math basics</li>
+              <li>Direct instructor support</li>
+              <li>All the explainer videos</li>
+              <li>Optional Course 1</li>
+            </ul>
             <a class="draft-btn primary" data-plan={products.salesExamPrep.id} data-placement="package_card" href={products.salesExamPrep.checkoutUrl} target="_top">Enroll in Sales Exam Prep — ${products.salesExamPrep.price}</a>
             <CheckoutNote />
           </article>
@@ -89,7 +98,16 @@ const schema = [
             <span class="price-badge">Broker</span>
             <h3>Broker Exam Prep</h3>
             <div class="price">${products.brokerExamPrep.price}</div>
-            <p class="note">Broker FastPass exam-prep system, broker-focused practice and explanations, audio review, Broker FastPass Workbook (online + PDF), exam math review, and direct instructor support.</p>
+            <ul>
+              <li>Broker FastPass exam-prep system</li>
+              <li>Broker-focused practice and explanations</li>
+              <li>Audio review</li>
+              <li>Broker FastPass Workbook (online + PDF)</li>
+              <li>Exam math review</li>
+              <li>Direct instructor support</li>
+              <li>All the explainer videos</li>
+              <li>Optional Course 2</li>
+            </ul>
             <a class="draft-btn navy" data-plan={products.brokerExamPrep.id} data-placement="package_card" href={products.brokerExamPrep.checkoutUrl} target="_top">Enroll in Broker Exam Prep — ${products.brokerExamPrep.price}</a>
             <CheckoutNote />
           </article>
