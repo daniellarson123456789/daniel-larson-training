@@ -50,7 +50,7 @@ FastPass grew out of years of working with Course 1 students, training trainers,
 
 FastPass certification exams are part of the school's course-certification and preparation path and are modeled on the Florida state licensing exam. The Florida state licensing exam itself is separate and is administered by Pearson Professional Assessments (formerly Pearson VUE). FastPass does not replace the state exam.
 
-Want a printed workbook? Students can ask, and the school will send one free through Amazon. Broker students always get the Course 2 textbook and the FastPass workbook.
+Want a printed workbook? Students can ask, and the school will send one free through Amazon. Broker students always get the Course 2 textbook and the FastPass workbook, plus a printed FastPass Workbook mailed free; after enrolling, they are prompted for their mailing address and asked if they would also like the printed Course 2 textbook.
 
 ## Current courses and prices
 
@@ -170,7 +170,7 @@ A FastPass licensing package (Sales FastPass or Broker FastPass) includes:
 
 1. The complete DBPR-approved pre-license course (63-hour Course 1, or 72-hour Course 2)
 2. FastPass Start, to get oriented
-3. The FastPass Workbook, online and as a PDF (a printed copy is sent free through Amazon on request)
+3. The FastPass Workbook, online and as a PDF (Sales students can ask for a free printed copy; broker students always get a printed FastPass Workbook)
 4. FastPass Certification: three certification exams that mirror the state exam, used in place of a traditional course final
 5. Audio ebook review
 6. Exam Math Basics
@@ -178,7 +178,7 @@ A FastPass licensing package (Sales FastPass or Broker FastPass) includes:
 8. One year of online access
 9. Direct instructor support
 
-Broker students always also receive the Course 2 textbook, online or as a PDF, with a printed copy available on request.
+Broker students always also receive the Course 2 textbook, online or as a PDF. Their printed FastPass Workbook is mailed free; after enrolling, they are prompted for their mailing address and asked if they would also like the printed Course 2 textbook.
 
 The Course-only packages (Course 1 or Course 2 with the traditional final) include the DBPR-approved course, the traditional course final, Exam Math Basics, one year of access, and direct support. They do not include the three FastPass certification exams or the Sample Questions and Answers that come with FastPass.
 

@@ -15,7 +15,7 @@ import { salesBuyerFaqs } from "../data/buyerFaqs";
 
 const pageTitle = "Florida Real Estate License Course Online + Exam Prep | FastPass";
 const pageDescription = `Get your Florida real estate license with FastPass: the state-required 63-hour pre-license course, online and self-paced, with exam prep built in. FastPass $${salePrice(products.salesFastPass)}, Course 1 $${salePrice(products.salesCourse1)}, or FastPass + Post $${salePrice(products.salesFastPassPost)}.`;
-const booksAnswer = "No. All course content is included online. FastPass and the Full Package, FastPass + Post, also include the FastPass Workbook to read online or download as a PDF. Want a printed workbook? Just ask and we'll send one free through Amazon.";
+const booksAnswer = "You don't need one. All course content is included online, and FastPass and the Full Package, FastPass + Post, include the FastPass Workbook as a PDF. Want printed copies? Just ask and we'll send them free through Amazon.";
 
 const schema = [
   {
@@ -299,6 +299,18 @@ const schema = [
       </div>
     </section>
 
+    <section class="draft-section" id="course-books">
+      <div class="wrap">
+        <p class="draft-eyebrow">Course books</p>
+        <h2>Want course books? Easy — just ask.</h2>
+        <p class="intro">You don&apos;t need printed books. All course content is included online. Prefer printed copies? Just ask, and we&apos;ll ship your course books to you free through Amazon.</p>
+        <div class="draft-feature-grid">
+          <article class="draft-feature"><h3>Everything is included online</h3><p>Your course is all online, and FastPass and the Full Package, FastPass + Post, include the FastPass Workbook to read online or download as a PDF.</p></article>
+          <article class="draft-feature"><h3>Free printed course books</h3><p><a href="sms:+12394718500">Text</a> or <a href="mailto:daniel@daniellarsontraining.com">email</a> your name, shipping address, and course. There is no charge for the books or shipping.</p></article>
+        </div>
+      </div>
+    </section>
+
     <section class="draft-section navy" id="why-daniel">
       <div class="wrap why-grid">
         <img class="why-photo" src="/daniel-larson-teaching.webp" alt="Daniel Larson teaching a Florida real estate class" width="1200" height="800" loading="lazy" decoding="async" />
@@ -355,7 +367,7 @@ const schema = [
       <div class="wrap">
         <p class="draft-eyebrow">Questions</p>
         <h2>Florida Real Estate Licensing FAQ</h2>
-        <div class="faq-list">
+        <div class="faq-list faq-two">
           {salesBuyerFaqs.map((f) => (<details><summary>{f.q}</summary><p>{f.a}</p></details>))}
           <details><summary>What is included in the FastPass package?</summary><p>FastPass is ${salePrice(products.salesFastPass)}. The package includes the DBPR-approved 63-hour Course 1, three FastPass certification exams, Exam Math Basics, sample questions and answers with explanations, audio ebook review, the FastPass Workbook online and as a PDF, one year of access, and direct support.</p></details>
           <details><summary>How is FastPass different?</summary><p>FastPass for the Florida Sales Associate license is three certification exams built to closely match the content on the Pearson state exam, used in place of the traditional Course 1 final. Pass all three and you’re certified to take the Florida state exam, so course certification and state-exam prep happen at the same time. Course 1 with the traditional final uses a standard course final instead. FastPass is self-paced, so you take the exams when you’re ready, and you still take the Florida state licensing exam separately.</p></details>

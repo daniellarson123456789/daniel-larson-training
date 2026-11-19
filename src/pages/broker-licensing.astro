@@ -20,7 +20,7 @@ const schema = [
     "alternateName": ["Broker FastPass", "Florida broker pre-license course online", "Florida broker pre-license course + exam prep", "Florida 72-hour broker course", "Florida broker license course"],
     "educationalLevel": "Pre-license",
     "hasCourseInstance": { "@type": "CourseInstance", "courseMode": "Online", "courseWorkload": "Self-paced" },
-    "description": `${pageDescription} FastPass includes certification exams, sample questions and answers with explanations, audio/video instruction, and a digital workbook. Every licensing package includes one-year access and direct instructor support. Broker students always get the Course 2 textbook and the FastPass workbook. Want a printed copy? Just ask and we'll send one free through Amazon.`,
+    "description": `${pageDescription} FastPass includes certification exams, sample questions and answers with explanations, audio/video instruction, and a digital workbook. Every licensing package includes one-year access and direct instructor support. Broker students always get the Course 2 textbook and the FastPass workbook online and as PDFs, and the printed FastPass Workbook ships free. After enrolling, they're prompted for a mailing address, and Daniel asks if they'd also like the printed Course 2 textbook.`,
     "provider": { "@id": "https://realestatefastpass.com/#organization" },
     "inLanguage": "en-US",
     "offers": [
@@ -49,8 +49,8 @@ const schema = [
     { name: "Do I have to sit through 72 hours of timed videos?", text: "No. Broker FastPass for the Florida broker license is self-paced, with no timed videos, lesson clock, or page timers. Take the three Broker FastPass exams, built to closely match the content on the Pearson broker exam, when you’re ready, and once you pass all three, you’re certified to take the Florida broker exam. Course 2, the audio review, the textbook, and the workbook are there for anything you want to review." },
     { name: "Can I go straight to the Broker FastPass exams?", text: "Yes. Broker FastPass for the Florida broker license is self-paced, with no lesson clock or page timers, so you can take the three Broker FastPass exams whenever you’re ready. Course 2, the textbook, and the workbook are there for whatever you want to review. Passing all three certifies you to take the Florida broker exam, which you still take separately." },
     { name: "Does FastPass replace the Florida broker licensing exam?", text: "No. The Florida broker licensing exam is a separate exam administered through Pearson Professional Assessments. FastPass is preparation and part of the Course 2 certification path; you still take the state exam separately." },
-    { name: "What is the Full Package with FastPass + Post?", text: `The Full Package is $${salePrice(products.brokerCareerLaunch)}. Includes Course 2, Broker FastPass, and your required 60-hour Broker Post-Licensing course. Broker students always get the Course 2 textbook and the FastPass workbook. Want a printed copy? Just ask and we'll send one free through Amazon.` },
-    { name: "Do broker students get the textbooks?", text: "Broker students always get the Course 2 textbook and the FastPass workbook, to read online or download as a PDF. Want a printed copy? Just ask and we'll send one free through Amazon." },
+    { name: "What is the Full Package with FastPass + Post?", text: `The Full Package is $${salePrice(products.brokerCareerLaunch)}. Includes Course 2, Broker FastPass, and your required 60-hour Broker Post-Licensing course. Broker students always get the Course 2 textbook and the FastPass workbook online and as PDFs, and the printed FastPass Workbook ships free. After you enroll, you'll be prompted for your mailing address, and Daniel will ask if you'd also like the printed Course 2 textbook.` },
+    { name: "Do broker students get the textbooks?", text: "Yes. Broker students always get the Course 2 textbook and the FastPass workbook to read online or download as a PDF. The printed FastPass Workbook, the one you need to study, ships free. After you enroll, you'll be prompted for your mailing address, and Daniel will ask if you'd also like the printed Course 2 textbook." },
     { name: "How long do I have access?", text: "Broker course bundles include one year of online access." },
     { name: "Can I contact the school directly?", text: "Yes. Text or email us at 239.471.8500 or daniel@daniellarsontraining.com about broker licensing, exam preparation, post-licensing, or your next licensing step." },
   ]),
@@ -104,7 +104,7 @@ const schema = [
             <span class="price-badge">MOST POPULAR</span>
             <h3>Broker FastPass</h3>
             <div class="price">${salePrice(products.brokerFastPass)}</div>
-            <p class="note">The full Broker FastPass bundle: Course 2, certification exams that mirror the state exam, the Course 2 textbook and FastPass workbook, audio review, math basics, and sample questions and answers. Certification and exam prep happen together. Want a printed copy? Just ask and we&apos;ll send one free through Amazon.</p>
+            <p class="note">The full Broker FastPass bundle: Course 2, certification exams that mirror the state exam, the Course 2 textbook and FastPass workbook, audio review, math basics, and sample questions and answers. Certification and exam prep happen together. Your printed FastPass Workbook ships free after you enroll.</p>
             <a class="draft-btn primary" data-plan={products.brokerFastPass.id} data-placement="pricing_card" href={products.brokerFastPass.checkoutUrl} target="_top">Start Broker FastPass — ${salePrice(products.brokerFastPass)}</a>
             <CheckoutNote />
           </article>
@@ -151,14 +151,14 @@ const schema = [
             <span class="num">2</span>
             <div>
               <h3>Course 2 textbook</h3>
-              <p>Broker students always get the Course 2 textbook, to read online or download as a PDF. Want a printed copy? Just ask and we&apos;ll send one free through Amazon.</p>
+              <p>Broker students always get the Course 2 textbook to read online or download as a PDF. Want it in print too? Daniel will ask after you enroll.</p>
             </div>
           </li>
           <li id="include-workbook">
             <span class="num">3</span>
             <div>
               <h3>FastPass Workbook (online + PDF)</h3>
-              <p>The FastPass workbook is included to read online or download as a PDF. Want a printed copy? Just ask and we&apos;ll send one free through Amazon.</p>
+              <p>The FastPass workbook is included to read online or download as a PDF, and your printed copy ships free. It&apos;s the one you need to study.</p>
             </div>
           </li>
           <li id="include-certification">
@@ -207,13 +207,25 @@ const schema = [
       </div>
     </section>
 
+    <section class="draft-section" id="course-books">
+      <div class="wrap">
+        <p class="draft-eyebrow">Course books</p>
+        <h2>Your FastPass Workbook ships free.</h2>
+        <p class="intro">Broker students get a printed FastPass Workbook, the one you need to study, with no charge for the book or shipping.</p>
+        <div class="draft-feature-grid">
+          <article class="draft-feature"><h3>After you enroll</h3><p>You&apos;ll be prompted for your mailing address, and Daniel will ask if you&apos;d also like the printed Course 2 textbook.</p></article>
+          <article class="draft-feature"><h3>Online and PDF</h3><p>The Course 2 textbook and the FastPass workbook are also included to read online or download as a PDF.</p></article>
+        </div>
+      </div>
+    </section>
+
     <TrustpilotReviews context="broker" />
 
     <section class="draft-section soft" id="faq">
       <div class="wrap">
         <p class="draft-eyebrow">Questions</p>
         <h2>Florida Broker Licensing FAQ</h2>
-        <div class="faq-list">
+        <div class="faq-list faq-two">
           {brokerBuyerFaqs.map((f) => (<details><summary>{f.q}</summary><p>{f.a}</p></details>))}
           <details><summary>What is included in the Broker FastPass package?</summary><p>Broker FastPass is <strong>${salePrice(products.brokerFastPass)}</strong>. The package includes the DBPR-approved 72-hour Broker Course 2, three FastPass certification exams, Exam Math Basics, sample questions and answers with explanations, audio ebook review, the FastPass Workbook online and as a PDF, one year of access, and direct support.</p></details>
           <details><summary>How is Broker FastPass different?</summary><p>Broker FastPass for the Florida broker license is three certification exams built to closely match the content on the Pearson broker exam, used in place of the traditional Course 2 final. Pass all three and you’re certified to take the Florida broker exam, so course certification and state-exam prep happen at the same time. Course 2 with the traditional final uses a standard course final instead. Broker FastPass is self-paced, so you take the exams when you’re ready, and you still take the Florida broker licensing exam separately.</p></details>
@@ -222,8 +234,8 @@ const schema = [
           <details><summary>Do I have to sit through 72 hours of timed videos?</summary><p>No. Broker FastPass for the Florida broker license is self-paced, with no timed videos, lesson clock, or page timers. Take the three Broker FastPass exams, built to closely match the content on the Pearson broker exam, when you’re ready, and once you pass all three, you’re certified to take the Florida broker exam. Course 2, the audio review, the textbook, and the workbook are there for anything you want to review.</p></details>
           <details><summary>Can I go straight to the Broker FastPass exams?</summary><p>Yes. Broker FastPass for the Florida broker license is self-paced, with no lesson clock or page timers, so you can take the three Broker FastPass exams whenever you’re ready. Course 2, the textbook, and the workbook are there for whatever you want to review. Passing all three certifies you to take the Florida broker exam, which you still take separately.</p></details>
           <details><summary>Does FastPass replace the Florida broker licensing exam?</summary><p>No. The Florida broker licensing exam is a separate exam administered through <a href="https://www.pearsonvue.com/us/en/fl/dbpr.html" rel="noopener" target="_blank">Pearson Professional Assessments</a>. FastPass is preparation and part of the Course 2 certification path; you still take the state exam separately.</p></details>
-          <details><summary>What is the Full Package with FastPass + Post?</summary><p>The Full Package is <strong>${salePrice(products.brokerCareerLaunch)}</strong>. Includes Course 2, Broker FastPass, and your required 60-hour Broker Post-Licensing course. Broker students always get the Course 2 textbook and the FastPass workbook. Want a printed copy? Just ask and we&apos;ll send one free through Amazon.</p></details>
-          <details><summary>Do broker students get the textbooks?</summary><p>Broker students always get the Course 2 textbook and the FastPass workbook, to read online or download as a PDF. Want a printed copy? Just ask and we&apos;ll send one free through Amazon.</p></details>
+          <details><summary>What is the Full Package with FastPass + Post?</summary><p>The Full Package is <strong>${salePrice(products.brokerCareerLaunch)}</strong>. Includes Course 2, Broker FastPass, and your required 60-hour Broker Post-Licensing course. Broker students always get the Course 2 textbook and the FastPass workbook online and as PDFs, and the printed FastPass Workbook ships free. After you enroll, you&apos;ll be prompted for your mailing address, and Daniel will ask if you&apos;d also like the printed Course 2 textbook.</p></details>
+          <details><summary>Do broker students get the textbooks?</summary><p>Yes. Broker students always get the Course 2 textbook and the FastPass workbook to read online or download as a PDF. The printed FastPass Workbook, the one you need to study, ships free. After you enroll, you&apos;ll be prompted for your mailing address, and Daniel will ask if you&apos;d also like the printed Course 2 textbook.</p></details>
           <details><summary>How long do I have access?</summary><p>Broker course bundles include one year of online access.</p></details>
           <details><summary>Can I contact the school directly?</summary><p>Yes. Text or email us at <a href="sms:+12394718500">239.471.8500</a> or <a href="mailto:daniel@daniellarsontraining.com">daniel@daniellarsontraining.com</a> about broker licensing, exam preparation, post-licensing, or your next licensing step.</p></details>
         </div>
