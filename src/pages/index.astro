@@ -9,19 +9,23 @@ import { courseOffer } from "../lib/courseOffer";
 import { homeTeaserQuestions } from "../data/sampleQuestions";
 import { site } from "../data/site";
 import { faqPage } from "../lib/seo";
+import { mrStates } from "../data/mutualRecognition";
 import "../styles/draft-sales.css";
+import { salesBuyerFaqs } from "../data/buyerFaqs";
 
-const pageTitle = "Florida Real Estate License Course | Real Estate FastPass";
-const pageDescription = `Get your Florida real estate license fast with FastPass: self-paced, no lesson clock, and three exams built to closely match the Pearson state exam. Pass all three and you’re certified to take it. Course 1 $${salePrice(products.salesCourse1)}, FastPass $${salePrice(products.salesFastPass)}, or FastPass + Post $${salePrice(products.salesFastPassPost)}. One-year access and direct support.`;
-const pricingAnswer = `Course 1 is $${salePrice(products.salesCourse1)}. FastPass is $${salePrice(products.salesFastPass)}. The Full Package, FastPass + Post, is $${salePrice(products.salesFastPassPost)}. Each price is a one-time enrollment payment; state application, fingerprinting, and state-exam fees are separate.`;
-const booksAnswer = "No. All course content is included online. FastPass and the Full Package, FastPass + Post, also include the FastPass Workbook to read online or download as a PDF. Want a printed workbook? Just ask and we'll send one free through Amazon.";
+const pageTitle = "Florida Real Estate License Course Online + Exam Prep | FastPass";
+const pageDescription = `Get your Florida real estate license with FastPass: the state-required 63-hour pre-license course, online and self-paced, with exam prep built in. FastPass $${salePrice(products.salesFastPass)}, Course 1 $${salePrice(products.salesCourse1)}, or FastPass + Post $${salePrice(products.salesFastPassPost)}.`;
+const booksAnswer = "You don't need one. All course content is included online, and FastPass and the Full Package, FastPass + Post, include the FastPass Workbook as a PDF. Want printed copies? Just ask and we'll send them free through Amazon.";
 
 const schema = [
   {
     "@type": "Course",
     "@id": "https://realestatefastpass.com/#course1",
     "name": "Florida 63-Hour Sales Associate Pre-License Course (Course 1)",
-    "description": `Florida 63-hour Sales Associate pre-license education from $${salePrice(products.salesCourse1)}. FastPass adds course certification and exam preparation, audio/video instruction, and 500+ questions and explanations. All packages include one-year access and direct instructor support. Want a printed workbook? Just ask and we'll send one free through Amazon.`,
+    "alternateName": ["Sales FastPass", "Florida real estate license course online", "Florida pre-license course + exam prep", "Florida 63-hour pre-license course", "Florida Sales Associate pre-license course"],
+    "educationalLevel": "Pre-license",
+    "hasCourseInstance": { "@type": "CourseInstance", "courseMode": "Online", "courseWorkload": "Self-paced" },
+    "description": `Sales FastPass ($${salePrice(products.salesFastPass)}) is the Florida 63-hour Sales Associate pre-license course (Course 1) with exam prep built in: three FastPass certification exams in place of the traditional course final, audio/video instruction, and sample questions and answers with explanations. Course 1 with the traditional final and FastPass + Post-Licensing are also offered. All packages include one-year access and direct instructor support. Want a printed workbook? Just ask and we'll send one free through Amazon.`,
     "provider": { "@id": "https://realestatefastpass.com/#organization" },
     "inLanguage": "en-US",
     "offers": [
@@ -42,13 +46,14 @@ const schema = [
     "inLanguage": "en-US"
   },
   faqPage("https://realestatefastpass.com/#faq", [
-    { name: "How much do the Sales licensing packages cost?", text: pricingAnswer },
-    { name: "What is included in the FastPass package?", text: `FastPass is $${salePrice(products.salesFastPass)}. The package includes the DBPR-approved 63-hour Course 1, three FastPass certification exams, Exam Math Basics, 500+ practice questions and explanations, audio ebook review, the FastPass Workbook online and as a PDF, one year of access, and direct support.` },
+    ...salesBuyerFaqs.map((f) => ({ name: f.q, text: f.a })),
+    { name: "What is included in the FastPass package?", text: `FastPass is $${salePrice(products.salesFastPass)}. The package includes the DBPR-approved 63-hour Course 1, three FastPass certification exams, Exam Math Basics, sample questions and answers with explanations, audio ebook review, the FastPass Workbook online and as a PDF, one year of access, and direct support.` },
     { name: "How is FastPass different?", text: "FastPass for the Florida Sales Associate license is three certification exams built to closely match the content on the Pearson state exam, used in place of the traditional Course 1 final. Pass all three and you’re certified to take the Florida state exam, so course certification and state-exam prep happen at the same time. Course 1 with the traditional final uses a standard course final instead. FastPass is self-paced, so you take the exams when you’re ready, and you still take the Florida state licensing exam separately." },
+    { name: "What is the 63-hour pre-license course?", text: "It’s Course 1, the Florida Sales Associate pre-license course approved by DBPR. Earning your Course 1 certificate is what qualifies you to take the Florida state exam. FastPass is the complete path most students choose: Course 1 with exam prep and three FastPass certification exams built in. Course 1 is also offered with the traditional final, or as FastPass + Post." },
     { name: "What’s the fastest way to get my Florida real estate license?", text: "The fastest way to get your Florida real estate license with Real Estate FastPass is to work through FastPass at your own pace instead of on a lesson clock. FastPass pairs the self-paced 63-hour Course 1 with three certification exams built to closely match the content on the Pearson state exam, and once you pass all three, you’re certified to take the Florida state exam. There are no page timers or forced lesson stops, so students who already know the material can go straight to the FastPass exams, and the course, workbook, and audio review are there for anything they want to brush up on." },
     { name: "Do I have to sit through 63 hours of timed videos?", text: "No. FastPass for the Florida Sales Associate license is self-paced, with no timed videos, lesson clock, or page timers. Take the three FastPass exams, built to closely match the content on the Pearson state exam, when you’re ready, and once you pass all three, you’re certified to take the Florida state exam. Course 1, the audio review, and the workbook are there for anything you want to review." },
     { name: "Can I just take the FastPass exams when I’m ready?", text: "Yes. FastPass for the Florida Sales Associate license is self-paced, with no lesson clock or page timers, so you can take the three FastPass exams whenever you’re ready. Many students go straight into the exams and use Course 1, the workbook, and the audio review to fill in whatever they still need. Passing all three certifies you to take the Florida state exam, which you still take separately." },
-    { name: "Does FastPass replace the Florida state licensing exam?", text: "No. The Florida state licensing exam is a separate exam administered by Pearson Professional Assessments (formerly Pearson VUE). FastPass is preparation and part of the course-certification path; you still take the state exam separately." },
+    { name: "Does FastPass replace the Florida state licensing exam?", text: "No. The Florida state licensing exam is a separate exam administered by Pearson Professional Assessments. FastPass is preparation and part of the course-certification path; you still take the state exam separately." },
     { name: "How long do I have access?", text: "Course bundles include one year of online access." },
     { name: "Can I contact the school directly?", text: "Yes. Text or email us at 239.471.8500 or daniel@daniellarsontraining.com about the course, exam preparation, or your licensing steps." },
     { name: "Can I get a printed workbook?", text: booksAnswer },
@@ -62,7 +67,7 @@ const schema = [
   canonicalPath="/"
   schema={schema}
 >
-  <div class="draft-sales">
+  <div class="draft-sales lic-style">
 
     <section class="draft-hero">
       <div class="wrap draft-hero-grid">
@@ -72,29 +77,165 @@ const schema = [
             <span class="draft-school">{site.tagline}</span>
           </p>
           <h1>Get your Florida real estate license <em class="fast">Fast</em> with FastPass.</h1>
-          <p class="lead">Self-paced Course 1, with no lesson clock, and three FastPass exams built to closely match the content on the Pearson state exam. Pass all three and you’re certified to take the state exam, so you get certified while you prep for it.</p>
+          <p class="lic-q">What’s the best way to get a Florida real estate license?</p>
+          <p class="lead">Take the state-required <em class="lic-em">63-hour pre-license course</em> with exam prep built in. That’s FastPass: pass <em class="lic-em">three FastPass exams</em> and you’re <em class="lic-em">certified to take the state exam.</em></p>
           <a class="draft-link-more" href="#whats-included">See what’s included <span aria-hidden="true">→</span></a>
         </div>
         <aside class="draft-hero-panel">
           <div class="draft-hero-price">${salePrice(products.salesFastPass)}<span>Most popular · one-time enrollment</span></div>
-          <h2>The complete licensing path.</h2>
-          <p>Course 1, FastPass certification exams that mirror the state exam, the workbook, audio review, math basics, and 500 sample questions, plus direct support.</p>
+          <h2>The complete <em>licensing path.</em></h2>
+          <p><em>Course 1</em>, FastPass certification exams that mirror the state exam, the workbook, audio review, math basics, and sample questions and answers, plus direct support.</p>
           <a class="draft-btn primary" data-plan={products.salesFastPass.id} data-placement="hero_panel" href={products.salesFastPass.checkoutUrl} target="_top">Start FastPass — ${salePrice(products.salesFastPass)}</a>
           <CheckoutNote />
         </aside>
       </div>
     </section>
 
+    <section class="draft-section soft" id="pricing">
+      <div class="wrap">
+        <p class="draft-eyebrow">Pricing</p>
+        <h2>Choose your <em>Sales licensing</em> package</h2>
+        <p class="intro">Three options. FastPass is the complete path most students choose.</p>
+        <div class="price-grid">
+          <article class="price-card">
+            <h3>Course 1 + Traditional Final</h3>
+            <div class="price">${salePrice(products.salesCourse1)}</div>
+            <p class="note">FastPass gets you certified and ready for the state exam at the same time, for just $80 more.</p>
+            <a class="draft-btn navy" data-plan={products.salesCourse1.id} data-placement="pricing_card" href={products.salesCourse1.checkoutUrl} target="_top">Enroll — ${salePrice(products.salesCourse1)}</a>
+            <CheckoutNote />
+          </article>
+          <article class="price-card popular">
+            <span class="price-badge">MOST POPULAR</span>
+            <h3>FastPass</h3>
+            <div class="price">${salePrice(products.salesFastPass)}</div>
+            <p class="note">The full FastPass bundle: Course 1, certification exams that mirror the state exam, workbook, audio review, math basics, and sample questions and answers. Certification and exam prep happen together. Want a printed workbook? Just ask and we&apos;ll send one free through Amazon.</p>
+            <a class="draft-btn primary" data-plan={products.salesFastPass.id} data-placement="pricing_card" href={products.salesFastPass.checkoutUrl} target="_top">Start FastPass — ${salePrice(products.salesFastPass)}</a>
+            <CheckoutNote />
+          </article>
+          <article class="price-card">
+            <h3>FastPass + Post</h3>
+            <div class="price">${salePrice(products.salesFastPassPost)}</div>
+            <p class="note">Best value: your required Post-Licensing course is included at a bundle price, ready for when you&apos;re licensed, before your first renewal.</p>
+            <a class="draft-btn navy" data-plan={products.salesFastPassPost.id} data-placement="pricing_card" href={products.salesFastPassPost.checkoutUrl} target="_top">Enroll — ${salePrice(products.salesFastPassPost)}</a>
+            <CheckoutNote />
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="draft-section lic-answer" id="how-to-get-licensed">
+      <div class="wrap">
+        <p class="draft-eyebrow">Florida real estate license course online</p>
+        <h2>How to get your <em>Florida real estate license</em>, step by step</h2>
+        <p class="intro">The whole path, from your application to an active license. FastPass covers the <em class="lic-em">63-hour pre-license course</em> (<em>Course 1</em>) and gets you ready for the separate state exam.</p>
+        <ol class="lic-steps">
+          <li><strong>Apply to DBPR.</strong><span>Submit the sales associate application. Your course can be in progress when you apply.</span></li>
+          <li><strong>Get fingerprinted.</strong><span>Through an FDLE-registered Livescan provider, right after you apply.</span></li>
+          <li><strong>Finish the 63-hour pre-license course.</strong><span>Earn your <em>Course 1</em> certificate with the traditional final, or with the three FastPass exams.</span></li>
+          <li><strong>Pass the state exam.</strong><span>Once DBPR approves your application, take the state exam with Pearson (formerly Pearson VUE).</span></li>
+          <li><strong>Activate your license.</strong><span>Your license becomes active with a Florida broker.</span></li>
+        </ol>
+        <p class="lic-fine">DBPR’s standard requirements include being at least 18, holding a high school diploma or equivalent, and having a U.S. Social Security number. <a href="/license-guides/how-to-get-florida-real-estate-license/">Full guide: how to get a Florida real estate license <span aria-hidden="true">→</span></a></p>
+      </div>
+    </section>
+
+    <section class="draft-section" id="compare">
+      <div class="wrap">
+        <p class="draft-eyebrow">Compare the bundles</p>
+        <h2>Compare your <em>sales licensing paths</em></h2>
+        <p class="intro">Every option includes the required Florida pre-license course, <em>Course 1</em>. Earn your course certification through the traditional final exam, or test out with the <em class="lic-em">three FastPass exams</em> when you’re ready. Add <a href="/post-licensing/">Post-Licensing</a> to cover your first-renewal period.</p>
+        <div class="compare-wrap">
+          <table class="compare-table">
+            <caption class="compare-sr">Real Estate FastPass sales associate package comparison</caption>
+            <colgroup><col class="compare-feature" /><col /><col /><col /></colgroup>
+            <thead>
+              <tr>
+                <th scope="col">Included</th>
+                <th scope="col">Course 1<small>${salePrice(products.salesCourse1)}</small></th>
+                <th scope="col" class="best">FastPass<small>${salePrice(products.salesFastPass)} · Most popular</small></th>
+                <th scope="col">FastPass + Post<small>${salePrice(products.salesFastPassPost)} · Full Package</small></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">DBPR-approved 63-hour <em>Course 1</em></th>
+                <td class="yes"><span aria-hidden="true">✓</span><span class="compare-sr">Included</span></td>
+                <td class="yes best"><span aria-hidden="true">✓</span><span class="compare-sr">Included</span></td>
+                <td class="yes"><span aria-hidden="true">✓</span><span class="compare-sr">Included</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Course certification for the state exam</th>
+                <td class="txt">Traditional final</td>
+                <td class="txt best">Three FastPass exams</td>
+                <td class="txt">Three FastPass exams</td>
+              </tr>
+              <tr>
+                <th scope="row"><em>Exam Math Basics</em></th>
+                <td class="yes"><span aria-hidden="true">✓</span><span class="compare-sr">Included</span></td>
+                <td class="yes best"><span aria-hidden="true">✓</span><span class="compare-sr">Included</span></td>
+                <td class="yes"><span aria-hidden="true">✓</span><span class="compare-sr">Included</span></td>
+              </tr>
+              <tr>
+                <th scope="row">One year of access + direct instructor support</th>
+                <td class="yes"><span aria-hidden="true">✓</span><span class="compare-sr">Included</span></td>
+                <td class="yes best"><span aria-hidden="true">✓</span><span class="compare-sr">Included</span></td>
+                <td class="yes"><span aria-hidden="true">✓</span><span class="compare-sr">Included</span></td>
+              </tr>
+              <tr>
+                <th scope="row"><em>FastPass Start</em></th>
+                <td class="dash"><span aria-hidden="true">—</span><span class="compare-sr">Not included</span></td>
+                <td class="yes best"><span aria-hidden="true">✓</span><span class="compare-sr">Included</span></td>
+                <td class="yes"><span aria-hidden="true">✓</span><span class="compare-sr">Included</span></td>
+              </tr>
+              <tr>
+                <th scope="row"><em>FastPass Workbook</em> (online + PDF; printed copy free on request)</th>
+                <td class="dash"><span aria-hidden="true">—</span><span class="compare-sr">Not included</span></td>
+                <td class="yes best"><span aria-hidden="true">✓</span><span class="compare-sr">Included</span></td>
+                <td class="yes"><span aria-hidden="true">✓</span><span class="compare-sr">Included</span></td>
+              </tr>
+              <tr>
+                <th scope="row"><em>Audio Ebook Review</em></th>
+                <td class="dash"><span aria-hidden="true">—</span><span class="compare-sr">Not included</span></td>
+                <td class="yes best"><span aria-hidden="true">✓</span><span class="compare-sr">Included</span></td>
+                <td class="yes"><span aria-hidden="true">✓</span><span class="compare-sr">Included</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Sample Questions and Answers with explanations</th>
+                <td class="dash"><span aria-hidden="true">—</span><span class="compare-sr">Not included</span></td>
+                <td class="yes best"><span aria-hidden="true">✓</span><span class="compare-sr">Included</span></td>
+                <td class="yes"><span aria-hidden="true">✓</span><span class="compare-sr">Included</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Required 45-hour <em>Sales Post-Licensing</em> course</th>
+                <td class="dash"><span aria-hidden="true">—</span><span class="compare-sr">Not included</span></td>
+                <td class="dash best"><span aria-hidden="true">—</span><span class="compare-sr">Not included</span></td>
+                <td class="yes"><span aria-hidden="true">✓</span><span class="compare-sr">Included</span></td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th scope="row"><span class="compare-sr">Enroll</span></th>
+                <td><a class="draft-btn navy" data-plan={products.salesCourse1.id} data-placement="comparison" href={products.salesCourse1.checkoutUrl} target="_top">Enroll</a></td>
+                <td class="best"><a class="draft-btn primary" data-plan={products.salesFastPass.id} data-placement="comparison" href={products.salesFastPass.checkoutUrl} target="_top">Start FastPass</a></td>
+                <td><a class="draft-btn navy" data-plan={products.salesFastPassPost.id} data-placement="comparison" href={products.salesFastPassPost.checkoutUrl} target="_top">Enroll</a></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <p class="compare-foot">One-time enrollment. State application, fingerprinting, and state-exam fees are paid separately. <a href="/license-guides/licensing-costs/">Plan your licensing budget →</a></p>
+      </div>
+    </section>
+
     <section class="draft-section" id="whats-included">
       <div class="wrap">
         <p class="draft-eyebrow">What you get</p>
-        <h2>What you get with FastPass</h2>
-        <p class="intro">Here’s what’s included — the complete FastPass bundle.</p>
+        <h2>What you get with <em>FastPass</em></h2>
+        <p class="intro">Here’s what’s included — the complete FastPass bundle: the Florida Sales Associate pre-license course plus <em class="lic-em">FastPass exam prep</em>.</p>
         <ol class="draft-bundle">
           <li id="include-course-1">
             <span class="num">1</span>
             <div>
-              <h3>Course 1 (DBPR-approved 63-hour)</h3>
+              <h3><em>Course 1</em> (DBPR-approved 63-hour)</h3>
               <p>The required Florida Sales Associate pre-license course.</p>
             </div>
           </li>
@@ -136,7 +277,7 @@ const schema = [
           <li id="include-sample-questions">
             <span class="num">7</span>
             <div>
-              <h3>500 Sample Q&amp;A with explanations</h3>
+              <h3>Sample Questions and Answers with explanations</h3>
               <p>Practice questions with answers and explanations, so you can see why an answer is right.</p>
             </div>
           </li>
@@ -158,6 +299,18 @@ const schema = [
       </div>
     </section>
 
+    <section class="draft-section" id="course-books">
+      <div class="wrap">
+        <p class="draft-eyebrow">Course books</p>
+        <h2>Want course books? Easy — just ask.</h2>
+        <p class="intro">You don&apos;t need printed books. All course content is included online. Prefer printed copies? Just ask, and we&apos;ll ship your course books to you free through Amazon.</p>
+        <div class="draft-feature-grid">
+          <article class="draft-feature"><h3>Everything is included online</h3><p>Your course is all online, and FastPass and the Full Package, FastPass + Post, include the FastPass Workbook to read online or download as a PDF.</p></article>
+          <article class="draft-feature"><h3>Free printed course books</h3><p><a href="sms:+12394718500">Text</a> or <a href="mailto:daniel@daniellarsontraining.com">email</a> your name, shipping address, and course. There is no charge for the books or shipping.</p></article>
+        </div>
+      </div>
+    </section>
+
     <section class="draft-section navy" id="why-daniel">
       <div class="wrap why-grid">
         <img class="why-photo" src="/daniel-larson-teaching.webp" alt="Daniel Larson teaching a Florida real estate class" width="1200" height="800" loading="lazy" decoding="async" />
@@ -174,45 +327,13 @@ const schema = [
       </div>
     </section>
 
-    <section class="draft-section soft" id="pricing">
-      <div class="wrap">
-        <p class="draft-eyebrow">Pricing</p>
-        <h2>Choose your Sales licensing package</h2>
-        <p class="intro">Three options. FastPass is the complete path most students choose.</p>
-        <div class="price-grid">
-          <article class="price-card">
-            <h3>Course 1 + Traditional Final</h3>
-            <div class="price">${salePrice(products.salesCourse1)}</div>
-            <p class="note">FastPass gets you certified and ready for the state exam at the same time, for just $80 more.</p>
-            <a class="draft-btn navy" data-plan={products.salesCourse1.id} data-placement="pricing_card" href={products.salesCourse1.checkoutUrl} target="_top">Enroll — ${salePrice(products.salesCourse1)}</a>
-            <CheckoutNote />
-          </article>
-          <article class="price-card popular">
-            <span class="price-badge">MOST POPULAR</span>
-            <h3>FastPass</h3>
-            <div class="price">${salePrice(products.salesFastPass)}</div>
-            <p class="note">The full FastPass bundle: Course 1, certification exams that mirror the state exam, workbook, audio review, math basics, and 500 sample questions. Certification and exam prep happen together. Want a printed workbook? Just ask and we&apos;ll send one free through Amazon.</p>
-            <a class="draft-btn primary" data-plan={products.salesFastPass.id} data-placement="pricing_card" href={products.salesFastPass.checkoutUrl} target="_top">Start FastPass — ${salePrice(products.salesFastPass)}</a>
-            <CheckoutNote />
-          </article>
-          <article class="price-card">
-            <h3>FastPass + Post</h3>
-            <div class="price">${salePrice(products.salesFastPassPost)}</div>
-            <p class="note">Best value: your required Post-Licensing course is included at a bundle price, ready for when you&apos;re licensed, before your first renewal.</p>
-            <a class="draft-btn navy" data-plan={products.salesFastPassPost.id} data-placement="pricing_card" href={products.salesFastPassPost.checkoutUrl} target="_top">Enroll — ${salePrice(products.salesFastPassPost)}</a>
-            <CheckoutNote />
-          </article>
-        </div>
-      </div>
-    </section>
-
     <TrustpilotReviews context="school" />
 
     <section class="draft-section" id="sample-questions">
       <div class="wrap">
         <p class="draft-eyebrow">Try it</p>
         <h2>Sample questions</h2>
-        <p class="intro">Three real practice questions from the course. Choose an answer or reveal it — no account required.</p>
+        <p class="intro">Three practice questions from the course. Choose an answer or reveal it — no account required.</p>
         <div class="teaser-grid">
           {homeTeaserQuestions.map((item) => <PracticeQuestion item={item} />)}
         </div>
@@ -223,21 +344,38 @@ const schema = [
     </section>
 
     <div class="wrap">
-      <p class="exam-prep-line">Already finished Course 1 elsewhere? <a href="/exam-prep/">Exam prep only — $130</a></p>
+      <p class="exam-prep-line">Already finished Course 1 elsewhere? <a href="/exam-prep/">Exam prep only — ${salePrice(products.salesExamPrep)}</a></p>
     </div>
+
+    <section class="draft-section home-mr-section" id="reciprocity" aria-labelledby="home-mr-title">
+      <div class="wrap">
+        <div class="home-mr">
+          <div class="home-mr-copy">
+            <p class="draft-eyebrow">Licensed in another state?</p>
+            <h2 id="home-mr-title">Florida reciprocity is our <em>specialty</em>.</h2>
+            <p>Officially called Florida mutual recognition, it covers 9 states. If you hold an active sales associate or broker license from one of them, our state package walks you through the Florida application step by step.</p>
+          </div>
+          <ul class="home-mr-states" aria-label="Florida mutual recognition states">
+            {mrStates.map((s) => <li><a href={`/mutual-recognition/#state-${s.slug}`}>{s.name}</a></li>)}
+          </ul>
+          <a class="draft-btn navy home-mr-btn" href="/mutual-recognition/">See if you qualify <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
 
     <section class="draft-section soft" id="faq">
       <div class="wrap">
         <p class="draft-eyebrow">Questions</p>
         <h2>Florida Real Estate Licensing FAQ</h2>
-        <div class="faq-list">
-          <details><summary>How much do the Sales licensing packages cost?</summary><p>{pricingAnswer}</p></details>
-          <details><summary>What is included in the FastPass package?</summary><p>FastPass is ${salePrice(products.salesFastPass)}. The package includes the DBPR-approved 63-hour Course 1, three FastPass certification exams, Exam Math Basics, 500+ practice questions and explanations, audio ebook review, the FastPass Workbook online and as a PDF, one year of access, and direct support.</p></details>
+        <div class="faq-list faq-two">
+          {salesBuyerFaqs.map((f) => (<details><summary>{f.q}</summary><p>{f.a}</p></details>))}
+          <details><summary>What is included in the FastPass package?</summary><p>FastPass is ${salePrice(products.salesFastPass)}. The package includes the DBPR-approved 63-hour Course 1, three FastPass certification exams, Exam Math Basics, sample questions and answers with explanations, audio ebook review, the FastPass Workbook online and as a PDF, one year of access, and direct support.</p></details>
           <details><summary>How is FastPass different?</summary><p>FastPass for the Florida Sales Associate license is three certification exams built to closely match the content on the Pearson state exam, used in place of the traditional Course 1 final. Pass all three and you’re certified to take the Florida state exam, so course certification and state-exam prep happen at the same time. Course 1 with the traditional final uses a standard course final instead. FastPass is self-paced, so you take the exams when you’re ready, and you still take the Florida state licensing exam separately.</p></details>
+          <details><summary>What is the 63-hour pre-license course?</summary><p>It’s Course 1, the Florida Sales Associate pre-license course approved by DBPR. Earning your Course 1 certificate is what qualifies you to take the Florida state exam. FastPass is the complete path most students choose: Course 1 with exam prep and three FastPass certification exams built in. Course 1 is also offered with the traditional final, or as FastPass + Post.</p></details>
           <details><summary>What’s the fastest way to get my Florida real estate license?</summary><p>The fastest way to get your Florida real estate license with Real Estate FastPass is to work through FastPass at your own pace instead of on a lesson clock. FastPass pairs the self-paced 63-hour Course 1 with three certification exams built to closely match the content on the Pearson state exam, and once you pass all three, you’re certified to take the Florida state exam. There are no page timers or forced lesson stops, so students who already know the material can go straight to the FastPass exams, and the course, workbook, and audio review are there for anything they want to brush up on.</p></details>
           <details><summary>Do I have to sit through 63 hours of timed videos?</summary><p>No. FastPass for the Florida Sales Associate license is self-paced, with no timed videos, lesson clock, or page timers. Take the three FastPass exams, built to closely match the content on the Pearson state exam, when you’re ready, and once you pass all three, you’re certified to take the Florida state exam. Course 1, the audio review, and the workbook are there for anything you want to review.</p></details>
           <details><summary>Can I just take the FastPass exams when I’m ready?</summary><p>Yes. FastPass for the Florida Sales Associate license is self-paced, with no lesson clock or page timers, so you can take the three FastPass exams whenever you’re ready. Many students go straight into the exams and use Course 1, the workbook, and the audio review to fill in whatever they still need. Passing all three certifies you to take the Florida state exam, which you still take separately.</p></details>
-          <details><summary>Does FastPass replace the Florida state licensing exam?</summary><p>No. The Florida state licensing exam is a separate exam administered by <a href="https://www.pearsonvue.com/us/en/fl/dbpr.html" rel="noopener" target="_blank">Pearson Professional Assessments</a> (formerly Pearson VUE). FastPass is preparation and part of the course-certification path; you still take the state exam separately.</p></details>
+          <details><summary>Does FastPass replace the Florida state licensing exam?</summary><p>No. The Florida state licensing exam is a separate exam administered by <a href="https://www.pearsonvue.com/us/en/fl/dbpr.html" rel="noopener" target="_blank">Pearson Professional Assessments</a>. FastPass is preparation and part of the course-certification path; you still take the state exam separately.</p></details>
           <details><summary>How long do I have access?</summary><p>Course bundles include one year of online access.</p></details>
           <details><summary>Can I contact the school directly?</summary><p>Yes. Text or email us at <a href="sms:+12394718500">239.471.8500</a> or <a href="mailto:daniel@daniellarsontraining.com">daniel@daniellarsontraining.com</a> about the course, exam preparation, or your licensing steps.</p></details>
           <details><summary>Can I get a printed workbook?</summary><p>{booksAnswer}</p></details>
@@ -247,7 +385,7 @@ const schema = [
 
     <section class="draft-section navy final-cta">
       <div class="wrap">
-        <h2>Ready to get your Florida real estate license?</h2>
+        <h2>Ready to get your <em>Florida real estate license?</em></h2>
         <span class="checkout-cta">
           <a class="draft-btn primary" data-plan={products.salesFastPass.id} data-placement="final_cta" href={products.salesFastPass.checkoutUrl} target="_top">Start FastPass — ${salePrice(products.salesFastPass)}</a>
           <CheckoutNote />

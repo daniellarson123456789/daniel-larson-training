@@ -6,12 +6,13 @@ import { site } from "../data/site";
 import { products, salePrice } from "../data/products";
 import { courseOffer } from "../lib/courseOffer";
 import { faqPage } from "../lib/seo";
+import { postFaqs } from "../data/renewalFaqs";
 import "../styles/draft-sales.css";
 
 const sales = products.salesPost;
 const broker = products.brokerPost;
-const pageTitle = "Florida Post-Licensing: Self-Paced + FastPass | Real Estate FastPass";
-const pageDescription = `Florida 45-hour Sales Post $${salePrice(sales)}; 60-hour Broker Post $${salePrice(broker)}. Self-paced, no page timers: take the included FastPass final when you’re ready to test out. DBPR reporting included.`;
+const pageTitle = "Fastest Way to Finish Florida Post-Licensing Online | Final Exam When Ready | Real Estate FastPass";
+const pageDescription = `The fastest way to finish Florida Post-Licensing online: self-paced 45-hour Sales ($${salePrice(sales)}) and 60-hour Broker ($${salePrice(broker)}) courses with no page timers. Take the FastPass final exam when you’re ready; DBPR reporting included.`;
 
 const schema = [
   {
@@ -32,7 +33,8 @@ const schema = [
     "@id": `${site.url}/post-licensing/#sales-post`,
     url: `${site.url}/post-licensing/#sales-post`,
     name: "Florida 45-Hour Sales Associate Post-Licensing",
-    description: "Self-paced Sales Associate first-renewal Post-Licensing with section PDFs, narrated lessons, review questions, and an included FastPass final exam.",
+    description: "Online, self-paced 45-hour Sales Associate Post-Licensing, required before the first license renewal, with section PDFs, narrated lessons, review questions, an included FastPass final exam, and DBPR completion reporting.",
+    educationalLevel: "Florida Sales Associate Post-Licensing (first renewal)",
     provider: { "@id": `${site.url}/#organization` },
     inLanguage: "en-US",
     offers: courseOffer(products.salesPost),
@@ -42,20 +44,13 @@ const schema = [
     "@id": `${site.url}/post-licensing/#broker-post`,
     url: `${site.url}/post-licensing/#broker-post`,
     name: "Florida 60-Hour Broker Post-Licensing",
-    description: "Self-paced Broker and Broker Associate first-renewal Post-Licensing with course material and an included FastPass final exam.",
+    description: "Online, self-paced 60-hour Broker and Broker Associate Post-Licensing, required before the first license renewal, with course material, an included FastPass final exam, and DBPR completion reporting.",
+    educationalLevel: "Florida Broker Post-Licensing (first renewal)",
     provider: { "@id": `${site.url}/#organization` },
     inLanguage: "en-US",
     offers: courseOffer(products.brokerPost),
   },
-  faqPage(`${site.url}/post-licensing/#faq`, [
-    { name: "How much do the Post-Licensing courses cost?", text: `The complete 45-hour Sales Associate Post-Licensing course is $${salePrice(sales)}. The complete 60-hour Broker Post-Licensing course is $${salePrice(broker)}. Each is a one-time enrollment including course materials, FastPass final exam, and DBPR completion reporting. State license renewal fees are separate.` },
-    { name: "Can I take Post-Licensing before I am licensed?", text: "No. Post-Licensing can only be completed after you are licensed. It is required before your first renewal. You can enroll now so the course is ready when you need it, but you complete the course after licensure." },
-    { name: "Do I have to sit through 45 hours of timed videos?", text: "No. Florida Post-Licensing with FastPass, both the 45-hour Sales and 60-hour Broker courses, is self-paced, with no timed videos, lesson clock, or page timers. Take the included FastPass final exam when you’re ready to test out, and use the narrated lessons, section PDFs, and review questions for anything you want to review. After you pass, we report your completion to DBPR." },
-    { name: "I already know this stuff. Can I just take the final?", text: "Yes. Florida Post-Licensing with FastPass is self-paced, and the FastPass final exam is included, so you can take it whenever you’re ready to test out. The full course is there if you want a refresher, with no page timers or forced lesson stops, and after you pass, we report your completion to DBPR." },
-    { name: "Is there a way to finish Post faster?", text: "Florida Post-Licensing with FastPass is self-paced, so it moves as fast as you do. There’s no lesson clock: read, listen, or skip ahead to what you want to review, and take the included FastPass final exam when you’re ready to test out. After you pass, we report your completion to DBPR." },
-    { name: "Is the FastPass final exam included?", text: "Yes. Both Post bundles include the complete course with FastPass final exam. Read the section PDFs, listen to narrated lessons, and work through review questions at your own pace. If you already know the material, go straight to the included final exam when you're ready to test out. There are no page timers or forced lesson stops." },
-    { name: "How is completion reported to DBPR?", text: "Your licensed name and license number are collected before the final exam. After you pass, completion reporting to DBPR is automated and handled within 1 business day, guaranteed. You complete and pay for your separate license renewal through MyFloridaLicense.com." },
-  ]),
+  faqPage(`${site.url}/post-licensing/#faq`, postFaqs.map((f) => ({ name: f.q, text: f.a }))),
 ];
 ---
 
@@ -65,7 +60,7 @@ const schema = [
   canonicalPath="/post-licensing/"
   schema={schema}
 >
-  <div class="draft-sales">
+  <div class="draft-sales lic-style">
     <section class="draft-hero">
       <div class="wrap draft-hero-grid hero-dual">
         <div class="draft-hero-intro">
@@ -73,13 +68,14 @@ const schema = [
             <span class="draft-brand">{site.name}</span>
             <span class="draft-school">{site.tagline}</span>
           </p>
-          <h1>Self-paced Post-Licensing. Test out when you’re ready.</h1>
-          <p class="lead">Cover the material your way, with audio, PDF, and review questions, then take the included FastPass final when you’re ready.</p>
+          <h1>The fastest way to finish <em class="fast">Post‑Licensing</em> online in Florida.</h1>
+          <p class="lic-q">What’s the fastest way to finish Florida <em class="lic-em">Post‑Licensing?</em></p>
+          <p class="lead">Take it online with <em class="lic-em">FastPass.</em> It’s self-paced with no page timers, so if you already know the material you can move fast, then take the final exam when you’re ready.</p>
           <a class="draft-link-more" href="#post-options">See your options <span aria-hidden="true">→</span></a>
         </div>
         <aside class="draft-hero-panel">
-          <h2>Take the exam when ready.</h2>
-          <p>Your enrollment includes the complete Post course and FastPass final exam. Use the materials to prepare. Go straight to the FastPass final when you’re ready.</p>
+          <h2>Due before your first renewal.</h2>
+          <p>Finish before the first expiration date on your license. Your enrollment includes the complete course, the FastPass final exam, and DBPR completion reporting.</p>
           <div class="hero-panel-actions">
             <a class="draft-btn outline" data-plan={sales.id} data-placement="hero_panel" href={sales.checkoutUrl} target="_top">Sales Post-Licensing — ${salePrice(sales)}</a>
             <a class="draft-btn primary" data-plan={broker.id} data-placement="hero_panel" href={broker.checkoutUrl} target="_top">Broker Post-Licensing — ${salePrice(broker)}</a>
@@ -97,20 +93,34 @@ const schema = [
         <div class="price-grid two">
           <article class="price-card popular" id="sales-post">
             <span class="price-badge">Sales Associate · First Renewal</span>
-            <h3>45-Hour Sales Post</h3>
+            <h3>45‑Hour Sales Post</h3>
             <div class="price">${salePrice(sales)}</div>
-            <p class="note">For Florida sales associates completing first-renewal Post-Licensing. Downloadable section PDFs, narrated lessons, review questions, and a FastPass final exam. Ready to test out? Take the final without waiting through lessons.</p>
+            <p class="note">For Florida sales associates completing first-renewal Post-Licensing. Downloadable section PDFs, narrated lessons, review questions, and a FastPass final exam. Take the final when you’re ready, without waiting through lessons.</p>
             <a class="draft-btn primary" data-plan={sales.id} data-placement="pricing_card" href={sales.checkoutUrl} target="_top">Enroll in Sales Post — ${salePrice(sales)}</a>
             <CheckoutNote />
           </article>
           <article class="price-card" id="broker-post">
             <span class="price-badge">Broker or Broker Associate</span>
-            <h3>60-Hour Broker Post</h3>
+            <h3>60‑Hour Broker Post</h3>
             <div class="price">${salePrice(broker)}</div>
-            <p class="note">For Florida brokers and broker associates completing first-renewal Post-Licensing. Broker-focused section PDFs, narrated lessons, review questions, and a FastPass final exam. Ready to test out? Take the final without waiting through lessons.</p>
+            <p class="note">For Florida brokers and broker associates completing first-renewal Post-Licensing. Broker-focused section PDFs, narrated lessons, review questions, and a FastPass final exam. Take the final when you’re ready, without waiting through lessons.</p>
             <a class="draft-btn navy" data-plan={broker.id} data-placement="pricing_card" href={broker.checkoutUrl} target="_top">Enroll in Broker Post — ${salePrice(broker)}</a>
             <CheckoutNote />
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="draft-section" id="post-deadline">
+      <div class="wrap">
+        <p class="draft-eyebrow">Your first renewal</p>
+        <h2>Your first renewal needs <em>Post‑Licensing</em></h2>
+        <p class="intro">To renew your license the first time, you complete Post‑Licensing before your first expiration date. Florida licenses expire on March 31 or September 30, and your first one comes 18 to 24 months after you’re licensed.</p>
+        <div class="draft-feature-grid">
+          <article class="draft-feature"><h3>Find your date</h3><p>Your expiration date is in your <a href="https://www2.myfloridalicense.com/">DBPR account at MyFloridaLicense.com</a>. Not sure yet? <a href="/license-guides/post-licensing-vs-ce/">Estimate your renewal dates</a>.</p></article>
+          <article class="draft-feature"><h3>If you miss it</h3><p>The license becomes null and void, and a later course can’t fix it. <a href="/license-guides/missed-post-licensing-deadline/">See what can still be done</a>.</p></article>
+          <article class="draft-feature"><h3>After your first renewal</h3><p>You switch to <a href="/14ce/">14-hour CE online</a> every two years: Core Law, Ethics, and specialty hours.</p></article>
+          <article class="draft-feature"><h3>Not sure what you need?</h3><p><a href="sms:+12394718500">Text Daniel at {site.phoneDisplay}</a> with your question and he’ll tell you exactly what you need.</p></article>
         </div>
       </div>
     </section>
@@ -134,15 +144,9 @@ const schema = [
     <section class="draft-section soft" id="faq">
       <div class="wrap">
         <p class="draft-eyebrow">Questions</p>
-        <h2>Post-Licensing FAQ</h2>
+        <h2>Your Post‑Licensing questions, answered</h2>
         <div class="faq-list">
-          <details><summary>How much do the Post-Licensing courses cost?</summary><p>The complete 45-hour Sales Associate Post-Licensing course is <strong>${salePrice(sales)}</strong>. The complete 60-hour Broker Post-Licensing course is <strong>${salePrice(broker)}</strong>. Each is a one-time enrollment including course materials, FastPass final exam, and DBPR completion reporting. State license renewal fees are separate.</p></details>
-          <details><summary>Can I take Post-Licensing before I am licensed?</summary><p>No. Post-Licensing can only be completed after you are licensed. It is required before your first renewal. You can enroll now so the course is ready when you need it, but you complete the course after licensure.</p></details>
-          <details><summary>Do I have to sit through 45 hours of timed videos?</summary><p>No. Florida Post-Licensing with FastPass, both the 45-hour Sales and 60-hour Broker courses, is self-paced, with no timed videos, lesson clock, or page timers. Take the included FastPass final exam when you’re ready to test out, and use the narrated lessons, section PDFs, and review questions for anything you want to review. After you pass, we report your completion to DBPR.</p></details>
-          <details><summary>I already know this stuff. Can I just take the final?</summary><p>Yes. Florida Post-Licensing with FastPass is self-paced, and the FastPass final exam is included, so you can take it whenever you’re ready to test out. The full course is there if you want a refresher, with no page timers or forced lesson stops, and after you pass, we report your completion to DBPR.</p></details>
-          <details><summary>Is there a way to finish Post faster?</summary><p>Florida Post-Licensing with FastPass is self-paced, so it moves as fast as you do. There’s no lesson clock: read, listen, or skip ahead to what you want to review, and take the included FastPass final exam when you’re ready to test out. After you pass, we report your completion to DBPR.</p></details>
-          <details><summary>Is the FastPass final exam included?</summary><p>Yes. Both Post bundles include the complete course with FastPass final exam. Read the section PDFs, listen to narrated lessons, and work through review questions at your own pace. If you already know the material, go straight to the included final exam when you’re ready to test out. There are no page timers or forced lesson stops.</p></details>
-          <details><summary>How is completion reported to DBPR?</summary><p>Your licensed name and license number are collected before the final exam. After you pass, completion reporting to DBPR is automated and handled within 1 business day, guaranteed. You complete and pay for your separate license renewal through MyFloridaLicense.com.</p></details>
+          {postFaqs.map((f) => (<details><summary>{f.q}</summary><p>{f.a}</p></details>))}
         </div>
       </div>
     </section>

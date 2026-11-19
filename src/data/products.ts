@@ -87,7 +87,7 @@ export const products: Record<string, Product> = {
     id: "sales-exam-prep",
     name: "Florida Sales Associate Exam Prep",
     shortName: "Sales Exam Prep",
-    price: 130,
+    price: 100,
     category: "exam-prep",
     checkoutUrl: "https://portal.daniellarsontraining.com/enroll/2817702",
   },

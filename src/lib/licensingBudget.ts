@@ -58,7 +58,7 @@ export function renderLicensingBudget(path: LicensingPath) {
         <caption>${config.label} initial licensing costs in US dollars</caption>
         <thead><tr><th scope="col">Expense</th><th scope="col">Price</th></tr></thead>
         <tbody>
-          <tr><th scope="row">${config.label}<small>Paid to Daniel Larson Training</small></th>${amountCells(product.price)}</tr>
+          <tr><th scope="row">${config.label}<small>Paid to Real Estate FastPass</small></th>${amountCells(product.price)}</tr>
           <tr><th scope="row"><a href="${config.applicationUrl}">State application</a><small>Paid to DBPR</small></th>${amountCells(config.application)}</tr>
           <tr><th scope="row"><a href="${feeSources.exam.url}">State licensing exam</a><small>One attempt, paid to Pearson</small></th>${amountCells(feeSources.exam.amount)}</tr>
         </tbody>

@@ -3,7 +3,19 @@
     if (window.__fastpassPracticeBound) return;
     window.__fastpassPracticeBound = true;
 
-    function reveal(card, selectedKey) {
+    // GA4 via the site's existing gtag (only defined on production hostnames).
+    function track(name, params) {
+      if (typeof window.gtag !== "function") return;
+      var payload = params || {};
+      payload.page_path = window.location.pathname;
+      window.gtag("event", name, payload);
+    }
+
+    // Marks the card answered. opts.silent = restore from saved progress (no events).
+    function reveal(card, selectedKey, opts) {
+      opts = opts || {};
+      if (card.getAttribute("data-revealed") === "true") return;
+      card.setAttribute("data-revealed", "true");
       var answer = card.getAttribute("data-answer");
       var answerText = card.getAttribute("data-answer-text") || "";
       var result = card.querySelector(".practice-result");
@@ -29,7 +41,24 @@
       if (block) block.hidden = false;
       var revealBtn = card.querySelector(".practice-reveal");
       if (revealBtn) revealBtn.hidden = true;
+
+      var qid = card.getAttribute("data-qid") || "";
+      var correct = !!selectedKey && selectedKey === answer;
+      if (!opts.silent) {
+        if (selectedKey) {
+          track("sq_answer", { question_id: qid, correct: correct, selected: selectedKey });
+        } else {
+          track("sq_reveal", { question_id: qid });
+        }
+      }
+      card.dispatchEvent(
+        new CustomEvent("practice:answered", {
+          bubbles: true,
+          detail: { qid: qid, selected: selectedKey, correct: correct, silent: !!opts.silent },
+        })
+      );
     }
+    window.__fastpassPracticeReveal = reveal;
 
     document.addEventListener("click", function (event) {
       var target = event.target;
@@ -60,6 +89,8 @@
           if (iframe && iframe.dataset.src && !iframe.getAttribute("src")) {
             iframe.setAttribute("src", iframe.dataset.src);
           }
+          var vcard = watchBtn.closest(".practice-q");
+          track("sq_video_click", { question_id: (vcard && vcard.getAttribute("data-qid")) || "" });
         }
       }
     });
@@ -67,33 +98,183 @@
     var quiz = document.querySelector(".sample-quiz");
     if (!quiz) return;
 
-    var slides = Array.prototype.slice.call(quiz.querySelectorAll(".sample-slide"));
-    var total = slides.length;
-    var index = 0;
+    var STORE_KEY = "fp_sample_questions_v1";
+    var MID_CTA_AFTER = 10;
+    var allSlides = Array.prototype.slice.call(quiz.querySelectorAll(".sample-slide"));
+    var allDots = Array.prototype.slice.call(quiz.querySelectorAll(".sample-dot"));
+    var topicBtns = Array.prototype.slice.call(quiz.querySelectorAll(".sample-topic"));
+    var topicRow = quiz.querySelector(".sample-topics");
+
+    // Horizontal chip row (scrolls on phones). Only scrolls the row itself, never the page.
+    function scrollChipsToStart() {
+      if (topicRow) topicRow.scrollLeft = 0;
+    }
+    function ensureChipVisible(chip) {
+      if (!topicRow || !chip) return;
+      var left = chip.getBoundingClientRect().left - topicRow.getBoundingClientRect().left + topicRow.scrollLeft;
+      var right = left + chip.offsetWidth;
+      if (left < topicRow.scrollLeft) topicRow.scrollLeft = Math.max(0, left - 8);
+      else if (right > topicRow.scrollLeft + topicRow.clientWidth) topicRow.scrollLeft = right - topicRow.clientWidth + 8;
+    }
     var countEl = quiz.querySelector(".sample-prog-count");
+    var scoreEl = quiz.querySelector(".sample-score");
     var barEl = quiz.querySelector(".sample-bar-fill");
-    var dots = Array.prototype.slice.call(quiz.querySelectorAll(".sample-dot"));
     var prevBtn = quiz.querySelector("[data-sample-prev]");
     var nextBtn = quiz.querySelector("[data-sample-next]");
     var finish = quiz.querySelector(".sample-finish");
+    var finishScore = quiz.querySelector(".sample-finish-score");
+    var finishNote = quiz.querySelector(".sample-finish-note");
+    var restartBtn = quiz.querySelector("[data-sample-restart]");
     var midCta = quiz.querySelector(".sample-mid-cta");
 
-    function show(i) {
+    var state = load();
+    var topic = "all";
+    var slides = allSlides;
+    var dots = allDots;
+    var index = 0;
+    var completedSent = {};
+
+    function load() {
+      var empty = { answers: {}, topic: "all", qid: null, finished: {}, attempts: {} };
+      try {
+        var raw = window.localStorage.getItem(STORE_KEY);
+        if (!raw) return empty;
+        var parsed = JSON.parse(raw);
+        if (!parsed || typeof parsed !== "object") return empty;
+        parsed.answers = parsed.answers && typeof parsed.answers === "object" ? parsed.answers : {};
+        parsed.finished = parsed.finished && typeof parsed.finished === "object" ? parsed.finished : {};
+        parsed.attempts = parsed.attempts && typeof parsed.attempts === "object" ? parsed.attempts : {};
+        return parsed;
+      } catch (e) {
+        return empty;
+      }
+    }
+    function save() {
+      try {
+        window.localStorage.setItem(STORE_KEY, JSON.stringify(state));
+      } catch (e) {}
+    }
+
+    function slideQid(slide) {
+      return slide.getAttribute("data-qid");
+    }
+    function anchorFor(qid) {
+      return "q-" + String(qid).replace(/\./g, "-");
+    }
+    function qidFromHash() {
+      var h = (window.location.hash || "").replace(/^#/, "");
+      var m = /^q-(\d+)-(\d+)$/.exec(h);
+      return m ? m[1] + "." + m[2] : null;
+    }
+
+    function score() {
+      var correct = 0;
+      var answered = 0;
+      var revealedOnly = 0;
+      slides.forEach(function (slide) {
+        var a = state.answers[slideQid(slide)];
+        if (!a) return;
+        if (a.selected) {
+          answered++;
+          if (a.correct) correct++;
+        } else {
+          revealedOnly++;
+        }
+      });
+      return { correct: correct, answered: answered, revealedOnly: revealedOnly, total: slides.length };
+    }
+
+    function setHash(qid) {
+      if (!window.history || !window.history.replaceState) return;
+      var url = window.location.pathname + window.location.search + (qid ? "#" + anchorFor(qid) : "");
+      window.history.replaceState(null, "", url);
+    }
+
+    function applyTopic(key) {
+      var exists = key === "all" || topicBtns.some(function (b) { return b.getAttribute("data-topic") === key; });
+      topic = exists ? key : "all";
+      slides = allSlides.filter(function (s) {
+        return topic === "all" || s.getAttribute("data-topic") === topic;
+      });
+      dots = allDots.filter(function (d) {
+        return topic === "all" || d.getAttribute("data-topic") === topic;
+      });
+      allSlides.forEach(function (s) { s.hidden = true; });
+      allDots.forEach(function (d) {
+        d.hidden = dots.indexOf(d) === -1;
+      });
+      dots.forEach(function (d, n) {
+        d.setAttribute("aria-label", "Question " + (n + 1) + " of " + dots.length);
+      });
+      topicBtns.forEach(function (b) {
+        var on = b.getAttribute("data-topic") === topic;
+        b.classList.toggle("is-active", on);
+        b.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+      state.topic = topic;
+    }
+
+    function currentRevealed() {
+      var slide = slides[index];
+      var card = slide && slide.querySelector(".practice-q");
+      return !!card && card.getAttribute("data-revealed") === "true";
+    }
+
+    function updateMidCta(done) {
+      if (!midCta) return;
+      // Light inline CTA once the visitor has finished question 10 of the current set.
+      var reached = index >= MID_CTA_AFTER || (index === MID_CTA_AFTER - 1 && currentRevealed());
+      midCta.hidden = done || slides.length < MID_CTA_AFTER || !reached;
+    }
+
+    function updateScore(done) {
+      var s = score();
+      if (scoreEl) {
+        scoreEl.hidden = s.answered === 0;
+        scoreEl.textContent = s.correct + " correct of " + s.answered + " answered";
+      }
+      if (done && finishScore) {
+        finishScore.textContent = "You got " + s.correct + " of " + s.total + " correct.";
+        if (finishNote) {
+          finishNote.hidden = s.revealedOnly === 0;
+          finishNote.textContent = s.revealedOnly > 0
+            ? "(" + s.revealedOnly + (s.revealedOnly === 1 ? " answer" : " answers") + " revealed without picking.)"
+            : "";
+        }
+      }
+      return s;
+    }
+
+    function show(i, opts) {
+      opts = opts || {};
+      var total = slides.length;
       index = Math.max(0, Math.min(i, total));
       var done = index >= total;
-      slides.forEach(function (slide, n) {
-        slide.hidden = done || n !== index;
-      });
+      allSlides.forEach(function (slide) { slide.hidden = true; });
+      if (!done && slides[index]) slides[index].hidden = false;
       if (finish) finish.hidden = !done;
+      // On the finish card, bring "All" back into view on phones.
+      if (done) scrollChipsToStart();
       if (countEl) {
         countEl.textContent = done ? "Finished" : "Question " + (index + 1) + " of " + total;
       }
       if (barEl) {
-        barEl.style.width = ((done ? total : index + 1) / total) * 100 + "%";
+        // On the finish card, jump straight to a full bar (no mid-animation partial fill).
+        barEl.classList.toggle("is-complete", done);
+        if (done) {
+          var prevTransition = barEl.style.transition;
+          barEl.style.transition = "none";
+          barEl.style.width = "100%";
+          void barEl.offsetWidth;
+          barEl.style.transition = prevTransition;
+        } else {
+          barEl.style.width = total ? ((index + 1) / total) * 100 + "%" : "0%";
+        }
       }
       dots.forEach(function (dot, n) {
+        var qid = slideQid(slides[n]);
         dot.classList.toggle("is-current", !done && n === index);
-        dot.classList.toggle("is-done", n < index || done);
+        dot.classList.toggle("is-done", !!state.answers[qid] || done);
         dot.setAttribute("aria-current", !done && n === index ? "step" : "false");
       });
       if (prevBtn) {
@@ -104,14 +285,78 @@
         nextBtn.hidden = done;
         nextBtn.textContent = index === total - 1 ? "Finish" : "Next";
       }
-      if (midCta) {
-        midCta.hidden = done || (index + 1) % 3 !== 0;
+      updateMidCta(done);
+      var s = updateScore(done);
+      if (done) {
+        state.qid = null;
+        state.finished[topic] = true;
+        if (!opts.silent && !completedSent[topic]) {
+          completedSent[topic] = true;
+          var attempt = (Number(state.attempts[topic]) || 0) + 1;
+          state.attempts[topic] = attempt;
+          track("sq_complete", {
+            score: s.correct,
+            answered: s.answered,
+            total: s.total,
+            topic: topic,
+            attempt: attempt,
+            is_repeat: attempt > 1,
+          });
+        }
+        if (!opts.keepHash) setHash(null);
+      } else {
+        state.qid = slideQid(slides[index]);
+        if (!opts.keepHash) setHash(state.qid);
       }
+      save();
     }
+
+    function openQid(qid, opts) {
+      var pos = slides.findIndex(function (s) { return slideQid(s) === qid; });
+      if (pos === -1 && topic !== "all") {
+        applyTopic("all");
+        pos = slides.findIndex(function (s) { return slideQid(s) === qid; });
+      }
+      if (pos === -1) return false;
+      show(pos, opts);
+      return true;
+    }
+
+    // Restore saved answers (silently) so returning visitors see their earlier picks.
+    allSlides.forEach(function (slide) {
+      var a = state.answers[slideQid(slide)];
+      var card = slide.querySelector(".practice-q");
+      if (a && card) reveal(card, a.selected || null, { silent: true });
+    });
+
+    quiz.addEventListener("practice:answered", function (event) {
+      var d = event.detail || {};
+      if (!d.qid || d.silent) return;
+      state.answers[d.qid] = { selected: d.selected || null, correct: !!d.correct };
+      save();
+      updateScore(false);
+      updateMidCta(false);
+      dots.forEach(function (dot, n) {
+        if (slideQid(slides[n]) === d.qid) dot.classList.add("is-done");
+      });
+    });
+
+    topicBtns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var key = btn.getAttribute("data-topic");
+        if (key === topic) return;
+        applyTopic(key);
+        ensureChipVisible(btn);
+        track("sq_filter", { topic: topic, question_count: slides.length });
+        // Start at the first unanswered question in the topic.
+        var first = slides.findIndex(function (s) { return !state.answers[slideQid(s)]; });
+        show(first === -1 ? 0 : first);
+      });
+    });
 
     if (prevBtn) {
       prevBtn.addEventListener("click", function () {
-        show(doneIndex() ? total - 1 : index - 1);
+        show(index >= slides.length ? slides.length - 1 : index - 1);
       });
     }
     if (nextBtn) {
@@ -119,17 +364,178 @@
         show(index + 1);
       });
     }
-    dots.forEach(function (dot) {
+    allDots.forEach(function (dot) {
       dot.addEventListener("click", function () {
-        var n = Number(dot.getAttribute("data-index"));
-        if (!Number.isNaN(n)) show(n);
+        var n = dots.indexOf(dot);
+        if (n !== -1) show(n);
       });
     });
 
-    function doneIndex() {
-      return index >= total;
+    if (restartBtn) {
+      restartBtn.addEventListener("click", function () {
+        slides.forEach(function (slide) {
+          var qid = slideQid(slide);
+          delete state.answers[qid];
+          var card = slide.querySelector(".practice-q");
+          if (!card) return;
+          card.removeAttribute("data-revealed");
+          card.querySelectorAll(".practice-choice").forEach(function (btn) {
+            btn.disabled = false;
+            btn.classList.remove("is-correct", "is-wrong", "is-selected");
+            btn.setAttribute("aria-pressed", "false");
+          });
+          var block = card.querySelector(".practice-answer-block");
+          if (block) block.hidden = true;
+          var rb = card.querySelector(".practice-reveal");
+          if (rb) rb.hidden = false;
+        });
+        delete state.finished[topic];
+        completedSent[topic] = false;
+        show(0);
+        scrollChipsToStart();
+      });
     }
 
-    show(0);
+    quiz.addEventListener("click", function (event) {
+      var target = event.target;
+      if (!(target instanceof Element)) return;
+      var link = target.closest("a[data-plan]");
+      if (!link) return;
+      track("sq_cta_click", {
+        placement: link.getAttribute("data-placement") || "",
+        course_package: link.getAttribute("data-plan") || "",
+        topic: topic,
+      });
+    });
+
+    // Optional email box on the finish card (never gates anything).
+    var emailBox = quiz.querySelector("[data-sample-email]");
+    var EMAIL_KEY = "fp_sample_questions_email_v1";
+    function emailState() {
+      try {
+        return window.localStorage.getItem(EMAIL_KEY) || "";
+      } catch (e) {
+        return "";
+      }
+    }
+    function setEmailState(value) {
+      try {
+        window.localStorage.setItem(EMAIL_KEY, value);
+      } catch (e) {}
+    }
+    if (emailBox) {
+      if (emailState()) emailBox.hidden = true;
+      var emailForm = emailBox.querySelector(".sample-email-form");
+      var emailInput = emailBox.querySelector(".sample-email-input");
+      var emailSubmit = emailBox.querySelector(".sample-email-submit");
+      var emailError = emailBox.querySelector(".sample-email-error");
+      var emailSuccess = emailBox.querySelector(".sample-email-success");
+      var emailDismiss = emailBox.querySelector("[data-sample-email-dismiss]");
+      var showEmailError = function (msg) {
+        if (!emailError) return;
+        emailError.innerHTML = "";
+        emailError.appendChild(document.createTextNode(msg));
+        emailError.hidden = false;
+      };
+      var emailDone = function () {
+        if (emailForm) emailForm.hidden = true;
+        if (emailError) emailError.hidden = true;
+        if (emailDismiss) emailDismiss.hidden = true;
+        if (emailSuccess) emailSuccess.hidden = false;
+        setEmailState("subscribed");
+        track("sq_email_signup", { topic: topic });
+      };
+      if (emailDismiss) {
+        emailDismiss.addEventListener("click", function () {
+          emailBox.hidden = true;
+          setEmailState("dismissed");
+          track("sq_email_dismiss", { topic: topic });
+        });
+      }
+      if (emailForm && emailInput) {
+        emailForm.addEventListener("submit", function (event) {
+          var value = (emailInput.value || "").trim();
+          if (!value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+            event.preventDefault();
+            showEmailError("Please enter a valid email address.");
+            emailInput.focus();
+            return;
+          }
+          // No fetch support: let the browser post the form to Kit in a new tab.
+          if (typeof window.fetch !== "function") return;
+          event.preventDefault();
+          if (emailError) emailError.hidden = true;
+          if (emailSubmit) emailSubmit.disabled = true;
+          window
+            .fetch(emailForm.action, {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({ email_address: value }),
+            })
+            .then(function (res) {
+              return res.json().catch(function () {
+                return { status: res.ok ? "success" : "error" };
+              });
+            })
+            .then(function (data) {
+              if (data && data.status === "success") {
+                emailDone();
+              } else if (data && data.status === "quarantined" && data.url) {
+                // Kit wants a quick human check; let the visitor finish it on Kit's page.
+                if (emailSubmit) emailSubmit.disabled = false;
+                if (!emailError) return;
+                emailError.innerHTML = "";
+                emailError.appendChild(document.createTextNode("One more quick step: "));
+                var q = document.createElement("a");
+                q.href = data.url;
+                q.target = "_blank";
+                q.rel = "noopener";
+                q.textContent = "confirm you're not a robot";
+                q.style.color = "#fff";
+                emailError.appendChild(q);
+                emailError.hidden = false;
+              } else {
+                if (emailSubmit) emailSubmit.disabled = false;
+                showEmailError("That didn't go through. Please check the address and try again.");
+              }
+            })
+            .catch(function () {
+              // Network/CORS trouble: fall back to Kit's own form page.
+              if (emailSubmit) emailSubmit.disabled = false;
+              if (!emailError) return;
+              emailError.innerHTML = "";
+              emailError.appendChild(document.createTextNode("Couldn't reach the signup service. "));
+              var a = document.createElement("a");
+              a.href = "https://daniel-larson-training.kit.com/8f13726dd2";
+              a.target = "_blank";
+              a.rel = "noopener";
+              a.textContent = "Sign up here instead";
+              a.style.color = "#fff";
+              emailError.appendChild(a);
+              emailError.hidden = false;
+            });
+        });
+      }
+    }
+
+    window.addEventListener("hashchange", function () {
+      var qid = qidFromHash();
+      if (qid) openQid(qid, { keepHash: true });
+    });
+
+    // Start: deep link wins, then saved spot, then question 1.
+    applyTopic(state.topic || "all");
+    ensureChipVisible(quiz.querySelector(".sample-topic.is-active"));
+    var startQid = qidFromHash();
+    if (startQid && openQid(startQid, { keepHash: true, silent: true })) {
+      var target = document.getElementById(anchorFor(startQid));
+      if (target && target.scrollIntoView) target.scrollIntoView({ block: "start" });
+    } else if (state.qid && openQid(state.qid, { keepHash: true, silent: true })) {
+      // resumed
+    } else if (state.finished[topic]) {
+      show(slides.length, { keepHash: true, silent: true });
+    } else {
+      show(0, { keepHash: true, silent: true });
+    }
   })();
 </script>

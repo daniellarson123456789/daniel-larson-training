@@ -205,7 +205,8 @@ select {
 
 @media (max-width: 1100px) and (min-width: 901px) {
   .nav-link {
-    padding: 10px 8px;
+    padding: 10px 6px;
+    font-size: 0.9rem;
   }
 }
 
@@ -683,6 +684,13 @@ select {
   width: 100%;
 }
 
+.footer-link-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
 .footer-contact {
   gap: 6px;
 }
@@ -910,6 +918,10 @@ select {
   .footer-link-grid {
     grid-template-columns: 1fr;
     row-gap: 7px;
+  }
+
+  .footer-link-col {
+    gap: 7px;
   }
 
   .site-footer {

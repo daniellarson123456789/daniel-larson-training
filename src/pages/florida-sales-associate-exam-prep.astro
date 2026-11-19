@@ -9,14 +9,15 @@ import { site } from "../data/site";
 import { courseOffer } from "../lib/courseOffer";
 import CheckoutNote from "../components/CheckoutNote.astro";
 import "../styles/draft-sales.css";
+import { salesBuyerFaqs } from "../data/buyerFaqs";
 
 const pagePath = "/florida-sales-associate-exam-prep/";
 const pageUrl = `${site.url}${pagePath}`;
 const fastPass = products.salesFastPass;
 const prepOnly = products.salesExamPrep;
 const fullPackage = products.salesFastPassPost;
-const pageTitle = "Florida Sales Exam Prep | Real Estate FastPass";
-const pageDescription = `Florida 63-hour Course 1 with Sales FastPass certification and exam prep for $${salePrice(fastPass)}. Digital workbook, audio, and instructor support.`;
+const pageTitle = "Florida 63-Hour Sales Associate Pre-License Course + Exam Prep | Real Estate FastPass";
+const pageDescription = `Florida 63-hour Sales Associate pre-license course (Course 1) with exam prep built in. Sales FastPass includes the state-approved Course 1, FastPass exam prep, and certification for the state exam for $${salePrice(fastPass)}.`;
 const faqItems = [
   {
     question: "Is this preparation specifically for the Florida sales associate exam?",
@@ -28,7 +29,7 @@ const faqItems = [
   },
   {
     question: "Can I use this if I took Course 1 with another school?",
-    answer: `Yes. The $${prepOnly.price} Sales Associate Exam Prep Only option is for candidates taking or already finished with Course 1 elsewhere. It includes sales associate exam preparation and the FastPass Workbook. It does not include Course 1 or issue a Course 1 completion certificate; your licensing school handles your course completion. If you also need the required course and DLT certification, Sales FastPass includes Course 1, the FastPass certification path, and state-exam preparation for $${salePrice(fastPass)}.`,
+    answer: `Yes. The $${prepOnly.price} Sales Associate Exam Prep Only option is for candidates taking or already finished with Course 1 elsewhere. It includes sales associate exam preparation and the FastPass Workbook, all the explainer videos, plus optional Course 1. It does not issue a Course 1 completion certificate; your licensing school handles your course completion. If you also need DLT Course 1 certification, Sales FastPass includes Course 1, the FastPass certification path, and state-exam preparation for $${salePrice(fastPass)}.`,
   },
   {
     question: "Can I get a printed workbook?",
@@ -38,6 +39,7 @@ const faqItems = [
     question: "Who answers my study questions?",
     answer: `Yes. Call or text ${site.phoneDisplay}, or email ${site.email} if you have a question, need help with a study topic, or want to know which package fits.`,
   },
+  ...[0, 4, 5].map((i) => ({ question: salesBuyerFaqs[i].q, answer: salesBuyerFaqs[i].a })),
   {
     question: "Where should I check current exam information?",
     answer: "Use DBPR's Candidate Information Booklets page and select Real Estate – Sales Associate for the official sales associate exam bulletin. Use Pearson's Florida Real Estate page for testing and scheduling information. Links to both appear in the official exam information section below. The state and testing provider control their requirements.",
@@ -60,8 +62,11 @@ const schema = [
   {
     "@type": "Course",
     "@id": `${pageUrl}#sales-fastpass`,
-    name: "Sales FastPass — Course 1, Certification & Exam Prep",
-    description: "Florida 63-hour Sales Associate Course 1 with three Sales FastPass certification exams, 500+ questions and explanations, audio review, the FastPass Workbook, math review, one-year access, and direct instructor support.",
+    name: "Sales FastPass — Florida 63-Hour Sales Associate Pre-License Course (Course 1) + Exam Prep",
+    alternateName: "Sales FastPass",
+    description: "Florida 63-hour Sales Associate pre-license course (Course 1) with exam prep built in: the state-approved Course 1, three Sales FastPass certification exams that certify you to sit for the Pearson state exam, sample questions and answers with explanations, audio review, the FastPass Workbook, math review, one-year access, and direct instructor support.",
+    educationalLevel: "Pre-license",
+    educationalCredentialAwarded: "Florida 63-hour Sales Associate pre-license course (Course 1) completion certificate",
     provider: { "@id": `${site.url}/#organization` },
     inLanguage: "en-US",
     offers: courseOffer(fastPass),
@@ -70,7 +75,7 @@ const schema = [
     "@type": "Course",
     "@id": `${pageUrl}#prep-only`,
     name: "Florida Sales Associate Exam Prep Only",
-    description: "Florida sales associate exam preparation for candidates taking or already finished with their required course elsewhere. Sales FastPass prep, questions and explanations, workbook, audio, math review, and direct support. Does not include Course 1 or a course completion certificate.",
+    description: "Florida sales associate exam preparation for candidates taking or already finished with their required course elsewhere. Sales FastPass prep, questions and explanations, workbook, audio, math review, direct support, all the explainer videos, and optional Course 1. Does not issue a Course 1 completion certificate.",
     provider: { "@id": `${site.url}/#organization` },
     inLanguage: "en-US",
     offers: courseOffer(prepOnly),
@@ -95,7 +100,7 @@ const schema = [
 
 
 
-  <div class="draft-sales">
+  <div class="draft-sales lic-style">
     <section class="draft-hero">
       <div class="wrap draft-hero-grid">
         <div>
@@ -103,8 +108,8 @@ const schema = [
             <span class="draft-brand">{site.name}</span>
             <span class="draft-school">{site.tagline}</span>
           </p>
-          <h1>Get your Florida sales license with FastPass.</h1>
-          <p class="hero-deck lead">Your complete Florida Sales Associate licensing package: Course 1, FastPass certification exams that mirror the state exam, and focused preparation for the separate state exam. Get sales associate practice, explanations, a workbook, math review, and you can text or email us if you get stuck.</p>
+          <h1>Florida 63-hour Sales Associate <em class="fast">pre-license course</em> + exam prep, with FastPass.</h1>
+          <p class="hero-deck lead">Sales FastPass is the state-approved 63-hour <em>Course 1</em>, with <em class="lic-em">FastPass exam prep</em> and certification for the Pearson (formerly Pearson VUE) state exam included. The three FastPass certification exams mirror the state exam, so you prepare for the separate state exam while you finish the course. Get sales associate practice, explanations, a workbook, math review, and you can text or email us if you get stuck.</p>
           <div class="draft-hero-actions">
             <span class="checkout-cta">
               <a class="draft-btn primary" data-plan={fastPass.id} data-placement="hero" href={fastPass.checkoutUrl} target="_top">Start FastPass — ${salePrice(fastPass)}</a>
@@ -115,7 +120,7 @@ const schema = [
         </div>
         <aside class="draft-hero-panel">
           <div class="draft-hero-price">${salePrice(fastPass)}<span>Most popular · one-time enrollment</span></div>
-          <h2>Certification and exam prep happen together.</h2>
+          <h2>Certification and exam prep happen <em>together</em>.</h2>
           <p>FastPass uses three certification exams that mirror the state exam, in place of the traditional course final, so you get certified and ready for the state exam at the same time.</p>
         </aside>
       </div>
@@ -124,8 +129,8 @@ const schema = [
     <section class="draft-section soft" id="sales-fastpass">
       <div class="wrap">
         <p class="draft-eyebrow">Sales FastPass</p>
-        <h2>Course 1, certification, and exam prep in one package</h2>
-        <p class="intro">Sales FastPass includes the required 63-hour Sales Associate Course 1, three FastPass certification exams that mirror the state exam, 500+ questions and explanations, audio review, the FastPass Workbook, math review, one-year access, and direct instructor support.</p>
+        <h2>Pre-license <em>Course 1</em>, certification, and exam prep <em>in one package</em></h2>
+        <p class="intro">Sales FastPass includes the required 63-hour <em class="lic-em">Sales Associate pre-license course</em> (<em>Course 1</em>), three FastPass certification exams that mirror the state exam, sample questions and answers with explanations, audio review, the FastPass Workbook, math review, one-year access, and direct instructor support.</p>
         <div class="price-grid" style="grid-template-columns:1fr;max-width:480px;">
           <article class="price-card popular">
             <span class="price-badge">MOST POPULAR</span>
@@ -136,7 +141,7 @@ const schema = [
             <CheckoutNote />
           </article>
         </div>
-        <p class="exam-prep-line">Already finished Course 1 elsewhere? <a href="/exam-prep/">Exam prep only — $130</a></p>
+        <p class="exam-prep-line">Already finished Course 1 elsewhere? <a href="/exam-prep/">Exam prep only — ${salePrice(prepOnly)}</a></p>
       </div>
     </section>
 
@@ -159,7 +164,7 @@ const schema = [
 
     <section class="draft-section navy final-cta">
       <div class="wrap">
-        <h2>Ready to get your Florida real estate license?</h2>
+        <h2>Ready to get your <em>Florida real estate license</em>?</h2>
         <span class="checkout-cta">
           <a class="draft-btn primary" data-plan={fastPass.id} data-placement="final_cta" href={fastPass.checkoutUrl} target="_top">Start FastPass — ${salePrice(fastPass)}</a>
           <CheckoutNote />

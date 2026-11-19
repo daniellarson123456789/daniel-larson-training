@@ -51,7 +51,7 @@ const schema = [
         <ul class="partner-grid">
           {partners.map((partner) => (
             <li class="partner-card">
-              <div class="partner-logo-plate">
+              <div class={partner.logoOnLight ? "partner-logo-plate partner-logo-plate--light" : "partner-logo-plate"}>
                 <img
                   src={partner.logoSrc}
                   alt={partner.logoAlt}
@@ -77,7 +77,9 @@ const schema = [
                   </div>
                 )}
                 <p class="partner-links">
-                  <a href={partner.websiteUrl} target="_blank" rel="noopener noreferrer">Visit website</a>
+                  {partner.websiteUrl !== partner.careersUrl && (
+                    <a href={partner.websiteUrl} target="_blank" rel="noopener noreferrer">Visit website</a>
+                  )}
                   <a href={partner.careersUrl} target="_blank" rel="noopener noreferrer">Careers</a>
                 </p>
               </div>

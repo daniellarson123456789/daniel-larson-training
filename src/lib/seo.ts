@@ -31,6 +31,7 @@ export const organizationNode = () => ({
     name: "Florida Licensed Real Estate School",
     value: site.schoolLicense,
   },
+  foundingDate: "2020",
   founder: { "@id": `${site.url}/#daniel-larson` },
   employee: { "@id": `${site.url}/#daniel-larson` },
   sameAs: [site.trustpilotUrl],
@@ -84,6 +85,7 @@ const shortName = (pageTitle: string) =>
   pageTitle
     .replace(/\s*\|\s*Real Estate FastPass\s*$/i, "")
     .replace(/\s*\|\s*Daniel Larson Training\s*$/i, "")
+    .replace(/\s*\|\s*FastPass\s*$/i, "")
     .trim() || pageTitle;
 
 export const breadcrumbList = (canonicalPath: string, pageTitle: string) => {
@@ -92,6 +94,9 @@ export const breadcrumbList = (canonicalPath: string, pageTitle: string) => {
   if (path !== "/") {
     if (path.startsWith("/license-guides/") && path !== "/license-guides/") {
       items.push({ name: "Guides", path: "/license-guides/" });
+    }
+    if (path.startsWith("/mutual-recognition/") && path !== "/mutual-recognition/") {
+      items.push({ name: "Mutual Recognition", path: "/mutual-recognition/" });
     }
     items.push({ name: crumbForPath(path) ?? shortName(pageTitle), path });
   }
