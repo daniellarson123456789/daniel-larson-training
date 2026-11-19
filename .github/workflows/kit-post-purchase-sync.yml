@@ -2,7 +2,7 @@ name: Post enrollment exclusions
 
 on:
   schedule:
-    - cron: '17 * * * *'
+    - cron: '17 11 * * 1'
   workflow_dispatch:
     inputs:
       apply:
